@@ -41,13 +41,17 @@ function makeLogicGrids(keys) {
   const size = keys[0].length
 
   let logicGrids = {}
-
+  keys.slice(0, keys.length - 1).map((_, index) => (
+    logicGrids[index] = {}
+  ))
   keys.map((_, index) => (
     keys.slice(index + 1).map((_, index2) => (
-      logicGrids[`${index}vs${index2 + index + 1}`] = {
+      logicGrids[index][index2 + index + 1] = {
         grid: makeGridOfSize(size),
         rowParentIndex: index,
-        colParentIndex: (index2 + index + 1)
+        colParentIndex: (index2 + index + 1),
+        rowHeader: keys[index],
+        colHeader: keys[index2 + index + 1]
       }
     ))
   ))
@@ -108,8 +112,6 @@ function generateClue() {
 
   // make logic grid
   let deduced = makeLogicGrids(keys)
-  //todo here
-
 
   let foundAllClues = false
   let foundClue = false
@@ -123,10 +125,12 @@ function generateClue() {
       const clue = findValidClue()
 
       // find the grid that corresponds to the clue
-      const deducedKey = clue.leftIndex < clue.rightIndex ? `${clue.leftIndex}vs${clue.rightIndex}` : `${clue.rightIndex}vs${clue.leftIndex}`
-      const grid = deduced[deducedKey].grid
+      const grid = deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)].grid
       // console.log('GRID BEFORE:')
-      // console.log(grid)
+      // console.log(deduced)
+      // console.log(Math.min(clue.leftIndex, clue.rightIndex))
+      // console.log(Math.max(clue.leftIndex, clue.rightIndex))
+      // console.log(deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)])
       let gridCopy = JSON.parse(JSON.stringify(grid))
 
       // find the row/col in the grid that correspond to the clue
@@ -156,16 +160,27 @@ function generateClue() {
       // if the clue narrowed down the possible answers,
       // update the possible answers and stop looking
       if (grid.toString() !== gridCopy.toString()) {
-        deduced[deducedKey].grid = gridCopy
+        deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)].grid = gridCopy
         foundClue = true
         console.log(`CLUE: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
+        console.log('DEDUCED:')
+        console.log(keys.flatMap((_, index) => (
+          keys.slice(index + 1).map((_, index2) => (
+            deduced[index][index2 + index + 1].grid
+          ))
+        )))
+        console.log('======')  
         clues.push(clue)
       } else {
         // console.log(`TOSSED: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
       }
 
 
-      if (Object.values(deduced).map(i=>i.grid).flat().flat().every(i => i != null)) {
+      if (keys.flatMap((_, index) => (
+        keys.slice(index + 1).flatMap((_, index2) => (
+          deduced[index][index2 + index + 1].grid
+        ))
+      )).flat().every(i => i != null)) {
         foundAllClues = true
         foundOperator = true
         foundClue = true
@@ -183,7 +198,13 @@ function generateClue() {
         foundClue = true
       }
       // console.log(count)
-      // console.log(Object.values(deduced).map(i=>i.grid).flat().flat())
+      // console.log('DEDUCED:')
+      // console.log(keys.flatMap((_, index) => (
+      //   keys.slice(index + 1).map((_, index2) => (
+      //     deduced[index][index2 + index + 1].grid
+      //   ))
+      // )))
+      // console.log('======')
     }
 
     // return clue (operator and key/value pair)
