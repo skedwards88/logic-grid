@@ -125,13 +125,9 @@ function generateClue() {
       const clue = findValidClue()
 
       // find the grid that corresponds to the clue
-      const grid = deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)].grid
-      // console.log('GRID BEFORE:')
-      // console.log(deduced)
-      // console.log(Math.min(clue.leftIndex, clue.rightIndex))
-      // console.log(Math.max(clue.leftIndex, clue.rightIndex))
-      // console.log(deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)])
-      let gridCopy = JSON.parse(JSON.stringify(grid))
+      let deducedCopy = JSON.parse(JSON.stringify(deduced))
+      const category1 = Math.min(clue.leftIndex, clue.rightIndex)
+      const category2 = Math.max(clue.leftIndex, clue.rightIndex)
 
       // find the row/col in the grid that correspond to the clue
       const rowNum = clue.leftIndex < clue.rightIndex ? keys[clue.leftIndex].indexOf(clue.left) : keys[clue.rightIndex].indexOf(clue.right)
@@ -141,26 +137,23 @@ function generateClue() {
 
       // For each item in the row or col, mark the false values according to the clue
       if (clue.leftIndex < clue.rightIndex) {
-        for (let index = 0; index < gridCopy.length; index++) {
-          if (gridCopy[rowNum][index] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
-            gridCopy = setToFalse({ rowIndex: rowNum, colIndex: index, grid: gridCopy })
+        for (let index = 0; index < deducedCopy[category1][category2].grid.length; index++) {
+          if (deducedCopy[category1][category2].grid[rowNum][index] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
+            deducedCopy = setToFalse({ category1: category1, category2: category2, rowIndex: rowNum, colIndex: index, deduced: deducedCopy })
           }
         }
       } else {
-        for (let index = 0; index < gridCopy.length; index++) {
-          if (gridCopy[index][colNum] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
-            gridCopy = setToFalse({ rowIndex: index, colIndex: colNum, grid: gridCopy })
+        for (let index = 0; index < deducedCopy[category1][category2].grid.length; index++) {
+          if (deducedCopy[category1][category2].grid[index][colNum] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
+            deducedCopy = setToFalse({ category1: category1, category2: category2, rowIndex: index, colIndex: colNum, deduced: deducedCopy })
           }
         }
       }
-      // console.log('GRID AFTER:')
-      // console.log(gridCopy)
-      // console.log(Object.values(deduced).map(i=>i.grid).flat())
 
       // if the clue narrowed down the possible answers,
       // update the possible answers and stop looking
-      if (grid.toString() !== gridCopy.toString()) {
-        deduced[Math.min(clue.leftIndex, clue.rightIndex)][Math.max(clue.leftIndex, clue.rightIndex)].grid = gridCopy
+      if (deduced[category1][category2].grid.toString() !== deducedCopy[category1][category2].grid.toString()) {
+        deduced = deducedCopy
         foundClue = true
         console.log(`CLUE: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
         console.log('DEDUCED:')
@@ -215,72 +208,74 @@ function generateClue() {
 
 
 
-function setToTrue({ rowIndex, colIndex, grid }) {
-  // lastSetToTrue = [rowIndex, colIndex, grid ]
+function setToTrue({ category1, category2, rowIndex, colIndex, deduced }) {
+
+  let deducedCopy = JSON.parse(JSON.stringify(deduced))
 
   // sets the index to true, and sets all others in the row/col to false
   // console.log(`setting ${rowIndex} ${colIndex} to TRUE:  ${JSON.stringify(grid)}`)
 
   // if the value is already true, return early
-  if (grid[rowIndex][colIndex] === true) {
-    return grid
+  if (deducedCopy[category1][category2].grid[rowIndex][colIndex] === true) {
+    return deduced
   }
 
   // set the index to true
-  grid[rowIndex][colIndex] = true
+  deducedCopy[category1][category2].grid[rowIndex][colIndex] = true
 
   // set the whole row to false
-  for (let index = 0; index < grid.length; index++) {
+  for (let index = 0; index < deducedCopy[category1][category2].grid.length; index++) {
     if (index !== rowIndex) {
-      grid = setToFalse({ rowIndex: index, colIndex: colIndex, grid: grid })
+      deducedCopy = setToFalse({ category1: category1, category2: category2, rowIndex: index, colIndex: colIndex, deduced: deducedCopy })
     }
   }
 
   // set the whole column to false
-  for (let index = 0; index < grid.length; index++) {
+  for (let index = 0; index < deducedCopy[category1][category2].grid.length; index++) {
     if (index !== colIndex) {
-      grid = setToFalse({ rowIndex: rowIndex, colIndex: index, grid: grid })
+      deducedCopy = setToFalse({ category1: category1, category2: category2, rowIndex: rowIndex, colIndex: index, deduced: deducedCopy })
     }
   }
 
-  return grid
+  return deducedCopy
 }
 
-function setToFalse({ rowIndex, colIndex, grid }) {
-  // lastSetToFalse = [rowIndex, colIndex, grid ]
+function setToFalse({ category1, category2, rowIndex, colIndex, deduced }) {
+
+  let deducedCopy = JSON.parse(JSON.stringify(deduced))
+  
   // sets the index to false, and if all but one in the
   // row or col is false, sets the remaining index to true
-  // console.log(`setting ${rowIndex} ${colIndex} to FALSE: ${JSON.stringify(grid)}`)
 
   // if the value is already false, return early
-  if (grid[rowIndex][colIndex] === false) {
-    return grid
+  if (deducedCopy[category1][category2].grid[rowIndex][colIndex] === false) {
+    return deduced
   }
 
   // set the index to false
-  grid[rowIndex][colIndex] = false
+  deducedCopy[category1][category2].grid[rowIndex][colIndex] = false
 
   // Check if that resulted in the row having only a single null remaining
-  const totalFalseInRow = grid[rowIndex].reduce((tallyFalse, currentValue) => currentValue === false ? tallyFalse += 1 : tallyFalse += 0, 0)
+  const totalFalseInRow = deducedCopy[category1][category2].grid[rowIndex].reduce((tallyFalse, currentValue) => currentValue === false ? tallyFalse += 1 : tallyFalse += 0, 0)
   // if yes, set that remaining index to true (unless it is already true)
-  if (totalFalseInRow === grid.length - 1) {
-    const trueIndex = grid[rowIndex].findIndex(i => i === null)
+  if (totalFalseInRow === deducedCopy[category1][category2].grid.length - 1) {
+    const trueIndex = deducedCopy[category1][category2].grid[rowIndex].findIndex(i => i === null)
     if (trueIndex >= 0) {
-      grid = setToTrue({ rowIndex: rowIndex, colIndex: trueIndex, grid: grid })
+      deducedCopy = setToTrue({ category1: category1, category2: category2, rowIndex: rowIndex, colIndex: trueIndex, deduced: deducedCopy })
     }
   }
 
   // Check if that resulted in the column being all false but one
-  const totalFalseInCol = grid.reduce((tallyFalse, currentRow) => currentRow[colIndex] === false ? tallyFalse += 1 : tallyFalse += 0, 0)
+  const totalFalseInCol = deducedCopy[category1][category2].grid.reduce((tallyFalse, currentRow) => currentRow[colIndex] === false ? tallyFalse += 1 : tallyFalse += 0, 0)
   // if yes, set that remaining index to true
-  if (totalFalseInCol === grid.length - 1) {
-    const trueIndex = grid.map(row => row[colIndex]).findIndex(i => i === null)
+  if (totalFalseInCol === deducedCopy[category1][category2].grid.length - 1) {
+    const trueIndex = deducedCopy[category1][category2].grid.map(row => row[colIndex]).findIndex(i => i === null)
     if (trueIndex >= 0) {
-      grid = setToTrue({ rowIndex: trueIndex, colIndex: colIndex, grid: grid })
+      deducedCopy = setToTrue({ category1: category1, category2: category2, rowIndex: trueIndex, colIndex: colIndex, deduced: deducedCopy })
     }
   }
 
-  return grid
+  return deducedCopy
 }
 
 generateClue()
