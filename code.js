@@ -1,91 +1,175 @@
-const answer = {
-  ape: 1,
-  bat: 2,
-  cow3: 3,
-  dog: 4,
-  eel: 5,
-}
+const keys = [
+  ["a", "b", "c", "d"],
+  [1, 2, 3, 4],
+  [10, 20, 30, 40]
+]
+
+const answers = [
+  ['a', 1, 10],
+  ['b', 2, 20],
+  ['c', 3, 30],
+  ['d', 4, 40]
+] // todo in future, randomly generate this
 
 const operators = {
-  "equal": (a, b) => (a == b),
+  // numeric
+  // "equal": (a, b) => (a == b), // maybe only for easy or as compound clue
   "notEqual": (a, b) => (a != b),
   "greater": (a, b) => (a > b),
-  "greaterEqual": (a, b) => (a >= b),
+  // "greaterEqual": (a, b) => (a >= b), // maybe omit, or else exclude extremes
   "less": (a, b) => (a < b),
-  "lessEqual": (a, b) => (a <= b),
+  // "lessEqual": (a, b) => (a <= b), // maybe omit, or else exclude extremes
+
+  // alpha
+  // "startsWith": (word, letter) => (word[0] === letter),
+
+  // compound (ape and cat both greater than 3)
+
+  // relative (ape greater than cat)
 }
 
 function pickRandom(inputArray) {
   return inputArray[Math.floor(Math.random() * inputArray.length)];
 }
 
+function makeGridOfSize(size) {
+  return Array.from({ length: size }, () => (Array.from({ length: size }, () => null)
+  ))
+}
+
+function makeLogicGrids(keys) {
+  const size = keys[0].length
+
+  let logicGrids = {}
+
+  keys.map((_, index) => (
+    keys.slice(index + 1).map((_, index2) => (
+      logicGrids[`${index}vs${index2 + index + 1}`] = {
+        grid: makeGridOfSize(size),
+        rowParentIndex: index,
+        colParentIndex: (index2 + index + 1)
+      }
+    ))
+  ))
+
+  return logicGrids
+}
+
+
+function findValidClue() {
+  let foundOperator = false
+  let clue
+
+  while (!foundOperator) {
+    // randomly select an answer (e.g. [a, 1, 10])
+    const answer = pickRandom(answers)
+
+    // randomly select an item in the answer (todo later can make work with non-numbers)
+    const item = pickRandom(answer)
+    const index = answer.indexOf(item)
+
+    // randomly select a possible answer from the corresponding type
+    const rightComparison = pickRandom(keys[index])
+
+    // randomly select an operator
+    const operator = pickRandom(Object.keys(operators))
+
+    // apply the operator to the answer and comparison
+    const operatorResult = operators[operator](item, rightComparison)
+    // console.log(`TESTING: ${item} ${operator} ${rightComparison}`)
+
+    // if true, continue on
+    if (operatorResult) {
+      foundOperator = operatorResult
+
+      // choose a different index in the answer (otherwise we get something like 10 < 30)
+      let answerCopy = answer.slice()
+      answerCopy.splice(index, 1)
+      const leftComparison = pickRandom(answerCopy)
+      const leftIndex = answer.indexOf(leftComparison)
+
+      // console.log(`FOUND VALID CLUE: ${leftComparison} (${item}) ${operator} ${rightComparison}`)
+      clue = {
+        left: leftComparison,
+        leftIndex: leftIndex,
+        original: item,
+        operator: operator,
+        right: rightComparison,
+        rightIndex: index
+      }
+    }
+  }
+
+  return clue
+}
+
 function generateClue() {
   let count = 0
 
   // make logic grid
-  const size = Object.keys(answer).length
-  let deduced = Array.from({ length: size }, () => (Array.from({ length: size }, () => null)
-  ))
-  let rowHeader = Object.keys(answer)
-  let colHeader = Object.values(answer)
+  let deduced = makeLogicGrids(keys)
+  //todo here
+
 
   let foundAllClues = false
   let foundClue = false
   let foundOperator = false
-  let clue
+  let clues = []
 
   while (!foundAllClues) {
 
     while (!foundClue) {
 
-      while (!foundOperator) {
-        // randomly select an operator
-        const operator = pickRandom(Object.keys(operators))
+      const clue = findValidClue()
 
-        // apply the operator to a random answer key and a random answer value
-        const leftKey = pickRandom(Object.keys(answer))
-        const leftValue = answer[leftKey]
-        const rightValue = answer[pickRandom(Object.keys(answer))]
-        // if true, continue on
-        foundOperator = operators[operator](leftValue, rightValue)
+      // find the grid that corresponds to the clue
+      const deducedKey = clue.leftIndex < clue.rightIndex ? `${clue.leftIndex}vs${clue.rightIndex}` : `${clue.rightIndex}vs${clue.leftIndex}`
+      const grid = deduced[deducedKey].grid
+      // console.log('GRID BEFORE:')
+      // console.log(grid)
+      let gridCopy = JSON.parse(JSON.stringify(grid))
 
-        clue = {
-          leftKey: leftKey,
-          rightValue: rightValue,
-          operator: operator
-        }
-      }
-      // console.log(`TESTING: ${clue.leftKey} ${clue.operator} ${clue.rightValue}`)
-
-      // find the header indexes that correspond to the clue
-      const rowNum = rowHeader.findIndex(i => i === clue.leftKey)
+      // find the row/col in the grid that correspond to the clue
+      const rowNum = clue.leftIndex < clue.rightIndex ? keys[clue.leftIndex].indexOf(clue.left) : keys[clue.rightIndex].indexOf(clue.right)
       if (rowNum < 0) { console.log("ERROR 1!!!!") }
-      const colNum = colHeader.findIndex(i => i === clue.rightValue)
+      const colNum = clue.leftIndex < clue.rightIndex ? keys[clue.rightIndex].indexOf(clue.right) : keys[clue.leftIndex].indexOf(clue.left)
       if (colNum < 0) { console.log("ERROR 2!!!!") }
 
-      // For each item in the row, mark the false values according to the clue
-      let newDeduced = JSON.parse(JSON.stringify(deduced))
-      for (let index = 0; index < newDeduced.length; index++) {
-        // console.log(`index ${rowNum} ${index} has value ${newDeduced[rowNum][index]} and the clue is ${operators[clue.operator](colHeader[index], clue.rightValue)}: ${colHeader[index]} ${clue.operator} ${clue.rightValue}`)
-        if (newDeduced[rowNum][index] === null && !operators[clue.operator](colHeader[index], clue.rightValue)) {
-          newDeduced = setToFalse({ rowIndex: rowNum, colIndex: index, grid: newDeduced })
+      // For each item in the row or col, mark the false values according to the clue
+      if (clue.leftIndex < clue.rightIndex) {
+        for (let index = 0; index < gridCopy.length; index++) {
+          if (gridCopy[rowNum][index] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
+            gridCopy = setToFalse({ rowIndex: rowNum, colIndex: index, grid: gridCopy })
+          }
+        }
+      } else {
+        for (let index = 0; index < gridCopy.length; index++) {
+          if (gridCopy[index][colNum] === null && !operators[clue.operator](keys[clue.rightIndex][index], clue.right)) {
+            gridCopy = setToFalse({ rowIndex: index, colIndex: colNum, grid: gridCopy })
+          }
         }
       }
+      // console.log('GRID AFTER:')
+      // console.log(gridCopy)
+      // console.log(Object.values(deduced).map(i=>i.grid).flat())
 
       // if the clue narrowed down the possible answers,
       // update the possible answers and stop looking
-      if (deduced.toString() !== newDeduced.toString()) {
-        deduced = newDeduced
+      if (grid.toString() !== gridCopy.toString()) {
+        deduced[deducedKey].grid = gridCopy
         foundClue = true
-        console.log(`CLUE: ${clue.leftKey} ${clue.operator} ${clue.rightValue}`)
-        // console.log(deduced)
+        console.log(`CLUE: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
+        clues.push(clue)
       } else {
-        // console.log(`TOSSED: ${clue.leftKey} ${clue.operator} ${clue.rightValue}`)
+        // console.log(`TOSSED: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
       }
 
 
-      if (deduced.flat().every(i => i != null)) {
+      if (Object.values(deduced).map(i=>i.grid).flat().flat().every(i => i != null)) {
         foundAllClues = true
+        foundOperator = true
+        foundClue = true
+        // consolidate clues
       } else {
         foundOperator = false
         foundClue = false
@@ -93,11 +177,13 @@ function generateClue() {
       }
 
       if (count > 100) {
-      foundAllClues = true
-      foundOperator = true
-      foundClue = true
-
+        console.log('NOT FOUND AFTER 100 rounds')
+        foundAllClues = true
+        foundOperator = true
+        foundClue = true
       }
+      // console.log(count)
+      // console.log(Object.values(deduced).map(i=>i.grid).flat().flat())
     }
 
     // return clue (operator and key/value pair)
