@@ -56,38 +56,36 @@ function findValidClue() {
 
   while (!foundOperator) {
     // randomly select an answer (e.g. [a, 1, 10])
-    const answer = pickRandom(answers);
+    const answerSet = pickRandom(answers);
 
     // randomly select an item in the answer (todo later can make work with non-numbers)
-    const item = pickRandom(answer); // e.g. 10
-    const index = answer.indexOf(item); // corresponds to the group index of the item (e.g. 10 => 2)
+    const answerItem = pickRandom(answerSet); // e.g. 10
+    const answerItemGroupIndex = answerSet.indexOf(answerItem); // corresponds to the group index of the item (e.g. 10 => 2)
 
     // randomly select a possible answer from the corresponding group
-    const rightComparison = pickRandom(groups[index]); // e.g. 10, 20, 30, 40
+    const rightHandItem = pickRandom(groups[answerItemGroupIndex]); // e.g. 10, 20, 30, 40
 
     // randomly select an operator
     const operator = pickRandom(Object.keys(operators));
 
     // apply the operator to the answer and comparison
-    const operatorResult = operators[operator](item, rightComparison);
-    // console.log(`TESTING: ${item} ${operator} ${rightComparison}`)
+    const operatorResult = operators[operator](answerItem, rightHandItem);
 
     // if true, continue on
     if (operatorResult) {
       foundOperator = operatorResult;
 
       // choose a different index in the answer (otherwise we get something like 10 < 30)
-      let answerCopy = answer.slice();
-      answerCopy.splice(index, 1);
-      const leftComparison = pickRandom(answerCopy);
-      const leftIndex = answer.indexOf(leftComparison);
+      let answerCopy = answerSet.slice();
+      answerCopy.splice(answerItemGroupIndex, 1);
+      const leftHandItem = pickRandom(answerCopy);
+      const leftHandItemGroupIndex = answerSet.indexOf(leftHandItem);
 
-      // console.log(`FOUND VALID CLUE: ${leftComparison} (${item}) ${operator} ${rightComparison}`)
       clue = {
-        leftGroupIndex: leftIndex, // index of the group
-        leftItemIndex: groups[leftIndex].indexOf(leftComparison), // index of the item in the group
-        rightGroupIndex: index,
-        rightItemIndex: groups[index].indexOf(rightComparison),
+        leftGroupIndex: leftHandItemGroupIndex, // index of the group
+        leftItemIndex: groups[leftHandItemGroupIndex].indexOf(leftHandItem), // index of the item in the group
+        rightGroupIndex: answerItemGroupIndex,
+        rightItemIndex: groups[answerItemGroupIndex].indexOf(rightHandItem),
         operator: operator, // e.g. <
 
         // left: leftComparison, // e.g. a
@@ -110,103 +108,93 @@ function flatten(array) {
   return array;
 }
 
-function generateClue() {
+function findNonRedundantValidClue(deduced) {
+  let foundNonRedundantClue = false;
+  let clue;
+  let deducedCopy;
+
+  while (!foundNonRedundantClue) {
+    clue = findValidClue();
+
+    deducedCopy = JSON.parse(JSON.stringify(deduced));
+
+    // hold the leftComparison constant
+    // iterate across the rightComparison index, and set to false depending on operator result (operator(currentRightIteration, rightComparison) )
+    //
+    for (
+      let iterationItemIndex = 0;
+      iterationItemIndex < groups[clue.rightGroupIndex].length;
+      iterationItemIndex++
+    ) {
+      if (
+        !operators[clue.operator](
+          groups[clue.rightGroupIndex][iterationItemIndex],
+          groups[clue.rightGroupIndex][clue.rightItemIndex]
+        )
+      ) {
+        deducedCopy = setToFalse(
+          {
+            [clue.leftGroupIndex]: clue.leftItemIndex,
+            [clue.rightGroupIndex]: iterationItemIndex,
+          },
+          deducedCopy
+        );
+      }
+    }
+
+    // if the clue narrowed down the possible answers,
+    // update the possible answers and stop looking
+    if (deduced.toString() !== deducedCopy.toString()) {
+      foundNonRedundantClue = true;
+      console.log(
+        `CLUE: ${clue.leftGroupIndex}, ${clue.leftItemIndex} (${
+          groups[clue.leftGroupIndex][clue.leftItemIndex]
+        }) ${clue.operator} ${clue.rightGroupIndex}, ${clue.rightItemIndex} (${
+          groups[clue.rightGroupIndex][clue.rightItemIndex]
+        }) results:`
+      );
+      console.log(JSON.stringify(deduced));
+    } else {
+      // console.log(`TOSSED: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
+    }
+  }
+
+  return [clue, deducedCopy];
+}
+
+function generateClues() {
   let count = 0;
 
   // make logic grid
   let deduced = makeLogicArray(groups);
 
   let foundAllClues = false;
-  let foundClue = false;
-  let foundOperator = false;
   let clues = [];
 
   while (!foundAllClues) {
-    while (!foundClue) {
-      const clue = findValidClue();
+    count += 1;
+    console.log(count);
+    let clue;
+    [clue, deduced] = findNonRedundantValidClue(deduced);
+    clues.push(clue);
 
-      let deducedCopy = JSON.parse(JSON.stringify(deduced));
-
-      // hold the leftComparison constant
-      // iterate across the rightComparison index, and set to false depending on operator result (operator(currentRightIteration, rightComparison) )
-      //
-      for (
-        let itemIndex = 0;
-        itemIndex < groups[clue.rightGroupIndex].length;
-        itemIndex++
-      ) {
-        if (
-          !operators[clue.operator](
-            groups[clue.rightGroupIndex][itemIndex],
-            groups[clue.rightGroupIndex][clue.rightItemIndex]
-          )
-        ) {
-          deducedCopy = setToFalse(
-            {
-              [clue.leftGroupIndex]: clue.leftItemIndex,
-              [clue.rightGroupIndex]: itemIndex,
-            },
-            deducedCopy
-          );
-        }
-      }
-
-      // if the clue narrowed down the possible answers,
-      // update the possible answers and stop looking
-      if (deduced.toString() !== deducedCopy.toString()) {
-        deduced = deducedCopy;
-        foundClue = true;
-        console.log(
-          `CLUE ${count}: ${clue.leftGroupIndex}, ${clue.leftItemIndex} (${
-            groups[clue.leftGroupIndex][clue.leftItemIndex]
-          }) ${clue.operator} ${clue.rightGroupIndex}, ${
-            clue.rightItemIndex
-          } (${groups[clue.rightGroupIndex][clue.rightItemIndex]}) results:`
-        );
-        console.log(JSON.stringify(deduced));
-        clues.push(clue);
-      } else {
-        // console.log(`TOSSED: ${clue.left} (${clue.original}) ${clue.operator} ${clue.right}`)
-      }
-
-      if (
-        groups
-          .flatMap((_, index) =>
-            groups
-              .slice(index + 1)
-              .flatMap((_, index2) => deduced[index][index2 + index + 1].grid)
-          )
-          .flat()
-          .every((i) => i != null)
-      ) {
-        foundAllClues = true;
-        foundOperator = true;
-        foundClue = true;
-        // consolidate clues
-      } else {
-        foundOperator = false;
-        foundClue = false;
-        count += 1;
-      }
-
-      if (count > 50) {
-        console.log("NOT FOUND AFTER 100 rounds");
-        foundAllClues = true;
-        foundOperator = true;
-        foundClue = true;
-      }
-      // console.log(count)
-      // console.log('DEDUCED:')
-      // console.log(keys.flatMap((_, index) => (
-      //   keys.slice(index + 1).map((_, index2) => (
-      //     deduced[index][index2 + index + 1].grid
-      //   ))
-      // )))
-      // console.log('======')
+    if (
+      groups
+        .flatMap((_, index) =>
+          groups
+            .slice(index + 1)
+            .flatMap((_, index2) => deduced[index][index2 + index + 1].grid)
+        )
+        .flat()
+        .every((i) => i != null)
+    ) {
+      foundAllClues = true;
     }
 
-    // return clue (operator and key/value pair)
-    // repeat until all possible answers are narrowed down to one answer
+    if (count > 50) {
+      console.log(`NOT FOUND AFTER ${count} rounds`);
+      foundAllClues = true;
+    }
   }
 }
 
@@ -229,7 +217,6 @@ function setToFalse(indexesToSet, grid) {
 
     // if we have an index value for every group, set the index to false and return the new array
     if (groups.every((_, index) => indexesToSet[index] !== undefined)) {
-      // console.log(`SETTING ${JSON.stringify(indexesToSet)}`)
       // hardcoding isn't ideal, but I didn't figure out a clean way to do this
       switch (groups.length) {
         case 1:
@@ -265,4 +252,4 @@ function setToFalse(indexesToSet, grid) {
   return grid;
 }
 
-generateClue();
+generateClues();
