@@ -2,8 +2,8 @@ groups = [
   ["a", "b", "c", "d"],
   [1, 2, 3, 4],
   [10, 20, 30, 40],
-  [110, 220, 330, 440]
-]
+  [110, 220, 330, 440],
+];
 
 // const out = keys.map((a, ai) => (
 //   keys.slice(1, keys.length).map((b, bi) => `-${a}=${b}-`)
@@ -11,51 +11,49 @@ groups = [
 
 // console.log(out)
 
-
 groups = [
   ["a", "b"],
   [1, 2],
   [10, 20],
-  [100, 200]
-]
+  [100, 200],
+];
 
 groups = [
-  [100, 200], 
-  [10, 20], 
-  [1, 2], 
-  ["a", "b"]
-]
+  [100, 200],
+  [10, 20],
+  [1, 2],
+  ["a", "b"],
+];
 
-const out = groups.map((a,ai) => (
+const out = groups.map((a, ai) =>
   // 100 200
   makeGridOfSize(2, null)
-))
-console.log(out)
+);
+console.log(out);
 
-let ar = []
-let prevVal = null
+let ar = [];
+let prevVal = null;
 while (groups.length) {
-  const current = groups.pop()
-  prevVal = makeGridOfSize(2, prevVal)
-  ar.push(prevVal)
-  
+  const current = groups.pop();
+  prevVal = makeGridOfSize(2, prevVal);
+  ar.push(prevVal);
 }
-console.log(JSON.stringify(prevVal))
+console.log(JSON.stringify(prevVal));
 
-function makeGridOfSize(size, value=null) {
-  return Array.from({ length: size }, () => (Array.from({ length: size }, () => value)
-  ))
+function makeGridOfSize(size, value = null) {
+  return Array.from({ length: size }, () =>
+    Array.from({ length: size }, () => value)
+  );
 }
 
 groups = [
-  [100, 200], 
-  [10, 20], 
-  [1, 2], 
-  ["a", "b"]
-]
+  [100, 200],
+  [10, 20],
+  [1, 2],
+  ["a", "b"],
+];
 
-for (let index = 0; index < groups.length; index++) {
-}
+for (let index = 0; index < groups.length; index++) {}
 
 // [
 //   [
@@ -79,10 +77,6 @@ for (let index = 0; index < groups.length; index++) {
 //     ]
 //   ]
 // ]
-
-
-
-
 
 // [
 //   ["a", "b"],
@@ -170,4 +164,3 @@ for (let index = 0; index < groups.length; index++) {
 //     ]
 //   ]
 // ]
-
