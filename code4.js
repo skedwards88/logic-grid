@@ -18,16 +18,15 @@ const numCats = 4;
 let solutionMatrix = {};
 for (let catIndex = 0; catIndex < numCats; catIndex++) {
   for (let vsIndex = catIndex + 1; vsIndex < numCats; vsIndex++) {
-    const grid = Array.from(
-      { length: numItems },
-      () => Array.from({ length: numItems }, () => null)
+    const grid = Array.from({ length: numItems }, () =>
+      Array.from({ length: numItems }, () => null)
     );
-    const rowLabels = categories[catIndex]
-    const colLabels = categories[vsIndex]
+    const rowLabels = categories[catIndex];
+    const colLabels = categories[vsIndex];
     solutionMatrix[`${catIndex}v${vsIndex}`] = {
       rowLabels: rowLabels,
       colLabels: colLabels,
-      grid: grid
+      grid: grid,
     };
   }
 }
@@ -70,32 +69,37 @@ function getNotClue(solution) {
   const writtenClue = `${item1} is not ${item2}`;
 
   function clueLogic(solutionMatrix) {
-    const solutionKey = catIndex1 < catIndex2 ? `${catIndex1}v${catIndex2}` : `${catIndex2}v${catIndex1}`
+    const solutionKey =
+      catIndex1 < catIndex2
+        ? `${catIndex1}v${catIndex2}`
+        : `${catIndex2}v${catIndex1}`;
     const rowItem = catIndex1 < catIndex2 ? item1 : item2;
     const colItem = catIndex1 < catIndex2 ? item2 : item1;
 
-    let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix))
+    let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix));
     let solutionEntry = newSolutionMatrix[solutionKey];
     let newSolutionGrid = solutionEntry.grid;
     const solutionRows = solutionEntry.rowLabels;
     const solutionCols = solutionEntry.colLabels;
 
-    const rowIndex = solutionRows.indexOf(rowItem)
-    const colIndex = solutionCols.indexOf(colItem)
+    const rowIndex = solutionRows.indexOf(rowItem);
+    const colIndex = solutionCols.indexOf(colItem);
 
-    console.log(JSON.stringify(newSolutionGrid))
-    newSolutionGrid[rowIndex][colIndex] = false
-    console.log(JSON.stringify(newSolutionGrid))
-    
+    console.log(JSON.stringify(newSolutionGrid));
+    newSolutionGrid[rowIndex][colIndex] = false;
+    console.log(JSON.stringify(newSolutionGrid));
+
     newSolutionMatrix[solutionKey].grid = newSolutionGrid;
-    console.log(`UPDATING ${solutionKey}. ${rowItem}-${rowIndex}-${solutionRows}. ${colItem}-${colIndex}=${solutionCols}`)
+    console.log(
+      `UPDATING ${solutionKey}. ${rowItem}-${rowIndex}-${solutionRows}. ${colItem}-${colIndex}=${solutionCols}`
+    );
 
-    return newSolutionMatrix
+    return newSolutionMatrix;
   }
   return {
     writtenClue: writtenClue,
-    clueLogic: clueLogic
-  }
+    clueLogic: clueLogic,
+  };
 }
 
 // getNotClue(solution);
