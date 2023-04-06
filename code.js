@@ -200,7 +200,7 @@ function generateClues() {
 
 function setToFalse(indexesToSet, grid) {
   for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
-    // if we don't have a value for this group index, call this recursive function for each value in the group
+    // if we don't have a value for this group index, call this recursive function (setToFalse) for each value in the group
     if (indexesToSet[groupIndex] === undefined) {
       for (
         let groupItemIndex = 0;
@@ -213,6 +213,8 @@ function setToFalse(indexesToSet, grid) {
         };
         grid = setToFalse(newIndexes, grid);
       }
+      // break so that we don't bother duplicating efforts since the recursive call above will take care of the other groups
+      break
     }
 
     // if we have an index value for every group, set the index to false and return the new array
@@ -252,4 +254,43 @@ function setToFalse(indexesToSet, grid) {
   return grid;
 }
 
+function checkForCascadingFalse(indexesSet, grid) {
+  const numIndexes = Object.keys(indexesSet).length
+
+  // For the just-set index, see if there is 1 dimension where all but one value is false
+  // e.g. {0:3, 1:2, 2:2, 3:4}
+  for (
+    let groupIndex = 0;
+    groupIndex < Object.keys(indexesSet).length;
+    groupIndex++
+  ) {
+    let falseCount = 0
+    for (
+      let groupItemIndex = 0;
+      groupItemIndex < grid.length;
+      groupItemIndex++
+    ) {
+      const indexIteration = {
+        ...indexesSet,
+        groupIndex: groupItemIndex
+      }
+      if (getValueAtIndex(indexIteration,  grid) === false) {
+        console.log(`FALSE: ${JSON.stringify(indexIteration)}`)
+      }
+    }
+  }
+}
+
 generateClues();
+
+function getValueAtIndex(indexes, grid) {
+  let value = grid
+  for (
+    let groupIndex = 0;
+    groupIndex < Object.keys(indexesSet).length;
+    groupIndex++
+  ) {
+    value = value[indexes[groupIndex]]
+  }
+  return value
+}
