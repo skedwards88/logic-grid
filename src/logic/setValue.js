@@ -1,4 +1,17 @@
 export function setToTrue(grid, rowIndex, colIndex) {
+    // return early if index out of bounds
+    if (
+      rowIndex < 0 ||
+      colIndex < 0 ||
+      rowIndex === undefined ||
+      colIndex === undefined ||
+      rowIndex > grid.length - 1 ||
+      colIndex > grid[0].length - 1 
+    ) {
+      console.error(`Index out of bounds in 'setToTrue': ${rowIndex}, ${colIndex}`)
+      return grid;
+    }
+
   // if already true, return early
   if (grid[rowIndex][colIndex]) {
     return grid;
@@ -24,6 +37,19 @@ export function setToTrue(grid, rowIndex, colIndex) {
 }
 
 export function setToFalse(grid, rowIndex, colIndex) {
+  // return early if index out of bounds
+  if (
+    rowIndex < 0 ||
+    colIndex < 0 ||
+    rowIndex === undefined ||
+    colIndex === undefined ||
+    rowIndex > grid.length - 1 ||
+    colIndex > grid[0].length - 1 
+  ) {
+    console.error(`Index out of bounds in 'setToFalse': ${rowIndex}, ${colIndex}`)
+    return grid;
+  }
+
   // if already false, return early
   if (grid[rowIndex][colIndex] === false) {
     return grid;
