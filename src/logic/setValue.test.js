@@ -1,7 +1,7 @@
 import { setToFalse, setToTrue } from "./setValue.js";
 
 describe('setToFalse', () => {
-  it('should set the specified position to false', () => {
+  test('It should set the specified position to false', () => {
     const grid = [
       [null, null, null],
       [null, null, null],
@@ -15,7 +15,7 @@ describe('setToFalse', () => {
     expect(setToFalse(grid, 0, 0)).toEqual(expectedGrid);
   });
   
-  it('should not change the input grid', () => {
+  test('It should not change the input grid', () => {
     const grid = [
       [null, null, null],
       [null, null, null],
@@ -31,7 +31,7 @@ describe('setToFalse', () => {
     expect(result).not.toBe(grid);
   });
 
-  it('should return the original grid if the specified position is already false', () => {
+  test('It should return the original grid if the specified position is already false', () => {
     const grid = [
       [false, null, null],
       [null, null, null],
@@ -40,7 +40,7 @@ describe('setToFalse', () => {
     expect(setToFalse(grid, 0, 0)).toEqual(grid);
   });
 
-  it('should return the original grid if the specified position is out of bounds', () => {
+  test('It should return the original grid if the specified position is out of bounds', () => {
     const grid = [
       [false, null, null],
       [null, null, null],
@@ -55,7 +55,7 @@ describe('setToFalse', () => {
     expect(setToFalse(grid, undefined, undefined)).toEqual(grid);
   });
 
-  it('if it leaves only one null in the row and there are no trues in the row, it should set the last null to true', () => {
+  test('if it leaves only one null in the row and there are no trues in the row, it should set the last null to true', () => {
     const grid = [
       [false, null, null],
       [null, null, null],
@@ -69,7 +69,7 @@ describe('setToFalse', () => {
     expect(setToFalse(grid, 0, 1)).toEqual(expectedGrid);
   });
 
-it('if it leaves only one null in the column and there are no trues in the column, it should set the last null to true', () => {
+test('if it leaves only one null in the column and there are no trues in the column, it should set the last null to true', () => {
     const grid = [
       [false, null, null],
       [null, null, null],
@@ -83,7 +83,7 @@ it('if it leaves only one null in the column and there are no trues in the colum
     expect(setToFalse(grid, 2, 0)).toEqual(expectedGrid);
   });
 
-  it('if it leaves only one null in the row and there is a true in the row, it should set the last null to false', () => {
+  test('if it leaves only one null in the row and there is a true in the row, it should set the last null to false', () => {
     const grid = [
       [true, false, null, null],
       [false, null, null, null],
@@ -99,7 +99,7 @@ it('if it leaves only one null in the column and there are no trues in the colum
     expect(setToFalse(grid, 0, 2)).toEqual(expectedGrid);
   });
 
-  it('if it leaves only one null in the column and there is a true in the column, it should set the last null to false', () => {
+  test('if it leaves only one null in the column and there is a true in the column, it should set the last null to false', () => {
     const grid = [
       [true, false, false, false],
       [false, null, null, null],
@@ -117,7 +117,7 @@ it('if it leaves only one null in the column and there are no trues in the colum
 
 });
 describe('setToTrue', () => {
-  it('should set the specified position to true', () => {
+  test('It should set the specified position to true', () => {
     const grid = [
       [null, false, false],
       [false, null, null],
@@ -131,7 +131,7 @@ describe('setToTrue', () => {
     expect(setToTrue(grid, 0, 0)).toEqual(expectedGrid);
   });
 
-  it('should return the original grid if the specified position is already true', () => {
+  test('It should return the original grid if the specified position is already true', () => {
     const grid = [
       [true, false, false],
       [false, null, null],
@@ -140,7 +140,7 @@ describe('setToTrue', () => {
     expect(setToTrue(grid, 0, 0)).toEqual(grid);
   });
 
-  it('should return the original grid if the specified position is out of bounds', () => {
+  test('It should return the original grid if the specified position is out of bounds', () => {
     const grid = [
       [true, false, false],
       [false, null, null],
@@ -155,7 +155,7 @@ describe('setToTrue', () => {
     expect(setToTrue(grid, undefined, undefined)).toEqual(grid);
   });
 
-  it('all other items in that row/col are false', () => {
+  test('all other items in that row/col are false', () => {
     const grid = [
       [false, null, null],
       [null, null, null],

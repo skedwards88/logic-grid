@@ -2,6 +2,10 @@ import { pickRandom } from "./pickRandom.js";
 import { setToFalse } from "./setValue.js";
 import { buildSolutionKey } from "./buildSolutionKey.js";
 
+function getTwoItemsThatDontMatch(solution) {
+
+}
+
 // Generates a "not" clue
 // e.g. "Colin is not blue"
 export function getNotClue(solution) {
