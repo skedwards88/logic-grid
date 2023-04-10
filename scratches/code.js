@@ -214,7 +214,7 @@ function setToFalse(indexesToSet, grid) {
         grid = setToFalse(newIndexes, grid);
       }
       // break so that we don't bother duplicating efforts since the recursive call above will take care of the other groups
-      break
+      break;
     }
 
     // if we have an index value for every group, set the index to false and return the new array
@@ -255,7 +255,7 @@ function setToFalse(indexesToSet, grid) {
 }
 
 function checkForCascadingFalse(indexesSet, grid) {
-  const numIndexes = Object.keys(indexesSet).length
+  const numIndexes = Object.keys(indexesSet).length;
 
   // For the just-set index, see if there is 1 dimension where all but one value is false
   // e.g. {0:3, 1:2, 2:2, 3:4}
@@ -264,7 +264,7 @@ function checkForCascadingFalse(indexesSet, grid) {
     groupIndex < Object.keys(indexesSet).length;
     groupIndex++
   ) {
-    let falseCount = 0
+    let falseCount = 0;
     for (
       let groupItemIndex = 0;
       groupItemIndex < grid.length;
@@ -272,10 +272,10 @@ function checkForCascadingFalse(indexesSet, grid) {
     ) {
       const indexIteration = {
         ...indexesSet,
-        groupIndex: groupItemIndex
-      }
-      if (getValueAtIndex(indexIteration,  grid) === false) {
-        console.log(`FALSE: ${JSON.stringify(indexIteration)}`)
+        groupIndex: groupItemIndex,
+      };
+      if (getValueAtIndex(indexIteration, grid) === false) {
+        console.log(`FALSE: ${JSON.stringify(indexIteration)}`);
       }
     }
   }
@@ -284,13 +284,13 @@ function checkForCascadingFalse(indexesSet, grid) {
 generateClues();
 
 function getValueAtIndex(indexes, grid) {
-  let value = grid
+  let value = grid;
   for (
     let groupIndex = 0;
     groupIndex < Object.keys(indexesSet).length;
     groupIndex++
   ) {
-    value = value[indexes[groupIndex]]
+    value = value[indexes[groupIndex]];
   }
-  return value
+  return value;
 }
