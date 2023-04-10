@@ -1,56 +1,57 @@
 import { pickRandom } from "./pickRandom.js";
 import { setToFalse } from "./setValue.js";
+import { buildSolutionKey } from "./buildSolutionKey.js";
 
-// "not" clue
-// e.g. "colin is not blue"
+// Generates a "not" clue
+// e.g. "Colin is not blue"
 export function getNotClue(solution) {
   let solutionIndexes = Array.from(solution.keys());
   let clueIndexes = Array.from(solution[0].keys());
 
-  // choose solution index e.g.   [ 'Colin', 1, 'fly', 'red' ]
-  const solutionIndex1 = pickRandom(solutionIndexes);
-  const solution1 = solution[solutionIndex1];
-  // choose clue index e.g. 'Colin'
-  const catIndex1 = pickRandom(clueIndexes);
-  const item1 = solution1[catIndex1];
+  // choose a solution index and get the value at that index
+  // e.g. [ 'Colin', 1, 'fly', 'red' ]
+  const solutionIndexA = pickRandom(solutionIndexes);
+  const solutionA = solution[solutionIndexA];
+
+  // choose an item index and get the value at that index
+  // e.g. 'Colin'
+  const categoryIndexA = pickRandom(clueIndexes);
+  const itemA = solutionA[categoryIndexA];
 
   // delete the used indexes so that we don't re-pick them
-  solutionIndexes.splice(solutionIndex1, 1);
-  clueIndexes.splice(catIndex1, 1);
+  solutionIndexes.splice(solutionIndexA, 1);
+  clueIndexes.splice(categoryIndexA, 1);
 
-  // choose another solution index e.g.   [ 'Sarah', 2, 'back', 'blue' ]
-  const solutionIndex2 = pickRandom(solutionIndexes);
-  const solution2 = solution[solutionIndex2];
+  // choose another solution index and get the value at that index
+  // e.g. [ 'Sarah', 2, 'back', 'blue' ]
+  const solutionIndexB = pickRandom(solutionIndexes);
+  const solutionB = solution[solutionIndexB];
 
-  // choose another clue index e.g. 'blue'
-  const catIndex2 = pickRandom(clueIndexes);
-  const item2 = solution2[catIndex2];
+  // choose another item index and get the value at that index
+  // e.g. 'blue'
+  const categoryIndexB = pickRandom(clueIndexes);
+  const itemB = solutionB[categoryIndexB];
 
-  const writtenClue = `${item1} is not ${item2}`;
+  const writtenClue = `${itemA} is not ${itemB}`;
 
   function clueLogic(solutionMatrix) {
-    const solutionKey =
-      catIndex1 < catIndex2
-        ? `${catIndex1}v${catIndex2}`
-        : `${catIndex2}v${catIndex1}`;
-    const rowItem = catIndex1 < catIndex2 ? item1 : item2;
-    const colItem = catIndex1 < catIndex2 ? item2 : item1;
+    const solutionKey = buildSolutionKey(categoryIndexA, categoryIndexB);
+    const rowItem = categoryIndexA < categoryIndexB ? itemA : itemB;
+    const colItem = categoryIndexA < categoryIndexB ? itemB : itemA;
 
     let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix));
     let solutionEntry = newSolutionMatrix[solutionKey];
-    let newSolutionGrid = solutionEntry.grid;
     const solutionRows = solutionEntry.rowLabels;
     const solutionCols = solutionEntry.colLabels;
 
     const rowIndex = solutionRows.indexOf(rowItem);
     const colIndex = solutionCols.indexOf(colItem);
 
-    newSolutionGrid = setToFalse(newSolutionGrid, rowIndex, colIndex);
-
-    newSolutionMatrix[solutionKey].grid = newSolutionGrid;
+    solutionEntry.grid = setToFalse(solutionEntry.grid, rowIndex, colIndex);
 
     return newSolutionMatrix;
   }
+
   return {
     writtenClue: writtenClue,
     clueLogic: clueLogic,

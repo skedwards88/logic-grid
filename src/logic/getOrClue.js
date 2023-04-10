@@ -1,73 +1,70 @@
 import { pickRandom } from "./pickRandom.js";
 import { setToFalse } from "./setValue.js";
+import { buildSolutionKey } from "./buildSolutionKey.js";
 
-// "or" clue
+// Generates an "or" clue
 // e.g. "Colin is red or blue"
+// which equates to "Colin is not green or yellow"
 export function getOrClue(solution) {
   let solutionIndexes = Array.from(solution.keys());
   let clueIndexes = Array.from(solution[0].keys());
 
-  // choose solution index e.g.   [ 'Colin', 1, 'fly', 'red' ]
-  const solutionIndex1 = pickRandom(solutionIndexes);
-  const solution1 = solution[solutionIndex1];
-  // choose clue index e.g. 'Colin'
-  const catIndex1 = pickRandom(clueIndexes);
-  const item1 = solution1[catIndex1];
+  // choose a solution index and get the value at that index
+  // e.g. [ 'Colin', 1, 'fly', 'red' ]
+  const solutionIndexA = pickRandom(solutionIndexes);
+  const solutionA = solution[solutionIndexA];
+
+  // choose an item index and get the value at that index
+  // e.g. 'Colin'
+  const categoryIndexA = pickRandom(clueIndexes);
+  const itemA = solutionA[categoryIndexA];
 
   // delete the used indexes so that we don't re-pick them
-  solutionIndexes.splice(solutionIndex1, 1);
-  clueIndexes.splice(catIndex1, 1);
+  solutionIndexes.splice(solutionIndexA, 1);
+  clueIndexes.splice(categoryIndexA, 1);
 
-  // choose a second clue index
-  const catIndex2 = pickRandom(clueIndexes);
+  // choose a second item index
+  const categoryIndexB = pickRandom(clueIndexes);
 
-  // choose another solution index e.g.   [ 'Sarah', 2, 'back', 'blue' ]
-  const solutionIndex2 = pickRandom(solutionIndexes);
-  const solution2 = solution[solutionIndex2];
+  // choose another solution index and get the value at that index
+  // e.g. [ 'Sarah', 2, 'back', 'blue' ]
+  const solutionIndexB = pickRandom(solutionIndexes);
+  const solutionB = solution[solutionIndexB];
 
-  // get the actual and an incorrect value for the second cat
-  const actualItem2 = solution1[catIndex2];
-  const nonActualItem2 = solution2[catIndex2];
+  // get the actual item and an incorrect item for the second category
+  const actualItemB = solutionA[categoryIndexB];
+  const nonActualItemB = solutionB[categoryIndexB];
 
-  const writtenClue = `${item1} is ${actualItem2} or ${nonActualItem2}`;
-
+  const writtenClue = `${itemA} is ${actualItemB} or ${nonActualItemB}`; //todo should randomize so the correct value isn't always first
   console.log(JSON.stringify(writtenClue));
-  // this equates to "not"" clues for all other indexes
-  // (colin is 1 or 2 means colin is not 3, colin is not 4)
-  clueIndexes.splice(catIndex2, 1);
+
+  // this equates to "not" clues for all other indexes
+  // ("Colin is 1 or 2" means "Colin is not 3", "Colin is not 4")
+  // delete this second index so that the remaining indexes are all "not"
+  clueIndexes.splice(categoryIndexB, 1);
 
   function clueLogic(solutionMatrix) {
-    const solutionKey =
-      catIndex1 < catIndex2
-        ? `${catIndex1}v${catIndex2}`
-        : `${catIndex2}v${catIndex1}`;
+    const solutionKey = buildSolutionKey(categoryIndexA, categoryIndexB);
 
     let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix));
     let solutionEntry = newSolutionMatrix[solutionKey];
     let newSolutionGrid = solutionEntry.grid;
 
     // take each comparison separately
-    console.log(JSON.stringify(clueIndexes));
     for (let index = 0; index < clueIndexes.length; index++) {
       let rowIndex;
       let colIndex;
 
-      if (catIndex1 < catIndex2) {
+      if (categoryIndexA < categoryIndexB) {
         const solutionRows = solutionEntry.rowLabels;
-        rowIndex = solutionRows.indexOf(item1);
+        rowIndex = solutionRows.indexOf(itemA);
         colIndex = clueIndexes[index];
       } else {
         const solutionCols = solutionEntry.colLabels;
         rowIndex = clueIndexes[index];
-        colIndex = solutionCols.indexOf(item1);
+        colIndex = solutionCols.indexOf(itemA);
       }
 
-      // const rowItem = catIndex1 < catIndex2 ? item1 : clueIndexes[index];
-      // const colItem = catIndex1 < catIndex2 ? clueIndexes[index] : item1;
-
-      // const rowIndex = solutionRows.indexOf(rowItem);
-      // const colIndex = solutionCols.indexOf(colItem);
-      // console.log(`not: ${rowItem}, ${rowIndex}; ${colItem}, ${colIndex}`)
       newSolutionGrid = setToFalse(newSolutionGrid, rowIndex, colIndex);
       newSolutionMatrix[solutionKey].grid = newSolutionGrid;
     }
