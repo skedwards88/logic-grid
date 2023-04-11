@@ -143,7 +143,6 @@ describe('getOrClue', () => {
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(derivedMatrix)
-
     expect(newDerivedMatrix["1v2"]["grid"]).toEqual(derivedMatrix["1v2"]["grid"])
     expect(newDerivedMatrix["2v3"]["grid"]).not.toEqual(derivedMatrix["2v3"]["grid"])
     expect(newDerivedMatrix["2v3"]["grid"]).toMatchInlineSnapshot(`

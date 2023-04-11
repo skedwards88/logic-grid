@@ -27,17 +27,15 @@ export function getOrClue(solutionMatrix) {
   const writtenClue = `${rowItem} is ${colItemTrue} or ${colItemFalse}`; //todo should randomize so the correct value isn't always first
 
   function clueLogic(derivedMatrix) {
-    let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
-    let solutionEntry = newDerivedMatrix[solutionKey];
-
     // the "or" clue equates to "not" clues for all other indexes
     // ("Colin is 1 or 2" means "Colin is not 3", "Colin is not 4")
     // take each comparison separately
+    let newDerivedMatrix = derivedMatrix;
     for (let colIndex = 0; colIndex < colLabels.length; colIndex++) {
       if (colIndex === colIndexTrue || colIndex === colIndexFalse) {
         continue
       }
-      solutionEntry.grid = setToFalse(solutionEntry.grid, rowIndex, colIndex);
+      newDerivedMatrix = setToFalse(newDerivedMatrix, solutionKey, rowIndex, colIndex);
     }
     return newDerivedMatrix;
   }

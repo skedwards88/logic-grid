@@ -23,10 +23,8 @@ export function getNotClue(solutionMatrix) {
   const writtenClue = `${rowItem} is not ${colItem}`;//todo can randomize order
 
   function clueLogic(derivedMatrix) {
-    let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
-    let solutionEntry = newDerivedMatrix[solutionKey];
 
-    solutionEntry.grid = setToFalse(solutionEntry.grid, rowIndex, colIndex);
+    let newDerivedMatrix = setToFalse(derivedMatrix, solutionKey, rowIndex, colIndex); // todo add test to ensure that settofalse does not modify the input matrix
 
     return newDerivedMatrix;
   }
