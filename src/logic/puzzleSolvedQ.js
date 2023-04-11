@@ -1,6 +1,6 @@
-export function puzzleSolvedQ(solutionMatrix) {
-  for (const key in solutionMatrix) {
-    const grid = solutionMatrix[key].grid;
+export function puzzleSolvedQ(derivedMatrix) {
+  for (const key in derivedMatrix) {
+    const grid = derivedMatrix[key].grid;
     for (const row of grid) {
       for (const item of row) {
         if (item === null) {

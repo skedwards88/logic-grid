@@ -8,7 +8,7 @@ export function setToTrue(grid, rowIndex, colIndex) {
       rowIndex > grid.length - 1 ||
       colIndex > grid[0].length - 1 
     ) {
-      console.error(`Index out of bounds in 'setToTrue': ${rowIndex}, ${colIndex}`)
+      console.error(`Index out of bounds in 'setToTrue': ${rowIndex}, ${colIndex}`)//todo react error
       return grid;
     }
 
@@ -34,6 +34,11 @@ export function setToTrue(grid, rowIndex, colIndex) {
     }
   }
   return newGrid;
+}
+
+function deduceTrue() {
+  // When set an index to true (e.g. red fly)
+  // check for other things that know about that row and col (e.g. fly is colin)
 }
 
 export function setToFalse(grid, rowIndex, colIndex) {

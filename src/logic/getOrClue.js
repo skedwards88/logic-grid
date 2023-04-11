@@ -44,11 +44,11 @@ export function getOrClue(solution) {
   // ("Colin is 1 or 2" means "Colin is not 3", "Colin is not 4")
   const knownNotItemBs = solution.map((solutionItem) => solutionItem[categoryIndexB]).filter((item) => item !== actualItemB && item !== nonActualItemB);
 
-  function clueLogic(solutionMatrix) {
+  function clueLogic(derivedMatrix) {
     const solutionKey = buildSolutionKey(categoryIndexA, categoryIndexB);
 
-    let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix));
-    let solutionEntry = newSolutionMatrix[solutionKey];
+    let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+    let solutionEntry = newDerivedMatrix[solutionKey];
     const solutionRows = solutionEntry.rowLabels;
     const solutionCols = solutionEntry.colLabels;
 
@@ -68,7 +68,7 @@ export function getOrClue(solution) {
 
       solutionEntry.grid = setToFalse(solutionEntry.grid, rowIndex, colIndex);
     }
-    return newSolutionMatrix;
+    return newDerivedMatrix;
   }
   return {
     writtenClue: writtenClue,

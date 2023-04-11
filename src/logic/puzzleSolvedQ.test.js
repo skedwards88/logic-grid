@@ -3,7 +3,7 @@ import { puzzleSolvedQ } from "./puzzleSolvedQ.js";
 
 describe('puzzleSolvedQ', () => {
   test('returns true when all items in all grids are not null', () => {
-    const solutionMatrix = {
+    const derivedMatrix = {
       1: {
         grid: [
           [true, false, false],
@@ -19,11 +19,11 @@ describe('puzzleSolvedQ', () => {
         ],
       },
     };
-    expect(puzzleSolvedQ(solutionMatrix)).toBe(true);
+    expect(puzzleSolvedQ(derivedMatrix)).toBe(true);
   });
 
   test('returns false when at least one item in any grid is null', () => {
-    const solutionMatrix = {
+    const derivedMatrix = {
       1: {
         grid: [
           [true, false, false],
@@ -39,6 +39,6 @@ describe('puzzleSolvedQ', () => {
         ],
       },
     };
-    expect(puzzleSolvedQ(solutionMatrix)).toBe(false);
+    expect(puzzleSolvedQ(derivedMatrix)).toBe(false);
   });
 });

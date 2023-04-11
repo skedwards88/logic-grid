@@ -20,13 +20,11 @@ function generateSolution(categories) {
   return solution;
 }
 
-function generatePuzzle(categories) {
-  const solution = generateSolution(categories);
-
-  // initialize the solution matrix
+function buildDerivedMatrix(categories) {
   const numItems = categories[0].length;
   const numCats = categories.length;
-  let solutionMatrix = {};
+  let derivedMatrix = {};
+
   for (let catIndex = 0; catIndex < numCats; catIndex++) {
     for (let vsIndex = catIndex + 1; vsIndex < numCats; vsIndex++) {
       const grid = Array.from({ length: numItems }, () =>
@@ -34,18 +32,27 @@ function generatePuzzle(categories) {
       );
       const rowLabels = categories[catIndex];
       const colLabels = categories[vsIndex];
-      solutionMatrix[`${catIndex}v${vsIndex}`] = {
+      derivedMatrix[`${catIndex}v${vsIndex}`] = {
         rowLabels: rowLabels,
         colLabels: colLabels,
         grid: grid,
       };
     }
   }
+  return derivedMatrix
+}
+
+function generatePuzzle(categories) {
+  const solution = generateSolution(categories);
+
+  // initialize the solution matrix
+  const derivedMatrix = buildDerivedMatrix(categories);
+  
 
   let clues = [];
   let puzzleIsSolved = false;
   let clue;
-  let newSolutionMatrix = solutionMatrix;
+  let newDerivedMatrix = derivedMatrix;
   let count = 0;
 
   while (!puzzleIsSolved && count < 100) {
@@ -53,13 +60,13 @@ function generatePuzzle(categories) {
     //todo this works, but as the puzzle gets more solved, it is less likely that a random clue is helpful
     // maybe adding more clue types will help
     // but may also need to make the code smarter to have a more targeted search
-    ({ clue, newSolutionMatrix } = getUsefulClue(solution, newSolutionMatrix));
+    ({ clue, newDerivedMatrix } = getUsefulClue(solution, newDerivedMatrix));
     clues = [...clues, clue];
-    puzzleIsSolved = puzzleSolvedQ(newSolutionMatrix);
+    puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
   console.log(count);
-  console.log(JSON.stringify(newSolutionMatrix));
+  console.log(JSON.stringify(newDerivedMatrix));
   console.log(clues.map((clue) => clue.writtenClue).join("\n"));
 }
 

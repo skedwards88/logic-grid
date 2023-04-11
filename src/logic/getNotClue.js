@@ -34,13 +34,13 @@ export function getNotClue(solution) {
 
   const writtenClue = `${itemA} is not ${itemB}`;
 
-  function clueLogic(solutionMatrix) {
+  function clueLogic(derivedMatrix) {
     const solutionKey = buildSolutionKey(categoryIndexA, categoryIndexB);
     const rowItem = categoryIndexA < categoryIndexB ? itemA : itemB;
     const colItem = categoryIndexA < categoryIndexB ? itemB : itemA;
 
-    let newSolutionMatrix = JSON.parse(JSON.stringify(solutionMatrix));
-    let solutionEntry = newSolutionMatrix[solutionKey];
+    let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+    let solutionEntry = newDerivedMatrix[solutionKey];
     const solutionRows = solutionEntry.rowLabels;
     const solutionCols = solutionEntry.colLabels;
 
@@ -49,7 +49,7 @@ export function getNotClue(solution) {
 
     solutionEntry.grid = setToFalse(solutionEntry.grid, rowIndex, colIndex);
 
-    return newSolutionMatrix;
+    return newDerivedMatrix;
   }
 
   return {

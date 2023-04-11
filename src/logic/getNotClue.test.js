@@ -9,7 +9,7 @@ describe('getNotClue', () => {
   });
 
   test('returns a "not" clue for a given solution matrix', () => {
-    const solutionMatrix = {
+    const derivedMatrix = {
       "0v1":{
         "rowLabels":["Colin","Sarah","Fefe","Meme"],
         "colLabels":[1,2,3,4],
@@ -86,11 +86,11 @@ describe('getNotClue', () => {
     expect(clue.writtenClue).toBe(expectedClue);
     expect(pickRandom).toHaveBeenCalledTimes(4);
 
-    const newSolutionMatrix = clue.clueLogic(solutionMatrix)
+    const newDerivedMatrix = clue.clueLogic(derivedMatrix)
 
-    expect(newSolutionMatrix["1v2"]["grid"]).toEqual(solutionMatrix["1v2"]["grid"])
-    expect(newSolutionMatrix["2v3"]["grid"]).not.toEqual(solutionMatrix["2v3"]["grid"])
-    expect(newSolutionMatrix["2v3"]["grid"]).toMatchInlineSnapshot(`
+    expect(newDerivedMatrix["1v2"]["grid"]).toEqual(derivedMatrix["1v2"]["grid"])
+    expect(newDerivedMatrix["2v3"]["grid"]).not.toEqual(derivedMatrix["2v3"]["grid"])
+    expect(newDerivedMatrix["2v3"]["grid"]).toMatchInlineSnapshot(`
 [
   [
     null,
@@ -118,7 +118,7 @@ describe('getNotClue', () => {
   ],
 ]
 `)
-    expect(newSolutionMatrix).toMatchInlineSnapshot(`
+    expect(newDerivedMatrix).toMatchInlineSnapshot(`
 {
   "0v1": {
     "colLabels": [
