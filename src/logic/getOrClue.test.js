@@ -1,5 +1,5 @@
 import { getOrClue } from './getOrClue';
-import { pickRandom, pickRandomIndex } from './pickRandom';
+import * as pickRandomModule from "./pickRandom";
 
 const solutionMatrix = {
   "0v1": {
@@ -64,15 +64,15 @@ const solutionMatrix = {
   },
 };
 
-jest.mock('./pickRandom');
-
 describe('getOrClue', () => {
-  beforeEach(() => {
-    pickRandom.mockReset();
-    pickRandomIndex.mockReset();
-  });
 
-  test('returns a "not" clue for a given solution matrix', () => {
+  test('returns an "or" clue for a given solution matrix (using mocked values)', () => {
+    jest
+    .spyOn(pickRandomModule, "pickRandom")
+    .mockReturnValueOnce("2v3") // solutionKey
+    .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
+  jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'fly')
+
     const derivedMatrix = {
       "0v1":{
         "rowLabels":["Colin","Sarah","Fefe","Meme"],
@@ -135,14 +135,12 @@ describe('getOrClue', () => {
         ]
       }
     };
-    pickRandom.mockReturnValueOnce("2v3"); // solutionKey
-    pickRandomIndex.mockReturnValueOnce(0); //rowIndex (corresponds to 'fly')
-    pickRandom.mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
+
     const expectedClue = 'fly is red or blue';
     const clue = getOrClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
-    expect(pickRandom).toHaveBeenCalledTimes(2);
-    expect(pickRandomIndex).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
+    expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(derivedMatrix)
 
@@ -420,5 +418,25 @@ describe('getOrClue', () => {
   },
 }
 `)
+
+jest.restoreAllMocks();
   });
+
+  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+    const clue = getOrClue(solutionMatrix);
+
+    expect(clue).toHaveProperty("writtenClue");
+    expect(clue).toHaveProperty("clueLogic");
+    expect(typeof clue.writtenClue).toBe("string");
+    expect(typeof clue.clueLogic).toBe("function");
+  });
+
+  test('does not modify the solution matrix', () => {
+    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix))
+    const clue = getOrClue(matrixCopy);
+
+    expect(matrixCopy).toEqual(solutionMatrix);
+
+  });
+
 });
