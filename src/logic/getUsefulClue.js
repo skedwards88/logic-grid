@@ -1,14 +1,18 @@
 import { getOrClue } from "./getOrClue.js";
 import { getNotClue } from "./getNotClue.js";
+import { pickRandom } from "./pickRandom.js";
 
 export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let foundUsefulClue = false;
   let clue;
   let newDerivedMatrix;
 
+  const clueFunctions = [getNotClue, getOrClue] // todo add more clues to here as build
+
   while (!foundUsefulClue) {
     // get a clue
-    clue = getOrClue(solutionMatrix); // todo randomize clue type
+    let clueFunction = pickRandom(clueFunctions);
+    clue = clueFunction(solutionMatrix);
 
     // see if it changes the derivedMatrix
     newDerivedMatrix = clue.clueLogic(derivedMatrix);
