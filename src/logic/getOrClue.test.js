@@ -1,11 +1,75 @@
 import { getOrClue } from './getOrClue';
-import { pickRandom } from './pickRandom';
+import { pickRandom, pickRandomIndex } from './pickRandom';
+
+const solutionMatrix = {
+  "0v1": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: [1, 2, 3, 4],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+  "0v2": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: ["fly", "back", "breast", "free"],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+  "0v3": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+  "1v2": {
+    rowLabels: [1, 2, 3, 4],
+    colLabels: ["fly", "back", "breast", "free"],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+  "1v3": {
+    rowLabels: [1, 2, 3, 4],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+  "2v3": {
+    rowLabels: ["fly", "back", "breast", "free"],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+};
 
 jest.mock('./pickRandom');
 
 describe('getOrClue', () => {
   beforeEach(() => {
     pickRandom.mockReset();
+    pickRandomIndex.mockReset();
   });
 
   test('returns a "not" clue for a given solution matrix', () => {
@@ -71,20 +135,14 @@ describe('getOrClue', () => {
         ]
       }
     };
-    const solution = [
-      ['Colin', 1, 'fly', 'red'],
-      ['Sarah', 2, 'back', 'blue'],
-      ['Fefe', 3, 'breast', 'green'],
-      ['Meme', 4, 'free', 'yellow'],
-    ];
-    pickRandom.mockReturnValueOnce(0); // solutionIndexA
-    pickRandom.mockReturnValueOnce(2); // categoryIndexA
-    pickRandom.mockReturnValueOnce(3); // categoryIndexB
-    pickRandom.mockReturnValueOnce(1); // solutionIndexB
+    pickRandom.mockReturnValueOnce("2v3"); // solutionKey
+    pickRandomIndex.mockReturnValueOnce(0); //rowIndex (corresponds to 'fly')
+    pickRandom.mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
     const expectedClue = 'fly is red or blue';
-    const clue = getOrClue(solution);
+    const clue = getOrClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
-    expect(pickRandom).toHaveBeenCalledTimes(4);
+    expect(pickRandom).toHaveBeenCalledTimes(2);
+    expect(pickRandomIndex).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(derivedMatrix)
 

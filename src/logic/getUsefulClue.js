@@ -1,14 +1,14 @@
 import { getOrClue } from "./getOrClue.js";
 import { getNotClue } from "./getNotClue.js";
 
-export function getUsefulClue(solution, derivedMatrix) {
+export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let foundUsefulClue = false;
   let clue;
   let newDerivedMatrix;
 
   while (!foundUsefulClue) {
     // get a clue
-    clue = getOrClue(solution); // todo randomize clue type
+    clue = getOrClue(solutionMatrix); // todo randomize clue type
 
     // see if it changes the derivedMatrix
     newDerivedMatrix = clue.clueLogic(derivedMatrix);
