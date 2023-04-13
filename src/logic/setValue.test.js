@@ -1,4 +1,4 @@
-import { setToFalse, setToTrue } from "./setValue.js";
+import { setToFalse, setToTrue, deduceSecondOrderFromTrue } from "./setValue.js";
 
 const emptyInputMatrix = {
   "0v1":{
@@ -246,6 +246,7 @@ test('if it leaves only one null in the column and there are no trues in the col
     expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
   });
 });
+
 describe('setToTrue', () => {
   test('It should set the specified position to true', () => {
     const expectedGrid = [
@@ -258,7 +259,6 @@ describe('setToTrue', () => {
     const outputGrid = outputMatrix["0v3"].grid;
     expect(outputGrid).toEqual(expectedGrid);
   });
-
 
   test('The item order does not matter', () => {
     const expectedGrid = [
@@ -359,5 +359,476 @@ describe('setToTrue', () => {
     const outputMatrix = setToTrue(inputMatrix, "Colin", 2);
     expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
     expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+  });
+
+  test('cascading can occur', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const outputMatrix = setToTrue(inputMatrix, "Colin", "red");
+    expect(outputMatrix["0v1"].grid).toEqual([
+      [true,false,false],
+      [false,null,null],
+      [false,null,null]
+    ]);
+    expect(outputMatrix["0v2"].grid).toEqual(inputMatrix["0v2"].grid);
+    expect(outputMatrix["0v3"].grid).toEqual([
+      [true,false,false],
+      [false,null,null],
+      [false,null,null]
+    ]);
+  });
+});
+
+describe('deduceSecondOrderFromTrue', () => {
+
+  test('deduces a false value (itemA in column)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [null,null,null],
+          [false,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [null,null,null],
+      [false,null,null],
+      [null,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+  });
+
+  test('deduces a false value (itemB in column)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [null,null,null],
+          [false,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [null,null,null],
+      [false,null,null],
+      [null,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+  });
+  
+  test('deduces a false value (item A in row)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,false,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [null,false,null],
+      [null,null,null],
+      [null,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "Colin", "dog");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+  });
+  
+  test('deduces a false value (item B in row)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,false,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [null,false,null],
+      [null,null,null],
+      [null,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "Colin");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+  });
+
+    test('no changes if no additional info is known', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
+    expect(outputMatrix).toEqual(inputMatrix);
+  });
+  
+  test('no changes if no additional info is known (swapped input order)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
+    expect(outputMatrix).toEqual(inputMatrix);
+  });
+
+
+  test('deduces a true value (itemA in column)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [false,null,null],
+          [true,false,false],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [false,null,null],
+      [true,false,false],
+      [false,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+  });
+
+  test('deduces a true value (itemB in column)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [false,null,null],
+          [true,false,false],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [false,null,null],
+      [true,false,false],
+      [false,null,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+  });
+
+  test('deduces a true value (item A in row)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [false,true,false],
+          [null,false,null],
+          [null,false,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [false,true,false],
+      [null,false,null],
+      [null,false,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "Colin", "dog");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+  });
+  
+  test('deduces a true value (item B in row)', () => {
+    const inputMatrix = {
+      "0v1":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["dog","cat","mouse"],
+        "grid":[
+          [true,false,false],
+          [false,null,null],
+          [false,null,null]
+        ]
+      },
+      "0v2":{
+        "rowLabels":["dog","cat","mouse"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [null,null,null],
+          [null,null,null],
+          [null,null,null]
+        ]
+      },
+      "0v3":{
+        "rowLabels":["Colin","Sarah","Fefe"],
+        "colLabels":["red","blue","green"],
+        "grid":[
+          [false,true,false],
+          [null,false,null],
+          [null,false,null]
+        ]
+      }
+    }
+
+    const expectedGrid = [
+      [false,true,false],
+      [null,false,null],
+      [null,false,null]
+    ]
+
+    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "Colin");
+    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
+    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
+    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
+    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
   });
 });
