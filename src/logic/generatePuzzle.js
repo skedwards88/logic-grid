@@ -1,21 +1,33 @@
 import { puzzleSolvedQ } from "./puzzleSolvedQ.js";
 import { getUsefulClue } from "./getUsefulClue.js";
 
-const categories = [
-  ["Colin", "Sarah", "Fefe", "Meme"],
-  [1, 2, 3, 4],
-  ["fly", "back", "breast", "free"],
-  ["red", "blue", "green", "yellow"],
-];
+const allCategories = {
+  // todo later add type, display name, checks to make sure that don't have cats that are too similar?
+  "firstName": ["Colin", "Sarah", "Fefe", "Meme"],
+  "order": [1, 2, 3, 4],
+  "stroke": ["fly", "back", "breast", "free"],
+  "color": ["red", "blue", "green", "yellow"],
+}
+
+function chooseCategoryLabels(numCats) {
+  return Object.keys(allCategories).slice(0,numCats); // todo make this get random cats
+}
+
+function generateSolutionN(categories) {
+  let solutions = []
+  for (let solutionIndex = 0; solutionIndex < categories.length; solutionIndex++) {
+    let solution = []
+    for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
+      solution = [...solution, categories[categoryIndex][solutionIndex]] // todo randomize solution
+    }
+    solutions = [...solutions, solution]
+  }
+
+  return solutions
+}
 
 function generateSolution(categories) {
-  // todo randomize later
-  let solution = categories.map((i, index) => [
-    categories[0][index],
-    categories[1][index],
-    categories[2][index],
-    categories[3][index],
-  ]);
+  let solution = generateSolutionN(categories);
 
   const numCats = categories.length;
   let solutionMatrix = {};
@@ -46,7 +58,6 @@ function generateSolution(categories) {
       };
     }
   }
-  console.log(JSON.stringify(solutionMatrix))
   return solutionMatrix
 }
 
@@ -72,13 +83,12 @@ function buildDerivedMatrix(categories) {
   return derivedMatrix
 }
 
-function generatePuzzle(categories) {
+function generatePuzzle(numCats) {
+  const categoryLabels = chooseCategoryLabels(numCats);
+  const categories = categoryLabels.map(label => allCategories[label]);
   const solutionMatrix = generateSolution(categories);
   const derivedMatrix = buildDerivedMatrix(categories);
 
-  console.log('******')
-  console.log(JSON.stringify(solutionMatrix))
-  console.log('******')
   let clues = [];
   let puzzleIsSolved = false;
   let clue;
@@ -86,6 +96,7 @@ function generatePuzzle(categories) {
   let count = 0;
 
   while (!puzzleIsSolved && count < 100) {
+    console.log(count)
     count++;
     //todo this works, but as the puzzle gets more solved, it is less likely that a random clue is helpful
     // maybe adding more clue types will help
@@ -100,4 +111,4 @@ function generatePuzzle(categories) {
   console.log(clues.map((clue) => clue.writtenClue).join("\n"));
 }
 
-generatePuzzle(categories);
+generatePuzzle(4);

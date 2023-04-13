@@ -35,7 +35,7 @@ export function getOrClue(solutionMatrix) {
       if (colIndex === colIndexTrue || colIndex === colIndexFalse) {
         continue
       }
-      newDerivedMatrix = setToFalse(newDerivedMatrix, solutionKey, rowIndex, colIndex);
+      newDerivedMatrix = setToFalse(newDerivedMatrix, rowItem, colLabels[colIndex]);
     }
     return newDerivedMatrix;
   }

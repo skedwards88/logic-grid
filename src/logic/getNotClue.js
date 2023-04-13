@@ -24,7 +24,7 @@ export function getNotClue(solutionMatrix) {
 
   function clueLogic(derivedMatrix) {
 
-    let newDerivedMatrix = setToFalse(derivedMatrix, solutionKey, rowIndex, colIndex); // todo add test to ensure that settofalse does not modify the input matrix
+    let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
 
     return newDerivedMatrix;
   }
