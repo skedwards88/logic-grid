@@ -52,7 +52,9 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-function propagateValue(matrix, itemA, itemB, value) {
+function propagateValue(matrix, items, value) {
+  const [itemA, itemB] = items;
+
   if (value === true) {
     return setToTrue(matrix, itemA, itemB);
   } else if (value === false) {
@@ -87,8 +89,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
       ) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
-          derivedMatrix[key].colLabels[colIndex],
-          itemB,
+          [derivedMatrix[key].colLabels[colIndex], itemB],
           derivedMatrix[key].grid[rowIndex][colIndex]
         );
       }
@@ -105,8 +106,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
       ) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
-          derivedMatrix[key].colLabels[colIndex],
-          itemA,
+          [derivedMatrix[key].colLabels[colIndex], itemA],
           derivedMatrix[key].grid[rowIndex][colIndex]
         );
       }
@@ -123,8 +123,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
       ) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
-          derivedMatrix[key].rowLabels[rowIndex],
-          itemB,
+          [derivedMatrix[key].rowLabels[rowIndex], itemB],
           derivedMatrix[key].grid[rowIndex][colIndex]
         );
       }
@@ -141,8 +140,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
       ) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
-          derivedMatrix[key].rowLabels[rowIndex],
-          itemA,
+          [derivedMatrix[key].rowLabels[rowIndex], itemA],
           derivedMatrix[key].grid[rowIndex][colIndex]
         );
       }
