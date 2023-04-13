@@ -82,7 +82,6 @@
 // const itemB = "red";
 // const solutionKey = findMatrixKey(solutionMatrix, itemA, itemB);
 
-
 // const rowIndex = solutionMatrix[solutionKey].rowLabels.indexOf(itemA) > -1
 // ? solutionMatrix[solutionKey].rowLabels.indexOf(itemA)
 // : solutionMatrix[solutionKey].rowLabels.indexOf(itemB);
@@ -96,14 +95,11 @@
 
 // console.log(colIndex)
 
-
 // {"0v1":{"rowLabels":["Colin","Sarah","Fefe","Meme"],"colLabels":[1,2,3,4],"grid":[[null,false,false,false],[false,null,false,false],[false,false,null,false],[false,false,false,null]]},"0v2":{"rowLabels":["Colin","Sarah","Fefe","Meme"],"colLabels":["fly","back","breast","free"],"grid":[[null,false,false,false],[false,null,false,false],[false,false,null,false],[false,false,false,null]]},"0v3":{"rowLabels":["Colin","Sarah","Fefe","Meme"],"colLabels":["red","blue","green","yellow"],"grid":[[null,false,false,false],[false,null,false,false],[false,false,null,false],[false,false,false,null]]},"1v2":{"rowLabels":[1,2,3,4],"colLabels":["fly","back","breast","free"],"grid":[[null,false,false,false],[false,null,false,false],[false,false,null,false],[false,false,false,null]]},"1v3":{"rowLabels":[1,2,3,4],"colLabels":["red","blue","green","yellow"],"grid":[[null,false,false,false],[false,null,false,false],[false,false,null,false],[false,false,false,n^C
-
 
 //   {"0v1":{,,"grid":[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]]},"0v2":{"grid":[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]]},"0v3":{"grid":[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]]},"1v2":{"grid":[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]]},"1v3":{"grid":[[null,null,null,null],[null,null,null,null],[null,null,null,null],[null,null,null,null]]},"2v3":{"grid":[[null,null,false,false],[null,null,null,null],[null,null,null,null],[null,null,null,null]]}}
 
-
-const colLabels = ['a','b']
+const colLabels = ["a", "b"];
 for (let index = 0; index < colLabels.length; index++) {
-  console.log(colLabels[index])
+  console.log(colLabels[index]);
 }

@@ -1,19 +1,21 @@
 import { findMatrixKey } from "./findMatrixKey.js";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
-  console.log(`'set true' ${itemA} ${itemB}`)
+  console.log(`'set true' ${itemA} ${itemB}`);
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
-  const rowIndex = derivedMatrix[solutionKey].rowLabels.indexOf(itemA) > -1
-    ? derivedMatrix[solutionKey].rowLabels.indexOf(itemA)
-    : derivedMatrix[solutionKey].rowLabels.indexOf(itemB);
-  const colIndex = derivedMatrix[solutionKey].colLabels.indexOf(itemA) > -1
-    ? derivedMatrix[solutionKey].colLabels.indexOf(itemA)
-    : derivedMatrix[solutionKey].colLabels.indexOf(itemB);
+  const rowIndex =
+    derivedMatrix[solutionKey].rowLabels.indexOf(itemA) > -1
+      ? derivedMatrix[solutionKey].rowLabels.indexOf(itemA)
+      : derivedMatrix[solutionKey].rowLabels.indexOf(itemB);
+  const colIndex =
+    derivedMatrix[solutionKey].colLabels.indexOf(itemA) > -1
+      ? derivedMatrix[solutionKey].colLabels.indexOf(itemA)
+      : derivedMatrix[solutionKey].colLabels.indexOf(itemB);
 
   // if already true, return early
   if (derivedMatrix[solutionKey].grid[rowIndex][colIndex]) {
-    console.log('returning early')
+    console.log("returning early");
     return derivedMatrix;
   }
 
@@ -27,17 +29,25 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
       // skip for the position we just set to true
       continue;
     }
-    newDerivedMatrix = setToFalse(newDerivedMatrix, newDerivedMatrix[solutionKey].rowLabels[rowIndex], columnLabel)
+    newDerivedMatrix = setToFalse(
+      newDerivedMatrix,
+      newDerivedMatrix[solutionKey].rowLabels[rowIndex],
+      columnLabel
+    );
   }
   for (const rowLabel of newDerivedMatrix[solutionKey].rowLabels) {
     if (rowLabel === itemA || rowLabel === itemB) {
       // skip for the position we just set to true
       continue;
     }
-    newDerivedMatrix = setToFalse(newDerivedMatrix, rowLabel, newDerivedMatrix[solutionKey].colLabels[colIndex])
+    newDerivedMatrix = setToFalse(
+      newDerivedMatrix,
+      rowLabel,
+      newDerivedMatrix[solutionKey].colLabels[colIndex]
+    );
   }
 
-  newDerivedMatrix = deduceSecondOrderFromTrue(newDerivedMatrix, itemA, itemB )
+  newDerivedMatrix = deduceSecondOrderFromTrue(newDerivedMatrix, itemA, itemB);
 
   return newDerivedMatrix;
 }
@@ -62,75 +72,125 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
     if (derivedMatrix[key].rowLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
       if (derivedMatrix[key].colLabels.includes(itemB)) {
-        continue
+        continue;
       }
       const rowIndex = derivedMatrix[key].rowLabels.indexOf(itemA);
-      for (let colIndex = 0; colIndex < derivedMatrix[key].colLabels.length; colIndex++) {
+      for (
+        let colIndex = 0;
+        colIndex < derivedMatrix[key].colLabels.length;
+        colIndex++
+      ) {
         if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(newDerivedMatrix, itemB, derivedMatrix[key].colLabels[colIndex])
+          newDerivedMatrix = setToTrue(
+            newDerivedMatrix,
+            itemB,
+            derivedMatrix[key].colLabels[colIndex]
+          );
         } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(newDerivedMatrix, itemB, derivedMatrix[key].colLabels[colIndex])
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            itemB,
+            derivedMatrix[key].colLabels[colIndex]
+          );
         }
       }
     } else if (derivedMatrix[key].rowLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
       if (derivedMatrix[key].colLabels.includes(itemA)) {
-        continue
+        continue;
       }
       const rowIndex = derivedMatrix[key].rowLabels.indexOf(itemB);
-      for (let colIndex = 0; colIndex < derivedMatrix[key].colLabels.length; colIndex++) {
+      for (
+        let colIndex = 0;
+        colIndex < derivedMatrix[key].colLabels.length;
+        colIndex++
+      ) {
         if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(newDerivedMatrix, itemA, derivedMatrix[key].colLabels[colIndex])
+          newDerivedMatrix = setToTrue(
+            newDerivedMatrix,
+            itemA,
+            derivedMatrix[key].colLabels[colIndex]
+          );
         } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, derivedMatrix[key].colLabels[colIndex])
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            itemA,
+            derivedMatrix[key].colLabels[colIndex]
+          );
         }
       }
     } else if (derivedMatrix[key].colLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
       if (derivedMatrix[key].rowLabels.includes(itemB)) {
-        continue
+        continue;
       }
       const colIndex = derivedMatrix[key].colLabels.indexOf(itemA);
-      for (let rowIndex = 0; rowIndex < derivedMatrix[key].rowLabels.length; rowIndex++) {
+      for (
+        let rowIndex = 0;
+        rowIndex < derivedMatrix[key].rowLabels.length;
+        rowIndex++
+      ) {
         if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(newDerivedMatrix, itemB, derivedMatrix[key].rowLabels[rowIndex])
+          newDerivedMatrix = setToTrue(
+            newDerivedMatrix,
+            itemB,
+            derivedMatrix[key].rowLabels[rowIndex]
+          );
         } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(newDerivedMatrix, itemB, derivedMatrix[key].rowLabels[rowIndex])
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            itemB,
+            derivedMatrix[key].rowLabels[rowIndex]
+          );
         }
       }
     } else if (derivedMatrix[key].colLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
       if (derivedMatrix[key].rowLabels.includes(itemA)) {
-        continue
+        continue;
       }
       const colIndex = derivedMatrix[key].colLabels.indexOf(itemB);
-      for (let rowIndex = 0; rowIndex < derivedMatrix[key].rowLabels.length; rowIndex++) {
+      for (
+        let rowIndex = 0;
+        rowIndex < derivedMatrix[key].rowLabels.length;
+        rowIndex++
+      ) {
         if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(newDerivedMatrix, itemA, derivedMatrix[key].rowLabels[rowIndex])
+          newDerivedMatrix = setToTrue(
+            newDerivedMatrix,
+            itemA,
+            derivedMatrix[key].rowLabels[rowIndex]
+          );
         } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, derivedMatrix[key].rowLabels[rowIndex])
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            itemA,
+            derivedMatrix[key].rowLabels[rowIndex]
+          );
         }
       }
     }
   }
-  return newDerivedMatrix
+  return newDerivedMatrix;
 }
 
 export function setToFalse(derivedMatrix, itemA, itemB) {
-  console.log(`'set false' ${itemA} ${itemB}`)
+  console.log(`'set false' ${itemA} ${itemB}`);
 
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
-  const rowIndex = derivedMatrix[solutionKey].rowLabels.indexOf(itemA) > -1
-    ? derivedMatrix[solutionKey].rowLabels.indexOf(itemA)
-    : derivedMatrix[solutionKey].rowLabels.indexOf(itemB);
-  const colIndex = derivedMatrix[solutionKey].colLabels.indexOf(itemA) > -1
-    ? derivedMatrix[solutionKey].colLabels.indexOf(itemA)
-    : derivedMatrix[solutionKey].colLabels.indexOf(itemB);
+  const rowIndex =
+    derivedMatrix[solutionKey].rowLabels.indexOf(itemA) > -1
+      ? derivedMatrix[solutionKey].rowLabels.indexOf(itemA)
+      : derivedMatrix[solutionKey].rowLabels.indexOf(itemB);
+  const colIndex =
+    derivedMatrix[solutionKey].colLabels.indexOf(itemA) > -1
+      ? derivedMatrix[solutionKey].colLabels.indexOf(itemA)
+      : derivedMatrix[solutionKey].colLabels.indexOf(itemB);
 
   // if already false, return early
   if (derivedMatrix[solutionKey].grid[rowIndex][colIndex] === false) {
-    console.log('returning early')
+    console.log("returning early");
     return derivedMatrix;
   }
 
@@ -146,9 +206,17 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   );
   if (nullIndexesInRow.length === 1) {
     if (newDerivedMatrix[solutionKey].grid[rowIndex].some((value) => value)) {
-      newDerivedMatrix = setToFalse(newDerivedMatrix, newDerivedMatrix[solutionKey].rowLabels[rowIndex], newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]);
+      newDerivedMatrix = setToFalse(
+        newDerivedMatrix,
+        newDerivedMatrix[solutionKey].rowLabels[rowIndex],
+        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]
+      );
     } else {
-      newDerivedMatrix = setToTrue(newDerivedMatrix, newDerivedMatrix[solutionKey].rowLabels[rowIndex], newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]);
+      newDerivedMatrix = setToTrue(
+        newDerivedMatrix,
+        newDerivedMatrix[solutionKey].rowLabels[rowIndex],
+        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]
+      );
     }
   }
 
@@ -160,11 +228,19 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   );
   if (nullIndexesInCol.length === 1) {
     if (newDerivedMatrix[solutionKey].grid.some((row) => row[colIndex])) {
-      newDerivedMatrix = setToFalse(newDerivedMatrix, newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]], newDerivedMatrix[solutionKey].colLabels[colIndex]);
+      newDerivedMatrix = setToFalse(
+        newDerivedMatrix,
+        newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]],
+        newDerivedMatrix[solutionKey].colLabels[colIndex]
+      );
     } else {
-      newDerivedMatrix = setToTrue(newDerivedMatrix, newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]], newDerivedMatrix[solutionKey].colLabels[colIndex]);
+      newDerivedMatrix = setToTrue(
+        newDerivedMatrix,
+        newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]],
+        newDerivedMatrix[solutionKey].colLabels[colIndex]
+      );
     }
   }
-  
+
   return newDerivedMatrix;
 }

@@ -137,7 +137,7 @@ describe("getNotClue", () => {
     const expectedClue = "fly is not blue";
     const clue = getNotClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
-    
+
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
@@ -434,11 +434,10 @@ describe("getNotClue", () => {
     expect(typeof clue.clueLogic).toBe("function");
   });
 
-  test('does not modify the solution matrix', () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix))
+  test("does not modify the solution matrix", () => {
+    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
     const clue = getNotClue(matrixCopy);
 
     expect(matrixCopy).toEqual(solutionMatrix);
-
   });
 });

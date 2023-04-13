@@ -3,27 +3,35 @@ import { getUsefulClue } from "./getUsefulClue.js";
 
 const allCategories = {
   // todo later add type, display name, checks to make sure that don't have cats that are too similar?
-  "firstName": ["Colin", "Sarah", "Fefe", "Meme"],
-  "order": [1, 2, 3, 4],
-  "stroke": ["fly", "back", "breast", "free"],
-  "color": ["red", "blue", "green", "yellow"],
-}
+  firstName: ["Colin", "Sarah", "Fefe", "Meme"],
+  order: [1, 2, 3, 4],
+  stroke: ["fly", "back", "breast", "free"],
+  color: ["red", "blue", "green", "yellow"],
+};
 
 function chooseCategoryLabels(numCats) {
-  return Object.keys(allCategories).slice(0,numCats); // todo make this get random cats
+  return Object.keys(allCategories).slice(0, numCats); // todo make this get random cats
 }
 
 function generateSolutionN(categories) {
-  let solutions = []
-  for (let solutionIndex = 0; solutionIndex < categories.length; solutionIndex++) {
-    let solution = []
-    for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-      solution = [...solution, categories[categoryIndex][solutionIndex]] // todo randomize solution
+  let solutions = [];
+  for (
+    let solutionIndex = 0;
+    solutionIndex < categories.length;
+    solutionIndex++
+  ) {
+    let solution = [];
+    for (
+      let categoryIndex = 0;
+      categoryIndex < categories.length;
+      categoryIndex++
+    ) {
+      solution = [...solution, categories[categoryIndex][solutionIndex]]; // todo randomize solution
     }
-    solutions = [...solutions, solution]
+    solutions = [...solutions, solution];
   }
 
-  return solutions
+  return solutions;
 }
 
 function generateSolution(categories) {
@@ -34,21 +42,26 @@ function generateSolution(categories) {
 
   for (let catIndex = 0; catIndex < numCats; catIndex++) {
     for (let vsIndex = catIndex + 1; vsIndex < numCats; vsIndex++) {
-
       const rowLabels = categories[catIndex];
       const colLabels = categories[vsIndex];
 
-      let grid = []
+      let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
-        let row = []
+        let row = [];
         for (let colIndex = 0; colIndex < colLabels.length; colIndex++) {
-          if (solution.some((solutionEntry) => solutionEntry.includes(rowLabels[rowIndex]) && solutionEntry.includes(colLabels[colIndex]))) {
-            row = [...row, true]
+          if (
+            solution.some(
+              (solutionEntry) =>
+                solutionEntry.includes(rowLabels[rowIndex]) &&
+                solutionEntry.includes(colLabels[colIndex])
+            )
+          ) {
+            row = [...row, true];
           } else {
-            row = [...row, false]
+            row = [...row, false];
           }
         }
-        grid = [...grid, row]
+        grid = [...grid, row];
       }
 
       solutionMatrix[`${catIndex}v${vsIndex}`] = {
@@ -58,7 +71,7 @@ function generateSolution(categories) {
       };
     }
   }
-  return solutionMatrix
+  return solutionMatrix;
 }
 
 function buildDerivedMatrix(categories) {
@@ -80,12 +93,12 @@ function buildDerivedMatrix(categories) {
       };
     }
   }
-  return derivedMatrix
+  return derivedMatrix;
 }
 
 function generatePuzzle(numCats) {
   const categoryLabels = chooseCategoryLabels(numCats);
-  const categories = categoryLabels.map(label => allCategories[label]);
+  const categories = categoryLabels.map((label) => allCategories[label]);
   const solutionMatrix = generateSolution(categories);
   const derivedMatrix = buildDerivedMatrix(categories);
 
@@ -96,12 +109,15 @@ function generatePuzzle(numCats) {
   let count = 0;
 
   while (!puzzleIsSolved && count < 100) {
-    console.log(count)
+    console.log(count);
     count++;
     //todo this works, but as the puzzle gets more solved, it is less likely that a random clue is helpful
     // maybe adding more clue types will help
     // but may also need to make the code smarter to have a more targeted search
-    ({ clue, newDerivedMatrix } = getUsefulClue(solutionMatrix, newDerivedMatrix));
+    ({ clue, newDerivedMatrix } = getUsefulClue(
+      solutionMatrix,
+      newDerivedMatrix
+    ));
     clues = [...clues, clue];
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }

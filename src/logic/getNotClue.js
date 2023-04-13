@@ -15,15 +15,16 @@ export function getNotClue(solutionMatrix) {
   const rowItem = rowLabels[rowIndex];
 
   // choose any of the falses from that row
-  const falseIndexes = grid[rowIndex].map((value, index) => value ? null : index).filter(index => index !== null);
+  const falseIndexes = grid[rowIndex]
+    .map((value, index) => (value ? null : index))
+    .filter((index) => index !== null);
   const colIndex = pickRandom(falseIndexes);
 
   const colItem = colLabels[colIndex];
 
-  const writtenClue = `${rowItem} is not ${colItem}`;//todo can randomize order
+  const writtenClue = `${rowItem} is not ${colItem}`; //todo can randomize order
 
   function clueLogic(derivedMatrix) {
-
     let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
 
     return newDerivedMatrix;

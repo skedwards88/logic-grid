@@ -1,4 +1,4 @@
-import { findMatrixKey } from "./findMatrixKey.js"
+import { findMatrixKey } from "./findMatrixKey.js";
 
 const matrix = {
   "0v1": {
@@ -71,14 +71,16 @@ expect.extend({
 
     if (item1Found && !item2Found) {
       return {
-        message: () => `expected array to include only one of ${item1} or ${item2}`,
+        message: () =>
+          `expected array to include only one of ${item1} or ${item2}`,
         pass: true,
       };
     }
 
     if (!item1Found && item2Found) {
       return {
-        message: () => `expected array to include only one of ${item1} or ${item2}`,
+        message: () =>
+          `expected array to include only one of ${item1} or ${item2}`,
         pass: true,
       };
     }
@@ -86,33 +88,31 @@ expect.extend({
     return {
       message: () =>
         `expected array to include only one of ${item1} or ${item2}, but found ${
-          item1Found ? item1 : ''
-        } ${item2Found ? item2 : ''}`,
+          item1Found ? item1 : ""
+        } ${item2Found ? item2 : ""}`,
       pass: false,
     };
   },
 });
 
-
-describe('findMatrixKey', () => {
-  test('finds the matrix entry that corresponds to the intersection of two items', () => {
-    const foundKey = findMatrixKey(matrix, "Sarah", "green")
+describe("findMatrixKey", () => {
+  test("finds the matrix entry that corresponds to the intersection of two items", () => {
+    const foundKey = findMatrixKey(matrix, "Sarah", "green");
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].rowLabels).toIncludeOneOf("Sarah", "green")
-    expect(matrix[foundKey].colLabels).toIncludeOneOf("Sarah", "green")
+    expect(matrix[foundKey].rowLabels).toIncludeOneOf("Sarah", "green");
+    expect(matrix[foundKey].colLabels).toIncludeOneOf("Sarah", "green");
   });
-  
-  test('finds the matrix entry that corresponds to the intersection of two items (opposite order)', () => {
-    const foundKey = findMatrixKey(matrix, "green", "Sarah")
+
+  test("finds the matrix entry that corresponds to the intersection of two items (opposite order)", () => {
+    const foundKey = findMatrixKey(matrix, "green", "Sarah");
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].rowLabels).toIncludeOneOf("green", "Sarah")
-    expect(matrix[foundKey].colLabels).toIncludeOneOf("green", "Sarah")
-  });
-  
-  test('throws an error if the key is not foound', () => {
-    expect(() => findMatrixKey(matrix, "dog", "Sarah")).toThrow("Did not find matrix entry corresponding to dog vs Sarah");
+    expect(matrix[foundKey].rowLabels).toIncludeOneOf("green", "Sarah");
+    expect(matrix[foundKey].colLabels).toIncludeOneOf("green", "Sarah");
   });
 
-
-
+  test("throws an error if the key is not foound", () => {
+    expect(() => findMatrixKey(matrix, "dog", "Sarah")).toThrow(
+      "Did not find matrix entry corresponding to dog vs Sarah"
+    );
+  });
 });

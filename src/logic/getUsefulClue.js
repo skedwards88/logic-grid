@@ -7,7 +7,7 @@ export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let clue;
   let newDerivedMatrix;
 
-  const clueFunctions = [getNotClue, getOrClue] // todo add more clues to here as build
+  const clueFunctions = [getNotClue, getOrClue]; // todo add more clues to here as build
 
   while (!foundUsefulClue) {
     // get a clue

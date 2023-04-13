@@ -1,8 +1,7 @@
 import { puzzleSolvedQ } from "./puzzleSolvedQ.js";
 
-
-describe('puzzleSolvedQ', () => {
-  test('returns true when all items in all grids are not null', () => {
+describe("puzzleSolvedQ", () => {
+  test("returns true when all items in all grids are not null", () => {
     const derivedMatrix = {
       1: {
         grid: [
@@ -22,7 +21,7 @@ describe('puzzleSolvedQ', () => {
     expect(puzzleSolvedQ(derivedMatrix)).toBe(true);
   });
 
-  test('returns false when at least one item in any grid is null', () => {
+  test("returns false when at least one item in any grid is null", () => {
     const derivedMatrix = {
       1: {
         grid: [

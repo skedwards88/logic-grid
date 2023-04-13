@@ -20,7 +20,9 @@ export function getOrClue(solutionMatrix) {
   const colItemTrue = colLabels[colIndexTrue];
 
   // choose any of the falses from that row
-  const falseIndexes = grid[rowIndex].map((value, index) => value ? null : index).filter(index => index !== null);
+  const falseIndexes = grid[rowIndex]
+    .map((value, index) => (value ? null : index))
+    .filter((index) => index !== null);
   const colIndexFalse = pickRandom(falseIndexes);
   const colItemFalse = colLabels[colIndexFalse];
 
@@ -33,9 +35,13 @@ export function getOrClue(solutionMatrix) {
     let newDerivedMatrix = derivedMatrix;
     for (let colIndex = 0; colIndex < colLabels.length; colIndex++) {
       if (colIndex === colIndexTrue || colIndex === colIndexFalse) {
-        continue
+        continue;
       }
-      newDerivedMatrix = setToFalse(newDerivedMatrix, rowItem, colLabels[colIndex]);
+      newDerivedMatrix = setToFalse(
+        newDerivedMatrix,
+        rowItem,
+        colLabels[colIndex]
+      );
     }
     return newDerivedMatrix;
   }
