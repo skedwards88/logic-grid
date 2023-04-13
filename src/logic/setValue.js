@@ -52,21 +52,26 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+function propagateValue(matrix, itemA, itemB, value) {
+  if (value === true) {
+    return setToTrue(matrix, itemA, itemB)
+  } else if (value === false) {
+    return setToFalse(matrix, itemA, itemB)
+  } else {
+    return matrix
+  }
+}
 
+export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
   // When set an index to true (e.g. red fly)
   // check for other things that you know about that row and col (e.g. fly is colin)
   // if 'red is fly' and 'colin is fly', then 'red is colin'
 
-  // todo call this func when settotrue
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
 
   // For every grid in the matrix
-  // check if the grid row/col labels include the ones we just set to true
-  // if yes, check if any items in the row/col are true
-  // if yes, set to true the non-shared item
-  // e.g. if know red+fly and colin+fly, then colin+red
-  // need to find the entry that corresponds to colin+red
+  // check if the grid row/col labels include one of the ones we just set to true
+  // if yes, propagate the knowledge from that row/col to the other value that we just set to true
 
   for (const key in derivedMatrix) {
     if (derivedMatrix[key].rowLabels.includes(itemA)) {
@@ -80,19 +85,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         colIndex < derivedMatrix[key].colLabels.length;
         colIndex++
       ) {
-        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(
-            newDerivedMatrix,
-            itemB,
-            derivedMatrix[key].colLabels[colIndex]
-          );
-        } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            itemB,
-            derivedMatrix[key].colLabels[colIndex]
-          );
-        }
+        newDerivedMatrix = propagateValue(newDerivedMatrix, derivedMatrix[key].colLabels[colIndex], itemB, derivedMatrix[key].grid[rowIndex][colIndex])
       }
     } else if (derivedMatrix[key].rowLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
@@ -105,19 +98,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         colIndex < derivedMatrix[key].colLabels.length;
         colIndex++
       ) {
-        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(
-            newDerivedMatrix,
-            itemA,
-            derivedMatrix[key].colLabels[colIndex]
-          );
-        } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            itemA,
-            derivedMatrix[key].colLabels[colIndex]
-          );
-        }
+        newDerivedMatrix = propagateValue(newDerivedMatrix, derivedMatrix[key].colLabels[colIndex], itemA, derivedMatrix[key].grid[rowIndex][colIndex])
       }
     } else if (derivedMatrix[key].colLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -130,19 +111,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         rowIndex < derivedMatrix[key].rowLabels.length;
         rowIndex++
       ) {
-        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(
-            newDerivedMatrix,
-            itemB,
-            derivedMatrix[key].rowLabels[rowIndex]
-          );
-        } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            itemB,
-            derivedMatrix[key].rowLabels[rowIndex]
-          );
-        }
+        newDerivedMatrix = propagateValue(newDerivedMatrix, derivedMatrix[key].rowLabels[rowIndex], itemB, derivedMatrix[key].grid[rowIndex][colIndex])
       }
     } else if (derivedMatrix[key].colLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
@@ -155,19 +124,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         rowIndex < derivedMatrix[key].rowLabels.length;
         rowIndex++
       ) {
-        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
-          newDerivedMatrix = setToTrue(
-            newDerivedMatrix,
-            itemA,
-            derivedMatrix[key].rowLabels[rowIndex]
-          );
-        } else if (derivedMatrix[key].grid[rowIndex][colIndex] === false) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            itemA,
-            derivedMatrix[key].rowLabels[rowIndex]
-          );
-        }
+        newDerivedMatrix = propagateValue(newDerivedMatrix, derivedMatrix[key].rowLabels[rowIndex], itemA, derivedMatrix[key].grid[rowIndex][colIndex])
       }
     }
   }
