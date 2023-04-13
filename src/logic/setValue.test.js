@@ -919,7 +919,11 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(inputMatrix, "Colin", "dog");
+    const outputMatrix = deduceSecondOrderFromFalse(
+      inputMatrix,
+      "Colin",
+      "dog"
+    );
     expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
     expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
     expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
@@ -963,7 +967,11 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(inputMatrix, "dog", "Colin");
+    const outputMatrix = deduceSecondOrderFromFalse(
+      inputMatrix,
+      "dog",
+      "Colin"
+    );
     expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
     expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
     expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
@@ -1089,7 +1097,11 @@ describe("deduceSecondOrderFromFalse", () => {
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "green", "mouse");
+    const outputMatrix = deduceSecondOrderFromTrue(
+      inputMatrix,
+      "green",
+      "mouse"
+    );
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
@@ -1124,7 +1136,11 @@ describe("deduceSecondOrderFromFalse", () => {
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "mouse", "green");
+    const outputMatrix = deduceSecondOrderFromTrue(
+      inputMatrix,
+      "mouse",
+      "green"
+    );
     expect(outputMatrix).toEqual(inputMatrix);
   });
 });
