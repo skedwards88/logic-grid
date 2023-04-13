@@ -64,6 +64,101 @@ function propagateValue(matrix, items, value) {
   }
 }
 
+export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
+  // When you set an index to false
+  // Check if you know a truth about either item
+  // if so,
+  // e.g. if you set 'dog vs red' to 'false' and you know 'dog vs Colin' is true,
+  // then you know 'Colin vs red' is false as well
+
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+
+  for (const key in derivedMatrix) {
+    if (derivedMatrix[key].rowLabels.includes(itemA)) {
+      // return early if this is the key that includes A and B
+      if (derivedMatrix[key].colLabels.includes(itemB)) {
+        continue;
+      }
+      const rowIndex = derivedMatrix[key].rowLabels.indexOf(itemA);
+      for (
+        let colIndex = 0;
+        colIndex < derivedMatrix[key].colLabels.length;
+        colIndex++
+      ) {
+        // if the value is true, propagate the false
+        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            derivedMatrix[key].colLabels[colIndex],
+            itemB
+          );
+        }
+      }
+    } else if (derivedMatrix[key].rowLabels.includes(itemB)) {
+      // return early if this is the key that includes A and B
+      if (derivedMatrix[key].colLabels.includes(itemA)) {
+        continue;
+      }
+      const rowIndex = derivedMatrix[key].rowLabels.indexOf(itemB);
+      for (
+        let colIndex = 0;
+        colIndex < derivedMatrix[key].colLabels.length;
+        colIndex++
+      ) {
+        // if the value is true, propagate the false
+        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            derivedMatrix[key].colLabels[colIndex],
+            itemA
+          );
+        }
+      }
+    } else if (derivedMatrix[key].colLabels.includes(itemA)) {
+      // return early if this is the key that includes A and B
+      if (derivedMatrix[key].rowLabels.includes(itemB)) {
+        continue;
+      }
+      const colIndex = derivedMatrix[key].colLabels.indexOf(itemA);
+      for (
+        let rowIndex = 0;
+        rowIndex < derivedMatrix[key].rowLabels.length;
+        rowIndex++
+      ) {
+        // if the value is true, propagate the false
+        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            derivedMatrix[key].rowLabels[rowIndex],
+            itemB
+          );
+        }
+      }
+    } else if (derivedMatrix[key].colLabels.includes(itemB)) {
+      // return early if this is the key that includes A and B
+      if (derivedMatrix[key].rowLabels.includes(itemA)) {
+        continue;
+      }
+      const colIndex = derivedMatrix[key].colLabels.indexOf(itemB);
+      for (
+        let rowIndex = 0;
+        rowIndex < derivedMatrix[key].rowLabels.length;
+        rowIndex++
+      ) {
+        // if the value is true, propagate the false
+        if (derivedMatrix[key].grid[rowIndex][colIndex]) {
+          newDerivedMatrix = setToFalse(
+            newDerivedMatrix,
+            derivedMatrix[key].rowLabels[rowIndex],
+            itemA
+          );
+        }
+      }
+    }
+  }
+  return newDerivedMatrix;
+}
+
 export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
   // When set an index to true (e.g. red fly)
   // check for other things that you know about that row and col (e.g. fly is colin)
@@ -216,6 +311,8 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
       );
     }
   }
+
+  newDerivedMatrix = deduceSecondOrderFromFalse(newDerivedMatrix, itemA, itemB);
 
   return newDerivedMatrix;
 }
