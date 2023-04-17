@@ -1,5 +1,6 @@
 import { getOrClue } from "./getOrClue.js";
 import { getNotClue } from "./getNotClue.js";
+import { getNumericComparisonClue } from "./getNumericComparisonClue.js";
 import { pickRandom } from "./pickRandom.js";
 
 export function getUsefulClue(solutionMatrix, derivedMatrix) {
@@ -7,7 +8,7 @@ export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let clue;
   let newDerivedMatrix;
 
-  const clueFunctions = [getNotClue, getOrClue]; // todo add more clues to here as build
+  const clueFunctions = [getNotClue, getOrClue, getNumericComparisonClue]; // todo add more clues to here as build
 
   while (!foundUsefulClue) {
     // get a clue

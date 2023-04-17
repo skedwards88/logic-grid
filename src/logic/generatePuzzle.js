@@ -118,7 +118,7 @@ function generatePuzzle(numCats) {
       solutionMatrix,
       newDerivedMatrix
     ));
-    clues = [...clues, clue];
+    clues = [...clues, clue];//todo need to reapply clues after each round
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
