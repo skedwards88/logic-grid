@@ -110,7 +110,7 @@ describe("findMatrixKey", () => {
     expect(matrix[foundKey].colLabels).toIncludeOneOf("green", "Sarah");
   });
 
-  test("throws an error if the key is not foound", () => {
+  test("throws an error if the key is not found", () => {
     expect(() => findMatrixKey(matrix, "dog", "Sarah")).toThrow(
       "Did not find matrix entry corresponding to dog vs Sarah"
     );
