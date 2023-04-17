@@ -1,4 +1,7 @@
-import { getFirstPossibleIndex, getLastPossibleIndex } from "./getPossibleIndex.js";
+import {
+  getFirstPossibleIndex,
+  getLastPossibleIndex,
+} from "./getPossibleIndex.js";
 
 const matrix = {
   "0v1": {
@@ -16,7 +19,7 @@ const matrix = {
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, true, false, null], // true before null
-      [false, true, false, false],// true, no null
+      [false, true, false, false], // true, no null
       [false, null, true, false], // null before true
       [false, false, false, true],
     ],
@@ -30,25 +33,42 @@ const matrix = {
       [false, false, null, false],
       [false, false, null, true],
     ],
-  }
+  },
 };
-
 
 describe("getFirstPossibleIndex", () => {
   test("returns the index of the first true or null (case where there is a true and no null)", () => {
-    expect(getFirstPossibleIndex(matrix, "Sarah", ["red", "blue", "green", "yellow"])).toEqual(1);
+    expect(
+      getFirstPossibleIndex(matrix, "Sarah", [
+        "red",
+        "blue",
+        "green",
+        "yellow",
+      ]),
+    ).toEqual(1);
   });
 
   test("returns the index of the first true or null (case where there is a null and no true)", () => {
-    expect(getFirstPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"])).toEqual(2);
+    expect(
+      getFirstPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
+    ).toEqual(2);
   });
-  
+
   test("returns the index of the first true or null (case where there is null before a true)", () => {
-    expect(getFirstPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"])).toEqual(1);
+    expect(
+      getFirstPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
+    ).toEqual(1);
   });
 
   test("returns the index of the first true or null (case where there is true before a null)", () => {
-    expect(getFirstPossibleIndex(matrix, "Colin", ["red", "blue", "green", "yellow"])).toEqual(1);
+    expect(
+      getFirstPossibleIndex(matrix, "Colin", [
+        "red",
+        "blue",
+        "green",
+        "yellow",
+      ]),
+    ).toEqual(1);
   });
 
   test("returns the index of the first true or null (swap col and row input)", () => {
@@ -59,24 +79,31 @@ describe("getFirstPossibleIndex", () => {
     expect(getFirstPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(0);
     expect(getFirstPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(0);
   });
-
 });
 
 describe("getLastPossibleIndex", () => {
   test("returns the index of the last true or null (case where there is a true and no null)", () => {
-    expect(getLastPossibleIndex(matrix, "Sarah", ["red", "blue", "green", "yellow"])).toEqual(1);
+    expect(
+      getLastPossibleIndex(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
+    ).toEqual(1);
   });
 
   test("returns the index of the last true or null (case where there is a null and no true)", () => {
-    expect(getLastPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"])).toEqual(2);
+    expect(
+      getLastPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
+    ).toEqual(2);
   });
-  
+
   test("returns the index of the last true or null (case where there is null before a true)", () => {
-    expect(getLastPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"])).toEqual(2);
+    expect(
+      getLastPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
+    ).toEqual(2);
   });
 
   test("returns the index of the last true or null (case where there is true before a null)", () => {
-    expect(getLastPossibleIndex(matrix, "Colin", ["red", "blue", "green", "yellow"])).toEqual(3);
+    expect(
+      getLastPossibleIndex(matrix, "Colin", ["red", "blue", "green", "yellow"]),
+    ).toEqual(3);
   });
 
   test("returns the index of the last true or null (swap col and row input)", () => {
@@ -87,5 +114,4 @@ describe("getLastPossibleIndex", () => {
     expect(getLastPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(3);
     expect(getLastPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(3);
   });
-
 });

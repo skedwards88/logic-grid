@@ -14,6 +14,6 @@ export function findMatrixKey(matrix, itemA, itemB) {
     }
   }
   throw new Error(
-    `Did not find matrix entry corresponding to ${itemA} vs ${itemB}`
+    `Did not find matrix entry corresponding to ${itemA} vs ${itemB}`,
   );
 }

@@ -1,4 +1,4 @@
-import { pickRandom, pickRandomIndex } from "./pickRandom";
+import {pickRandom, pickRandomIndex} from "./pickRandom";
 
 describe("pickRandom", () => {
   test("returns a random element from the input array", () => {
@@ -11,7 +11,7 @@ describe("pickRandom", () => {
     const inputArray = ["act", "bat", "cat", "dog", "fish"];
     const numIterations = 100000;
     const expectedDistribution = inputArray.map(
-      () => numIterations / inputArray.length
+      () => numIterations / inputArray.length,
     );
     const observedDistribution = inputArray.map(() => 0);
     for (let i = 0; i < numIterations; i++) {
@@ -39,7 +39,7 @@ describe("pickRandomIndex", () => {
     const inputArray = [1, 2, 3, 4, 5];
     const numIterations = 100000;
     const expectedDistribution = inputArray.map(
-      () => numIterations / inputArray.length
+      () => numIterations / inputArray.length,
     );
     const observedDistribution = inputArray.map(() => 0);
     for (let i = 0; i < numIterations; i++) {

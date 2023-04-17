@@ -1,7 +1,7 @@
-import { getOrClue } from "./getOrClue.js";
-import { getNotClue } from "./getNotClue.js";
-import { getNumericComparisonClue } from "./getNumericComparisonClue.js";
-import { pickRandom } from "./pickRandom.js";
+import {getOrClue} from "./getOrClue.js";
+import {getNotClue} from "./getNotClue.js";
+import {getNumericComparisonClue} from "./getNumericComparisonClue.js";
+import {pickRandom} from "./pickRandom.js";
 
 export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let foundUsefulClue = false;

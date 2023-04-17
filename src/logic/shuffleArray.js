@@ -10,7 +10,10 @@ export function shuffleArray(array) {
 
     // set the value at the index to be the value at the swap index,
     // and set the value at the swap index to be the original value at the index
-    [shuffledArray[index], shuffledArray[swapIndex]] = [shuffledArray[swapIndex], shuffledArray[index]];
+    [shuffledArray[index], shuffledArray[swapIndex]] = [
+      shuffledArray[swapIndex],
+      shuffledArray[index],
+    ];
   }
   return shuffledArray;
 }

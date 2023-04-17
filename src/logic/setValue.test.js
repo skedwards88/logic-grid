@@ -922,7 +922,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const outputMatrix = deduceSecondOrderFromFalse(
       inputMatrix,
       "Colin",
-      "dog"
+      "dog",
     );
     expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
     expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
@@ -970,7 +970,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const outputMatrix = deduceSecondOrderFromFalse(
       inputMatrix,
       "dog",
-      "Colin"
+      "Colin",
     );
     expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
     expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
@@ -1100,7 +1100,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,
       "green",
-      "mouse"
+      "mouse",
     );
     expect(outputMatrix).toEqual(inputMatrix);
   });
@@ -1139,7 +1139,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,
       "mouse",
-      "green"
+      "green",
     );
     expect(outputMatrix).toEqual(inputMatrix);
   });

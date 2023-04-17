@@ -1,7 +1,10 @@
 import {pickRandom} from "./pickRandom.js";
 import {shuffleArray} from "./shuffleArray.js";
-import { getFirstPossibleIndex, getLastPossibleIndex } from "./getPossibleIndex.js"
-import { setToFalse } from "./setValue.js";
+import {
+  getFirstPossibleIndex,
+  getLastPossibleIndex,
+} from "./getPossibleIndex.js";
+import {setToFalse} from "./setValue.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
@@ -56,7 +59,9 @@ export function getNumericComparisonClue(solutionMatrix) {
         .indexOf(itemAIndex)
     : solutionMatrix[selectedKey].grid[itemAIndex].indexOf(true);
   const itemANumericValue = numericLabels[itemANumericIndex];
-  console.log(`numericIsRows ${numericIsRows}. numericLabels ${numericLabels}. itemANumericIndex ${itemANumericIndex}`)
+  console.log(
+    `numericIsRows ${numericIsRows}. numericLabels ${numericLabels}. itemANumericIndex ${itemANumericIndex}`,
+  );
   const itemBNumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
         .map((row) => row.indexOf(true))
@@ -68,7 +73,6 @@ export function getNumericComparisonClue(solutionMatrix) {
     itemANumericValue < itemBNumericValue ? "less than" : "greater than"
   } ${itemB}`;
 
-  
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;
 
@@ -78,22 +82,47 @@ export function getNumericComparisonClue(solutionMatrix) {
 
     // todo this relies on labels being sorted by size
 
-    const [greaterItem, lesserItem] = itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
+    const [greaterItem, lesserItem] =
+      itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
     // Know that the larger item is at least 1 index higher than the lowest index (or the lowest index that the smaller item can be)
-    let lesserItemLowestPossibleIndex = getFirstPossibleIndex(derivedMatrix, lesserItem, numericLabels);
+    let lesserItemLowestPossibleIndex = getFirstPossibleIndex(
+      derivedMatrix,
+      lesserItem,
+      numericLabels,
+    );
     let greaterItemLowestPossibleIndex = lesserItemLowestPossibleIndex + 1;
-    for (let numericIndex = 0; numericIndex < greaterItemLowestPossibleIndex; numericIndex++) {
-      newDerivedMatrix= setToFalse(newDerivedMatrix, greaterItem, numericLabels[numericIndex])
+    for (
+      let numericIndex = 0;
+      numericIndex < greaterItemLowestPossibleIndex;
+      numericIndex++
+    ) {
+      newDerivedMatrix = setToFalse(
+        newDerivedMatrix,
+        greaterItem,
+        numericLabels[numericIndex],
+      );
     }
-   
+
     // Know that the larger item is at least 1 index higher than the lowest index (or the lowest index that the smaller item can be)
-    let greaterItemHighestPossibleIndex = getLastPossibleIndex(derivedMatrix, greaterItem, numericLabels);
+    let greaterItemHighestPossibleIndex = getLastPossibleIndex(
+      derivedMatrix,
+      greaterItem,
+      numericLabels,
+    );
     let lesserItemHighestPossibleIndex = greaterItemHighestPossibleIndex - 1;
-    for (let numericIndex = numericLabels.length - 1; numericIndex > lesserItemHighestPossibleIndex; numericIndex--) {
-      newDerivedMatrix = setToFalse(newDerivedMatrix, lesserItem, numericLabels[numericIndex])
+    for (
+      let numericIndex = numericLabels.length - 1;
+      numericIndex > lesserItemHighestPossibleIndex;
+      numericIndex--
+    ) {
+      newDerivedMatrix = setToFalse(
+        newDerivedMatrix,
+        lesserItem,
+        numericLabels[numericIndex],
+      );
     }
-    return newDerivedMatrix
+    return newDerivedMatrix;
   }
   console.log(writtenClue);
 
@@ -113,11 +142,22 @@ const m = {
       [null, false, null, null],
       [null, false, null, null],
     ],
-  }
+  },
 };
-const s = {"0v1":{"rowLabels":["Colin","Sarah","Fefe","Meme"],"colLabels":[11, 22, 33, 44],"grid":[[true,false,false,false],[false,true,false,false],[false,false,true,false],[false,false,false,true]]}};
+const s = {
+  "0v1": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: [11, 22, 33, 44],
+    grid: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  },
+};
 
 const o = getNumericComparisonClue(s);
 
-const nm = o.clueLogic(m)
-console.log(JSON.stringify(nm))
+const nm = o.clueLogic(m);
+console.log(JSON.stringify(nm));

@@ -1,4 +1,4 @@
-import { puzzleSolvedQ } from "./puzzleSolvedQ.js";
+import {puzzleSolvedQ} from "./puzzleSolvedQ.js";
 
 describe("puzzleSolvedQ", () => {
   test("returns true when all items in all grids are not null", () => {

@@ -1,4 +1,4 @@
-import { findMatrixKey } from "./findMatrixKey.js";
+import {findMatrixKey} from "./findMatrixKey.js";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
   console.log(`'set true' ${itemA} ${itemB}`);
@@ -32,7 +32,7 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
     newDerivedMatrix = setToFalse(
       newDerivedMatrix,
       newDerivedMatrix[solutionKey].rowLabels[rowIndex],
-      columnLabel
+      columnLabel,
     );
   }
   for (const rowLabel of newDerivedMatrix[solutionKey].rowLabels) {
@@ -43,7 +43,7 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
     newDerivedMatrix = setToFalse(
       newDerivedMatrix,
       rowLabel,
-      newDerivedMatrix[solutionKey].colLabels[colIndex]
+      newDerivedMatrix[solutionKey].colLabels[colIndex],
     );
   }
 
@@ -90,7 +90,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
           newDerivedMatrix = setToFalse(
             newDerivedMatrix,
             derivedMatrix[key].colLabels[colIndex],
-            itemB
+            itemB,
           );
         }
       }
@@ -110,7 +110,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
           newDerivedMatrix = setToFalse(
             newDerivedMatrix,
             derivedMatrix[key].colLabels[colIndex],
-            itemA
+            itemA,
           );
         }
       }
@@ -130,7 +130,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
           newDerivedMatrix = setToFalse(
             newDerivedMatrix,
             derivedMatrix[key].rowLabels[rowIndex],
-            itemB
+            itemB,
           );
         }
       }
@@ -150,7 +150,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
           newDerivedMatrix = setToFalse(
             newDerivedMatrix,
             derivedMatrix[key].rowLabels[rowIndex],
-            itemA
+            itemA,
           );
         }
       }
@@ -185,7 +185,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
           [derivedMatrix[key].colLabels[colIndex], itemB],
-          derivedMatrix[key].grid[rowIndex][colIndex]
+          derivedMatrix[key].grid[rowIndex][colIndex],
         );
       }
     } else if (derivedMatrix[key].rowLabels.includes(itemB)) {
@@ -202,7 +202,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
           [derivedMatrix[key].colLabels[colIndex], itemA],
-          derivedMatrix[key].grid[rowIndex][colIndex]
+          derivedMatrix[key].grid[rowIndex][colIndex],
         );
       }
     } else if (derivedMatrix[key].colLabels.includes(itemA)) {
@@ -219,7 +219,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
           [derivedMatrix[key].rowLabels[rowIndex], itemB],
-          derivedMatrix[key].grid[rowIndex][colIndex]
+          derivedMatrix[key].grid[rowIndex][colIndex],
         );
       }
     } else if (derivedMatrix[key].colLabels.includes(itemB)) {
@@ -236,7 +236,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
         newDerivedMatrix = propagateValue(
           newDerivedMatrix,
           [derivedMatrix[key].rowLabels[rowIndex], itemA],
-          derivedMatrix[key].grid[rowIndex][colIndex]
+          derivedMatrix[key].grid[rowIndex][colIndex],
         );
       }
     }
@@ -272,20 +272,20 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   const nullIndexesInRow = newDerivedMatrix[solutionKey].grid[rowIndex].reduce(
     (indexes, currentVal, currentIndex) =>
       currentVal === null ? [...indexes, currentIndex] : indexes,
-    []
+    [],
   );
   if (nullIndexesInRow.length === 1) {
     if (newDerivedMatrix[solutionKey].grid[rowIndex].some((value) => value)) {
       newDerivedMatrix = setToFalse(
         newDerivedMatrix,
         newDerivedMatrix[solutionKey].rowLabels[rowIndex],
-        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]
+        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]],
       );
     } else {
       newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         newDerivedMatrix[solutionKey].rowLabels[rowIndex],
-        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]]
+        newDerivedMatrix[solutionKey].colLabels[nullIndexesInRow[0]],
       );
     }
   }
@@ -294,20 +294,20 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   const nullIndexesInCol = newDerivedMatrix[solutionKey].grid.reduce(
     (indexes, currentRow, currentRowIndex) =>
       currentRow[colIndex] === null ? [...indexes, currentRowIndex] : indexes,
-    []
+    [],
   );
   if (nullIndexesInCol.length === 1) {
     if (newDerivedMatrix[solutionKey].grid.some((row) => row[colIndex])) {
       newDerivedMatrix = setToFalse(
         newDerivedMatrix,
         newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]],
-        newDerivedMatrix[solutionKey].colLabels[colIndex]
+        newDerivedMatrix[solutionKey].colLabels[colIndex],
       );
     } else {
       newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         newDerivedMatrix[solutionKey].rowLabels[nullIndexesInCol[0]],
-        newDerivedMatrix[solutionKey].colLabels[colIndex]
+        newDerivedMatrix[solutionKey].colLabels[colIndex],
       );
     }
   }

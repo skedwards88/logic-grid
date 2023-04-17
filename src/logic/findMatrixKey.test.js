@@ -1,4 +1,4 @@
-import { findMatrixKey } from "./findMatrixKey.js";
+import {findMatrixKey} from "./findMatrixKey.js";
 
 const matrix = {
   "0v1": {
@@ -112,7 +112,7 @@ describe("findMatrixKey", () => {
 
   test("throws an error if the key is not found", () => {
     expect(() => findMatrixKey(matrix, "dog", "Sarah")).toThrow(
-      "Did not find matrix entry corresponding to dog vs Sarah"
+      "Did not find matrix entry corresponding to dog vs Sarah",
     );
   });
 });

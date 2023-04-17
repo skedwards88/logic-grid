@@ -1,5 +1,5 @@
-import { puzzleSolvedQ } from "./puzzleSolvedQ.js";
-import { getUsefulClue } from "./getUsefulClue.js";
+import {puzzleSolvedQ} from "./puzzleSolvedQ.js";
+import {getUsefulClue} from "./getUsefulClue.js";
 
 const allCategories = {
   // todo later add type, display name, checks to make sure that don't have cats that are too similar?
@@ -53,7 +53,7 @@ function generateSolution(categories) {
             solution.some(
               (solutionEntry) =>
                 solutionEntry.includes(rowLabels[rowIndex]) &&
-                solutionEntry.includes(colLabels[colIndex])
+                solutionEntry.includes(colLabels[colIndex]),
             )
           ) {
             row = [...row, true];
@@ -81,8 +81,8 @@ function buildDerivedMatrix(categories) {
 
   for (let catIndex = 0; catIndex < numCats; catIndex++) {
     for (let vsIndex = catIndex + 1; vsIndex < numCats; vsIndex++) {
-      const grid = Array.from({ length: numItems }, () =>
-        Array.from({ length: numItems }, () => null)
+      const grid = Array.from({length: numItems}, () =>
+        Array.from({length: numItems}, () => null),
       );
       const rowLabels = categories[catIndex];
       const colLabels = categories[vsIndex];
@@ -114,11 +114,11 @@ function generatePuzzle(numCats) {
     //todo this works, but as the puzzle gets more solved, it is less likely that a random clue is helpful
     // maybe adding more clue types will help
     // but may also need to make the code smarter to have a more targeted search
-    ({ clue, newDerivedMatrix } = getUsefulClue(
+    ({clue, newDerivedMatrix} = getUsefulClue(
       solutionMatrix,
-      newDerivedMatrix
+      newDerivedMatrix,
     ));
-    clues = [...clues, clue];//todo need to reapply clues after each round
+    clues = [...clues, clue]; //todo need to reapply clues after each round
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 

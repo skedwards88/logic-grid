@@ -1,4 +1,4 @@
-import {findMatrixValue}  from "./findMatrixValue.js"
+import {findMatrixValue} from "./findMatrixValue.js";
 
 const matrix = {
   "0v1": {
@@ -73,10 +73,9 @@ describe("findMatrixValue", () => {
     expect(findMatrixValue(matrix, "yellow", "fly")).toBe(null);
   });
 
-
   test("throws an error if the intersection is not found", () => {
     expect(() => findMatrixValue(matrix, "dog", "Sarah")).toThrow(
-      "Did not find matrix entry corresponding to dog vs Sarah"
+      "Did not find matrix entry corresponding to dog vs Sarah",
     );
   });
 });

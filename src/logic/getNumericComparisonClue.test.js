@@ -72,9 +72,9 @@ describe("getNumericComparisonClue", () => {
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3); // itemBIndex
-    jest.spyOn(shuffleArrayModule, 'shuffleArray').mockImplementation((arr) => arr);
-
-
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr);
 
     const expectedClue = "Colin is less than Meme";
     const expectedGrid = [
@@ -101,7 +101,6 @@ describe("getNumericComparisonClue", () => {
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
-
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
@@ -109,7 +108,9 @@ describe("getNumericComparisonClue", () => {
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1); // itemBIndex
-    jest.spyOn(shuffleArrayModule, 'shuffleArray').mockImplementation((arr) => arr);
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr);
 
     const expectedClue = "Colin is less than Sarah";
     const expectedGrid = [
@@ -136,7 +137,6 @@ describe("getNumericComparisonClue", () => {
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
-
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
@@ -144,7 +144,9 @@ describe("getNumericComparisonClue", () => {
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3); // itemBIndex
-    jest.spyOn(shuffleArrayModule, 'shuffleArray').mockImplementation((arr) => arr.reverse());
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr.reverse());
 
     const expectedClue = "red is less than yellow";
     const expectedGrid = [
@@ -171,16 +173,16 @@ describe("getNumericComparisonClue", () => {
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
-
   });
-
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
     jest
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1); // itemBIndex
-    jest.spyOn(shuffleArrayModule, 'shuffleArray').mockImplementation((arr) => arr.reverse());
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr.reverse());
 
     const expectedClue = "red is less than blue";
     const expectedGrid = [
@@ -207,7 +209,6 @@ describe("getNumericComparisonClue", () => {
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
-
   });
 
   test("returns a clue object with a writtenClue string and clueLogic function", () => {
