@@ -2,7 +2,7 @@ import {getOrClue} from "./clues/getOrClue.js";
 import {getNotClue} from "./clues/getNotClue.js";
 import {getNumericComparisonClue} from "./clues/getNumericComparisonClue.js";
 import {getNumericComparisonCrossCategoryClue} from "./clues/getNumericComparisonCrossCategoryClue.js";
-import {pickRandom} from "./clues/pickRandom.js";
+import {pickRandom} from "./helpers/pickRandom.js";
 
 export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let foundUsefulClue = false;

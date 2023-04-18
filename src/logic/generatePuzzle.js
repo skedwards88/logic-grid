@@ -1,4 +1,4 @@
-import {puzzleSolvedQ} from "./puzzleSolvedQ.js";
+import {puzzleSolvedQ} from "./helpers/puzzleSolvedQ.js";
 import {getUsefulClue} from "./getUsefulClue.js";
 
 const allCategories = {
