@@ -1,5 +1,4 @@
 export function findMatrixValue(matrix, itemA, itemB) {
-  // todo add tests
   for (const key in matrix) {
     if (
       matrix[key].rowLabels.includes(itemA) &&

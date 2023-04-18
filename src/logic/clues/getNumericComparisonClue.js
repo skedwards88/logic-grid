@@ -1,10 +1,10 @@
-import {pickRandom} from "./pickRandom.js";
-import {shuffleArray} from "./shuffleArray.js";
+import {pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
-} from "./getPossibleIndex.js";
-import {setToFalse} from "./setValue.js";
+} from "../helpers/getPossibleIndex.js";
+import {setToFalse} from "../setValue.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
@@ -14,6 +14,7 @@ import {setToFalse} from "./setValue.js";
 //    the red house has more trees than Colin's house (also tells you red is not Colin)
 //    the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
 //    the red house or Colin's house has 3 trees (also tells you red is not Colin)
+//    the red house has 2 more trees than the green house
 export function getNumericComparisonClue(solutionMatrix) {
   // choose a grid in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
@@ -59,9 +60,6 @@ export function getNumericComparisonClue(solutionMatrix) {
         .indexOf(itemAIndex)
     : solutionMatrix[selectedKey].grid[itemAIndex].indexOf(true);
   const itemANumericValue = numericLabels[itemANumericIndex];
-  console.log(
-    `numericIsRows ${numericIsRows}. numericLabels ${numericLabels}. itemANumericIndex ${itemANumericIndex}`,
-  );
   const itemBNumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
         .map((row) => row.indexOf(true))
@@ -131,33 +129,3 @@ export function getNumericComparisonClue(solutionMatrix) {
     clueLogic: clueLogic,
   };
 }
-
-const m = {
-  "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [11, 22, 33, 44],
-    grid: [
-      [null, false, null, null],
-      [false, true, false, false],
-      [null, false, null, null],
-      [null, false, null, null],
-    ],
-  },
-};
-const s = {
-  "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [11, 22, 33, 44],
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
-  },
-};
-
-const o = getNumericComparisonClue(s);
-
-const nm = o.clueLogic(m);
-console.log(JSON.stringify(nm));

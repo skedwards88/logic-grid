@@ -1,7 +1,6 @@
-import {findMatrixKey} from "./findMatrixKey.js";
+import {findMatrixKey} from "./helpers/findMatrixKey.js";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
-  console.log(`'set true' ${itemA} ${itemB}`);
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
   const rowIndex =
@@ -15,7 +14,6 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
 
   // if already true, return early
   if (derivedMatrix[solutionKey].grid[rowIndex][colIndex]) {
-    console.log("returning early");
     return derivedMatrix;
   }
 
@@ -245,8 +243,6 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
 }
 
 export function setToFalse(derivedMatrix, itemA, itemB) {
-  console.log(`'set false' ${itemA} ${itemB}`);
-
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
   const rowIndex =
@@ -260,7 +256,6 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
 
   // if already false, return early
   if (derivedMatrix[solutionKey].grid[rowIndex][colIndex] === false) {
-    console.log("returning early");
     return derivedMatrix;
   }
 

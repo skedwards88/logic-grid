@@ -1,5 +1,5 @@
-import {pickRandom, pickRandomIndex} from "./pickRandom.js";
-import {setToFalse} from "./setValue.js";
+import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
+import {setToFalse} from "../setValue.js";
 
 // Generates an "or" clue
 // e.g. "Colin is red or blue"

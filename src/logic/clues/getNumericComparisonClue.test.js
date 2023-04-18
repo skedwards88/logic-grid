@@ -1,6 +1,6 @@
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
-import * as pickRandomModule from "./pickRandom";
-import * as shuffleArrayModule from "./shuffleArray";
+import * as pickRandomModule from "../helpers/pickRandom";
+import * as shuffleArrayModule from "../helpers/shuffleArray";
 
 const solutionMatrix = {
   "0v1": {

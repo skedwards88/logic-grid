@@ -1,14 +1,20 @@
-import {getOrClue} from "./getOrClue.js";
-import {getNotClue} from "./getNotClue.js";
-import {getNumericComparisonClue} from "./getNumericComparisonClue.js";
-import {pickRandom} from "./pickRandom.js";
+import {getOrClue} from "./clues/getOrClue.js";
+import {getNotClue} from "./clues/getNotClue.js";
+import {getNumericComparisonClue} from "./clues/getNumericComparisonClue.js";
+import {getNumericComparisonCrossCategoryClue} from "./clues/getNumericComparisonCrossCategoryClue.js";
+import {pickRandom} from "./clues/pickRandom.js";
 
 export function getUsefulClue(solutionMatrix, derivedMatrix) {
   let foundUsefulClue = false;
   let clue;
   let newDerivedMatrix;
 
-  const clueFunctions = [getNotClue, getOrClue, getNumericComparisonClue]; // todo add more clues to here as build
+  const clueFunctions = [
+    getNotClue,
+    getOrClue,
+    getNumericComparisonClue,
+    getNumericComparisonCrossCategoryClue,
+  ]; // todo add more clues to here as build
 
   while (!foundUsefulClue) {
     // get a clue

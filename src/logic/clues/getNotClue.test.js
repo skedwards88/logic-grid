@@ -1,5 +1,5 @@
 import {getNotClue} from "./getNotClue";
-import * as pickRandomModule from "./pickRandom";
+import * as pickRandomModule from "../helpers/pickRandom";
 
 const solutionMatrix = {
   "0v1": {

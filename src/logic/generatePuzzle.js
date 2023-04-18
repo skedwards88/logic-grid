@@ -118,7 +118,12 @@ function generatePuzzle(numCats) {
       solutionMatrix,
       newDerivedMatrix,
     ));
-    clues = [...clues, clue]; //todo need to reapply clues after each round
+    clues = [...clues, clue];
+
+    // reapply clues after each round // todo change this to 1)continue until the matrix doesn't change 2) maybe only reapply the clues that could change (add a return value to the clue to do this)
+    for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
+      newDerivedMatrix = clue.clueLogic(newDerivedMatrix);
+    }
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
