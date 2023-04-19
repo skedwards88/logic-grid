@@ -1,5 +1,6 @@
 import {puzzleSolvedQ} from "./helpers/puzzleSolvedQ.js";
 import {getUsefulClue} from "./getUsefulClue.js";
+import { applyCluesAdNauseam} from "./helpers/applyCluesAdNauseam.js"
 
 const allCategories = {
   // todo later add type, display name, checks to make sure that don't have cats that are too similar?
@@ -111,19 +112,13 @@ function generatePuzzle(numCats) {
   while (!puzzleIsSolved && count < 100) {
     console.log(count);
     count++;
-    //todo this works, but as the puzzle gets more solved, it is less likely that a random clue is helpful
-    // maybe adding more clue types will help
-    // but may also need to make the code smarter to have a more targeted search
     ({clue, newDerivedMatrix} = getUsefulClue(
       solutionMatrix,
       newDerivedMatrix,
     ));
     clues = [...clues, clue];
 
-    // reapply clues after each round // todo change this to 1)continue until the matrix doesn't change 2) maybe only reapply the clues that could change (add a return value to the clue to do this)
-    for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
-      newDerivedMatrix = clue.clueLogic(newDerivedMatrix);
-    }
+    newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix)
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 

@@ -122,7 +122,6 @@ export function getNumericComparisonClue(solutionMatrix) {
     }
     return newDerivedMatrix;
   }
-  console.log(writtenClue);
 
   return {
     writtenClue: writtenClue,
