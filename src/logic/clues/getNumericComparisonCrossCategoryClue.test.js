@@ -71,6 +71,7 @@ const emptyDerivedMatrix = {
 describe("getNumericComparisonCrossCategoryClue", () => {
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
     jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
+    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
     jest
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
@@ -121,6 +122,129 @@ describe("getNumericComparisonCrossCategoryClue", () => {
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
       expectedGridColorVsNumber,
     );
+
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+
+    jest.restoreAllMocks();
+  });
+  
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
+    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
+    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(2);
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr);
+
+    const expectedClue = "Colin is 2 less than green";
+    const expectedGridNameVsNumber = [
+      [null, null, false, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+    const expectedGridNameVsColor = [
+      [null, null, false, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+    const expectedGridColorVsNumber = [
+      [null, null, false, null],
+      [null, null, false, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+
+    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    expect(clue.writtenClue).toBe(expectedClue);
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+
+    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["NameVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
+      expectedGridNameVsNumber,
+    );
+
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["NameVsColor"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
+      expectedGridNameVsColor,
+    );
+
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["ColorVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
+      expectedGridColorVsNumber,
+    );
+
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+
+    jest.restoreAllMocks();
+  });
+
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
+    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
+    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(3);
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr);
+
+    const expectedClue = "Colin is 3 less than green";
+    const expectedGridNameVsNumber = [
+      [true, false, false, false],
+      [false, null, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
+    ];
+    const expectedGridNameVsColor = [
+      [null, null, false, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+    const expectedGridColorVsNumber = [
+      [null, null, false, null],
+      [null, null, false, null],
+      [null, null, false, null],
+      [false, false, true, false],
+    ];
+
+    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    expect(clue.writtenClue).toBe(expectedClue);
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+
+    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["NameVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
+      expectedGridNameVsNumber,
+    );
+
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["NameVsColor"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
+      expectedGridNameVsColor,
+    );
+
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["ColorVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
+      expectedGridColorVsNumber,
+    );
+
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
 
     jest.restoreAllMocks();
   });

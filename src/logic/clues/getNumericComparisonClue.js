@@ -67,7 +67,12 @@ export function getNumericComparisonClue(solutionMatrix) {
     : solutionMatrix[selectedKey].grid[itemBIndex].indexOf(true);
   const itemBNumericValue = numericLabels[itemBNumericIndex];
 
-  const writtenClue = `${itemA} is ${
+  const numericDiff = Math.abs(itemANumericValue - itemBNumericValue);
+  // e.g. if diff is 2, [1,2,undefined]. if diff is 1, [1,undefined]
+  const numericDiffOptions = [...Array.from({ length: numericDiff }, (_, i) => i + 1), undefined];
+  const numericDiffClue = pickRandom(numericDiffOptions);
+
+  const writtenClue = `${itemA} is ${numericDiffClue ? `${numericDiffClue} ` : ""}${
     itemANumericValue < itemBNumericValue ? "less than" : "greater than"
   } ${itemB}`;
 
@@ -83,13 +88,14 @@ export function getNumericComparisonClue(solutionMatrix) {
     const [greaterItem, lesserItem] =
       itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
-    // Know that the larger item is at least 1 index higher than the lowest index (or the lowest index that the smaller item can be)
+    // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // than the lowest index (or the lowest index that the smaller item can be)
     let lesserItemLowestPossibleIndex = getFirstPossibleIndex(
       derivedMatrix,
       lesserItem,
       numericLabels,
     );
-    let greaterItemLowestPossibleIndex = lesserItemLowestPossibleIndex + 1;
+    let greaterItemLowestPossibleIndex = lesserItemLowestPossibleIndex + (numericDiffClue ? numericDiffClue : 1);
     for (
       let numericIndex = 0;
       numericIndex < greaterItemLowestPossibleIndex;
@@ -102,13 +108,14 @@ export function getNumericComparisonClue(solutionMatrix) {
       );
     }
 
-    // Know that the larger item is at least 1 index higher than the lowest index (or the lowest index that the smaller item can be)
+    // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // than the lowest index (or the lowest index that the smaller item can be)
     let greaterItemHighestPossibleIndex = getLastPossibleIndex(
       derivedMatrix,
       greaterItem,
       numericLabels,
     );
-    let lesserItemHighestPossibleIndex = greaterItemHighestPossibleIndex - 1;
+    let lesserItemHighestPossibleIndex = greaterItemHighestPossibleIndex - (numericDiffClue ? numericDiffClue : 1);
     for (
       let numericIndex = numericLabels.length - 1;
       numericIndex > lesserItemHighestPossibleIndex;
