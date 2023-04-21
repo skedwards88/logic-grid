@@ -8,13 +8,6 @@ import {setToFalse} from "../setValue.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
-// todo later also:
-//    the red house has an even number of trees (maybe not; this is a glorified "or")
-//    the red house has more than 3 trees (maybe not; this is a glorified "or")
-//    the red house has more trees than Colin's house (also tells you red is not Colin)
-//    the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
-//    the red house or Colin's house has 3 trees (also tells you red is not Colin)
-//    the red house has 2 more trees than the green house
 export function getNumericComparisonClue(solutionMatrix) {
   // choose a grid in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
