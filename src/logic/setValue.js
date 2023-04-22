@@ -17,7 +17,7 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
     return derivedMatrix;
   }
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
 
   newDerivedMatrix[solutionKey].grid[rowIndex][colIndex] = true;
 
@@ -69,7 +69,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
   // e.g. if you set 'dog vs red' to 'false' and you know 'dog vs Colin' is true,
   // then you know 'Colin vs red' is false as well
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
 
   for (const key in derivedMatrix) {
     if (derivedMatrix[key].rowLabels.includes(itemA)) {
@@ -162,7 +162,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
   // check for other things that you know about that row and col (e.g. fly is colin)
   // if 'red is fly' and 'colin is fly', then 'red is colin'
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
 
   // For every grid in the matrix
   // check if the grid row/col labels include one of the ones we just set to true
