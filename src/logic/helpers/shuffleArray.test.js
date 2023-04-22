@@ -1,4 +1,3 @@
-// shuffle.test.js
 import {shuffleArray} from "./shuffleArray";
 
 describe("shuffleArray", () => {
