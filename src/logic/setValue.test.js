@@ -112,8 +112,7 @@ describe("setToFalse", () => {
 
     const outputMatrix = setToFalse(emptyInputMatrix, "Colin", "red");
     expect(outputMatrix).not.toBe(emptyInputMatrix);
-    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid); //todo tobe vs toequal
-    expect(emptyInputMatrix["0v3"].grid).not.toBe(expectedGrid);
+    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid);
     expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
   });
 
@@ -347,8 +346,7 @@ describe("setToTrue", () => {
 
     const outputMatrix = setToTrue(emptyInputMatrix, "Colin", "red");
     expect(outputMatrix).not.toBe(emptyInputMatrix);
-    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid); //todo tobe vs toequal
-    expect(emptyInputMatrix["0v3"].grid).not.toBe(expectedGrid);
+    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid);
     expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
   });
 
