@@ -17,6 +17,7 @@ function generatePuzzle(numCats, numItemsPerCat) {
   let count = 0;
 
   while (!puzzleIsSolved && count < 100) {
+    //todo remove count
     console.log(count);
     count++;
     ({clue, newDerivedMatrix} = getUsefulClue(
@@ -29,8 +30,6 @@ function generatePuzzle(numCats, numItemsPerCat) {
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
-  console.log(count);
-  console.log(JSON.stringify(newDerivedMatrix));
   console.log(clues.map((clue) => clue.writtenClue).join("\n"));
 }
 

@@ -1,3 +1,5 @@
+import {matrixesEqualQ} from "./matrixesEqualQ.js";
+
 export function applyCluesAdNauseam(clues, derivedMatrix) {
   // Continually apply the clues to the matrix until the clues no longer change the matrix.
   // This helps catch some of the cascading logic.
@@ -11,8 +13,8 @@ export function applyCluesAdNauseam(clues, derivedMatrix) {
     for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
       matrixPostClues = clues[clueIndex].clueLogic(matrixPostClues);
     }
-    matrixMayChange = JSON.stringify(matrixPreClues) !== JSON.stringify(matrixPostClues); // todo make more robust comparison function
-    matrixPreClues = matrixPostClues
+    matrixMayChange = !matrixesEqualQ(matrixPreClues, matrixPostClues);
+    matrixPreClues = matrixPostClues;
   }
-  return derivedMatrix
+  return derivedMatrix;
 }
