@@ -3,49 +3,9 @@ import React from "react";
 import {gameInit} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
 
-function Cell({row, column, value}) {
-  let renderedValue;
-  if (value) {
-    renderedValue = "O";
-  } else if (value === false) {
-    renderedValue = "X";
-  } else {
-    renderedValue = "?";
-  }
-  return <div>{renderedValue}</div>;
-}
+import LabelSet from "./LabelSet";
+import Grid from "./Grid";
 
-function Grid({solutionEntry, id}) {
-  const numRows = solutionEntry.grid.length;
-  let cells = [];
-  for (let rowIndex = 0; rowIndex < solutionEntry.grid.length; rowIndex++) {
-    for (
-      let colIndex = 0;
-      colIndex < solutionEntry.grid[0].length;
-      colIndex++
-    ) {
-      cells = [
-        ...cells,
-        <Cell
-          row={rowIndex}
-          col={colIndex}
-          value={solutionEntry.grid[rowIndex][colIndex]}
-          key={`${id}_${rowIndex}-${colIndex}`}
-        ></Cell>,
-      ];
-    }
-  }
-  return (
-    <div className={`grid size${numRows}`} id={`${id}`}>
-      {cells}
-    </div>
-  );
-}
-
-function LabelSet({labels, id, type}) {
-  const labelDivs = labels.map((label) => <div>{label}</div>);
-  return <div className={`${type}Label Label${id}`}>{labelDivs}</div>;
-}
 export default function App() {
   const [gameState, dispatchGameState] = React.useReducer(
     gameReducer,
@@ -53,14 +13,14 @@ export default function App() {
     gameInit,
   );
 
-  console.log(JSON.stringify(gameState.solutionMatrix));
+  console.log(JSON.stringify(gameState.derivedMatrix));
 
   let grids = [];
-  for (const key in gameState.solutionMatrix) {
+  for (const key in gameState.derivedMatrix) {
     grids = [
       ...grids,
       <Grid
-        solutionEntry={gameState.solutionMatrix[key]}
+        solutionEntry={gameState.derivedMatrix[key]}
         key={key}
         id={key}
       ></Grid>,
@@ -69,6 +29,7 @@ export default function App() {
 
   let labels = [];
   for (let index = 0; index < gameState.columnLabels.length; index++) {
+    console.log(`column${index}`);
     labels = [
       ...labels,
       <LabelSet
@@ -80,6 +41,7 @@ export default function App() {
     ];
   }
   for (let index = 0; index < gameState.rowLabels.length; index++) {
+    console.log(`row${index}`);
     labels = [
       ...labels,
       <LabelSet
