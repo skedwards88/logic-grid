@@ -16,6 +16,7 @@ export function getUsefulClue(solutionMatrix, derivedMatrix) {
     getNumericComparisonClue,
     getNumericComparisonCrossCategoryClue,
   ]; // todo add more clues to here as build
+  //todo if no numeric categories, cannot use numericclues
 
   while (!foundUsefulClue) {
     // get a clue
