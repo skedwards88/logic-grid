@@ -32,7 +32,9 @@ body {
 
 .grid {
   display: grid;
-  outline: 2px solid black;
+  border: 2px solid black;
+  box-sizing: border-box;
+  /* box-shadow: 1px 1px #000; */
   width: fit-content;
   height: fit-content;
 }
@@ -70,13 +72,15 @@ body {
 }
 
 .grid > div {
-  outline: 1px solid black;
+  /* outline: 1px solid black; */
+  box-shadow: -1px -1px #000;
   text-align: center;
 }
 
 .columnLabel {
-  outline: 2px solid black;
-  transform: rotate(180deg);
+  border: solid black;
+  border-width: 0 2px;
+  box-sizing: border-box;  transform: rotate(180deg);
   writing-mode: vertical-lr;
   text-orientation: sideways;
   display: grid;
@@ -84,8 +88,9 @@ body {
 }
 
 .columnLabel > div {
-  outline: 1px solid black;
+  box-shadow: 1px 0 #000;
   width: 5vmin;
+  padding-top: 4px;
 }
 
 .columnLabel.Label0 {
@@ -102,15 +107,19 @@ body {
 }
 
 .rowLabel {
-  outline: 2px solid black;
+  border: solid black;
+  border-width: 2px 0;
+  box-sizing: border-box;
+  /* box-shadow: 0 -2px 0 #000; */
   display: grid;
   text-align: right;
   height: fit-content;
 }
 
 .rowLabel > div {
-  outline: 1px solid black;
+  box-shadow: 0 -1px #000;
   height: 5vmin;
+  padding-right: 4px;
 }
 .rowLabel.Label0 {
   grid-area: rowLabel0;
