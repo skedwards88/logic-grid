@@ -1,23 +1,24 @@
 import React from "react";
 import Cell from "./Cell";
 
-export default function Grid({solutionEntry, id}) {
+export default function Grid({solutionEntry, id, dispatchGameState}) {
   const numRows = solutionEntry.grid.length;
   let cells = [];
   for (let rowIndex = 0; rowIndex < solutionEntry.grid.length; rowIndex++) {
     for (
-      let colIndex = 0;
-      colIndex < solutionEntry.grid[0].length;
-      colIndex++
+      let columnIndex = 0;
+      columnIndex < solutionEntry.grid[0].length;
+      columnIndex++
     ) {
       cells = [
         ...cells,
         <Cell
-          row={rowIndex}
-          col={colIndex}
+          rowIndex={rowIndex}
+          columnIndex={columnIndex}
           gridID={id}
-          value={solutionEntry.grid[rowIndex][colIndex]}
-          key={`${id}_${rowIndex}-${colIndex}`}
+          value={solutionEntry.grid[rowIndex][columnIndex]}
+          key={`${id}_${rowIndex}-${columnIndex}`}
+          dispatchGameState={dispatchGameState}
         ></Cell>,
       ];
     }

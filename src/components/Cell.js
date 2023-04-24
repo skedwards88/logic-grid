@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function Cell({row, column, gridID, value}) {
+export default function Cell({
+  rowIndex,
+  columnIndex,
+  gridID,
+  value,
+  dispatchGameState,
+}) {
   let renderedValue;
   if (value) {
     renderedValue = "O";
@@ -9,5 +15,18 @@ export default function Cell({row, column, gridID, value}) {
   } else {
     renderedValue = " ";
   }
-  return <div onClick={() => console.log("clicked")}>{renderedValue}</div>;
+  return (
+    <div
+      onClick={() =>
+        dispatchGameState({
+          action: "changeCellState",
+          gridID: gridID,
+          rowIndex: rowIndex,
+          columnIndex: columnIndex,
+        })
+      }
+    >
+      {renderedValue}
+    </div>
+  );
 }
