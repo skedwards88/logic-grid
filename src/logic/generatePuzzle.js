@@ -5,10 +5,16 @@ import {chooseCategories} from "./chooseCategories.js";
 import {generateSolutionMatrix} from "./generateSolutionMatrix.js";
 import {buildEmptyMatrix} from "./buildEmptyMatrix.js";
 
-function generatePuzzle(numCats, numItemsPerCat) {
+export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabels = chooseCategories(numCats, numItemsPerCat);
   const solutionMatrix = generateSolutionMatrix(categoryLabels);
   const derivedMatrix = buildEmptyMatrix(categoryLabels);
+
+  // the computer just cares about one category vs another (but doesn't care which is a row vs column)
+  // but humans generally make a matrix where it does matter which category is the row vs which is the column
+  // so make this lookup to avoid convoluted calculations later
+  const columnLabels = categoryLabels.slice(1,categoryLabels.length);
+  const rowLabels = [categoryLabels[0], ...categoryLabels.slice(2,categoryLabels.length).reverse()]
 
   let clues = [];
   let puzzleIsSolved = false;
@@ -31,6 +37,11 @@ function generatePuzzle(numCats, numItemsPerCat) {
   }
 
   console.log(clues.map((clue) => clue.writtenClue).join("\n"));
+  return {
+    clues: clues,
+    solutionMatrix: solutionMatrix,
+    derivedMatrix: derivedMatrix,
+    rowLabels: rowLabels,
+    columnLabels: columnLabels,
+  }
 }
-
-generatePuzzle(4, 5);
