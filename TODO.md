@@ -10,10 +10,7 @@
 - add readme
 - add to sect games site
 
-
-
-//    the red house has an even number of trees (maybe not; this is a glorified "or")
-//    the red house has more than 3 trees (maybe not; this is a glorified "or")
-//    the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
-//    the red house or Colin's house has 3 trees (also tells you red is not Colin)
-
+// the red house has an even number of trees (maybe not; this is a glorified "or")
+// the red house has more than 3 trees (maybe not; this is a glorified "or")
+// the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
+// the red house or Colin's house has 3 trees (also tells you red is not Colin)

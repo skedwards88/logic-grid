@@ -13,8 +13,11 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
   // so make this lookup to avoid convoluted calculations later
-  const columnLabels = categoryLabels.slice(1,categoryLabels.length);
-  const rowLabels = [categoryLabels[0], ...categoryLabels.slice(2,categoryLabels.length).reverse()]
+  const columnLabels = categoryLabels.slice(1, categoryLabels.length);
+  const rowLabels = [
+    categoryLabels[0],
+    ...categoryLabels.slice(2, categoryLabels.length).reverse(),
+  ];
 
   let clues = [];
   let puzzleIsSolved = false;
@@ -43,5 +46,5 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     derivedMatrix: derivedMatrix,
     rowLabels: rowLabels,
     columnLabels: columnLabels,
-  }
+  };
 }

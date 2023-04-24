@@ -128,7 +128,7 @@ describe("getNumericComparisonCrossCategoryClue", () => {
 
     jest.restoreAllMocks();
   });
-  
+
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
     jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
     jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(2);

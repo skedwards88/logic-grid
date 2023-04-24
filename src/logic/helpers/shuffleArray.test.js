@@ -15,9 +15,9 @@ describe("shuffleArray", () => {
 
   test("should not return the same order as the input", () => {
     // this test can fail due to chance. Using a longer array to make this less likely.
-    let inputArray = []
+    let inputArray = [];
     for (let index = 0; index < 1000; index++) {
-      inputArray = [...inputArray, index]
+      inputArray = [...inputArray, index];
     }
     const shuffledArray = shuffleArray([...inputArray]);
     expect(shuffledArray).not.toEqual(inputArray);

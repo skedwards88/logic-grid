@@ -43,8 +43,8 @@ function Grid({solutionEntry, id}) {
 }
 
 function LabelSet({labels, id, type}) {
-  const labelDivs = labels.map(label => <div>{label}</div>)
-  return <div className={`${type}Label Label${id}`}>{labelDivs}</div>
+  const labelDivs = labels.map((label) => <div>{label}</div>);
+  return <div className={`${type}Label Label${id}`}>{labelDivs}</div>;
 }
 export default function App() {
   const [gameState, dispatchGameState] = React.useReducer(
@@ -53,7 +53,7 @@ export default function App() {
     gameInit,
   );
 
-  console.log(JSON.stringify(gameState.solutionMatrix))
+  console.log(JSON.stringify(gameState.solutionMatrix));
 
   let grids = [];
   for (const key in gameState.solutionMatrix) {
@@ -67,15 +67,34 @@ export default function App() {
     ];
   }
 
-  let labels = []
+  let labels = [];
   for (let index = 0; index < gameState.columnLabels.length; index++) {
-    labels = [...labels,
-      <LabelSet key={`column${index}`} id={index} type="column" labels={gameState.columnLabels[index]}></LabelSet>]    
+    labels = [
+      ...labels,
+      <LabelSet
+        key={`column${index}`}
+        id={index}
+        type="column"
+        labels={gameState.columnLabels[index]}
+      ></LabelSet>,
+    ];
   }
   for (let index = 0; index < gameState.rowLabels.length; index++) {
-    labels = [...labels,
-      <LabelSet key={`row${index}`} id={index} type="row" labels={gameState.rowLabels[index]}></LabelSet>]    
+    labels = [
+      ...labels,
+      <LabelSet
+        key={`row${index}`}
+        id={index}
+        type="row"
+        labels={gameState.rowLabels[index]}
+      ></LabelSet>,
+    ];
   }
 
-  return <div className={`matrix size${gameState.numCategories}`}>{grids}{labels}</div>;
+  return (
+    <div className={`matrix size${gameState.numCategories}`}>
+      {grids}
+      {labels}
+    </div>
+  );
 }

@@ -7,7 +7,11 @@ export function generateSolutionMatrix(categoryLabels) {
   let solutionMatrix = {};
 
   for (let categoryIndexA = 0; categoryIndexA < numCats; categoryIndexA++) {
-    for (let categoryIndexB = categoryIndexA + 1; categoryIndexB < numCats; categoryIndexB++) {
+    for (
+      let categoryIndexB = categoryIndexA + 1;
+      categoryIndexB < numCats;
+      categoryIndexB++
+    ) {
       const rowLabels = categoryLabels[categoryIndexA];
       const colLabels = categoryLabels[categoryIndexB];
 

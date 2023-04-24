@@ -1,5 +1,5 @@
 body {
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   background-color: lightgray;
 }
 
@@ -12,14 +12,14 @@ body {
 .matrix.size2 {
   grid-template-areas:
     ".         columnLabel0"
-    "rowLabel0 category0_category1"
+    "rowLabel0 category0_category1";
 }
 
 .matrix.size3 {
   grid-template-areas:
     ".         columnLabel0        columnLabel1"
     "rowLabel0 category0_category1 category0_category2"
-    "rowLabel1 category1_category2 ."
+    "rowLabel1 category1_category2 .";
 }
 
 .matrix.size4 {
@@ -27,7 +27,7 @@ body {
     ".         columnLabel0        columnLabel1        columnLabel2"
     "rowLabel0 category0_category1 category0_category2 category0_category3"
     "rowLabel1 category1_category3 category2_category3 ."
-    "rowLabel2 category1_category2 .                   ."
+    "rowLabel2 category1_category2 .                   .";
 }
 
 .grid {

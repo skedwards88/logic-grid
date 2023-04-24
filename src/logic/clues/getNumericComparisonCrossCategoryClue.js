@@ -44,10 +44,15 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
 
   const numericDiff = Math.abs(itemANumericValue - itemBNumericValue);
   // e.g. if diff is 2, [1,2,undefined]. if diff is 1, [1,undefined]
-  const numericDiffOptions = [...Array.from({ length: numericDiff }, (_, i) => i + 1), undefined];
+  const numericDiffOptions = [
+    ...Array.from({length: numericDiff}, (_, i) => i + 1),
+    undefined,
+  ];
   const numericDiffClue = pickRandom(numericDiffOptions);
 
-  const writtenClue = `${itemA} is ${numericDiffClue ? `${numericDiffClue} ` : ""}${
+  const writtenClue = `${itemA} is ${
+    numericDiffClue ? `${numericDiffClue} ` : ""
+  }${
     itemANumericValue < itemBNumericValue ? "less than" : "greater than"
   } ${itemB}`;
 
@@ -73,7 +78,8 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       lesserItem,
       numericLabels,
     );
-    let greaterItemLowestPossibleIndex = lesserItemLowestPossibleIndex + (numericDiffClue ? numericDiffClue : 1);
+    let greaterItemLowestPossibleIndex =
+      lesserItemLowestPossibleIndex + (numericDiffClue ? numericDiffClue : 1);
     for (
       let numericIndex = 0;
       numericIndex < greaterItemLowestPossibleIndex;
@@ -93,7 +99,8 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       greaterItem,
       numericLabels,
     );
-    let lesserItemHighestPossibleIndex = greaterItemHighestPossibleIndex - (numericDiffClue ? numericDiffClue : 1);
+    let lesserItemHighestPossibleIndex =
+      greaterItemHighestPossibleIndex - (numericDiffClue ? numericDiffClue : 1);
     for (
       let numericIndex = numericLabels.length - 1;
       numericIndex > lesserItemHighestPossibleIndex;
