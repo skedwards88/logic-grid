@@ -6,10 +6,10 @@ export function generateSolutionMatrix(categoryLabels) {
   const numCats = categoryLabels.length;
   let solutionMatrix = {};
 
-  for (let catIndex = 0; catIndex < numCats; catIndex++) {
-    for (let vsIndex = catIndex + 1; vsIndex < numCats; vsIndex++) {
-      const rowLabels = categoryLabels[catIndex];
-      const colLabels = categoryLabels[vsIndex];
+  for (let categoryIndexA = 0; categoryIndexA < numCats; categoryIndexA++) {
+    for (let categoryIndexB = categoryIndexA + 1; categoryIndexB < numCats; categoryIndexB++) {
+      const rowLabels = categoryLabels[categoryIndexA];
+      const colLabels = categoryLabels[categoryIndexB];
 
       let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
@@ -30,7 +30,7 @@ export function generateSolutionMatrix(categoryLabels) {
         grid = [...grid, row];
       }
 
-      solutionMatrix[`${catIndex}v${vsIndex}`] = {
+      solutionMatrix[`category${categoryIndexA}_category${categoryIndexB}`] = {
         rowLabels: rowLabels,
         colLabels: colLabels,
         grid: grid,
