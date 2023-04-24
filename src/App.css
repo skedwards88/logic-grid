@@ -1,0 +1,126 @@
+body {
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: lightgray;
+}
+
+.matrix {
+  display: grid;
+  width: fit-content;
+  height: fit-content;
+}
+
+.matrix.size2 {
+  grid-template-areas:
+    ".         columnLabel0"
+    "rowLabel0 category0_category1"
+}
+
+.matrix.size3 {
+  grid-template-areas:
+    ".         columnLabel0        columnLabel1"
+    "rowLabel0 category0_category1 category0_category2"
+    "rowLabel1 category1_category2 ."
+}
+
+.matrix.size4 {
+  grid-template-areas:
+    ".         columnLabel0        columnLabel1        columnLabel2"
+    "rowLabel0 category0_category1 category0_category2 category0_category3"
+    "rowLabel1 category1_category3 category2_category3 ."
+    "rowLabel2 category1_category2 .                   ."
+}
+
+.grid {
+  display: grid;
+  outline: 2px solid black;
+  width: fit-content;
+  height: fit-content;
+}
+
+.grid.size5 {
+  grid-template-columns: repeat(5, 5vmin);
+  grid-template-rows: repeat(5, 5vmin);
+}
+.grid.size4 {
+  grid-template-columns: repeat(4, 6vmin);
+  grid-template-rows: repeat(4, 6vmin);
+}
+.grid.size3 {
+  grid-template-columns: repeat(3, 8vmin);
+  grid-template-rows: repeat(3, 8vmin);
+}
+
+.grid#category0_category1 {
+  grid-area: category0_category1;
+}
+.grid#category0_category2 {
+  grid-area: category0_category2;
+}
+.grid#category0_category3 {
+  grid-area: category0_category3;
+}
+.grid#category1_category3 {
+  grid-area: category1_category3;
+}
+.grid#category2_category3 {
+  grid-area: category2_category3;
+}
+.grid#category1_category2 {
+  grid-area: category1_category2;
+}
+
+.grid > div {
+  outline: 1px solid black;
+  text-align: center;
+}
+
+.columnLabel {
+  outline: 2px solid black;
+  transform: rotate(180deg);
+  writing-mode: vertical-lr;
+  text-orientation: sideways;
+  display: grid;
+  width: fit-content;
+}
+
+.columnLabel > div {
+  outline: 1px solid black;
+  width: 5vmin;
+}
+
+.columnLabel.Label0 {
+  grid-area: columnLabel0;
+}
+.columnLabel.Label1 {
+  grid-area: columnLabel1;
+}
+.columnLabel.Label2 {
+  grid-area: columnLabel2;
+}
+.columnLabel.Label3 {
+  grid-area: columnLabel3;
+}
+
+.rowLabel {
+  outline: 2px solid black;
+  display: grid;
+  text-align: right;
+  height: fit-content;
+}
+
+.rowLabel > div {
+  outline: 1px solid black;
+  height: 5vmin;
+}
+.rowLabel.Label0 {
+  grid-area: rowLabel0;
+}
+.rowLabel.Label1 {
+  grid-area: rowLabel1;
+}
+.rowLabel.Label2 {
+  grid-area: rowLabel2;
+}
+.rowLabel.Label3 {
+  grid-area: rowLabel3;
+}
