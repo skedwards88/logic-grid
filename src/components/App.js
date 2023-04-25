@@ -5,6 +5,7 @@ import {gameReducer} from "../logic/gameReducer";
 
 import LabelSet from "./LabelSet";
 import Grid from "./Grid";
+import Clues from "./Clues";
 
 export default function App() {
   const [gameState, dispatchGameState] = React.useReducer(
@@ -12,8 +13,6 @@ export default function App() {
     {},
     gameInit,
   );
-
-  console.log(JSON.stringify(gameState.derivedMatrix));
 
   let grids = [];
   for (const key in gameState.derivedMatrix) {
@@ -23,13 +22,13 @@ export default function App() {
         solutionEntry={gameState.derivedMatrix[key]}
         key={key}
         id={key}
+        dispatchGameState={dispatchGameState}
       ></Grid>,
     ];
   }
 
   let labels = [];
   for (let index = 0; index < gameState.columnLabels.length; index++) {
-    console.log(`column${index}`);
     labels = [
       ...labels,
       <LabelSet
@@ -41,7 +40,6 @@ export default function App() {
     ];
   }
   for (let index = 0; index < gameState.rowLabels.length; index++) {
-    console.log(`row${index}`);
     labels = [
       ...labels,
       <LabelSet
@@ -54,9 +52,14 @@ export default function App() {
   }
 
   return (
-    <div className={`matrix size${gameState.numCategories}`}>
-      {grids}
-      {labels}
+    <div>
+      <div className={`matrix size${gameState.numCategories}`}>
+        {grids}
+        {labels}
+      </div>
+      <Clues
+        writtenClues={gameState.clues.map((clue) => clue.writtenClue)}
+      ></Clues>
     </div>
   );
 }

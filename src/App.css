@@ -156,3 +156,13 @@ body {
 .rowLabel.label3 {
   grid-area: rowLabel3;
 }
+
+.clues {
+  overflow: scroll;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.clue.true {
+  text-decoration: line-through;
+}

@@ -5,6 +5,7 @@
 - category library
 - check that solution is valid
   - check if any of the clues do not work with the user's solution + one true per row/col
+  - maybe clue can return validator as well as clue function. takes input matrix and verifies that certain things are true about it
 - front end
 - add deploy workflow, set up website
 - add readme
