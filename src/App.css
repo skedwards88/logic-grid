@@ -88,6 +88,8 @@ body {
   text-orientation: sideways;
   display: grid;
   width: fit-content;
+  font-size: 4vmin;
+  overflow: scroll;
 }
 
 .columnLabel > div {
@@ -128,6 +130,8 @@ body {
   display: grid;
   text-align: right;
   height: fit-content;
+  font-size: 4vmin;
+  overflow: scroll;
 }
 
 .rowLabel > div {
