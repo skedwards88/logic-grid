@@ -23,6 +23,8 @@ export function gameReducer(currentGameState, payload) {
     ] = newCellValue;
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
+  } else if (payload.action === "newGame") {
+    console.log('todo newGame')
   }
   console.log("todo");
   return {...currentGameState};

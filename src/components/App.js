@@ -6,6 +6,7 @@ import {gameReducer} from "../logic/gameReducer";
 import LabelSet from "./LabelSet";
 import Grid from "./Grid";
 import Clues from "./Clues";
+import ControlBar from "./ControlBar";
 
 export default function App() {
   const [gameState, dispatchGameState] = React.useReducer(
@@ -52,7 +53,8 @@ export default function App() {
   }
 
   return (
-    <div>
+    <div id="app">
+      <ControlBar dispatchGameState={dispatchGameState}></ControlBar>
       <div className={`matrix size${gameState.numCategories}`}>
         {grids}
         {labels}
