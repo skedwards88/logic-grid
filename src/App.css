@@ -1,15 +1,39 @@
+html {
+  height: 100vh;
+}
+
 body {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  background-color: lightgray;
+  /* todo set max for box size/font size or set different size for large screens */
   --size3: 8vmin;
   --size4: 6vmin;
   --size5: 5vmin;
+  --dark-color: rgb(55 54 71);
+  --light-color: rgb(239 239 239);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  overflow: hidden;
 }
 
+#app {
+  height: 100vh;
+  width: 98vw;
+  justify-content: center;
+  display: grid;
+  grid-template-areas:
+    "controls"
+    "matrix"
+    "clues";
+  grid-template-rows: auto auto 1fr;
+  overflow: hidden;
+}
+
+/* Matrix */
 .matrix {
   display: grid;
   width: fit-content;
   height: fit-content;
+  grid-area: matrix;
 }
 
 .matrix.size2 {
@@ -35,9 +59,8 @@ body {
 
 .grid {
   display: grid;
-  border: 2px solid black;
+  border: 2px solid var(--light-color);
   box-sizing: border-box;
-  /* box-shadow: 1px 1px #000; */
   width: fit-content;
   height: fit-content;
 }
@@ -75,25 +98,26 @@ body {
 }
 
 .grid > div {
-  /* outline: 1px solid black; */
-  box-shadow: -1px -1px #000;
+  box-shadow: -1px -1px var(--light-color);
   text-align: center;
 }
 
+/* Labels */
+
 .columnLabel {
-  border: solid black;
+  border: solid var(--light-color);
   border-width: 0 2px;
   box-sizing: border-box;  transform: rotate(180deg);
   writing-mode: vertical-lr;
   text-orientation: sideways;
   display: grid;
   width: fit-content;
-  font-size: 4vmin;
+  font-size: calc(var(--size5) * 0.8);
   overflow: scroll;
 }
 
 .columnLabel > div {
-  box-shadow: 1px 0 #000;
+  box-shadow: 1px 0 var(--light-color);
   padding-top: 4px;
 }
 
@@ -123,19 +147,18 @@ body {
 }
 
 .rowLabel {
-  border: solid black;
+  border: solid var(--light-color);
   border-width: 2px 0;
   box-sizing: border-box;
-  /* box-shadow: 0 -2px 0 #000; */
   display: grid;
   text-align: right;
   height: fit-content;
-  font-size: 4vmin;
+  font-size: calc(var(--size5) * 0.8);
   overflow: scroll;
 }
 
 .rowLabel > div {
-  box-shadow: 0 -1px #000;
+  box-shadow: 0 -1px var(--light-color);
   padding-right: 4px;
 }
 
@@ -161,12 +184,55 @@ body {
   grid-area: rowLabel3;
 }
 
+/* Clues */
+
 .clues {
   overflow: scroll;
-  border: 1px solid black;
+  border: 1px solid var(--light-color);
   border-radius: 5px;
+  grid-area: clues;
 }
 
 .clue.true {
   text-decoration: line-through;
+}
+
+/* Controls */
+
+#controls {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  grid-area: controls;
+  width: 100%;
+  height: 5vmax;
+  border-bottom: 2px solid var(--light-color);
+  margin-bottom: 5px;
+}
+
+#controls > button {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  width: 4vmax;
+  height: 4vmax;
+  background-color: transparent;
+  padding: 1px 6px;
+}
+
+#newGameButton {
+  background-image: url("./images/new_game.svg");
+}
+
+#heartButton {
+  background-image: url("./images/heart.svg");
+}
+
+#installButton {
+  background-image: url("./images/install.svg");
+}
+
+#settingsButton {
+  background-image: url("./images/settings.svg");
 }
