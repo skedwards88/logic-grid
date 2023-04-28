@@ -107,7 +107,7 @@ body {
 .columnLabel {
   border: solid var(--light-color);
   border-width: 0 2px;
-  box-sizing: border-box;  transform: rotate(180deg);
+  box-sizing: border-box;
   writing-mode: vertical-lr;
   text-orientation: sideways;
   display: grid;
@@ -119,6 +119,7 @@ body {
 .columnLabel > div {
   box-shadow: 1px 0 var(--light-color);
   padding-top: 4px;
+  transform: rotate(180deg);
 }
 
 .columnLabel.size3 > div{
