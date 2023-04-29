@@ -189,13 +189,17 @@ body {
 
 .clues {
   overflow: scroll;
-  border: 1px solid var(--light-color);
-  border-radius: 5px;
   grid-area: clues;
+  padding: 5vmin;
 }
 
 .clue.true {
   text-decoration: line-through;
+}
+
+.clueInfo {
+  text-align: center;
+  font-weight: bolder;
 }
 
 /* Controls */

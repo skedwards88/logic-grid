@@ -17,5 +17,11 @@ export default function Clues({writtenClues}) {
   const clues = writtenClues.map((writtenClue, index) => (
     <Clue writtenClue={writtenClue} key={index}></Clue>
   ));
-  return <ul className="clues">{clues}</ul>;
+  return (
+    <div className="clues">
+      <div className="clueInfo">{`${clues.length} Clues`}</div>
+      <ol>{clues}</ol>
+      <div className="clueInfo">End of Clues</div>
+    </div>
+  );
 }
