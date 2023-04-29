@@ -81,7 +81,7 @@ export function getNumericComparisonClue(solutionMatrix) {
     numericDiffClue ? `${numericDiffClue} ` : ""
   }${
     itemANumericValue < itemBNumericValue ? "less than" : "greater than"
-  } ${itemB}`; //todo add "at least"--should I only add it if it isn't the exact diff?
+  } ${itemB}`;
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;
