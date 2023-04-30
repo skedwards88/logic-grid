@@ -59,11 +59,34 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   }
   const numericDiffClue = pickRandom(numericDiffOptions);
 
-  const writtenClue = `${itemA} is ${
-    numericDiffClue ? `${numericDiffClue} ` : ""
-  }${
-    itemANumericValue < itemBNumericValue ? "less than" : "greater than"
-  } ${itemB}`;
+  const itemATemplates = numericEntries[0].numericIsRows
+    ? solutionMatrix[numericEntries[0].key].colDescriptionTemplates
+    : solutionMatrix[numericEntries[0].key].rowDescriptionTemplates;
+  const itemADescription = itemATemplates.leadingDescription.replace(
+    "VALUE",
+    itemA,
+  );
+
+  const itemBTemplates = numericEntries[1].numericIsRows
+    ? solutionMatrix[numericEntries[1].key].colDescriptionTemplates
+    : solutionMatrix[numericEntries[1].key].rowDescriptionTemplates;
+  const itemBDescription = itemBTemplates.trailingDescription.replace(
+    "VALUE",
+    itemB,
+  );
+
+  const numericDescriptionTemplates = numericEntries[0].numericIsRows
+    ? solutionMatrix[numericEntries[0].key].rowDescriptionTemplates
+    : solutionMatrix[numericEntries[0].key].colDescriptionTemplates;
+  const numericDescriptionTemplate =
+    itemANumericValue < itemBNumericValue
+      ? numericDescriptionTemplates.diffLesserDescription
+      : numericDescriptionTemplates.diffGreaterDescription;
+  const numericDescription = numericDiffClue
+    ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
+    : numericDescriptionTemplate.replace("VALUE", "some");
+
+  const writtenClue = `${itemADescription} is ${numericDescription} than ${itemBDescription}.`;
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;

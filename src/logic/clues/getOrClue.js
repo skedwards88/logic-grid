@@ -26,7 +26,16 @@ export function getOrClue(solutionMatrix) {
   const colIndexFalse = pickRandom(falseIndexes);
   const colItemFalse = colLabels[colIndexFalse];
 
-  const writtenClue = `${rowItem} is ${colItemTrue} or ${colItemFalse}`; //todo should randomize so the correct value isn't always first
+  const leadingDescription = solutionMatrix[
+    solutionKey
+  ].rowDescriptionTemplates.leadingDescription.replace("VALUE", rowItem);
+  const trailingDescriptionTrue = solutionMatrix[
+    solutionKey
+  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItemTrue);
+  const trailingDescriptionFalse = solutionMatrix[
+    solutionKey
+  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItemFalse);
+  const writtenClue = `${leadingDescription} is ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
 
   function clueLogic(derivedMatrix) {
     // the "or" clue equates to "not" clues for all other indexes

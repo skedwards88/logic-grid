@@ -1,9 +1,11 @@
 import {generateSolution} from "./generateSolution.js";
 
-export function generateSolutionMatrix(categoryLabels) {
-  let solution = generateSolution(categoryLabels);
+export function generateSolutionMatrix(categoryLabelsAndTemplates) {
+  let solution = generateSolution(
+    categoryLabelsAndTemplates.map((i) => i.labels),
+  );
 
-  const numCats = categoryLabels.length;
+  const numCats = categoryLabelsAndTemplates.length;
   let solutionMatrix = {};
 
   for (let categoryIndexA = 0; categoryIndexA < numCats; categoryIndexA++) {
@@ -12,8 +14,12 @@ export function generateSolutionMatrix(categoryLabels) {
       categoryIndexB < numCats;
       categoryIndexB++
     ) {
-      const rowLabels = categoryLabels[categoryIndexA];
-      const colLabels = categoryLabels[categoryIndexB];
+      const rowLabels = categoryLabelsAndTemplates[categoryIndexA].labels;
+      const rowDescriptionTemplates =
+        categoryLabelsAndTemplates[categoryIndexA].descriptionTemplates;
+      const colLabels = categoryLabelsAndTemplates[categoryIndexB].labels;
+      const colDescriptionTemplates =
+        categoryLabelsAndTemplates[categoryIndexB].descriptionTemplates;
 
       let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
@@ -37,6 +43,8 @@ export function generateSolutionMatrix(categoryLabels) {
       solutionMatrix[`category${categoryIndexA}_category${categoryIndexB}`] = {
         rowLabels: rowLabels,
         colLabels: colLabels,
+        rowDescriptionTemplates: rowDescriptionTemplates,
+        colDescriptionTemplates: colDescriptionTemplates,
         grid: grid,
       };
     }

@@ -77,11 +77,37 @@ export function getNumericComparisonClue(solutionMatrix) {
   }
   const numericDiffClue = pickRandom(numericDiffOptions);
 
-  const writtenClue = `${itemA} is ${
-    numericDiffClue ? `${numericDiffClue} ` : ""
-  }${
-    itemANumericValue < itemBNumericValue ? "less than" : "greater than"
-  } ${itemB}`;
+  const [numericDescriptionTemplates, nonNumericDescriptionTemplates] =
+    numericIsRows
+      ? [
+          solutionMatrix[selectedKey].rowDescriptionTemplates,
+          solutionMatrix[selectedKey].colDescriptionTemplates,
+        ]
+      : [
+          solutionMatrix[selectedKey].colDescriptionTemplates,
+          solutionMatrix[selectedKey].rowDescriptionTemplates,
+        ];
+
+  const leadingDescription =
+    nonNumericDescriptionTemplates.leadingDescription.replace("VALUE", itemA);
+
+  const numericDescriptionTemplate =
+    itemANumericValue < itemBNumericValue
+      ? numericDescriptionTemplates.diffLesserDescription
+      : numericDescriptionTemplates.diffGreaterDescription;
+  const numericDescription = numericDiffClue
+    ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
+    : numericDescriptionTemplate.replace("VALUE", "some");
+
+  const trailingDescription = numericIsRows
+    ? solutionMatrix[
+        selectedKey
+      ].colDescriptionTemplates.trailingDescription.replace("VALUE", itemB)
+    : solutionMatrix[
+        selectedKey
+      ].rowDescriptionTemplates.trailingDescription.replace("VALUE", itemB);
+
+  const writtenClue = `${leadingDescription} is ${numericDescription} than ${trailingDescription}.`;
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;

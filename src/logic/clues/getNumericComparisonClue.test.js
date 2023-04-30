@@ -14,6 +14,16 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -24,6 +34,14 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -34,8 +52,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
+
   const solutionMatrix = {
     "0v1": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -46,6 +75,16 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -56,6 +95,14 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -66,6 +113,16 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
@@ -78,7 +135,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Meme";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -87,7 +143,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -115,7 +173,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Sarah";
     const expectedGrid = [
       [null, null, null, false],
       [false, null, null, null],
@@ -124,7 +181,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Sarah's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -152,7 +211,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than yellow";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -161,7 +219,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the yellow car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -189,7 +249,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than blue";
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -198,7 +257,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -227,7 +288,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -236,7 +296,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 1 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -265,7 +327,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, false, false],
       [null, null, null, null],
@@ -274,7 +335,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 2 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -287,9 +350,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     expect(newDerivedMatrix["0v1"]["grid"]).not.toEqual(
       emptyDerivedMatrix["0v1"]["grid"],
     );
-    console.log("$$$$");
-    console.log(clue.writtenClue);
-    console.log(JSON.stringify(newDerivedMatrix["0v1"]["grid"]));
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
@@ -306,7 +366,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [true, false, false, false],
       [false, null, null, false],
@@ -315,7 +374,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 3 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -344,7 +405,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -353,7 +413,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 1 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -383,7 +445,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, false, null, null],
@@ -392,7 +453,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 2 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -421,7 +484,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [true, false, false, false],
       [false, false, null, null],
@@ -430,7 +492,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 3 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -485,6 +549,16 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -495,6 +569,14 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -505,8 +587,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
+
   const solutionMatrix = {
     "0v1": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -517,6 +610,16 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -527,6 +630,14 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -537,6 +648,16 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
@@ -549,7 +670,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Meme";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -558,7 +678,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -586,7 +708,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Sarah";
     const expectedGrid = [
       [null, null, null, false],
       [false, null, null, null],
@@ -595,7 +716,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Sarah's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -623,7 +746,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than yellow";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -632,7 +754,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the yellow car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -660,7 +784,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than blue";
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -669,7 +792,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -698,7 +823,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -707,7 +831,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 10 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -736,7 +862,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, false, false],
       [null, null, null, null],
@@ -745,7 +870,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 20 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -758,9 +885,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     expect(newDerivedMatrix["0v1"]["grid"]).not.toEqual(
       emptyDerivedMatrix["0v1"]["grid"],
     );
-    console.log("$$$$");
-    console.log(clue.writtenClue);
-    console.log(JSON.stringify(newDerivedMatrix["0v1"]["grid"]));
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
@@ -777,7 +901,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [true, false, false, false],
       [false, null, null, false],
@@ -786,7 +909,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 30 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -815,7 +940,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -824,7 +948,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 10 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -854,7 +980,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, false, null, null],
@@ -863,7 +988,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 20 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -892,7 +1019,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [true, false, false, false],
       [false, false, null, null],
@@ -901,7 +1027,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 30 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -956,6 +1084,16 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -966,6 +1104,14 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -976,8 +1122,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
+
   const solutionMatrix = {
     "0v1": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -988,6 +1145,16 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     "0v3": {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -998,6 +1165,14 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     "1v3": {
       rowLabels: numericLabels,
@@ -1008,6 +1183,16 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
@@ -1020,7 +1205,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Meme";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -1029,7 +1213,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1057,7 +1243,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than Sarah";
     const expectedGrid = [
       [null, null, null, false],
       [false, null, null, null],
@@ -1066,7 +1251,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than Sarah's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1094,7 +1281,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than yellow";
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -1103,7 +1289,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the yellow car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1131,7 +1319,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = "red is less than blue";
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -1140,7 +1327,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is some years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1169,7 +1358,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, null, false],
       [null, null, null, null],
@@ -1178,7 +1366,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 5 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1207,7 +1397,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [null, null, false, false],
       [null, null, null, null],
@@ -1216,7 +1405,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 20 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1229,9 +1420,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     expect(newDerivedMatrix["0v1"]["grid"]).not.toEqual(
       emptyDerivedMatrix["0v1"]["grid"],
     );
-    console.log("$$$$");
-    console.log(clue.writtenClue);
-    console.log(JSON.stringify(newDerivedMatrix["0v1"]["grid"]));
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
 
     jest.restoreAllMocks();
@@ -1248,7 +1436,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than Meme`;
     const expectedGrid = [
       [true, false, false, false],
       [false, null, null, false],
@@ -1257,7 +1444,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 30 years younger than Meme's car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1286,7 +1475,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, null, null, null],
@@ -1295,7 +1483,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 5 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1325,7 +1515,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [null, false, null, null],
       [null, false, null, null],
@@ -1334,7 +1523,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 20 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -1363,7 +1554,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr.reverse());
 
-    const expectedClue = `red is ${mockedDiff} less than blue`;
     const expectedGrid = [
       [true, false, false, false],
       [false, false, null, null],
@@ -1372,7 +1562,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The red car is 30 years younger than the blue car."`,
+    );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);

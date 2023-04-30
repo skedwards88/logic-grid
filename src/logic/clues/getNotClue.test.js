@@ -11,16 +11,34 @@ const solutionMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["fly", "back", "breast", "free"],
+    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
   },
   "0v3": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -31,16 +49,34 @@ const solutionMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
   },
   "1v2": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["fly", "back", "breast", "free"],
+    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
     ],
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
   },
   "1v3": {
     rowLabels: [1, 2, 3, 4],
@@ -51,9 +87,19 @@ const solutionMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
   },
   "2v3": {
-    rowLabels: ["fly", "back", "breast", "free"],
+    rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
@@ -61,6 +107,14 @@ const solutionMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
   },
 };
 
@@ -70,7 +124,7 @@ describe("getNotClue", () => {
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce("2v3") // solutionKey
       .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
-    jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'fly')
+    jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
     const derivedMatrix = {
       "0v1": {
@@ -85,7 +139,7 @@ describe("getNotClue", () => {
       },
       "0v2": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        colLabels: ["Ford", "Honda", "Kia", "Subaru"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -105,7 +159,7 @@ describe("getNotClue", () => {
       },
       "1v2": {
         rowLabels: [1, 2, 3, 4],
-        colLabels: ["fly", "back", "breast", "free"],
+        colLabels: ["Ford", "Honda", "Kia", "Subaru"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -124,7 +178,7 @@ describe("getNotClue", () => {
         ],
       },
       "2v3": {
-        rowLabels: ["fly", "back", "breast", "free"],
+        rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
         colLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
@@ -134,7 +188,7 @@ describe("getNotClue", () => {
         ],
       },
     };
-    const expectedClue = "fly is not blue";
+    const expectedClue = "The Ford is not the blue car.";
     const clue = getNotClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
 
@@ -221,10 +275,10 @@ describe("getNotClue", () => {
   },
   "0v2": {
     "colLabels": [
-      "fly",
-      "back",
-      "breast",
-      "free",
+      "Ford",
+      "Honda",
+      "Kia",
+      "Subaru",
     ],
     "grid": [
       [
@@ -301,10 +355,10 @@ describe("getNotClue", () => {
   },
   "1v2": {
     "colLabels": [
-      "fly",
-      "back",
-      "breast",
-      "free",
+      "Ford",
+      "Honda",
+      "Kia",
+      "Subaru",
     ],
     "grid": [
       [
@@ -413,10 +467,10 @@ describe("getNotClue", () => {
       ],
     ],
     "rowLabels": [
-      "fly",
-      "back",
-      "breast",
-      "free",
+      "Ford",
+      "Honda",
+      "Kia",
+      "Subaru",
     ],
   },
 }

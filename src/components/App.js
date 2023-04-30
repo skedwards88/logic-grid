@@ -29,25 +29,25 @@ export default function App() {
   }
 
   let labels = [];
-  for (let index = 0; index < gameState.columnLabels.length; index++) {
+  for (let index = 0; index < gameState.matrixColumnLabels.length; index++) {
     labels = [
       ...labels,
       <LabelSet
         key={`column${index}`}
         id={index}
         type="column"
-        labels={gameState.columnLabels[index]}
+        labels={gameState.matrixColumnLabels[index]}
       ></LabelSet>,
     ];
   }
-  for (let index = 0; index < gameState.rowLabels.length; index++) {
+  for (let index = 0; index < gameState.matrixRowLabels.length; index++) {
     labels = [
       ...labels,
       <LabelSet
         key={`row${index}`}
         id={index}
         type="row"
-        labels={gameState.rowLabels[index]}
+        labels={gameState.matrixRowLabels[index]}
       ></LabelSet>,
     ];
   }

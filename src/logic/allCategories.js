@@ -1,8 +1,34 @@
-export const allCategories = {
-  // todo later add type, display name, checks to make sure that don't have cats that are too similar?
-  firstName: ["Colin", "Sarah", "Fefe", "Meme", "Bob", "Joe"],
-  order: [1, 2, 3, 4, 5], //todo some orders can't be randomized
-  color: ["red", "blue", "green", "yellow", "orange"],
-  stroke: ["fly", "back", "breast", "free", "IM"],
-  lastName: ["Ash", "Doe", "Thom", "Mills", "Wong"],
-};
+export const allCategories = [
+  {
+    NAME: {
+      values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
+      descriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+    },
+    COLOR: {
+      values: ["red", "orange", "blue", "green", "yellow"],
+      descriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+    },
+    MODEL: {
+      values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
+      descriptionTemplates: {
+        leadingDescription: "The VALUE",
+        trailingDescription: "the VALUE",
+      },
+    },
+    AGE: {
+      values: [1, 2, 3, 4, 5],
+      descriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+    },
+  },
+];

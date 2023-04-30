@@ -1,17 +1,37 @@
 import {buildEmptyMatrix} from "./buildEmptyMatrix";
 
 describe("buildEmptyMatrix", () => {
-  test("given a list of category labels, generates a solution matrix (same number of categories and items per category)", () => {
-    const labels = [
-      ["cat", "dog", "cow"],
-      [1, 2, 3],
-      ["red", "blue", "green"],
+  test("given a list of category labels and templates, generates a solution matrix (same number of categories and items per category)", () => {
+    const labelsAndTemplates = [
+      {
+        labels: ["cat", "dog", "cow"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE",
+          trailingDescription: "the VALUE",
+        },
+      },
+      {
+        labels: [1, 2, 3],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE year old animal",
+          trailingDescription: "VALUE years old",
+          diffGreaterDescription: "VALUE years older",
+          diffLesserDescription: "VALUE years younger",
+        },
+      },
+      {
+        labels: ["red", "orange", "blue"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE animal",
+          trailingDescription: "the VALUE animal",
+        },
+      },
     ];
-    const emptyMatrix = buildEmptyMatrix(labels);
+    const emptyMatrix = buildEmptyMatrix(labelsAndTemplates);
 
     // matrix has correct number of entries
     let expectedNumberOfKeys = 0;
-    for (let n = labels.length - 1; n > 0; n--) {
+    for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(emptyMatrix).length).toBe(expectedNumberOfKeys);
@@ -21,13 +41,13 @@ describe("buildEmptyMatrix", () => {
       const expectedRows = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].rowLabels),
       ]);
-      expect(labels).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
       // cols are one of the label lists
       const expectedCols = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].colLabels),
       ]);
-      expect(labels).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
 
       // rows and cols are different
       expect(emptyMatrix[key].colLabels).not.toEqual(
@@ -54,17 +74,43 @@ describe("buildEmptyMatrix", () => {
   });
 
   test("given a list of category labels, generates a solution matrix (4 categories, 5 items per)", () => {
-    const labels = [
-      ["cat", "dog", "cow", "horse", "spider"],
-      [1, 2, 3, 4, 5],
-      ["red", "blue", "green", "orange", "yellow"],
-      ["Tom", "Bob", "Jim", "Joe", "Abe"],
+    const labelsAndTemplates = [
+      {
+        labels: ["cat", "dog", "cow", "horse", "spider"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE",
+          trailingDescription: "the VALUE",
+        },
+      },
+      {
+        labels: [1, 2, 3, 4, 5],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE year old animal",
+          trailingDescription: "VALUE years old",
+          diffGreaterDescription: "VALUE years older",
+          diffLesserDescription: "VALUE years younger",
+        },
+      },
+      {
+        labels: ["red", "blue", "green", "orange", "yellow"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE animal",
+          trailingDescription: "the VALUE animal",
+        },
+      },
+      {
+        labels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
+        descriptionTemplates: {
+          leadingDescription: "VALUE's pet",
+          trailingDescription: "VALUE's pet",
+        },
+      },
     ];
-    const emptyMatrix = buildEmptyMatrix(labels);
+    const emptyMatrix = buildEmptyMatrix(labelsAndTemplates);
 
     // matrix has correct number of entries
     let expectedNumberOfKeys = 0;
-    for (let n = labels.length - 1; n > 0; n--) {
+    for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(emptyMatrix).length).toBe(expectedNumberOfKeys);
@@ -74,13 +120,13 @@ describe("buildEmptyMatrix", () => {
       const expectedRows = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].rowLabels),
       ]);
-      expect(labels).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
       // cols are one of the label lists
       const expectedCols = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].colLabels),
       ]);
-      expect(labels).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
 
       // rows and cols are different
       expect(emptyMatrix[key].colLabels).not.toEqual(
@@ -107,17 +153,44 @@ describe("buildEmptyMatrix", () => {
   });
 
   test("given a list of category labels, generates a solution matrix (4 categories, 3 items per)", () => {
-    const labels = [
-      ["cat", "dog", "cow"],
-      [1, 2, 3],
-      ["red", "blue", "green"],
-      ["Tom", "Bob", "Jim"],
+    const labelsAndTemplates = [
+      {
+        labels: ["cat", "dog", "cow"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE",
+          trailingDescription: "the VALUE",
+        },
+      },
+      {
+        labels: [1, 2, 3],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE year old animal",
+          trailingDescription: "VALUE years old",
+          diffGreaterDescription: "VALUE years older",
+          diffLesserDescription: "VALUE years younger",
+        },
+      },
+      {
+        labels: ["red", "blue", "green"],
+        descriptionTemplates: {
+          leadingDescription: "The VALUE animal",
+          trailingDescription: "the VALUE animal",
+        },
+      },
+      {
+        labels: ["Tom", "Bob", "Jim"],
+        descriptionTemplates: {
+          leadingDescription: "VALUE's pet",
+          trailingDescription: "VALUE's pet",
+        },
+      },
     ];
-    const emptyMatrix = buildEmptyMatrix(labels);
+
+    const emptyMatrix = buildEmptyMatrix(labelsAndTemplates);
 
     // matrix has correct number of entries
     let expectedNumberOfKeys = 0;
-    for (let n = labels.length - 1; n > 0; n--) {
+    for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(emptyMatrix).length).toBe(expectedNumberOfKeys);
@@ -127,13 +200,13 @@ describe("buildEmptyMatrix", () => {
       const expectedRows = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].rowLabels),
       ]);
-      expect(labels).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
       // cols are one of the label lists
       const expectedCols = expect.arrayContaining([
         expect.objectContaining(emptyMatrix[key].colLabels),
       ]);
-      expect(labels).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
 
       // rows and cols are different
       expect(emptyMatrix[key].colLabels).not.toEqual(

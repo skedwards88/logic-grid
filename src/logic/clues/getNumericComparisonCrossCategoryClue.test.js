@@ -14,6 +14,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -24,6 +34,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -34,6 +52,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   const emptyDerivedMatrix = {
@@ -46,6 +74,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -56,6 +94,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -66,6 +112,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
@@ -75,7 +131,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than green";
     const expectedGridNameVsNumber = [
       [null, null, null, false],
       [null, null, null, null],
@@ -96,7 +151,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -135,7 +192,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is 2 less than green";
     const expectedGridNameVsNumber = [
       [null, null, false, false],
       [null, null, null, null],
@@ -156,7 +212,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 2 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -195,7 +253,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is 3 less than green";
     const expectedGridNameVsNumber = [
       [true, false, false, false],
       [false, null, null, null],
@@ -216,7 +273,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 3 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -285,6 +344,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -295,6 +364,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -305,6 +382,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   const emptyDerivedMatrix = {
@@ -317,6 +404,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -327,6 +424,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -337,6 +442,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
@@ -348,7 +463,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than green";
     const expectedGridNameVsNumber = [
       [null, null, null, false],
       [null, null, null, null],
@@ -369,7 +483,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -412,7 +528,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than green`;
     const expectedGridNameVsNumber = [
       [null, null, false, false],
       [null, null, null, null],
@@ -433,7 +548,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 20 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -476,7 +593,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than green`;
     const expectedGridNameVsNumber = [
       [true, false, false, false],
       [false, null, null, null],
@@ -497,7 +613,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 30 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -566,6 +684,16 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -576,6 +704,14 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -586,6 +722,16 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, true, false],
         [false, false, false, true],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   const emptyDerivedMatrix = {
@@ -598,6 +744,16 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -608,6 +764,14 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      rowDescriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
@@ -618,6 +782,16 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [null, null, null, null],
         [null, null, null, null],
       ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE car",
+        trailingDescription: "the VALUE car",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
     },
   };
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
@@ -629,7 +803,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = "Colin is less than green";
     const expectedGridNameVsNumber = [
       [null, null, null, false],
       [null, null, null, null],
@@ -650,7 +823,9 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is some years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -693,7 +868,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than green`;
     const expectedGridNameVsNumber = [
       [null, null, false, false],
       [null, null, null, null],
@@ -714,7 +888,9 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 20 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
@@ -757,7 +933,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedClue = `Colin is ${mockedDiff} less than green`;
     const expectedGridNameVsNumber = [
       [true, false, false, false],
       [false, null, null, null],
@@ -778,7 +953,9 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"Colin's car is 30 years younger than the green car."`,
+    );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);

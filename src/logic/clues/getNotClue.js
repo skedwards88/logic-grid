@@ -22,7 +22,13 @@ export function getNotClue(solutionMatrix) {
 
   const colItem = colLabels[colIndex];
 
-  const writtenClue = `${rowItem} is not ${colItem}`; //todo can randomize order
+  const leadingDescription = solutionMatrix[
+    solutionKey
+  ].rowDescriptionTemplates.leadingDescription.replace("VALUE", rowItem);
+  const trailingDescription = solutionMatrix[
+    solutionKey
+  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItem);
+  const writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
