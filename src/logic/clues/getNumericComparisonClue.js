@@ -4,7 +4,8 @@ import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
 } from "../helpers/getPossibleIndex.js";
-import {setToFalse} from "../setValue.js";
+import {setToFalse, setToTrue} from "../setValue.js";
+import {findMatrixValue} from "../helpers/findMatrixValue.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
@@ -62,7 +63,7 @@ export function getNumericComparisonClue(solutionMatrix) {
 
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
-  // possible diffs are 5, 15, 25
+  // possible diffs are 5, 15, 25, as well as undefined
   const inclusiveNumericLabels = numericLabels.filter(
     (i) =>
       i >= Math.min(itemANumericValue, itemBNumericValue) &&
@@ -76,6 +77,7 @@ export function getNumericComparisonClue(solutionMatrix) {
     ];
   }
   const numericDiffClue = pickRandom(numericDiffOptions);
+  const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
 
   const [numericDescriptionTemplates, nonNumericDescriptionTemplates] =
     numericIsRows
@@ -107,7 +109,11 @@ export function getNumericComparisonClue(solutionMatrix) {
         selectedKey
       ].rowDescriptionTemplates.trailingDescription.replace("VALUE", itemB);
 
-  const writtenClue = `${leadingDescription} is ${numericDescription} than ${trailingDescription}.`;
+  const writtenClue = `${leadingDescription} is ${
+    numericDiffClue === undefined || actualNumericDiff === numericDiffClue
+      ? ""
+      : "at least "
+  }${numericDescription} than ${trailingDescription}.`;
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;
@@ -123,6 +129,7 @@ export function getNumericComparisonClue(solutionMatrix) {
 
     // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
+    // If we know the exact diff, then can exclude the "at least"
     const lesserItemLowestPossibleIndex = getFirstPossibleIndex(
       derivedMatrix,
       lesserItem,
@@ -130,25 +137,41 @@ export function getNumericComparisonClue(solutionMatrix) {
     );
     const lesserItemLowestPossibleValue =
       numericLabels[lesserItemLowestPossibleIndex];
-    const greaterItemLowestPossibleIndex = numericLabels.findIndex(
-      (i) =>
-        i >=
-        lesserItemLowestPossibleValue + (numericDiffClue ? numericDiffClue : 1),
-    );
-    for (
-      let numericIndex = 0;
-      numericIndex < greaterItemLowestPossibleIndex;
-      numericIndex++
+    if (
+      actualNumericDiff === numericDiffClue &&
+      findMatrixValue(derivedMatrix, lesserItem, lesserItemLowestPossibleValue)
     ) {
-      newDerivedMatrix = setToFalse(
+      // if we know the exact diff
+      // and we know the value of the lesser item
+      //then we know the value of the greater item
+      newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         greaterItem,
-        numericLabels[numericIndex],
+        lesserItemLowestPossibleValue + numericDiffClue,
       );
+    } else {
+      const greaterItemLowestPossibleIndex = numericLabels.findIndex(
+        (i) =>
+          i >=
+          lesserItemLowestPossibleValue +
+            (numericDiffClue ? numericDiffClue : 1),
+      );
+      for (
+        let numericIndex = 0;
+        numericIndex < greaterItemLowestPossibleIndex;
+        numericIndex++
+      ) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          greaterItem,
+          numericLabels[numericIndex],
+        );
+      }
     }
 
     // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
+    // If we know the exact diff, then can exclude the "at least"
     const greaterItemHighestPossibleIndex = getLastPossibleIndex(
       derivedMatrix,
       greaterItem,
@@ -156,22 +179,40 @@ export function getNumericComparisonClue(solutionMatrix) {
     );
     const greaterItemHighestPossibleValue =
       numericLabels[greaterItemHighestPossibleIndex];
-    const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
-      (i) =>
-        i <=
-        greaterItemHighestPossibleValue -
-          (numericDiffClue ? numericDiffClue : 1),
-    );
-    for (
-      let numericIndex = numericLabels.length - 1;
-      numericIndex > lesserItemHighestPossibleIndex;
-      numericIndex--
+    if (
+      actualNumericDiff === numericDiffClue &&
+      findMatrixValue(
+        derivedMatrix,
+        greaterItem,
+        greaterItemHighestPossibleValue,
+      )
     ) {
-      newDerivedMatrix = setToFalse(
+      // if we know the exact diff
+      // and we know the value of the greater item
+      //then we know the value of the lesser item
+      newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         lesserItem,
-        numericLabels[numericIndex],
+        greaterItemHighestPossibleValue - numericDiffClue,
       );
+    } else {
+      const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
+        (i) =>
+          i <=
+          greaterItemHighestPossibleValue -
+            (numericDiffClue ? numericDiffClue : 1),
+      );
+      for (
+        let numericIndex = numericLabels.length - 1;
+        numericIndex > lesserItemHighestPossibleIndex;
+        numericIndex--
+      ) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          lesserItem,
+          numericLabels[numericIndex],
+        );
+      }
     }
     return newDerivedMatrix;
   }

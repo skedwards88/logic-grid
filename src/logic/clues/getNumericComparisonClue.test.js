@@ -277,7 +277,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
     jest
       .spyOn(pickRandomModule, "pickRandom")
@@ -297,7 +297,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 1 years younger than Meme's car."`,
+      `"Colin's car is at least 1 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -316,7 +316,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
     jest
       .spyOn(pickRandomModule, "pickRandom")
@@ -336,7 +336,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 2 years younger than Meme's car."`,
+      `"Colin's car is at least 2 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -355,7 +355,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 3 (exact))', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
     jest
       .spyOn(pickRandomModule, "pickRandom")
@@ -394,7 +394,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, exact diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
     jest
       .spyOn(pickRandomModule, "pickRandom")
@@ -433,7 +433,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
     jest
@@ -454,7 +454,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 2 years younger than the blue car."`,
+      `"The red car is at least 2 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -473,7 +473,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
     jest
       .spyOn(pickRandomModule, "pickRandom")
@@ -493,7 +493,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 3 years younger than the blue car."`,
+      `"The red car is at least 3 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -832,7 +832,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 10 years younger than Meme's car."`,
+      `"Colin's car is at least 10 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -871,7 +871,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 20 years younger than Meme's car."`,
+      `"Colin's car is at least 20 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -989,7 +989,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 20 years younger than the blue car."`,
+      `"The red car is at least 20 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1028,7 +1028,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 30 years younger than the blue car."`,
+      `"The red car is at least 30 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1367,7 +1367,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 5 years younger than Meme's car."`,
+      `"Colin's car is at least 5 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1406,7 +1406,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 20 years younger than Meme's car."`,
+      `"Colin's car is at least 20 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1524,7 +1524,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 20 years younger than the blue car."`,
+      `"The red car is at least 20 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1563,7 +1563,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is 30 years younger than the blue car."`,
+      `"The red car is at least 30 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 

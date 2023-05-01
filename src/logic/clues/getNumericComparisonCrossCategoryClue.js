@@ -4,7 +4,8 @@ import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
 } from "../helpers/getPossibleIndex.js";
-import {setToFalse} from "../setValue.js";
+import {setToFalse, setToTrue} from "../setValue.js";
+import {findMatrixValue} from "../helpers/findMatrixValue.js";
 import {findMatrixLabel} from "../helpers/findMatrixLabel.js";
 
 // Generates a numeric clue that spans categories
@@ -13,6 +14,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   // find two grids in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
   // todo if everything is known about that grid, return undefined?
+  // todo make this work if there are more than one numerics
   let numericEntries = [];
   for (const key of shuffleArray(Object.keys(solutionMatrix))) {
     if (typeof solutionMatrix[key].rowLabels[0] === "number") {
@@ -44,7 +46,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
 
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
-  // possible diffs are 5, 15, 25
+  // possible diffs are 5, 15, 25, as well as undefined
   const inclusiveNumericLabels = numericLabels.filter(
     (i) =>
       i >= Math.min(itemANumericValue, itemBNumericValue) &&
@@ -58,6 +60,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     ];
   }
   const numericDiffClue = pickRandom(numericDiffOptions);
+  const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
 
   const itemATemplates = numericEntries[0].numericIsRows
     ? solutionMatrix[numericEntries[0].key].colDescriptionTemplates
@@ -86,7 +89,11 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
     : numericDescriptionTemplate.replace("VALUE", "some");
 
-  const writtenClue = `${itemADescription} is ${numericDescription} than ${itemBDescription}.`;
+  const writtenClue = `${itemADescription} is ${
+    numericDiffClue === undefined || actualNumericDiff === numericDiffClue
+      ? ""
+      : "at least "
+  }${numericDescription} than ${itemBDescription}.`;
 
   function clueLogic(derivedMatrix) {
     let newDerivedMatrix = derivedMatrix;
@@ -105,6 +112,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
 
     // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
+    // If we know the exact diff, then can exclude the "at least"
     const lesserItemLowestPossibleIndex = getFirstPossibleIndex(
       derivedMatrix,
       lesserItem,
@@ -112,25 +120,41 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     );
     const lesserItemLowestPossibleValue =
       numericLabels[lesserItemLowestPossibleIndex];
-    const greaterItemLowestPossibleIndex = numericLabels.findIndex(
-      (i) =>
-        i >=
-        lesserItemLowestPossibleValue + (numericDiffClue ? numericDiffClue : 1),
-    );
-    for (
-      let numericIndex = 0;
-      numericIndex < greaterItemLowestPossibleIndex;
-      numericIndex++
+    if (
+      actualNumericDiff === numericDiffClue &&
+      findMatrixValue(derivedMatrix, lesserItem, lesserItemLowestPossibleValue)
     ) {
-      newDerivedMatrix = setToFalse(
+      // if we know the exact diff
+      // and we know the value of the lesser item
+      //then we know the value of the greater item
+      newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         greaterItem,
-        numericLabels[numericIndex],
+        lesserItemLowestPossibleValue + numericDiffClue,
       );
+    } else {
+      const greaterItemLowestPossibleIndex = numericLabels.findIndex(
+        (i) =>
+          i >=
+          lesserItemLowestPossibleValue +
+            (numericDiffClue ? numericDiffClue : 1),
+      );
+      for (
+        let numericIndex = 0;
+        numericIndex < greaterItemLowestPossibleIndex;
+        numericIndex++
+      ) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          greaterItem,
+          numericLabels[numericIndex],
+        );
+      }
     }
 
     // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
+    // If we know the exact diff, then can exclude the "at least"
     const greaterItemHighestPossibleIndex = getLastPossibleIndex(
       derivedMatrix,
       greaterItem,
@@ -138,22 +162,40 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     );
     const greaterItemHighestPossibleValue =
       numericLabels[greaterItemHighestPossibleIndex];
-    const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
-      (i) =>
-        i <=
-        greaterItemHighestPossibleValue -
-          (numericDiffClue ? numericDiffClue : 1),
-    );
-    for (
-      let numericIndex = numericLabels.length - 1;
-      numericIndex > lesserItemHighestPossibleIndex;
-      numericIndex--
+    if (
+      actualNumericDiff === numericDiffClue &&
+      findMatrixValue(
+        derivedMatrix,
+        greaterItem,
+        greaterItemHighestPossibleValue,
+      )
     ) {
-      newDerivedMatrix = setToFalse(
+      // if we know the exact diff
+      // and we know the value of the greater item
+      //then we know the value of the lesser item
+      newDerivedMatrix = setToTrue(
         newDerivedMatrix,
         lesserItem,
-        numericLabels[numericIndex],
+        greaterItemHighestPossibleValue - numericDiffClue,
       );
+    } else {
+      const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
+        (i) =>
+          i <=
+          greaterItemHighestPossibleValue -
+            (numericDiffClue ? numericDiffClue : 1),
+      );
+      for (
+        let numericIndex = numericLabels.length - 1;
+        numericIndex > lesserItemHighestPossibleIndex;
+        numericIndex--
+      ) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          lesserItem,
+          numericLabels[numericIndex],
+        );
+      }
     }
     return newDerivedMatrix;
   }
