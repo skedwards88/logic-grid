@@ -13,10 +13,9 @@ export function getUsefulClue(solutionMatrix, derivedMatrix) {
   const clueFunctions = [
     getNotClue,
     getOrClue,
-    getNumericComparisonClue,
-    getNumericComparisonCrossCategoryClue,
+    getNumericComparisonClue, // todo only works if at least 1 numeric
+    getNumericComparisonCrossCategoryClue, //todo only works if  at least 1 numeric and 2 other categories
   ]; // todo add more clues to here as build
-  //todo if no numeric categories, cannot use numericclues
 
   while (!foundUsefulClue) {
     // get a clue
