@@ -1,10 +1,12 @@
 export const allCategories = [
   {
-    NAME: {
-      values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
+    AGE: {
+      values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
       },
     },
     COLOR: {
@@ -14,20 +16,18 @@ export const allCategories = [
         trailingDescription: "the VALUE car",
       },
     },
+    NAME: {
+      values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
+      descriptionTemplates: {
+        leadingDescription: "VALUE's car",
+        trailingDescription: "VALUE's car",
+      },
+    },
     MODEL: {
       values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
       descriptionTemplates: {
         leadingDescription: "The VALUE",
         trailingDescription: "the VALUE",
-      },
-    },
-    AGE: {
-      values: [1, 2, 3, 4, 5],
-      descriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
       },
     },
   },
