@@ -2,6 +2,7 @@ import {getOrClue} from "./clues/getOrClue.js";
 import {getNotClue} from "./clues/getNotClue.js";
 import {getNumericComparisonClue} from "./clues/getNumericComparisonClue.js";
 import {getNumericComparisonCrossCategoryClue} from "./clues/getNumericComparisonCrossCategoryClue.js";
+import {getOrCrossCategoryClue} from "./clues/getOrCrossCategoryClue.js";
 import {pickRandom} from "./helpers/pickRandom.js";
 import {matrixesEqualQ} from "./helpers/matrixesEqualQ.js";
 
@@ -14,7 +15,8 @@ export function getUsefulClue(solutionMatrix, derivedMatrix) {
     getNotClue,
     getOrClue,
     getNumericComparisonClue, // todo only works if at least 1 numeric
-    getNumericComparisonCrossCategoryClue, //todo only works if  at least 1 numeric and 2 other categories
+    getNumericComparisonCrossCategoryClue, //todo only works if at least 1 numeric and 2 other categories
+    getOrCrossCategoryClue, //todo only words if at least 3 categories
   ]; // todo add more clues to here as build
 
   while (!foundUsefulClue) {
