@@ -20,6 +20,11 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     ...categoryLabels.slice(2, categoryLabels.length).reverse(),
   ];
 
+  const includeCrossCategoryClues = numCats > 2;
+  const includeNumericClues = categoryLabels.some(
+    (i) => typeof i[0] === "number",
+  );
+
   let clues = [];
   let puzzleIsSolved = false;
   let clue;
@@ -33,14 +38,27 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     ({clue, newDerivedMatrix} = getUsefulClue(
       solutionMatrix,
       newDerivedMatrix,
+      includeCrossCategoryClues,
+      includeNumericClues,
     ));
     clues = [...clues, clue];
 
+    console.log(clue.writtenClue);
     newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix);
+    console.log(JSON.stringify(newDerivedMatrix.category0_category1.colLabels));
+    newDerivedMatrix.category0_category1.grid.forEach((element, index) => {
+      console.log(
+        JSON.stringify([
+          index,
+          ...element.map((i) => (i ? "O" : i === false ? "X" : " ")),
+        ]),
+      );
+    });
+    // console.log(JSON.stringify(newDerivedMatrix.category0_category1.grid))
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
-  console.log(clues.map((clue) => clue.writtenClue).join("\n"));
+  // console.log(clues.map((clue) => clue.writtenClue).join("\n"));
   return {
     clues: clues,
     solutionMatrix: solutionMatrix,

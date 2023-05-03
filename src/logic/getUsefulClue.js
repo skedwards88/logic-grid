@@ -6,18 +6,27 @@ import {getOrCrossCategoryClue} from "./clues/getOrCrossCategoryClue.js";
 import {pickRandom} from "./helpers/pickRandom.js";
 import {matrixesEqualQ} from "./helpers/matrixesEqualQ.js";
 
-export function getUsefulClue(solutionMatrix, derivedMatrix) {
+export function getUsefulClue(
+  solutionMatrix,
+  derivedMatrix,
+  includeCrossCategoryClues,
+  includeNumericClues,
+) {
   let foundUsefulClue = false;
   let clue;
   let newDerivedMatrix;
 
-  const clueFunctions = [
-    getNotClue,
-    getOrClue,
-    getNumericComparisonClue, // todo only works if at least 1 numeric
-    getNumericComparisonCrossCategoryClue, //todo only works if at least 1 numeric and 2 other categories
-    getOrCrossCategoryClue, //todo only words if at least 3 categories
-  ]; // todo add more clues to here as build
+  let clueFunctions = [getNotClue, getOrClue]; // todo add more clues to here as build
+
+  if (includeCrossCategoryClues) {
+    clueFunctions = [...clueFunctions, getOrCrossCategoryClue];
+  }
+  if (includeNumericClues) {
+    clueFunctions = [...clueFunctions, getNumericComparisonClue];
+  }
+  if (includeCrossCategoryClues && includeNumericClues) {
+    clueFunctions = [...clueFunctions, getNumericComparisonCrossCategoryClue];
+  }
 
   while (!foundUsefulClue) {
     // get a clue
