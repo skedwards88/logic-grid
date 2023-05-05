@@ -1,6 +1,6 @@
 import {gridsEqualQ} from "./gridsEqualQ";
 
-describe("gridEqualQ", () => {
+describe("gridsEqualQ", () => {
   test("returns true if the grids are equal", () => {
     const gridA = [
       [true, false, false],
@@ -50,7 +50,7 @@ describe("gridEqualQ", () => {
     };
 
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
-      "gridEqualQ: Inputs are not arrays",
+      "gridsEqualQ: Inputs are not arrays",
     );
   });
 
@@ -68,7 +68,7 @@ describe("gridEqualQ", () => {
     ];
 
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
-      "gridEqualQ: Input grids are different lengths",
+      "gridsEqualQ: Input grids are different lengths",
     );
   });
 
@@ -87,7 +87,7 @@ describe("gridEqualQ", () => {
     ];
 
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
-      "gridEqualQ: Rows are not arrays",
+      "arraysEqualQ: Inputs are not arrays",
     );
   });
 
@@ -106,7 +106,7 @@ describe("gridEqualQ", () => {
     ];
 
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
-      "gridEqualQ: Rows are different lengths",
+      "arraysEqualQ: Arrays are different lengths",
     );
   });
 });
