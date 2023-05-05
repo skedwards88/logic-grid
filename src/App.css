@@ -122,15 +122,15 @@ body {
   transform: rotate(180deg);
 }
 
-.columnLabel.size3 > div{
+.columnLabel.size3 > div {
   width: var(--size3);
 }
 
-.columnLabel.size4 > div{
+.columnLabel.size4 > div {
   width: var(--size4);
 }
 
-.columnLabel.size5 > div{
+.columnLabel.size5 > div {
   width: var(--size5);
 }
 
@@ -163,13 +163,13 @@ body {
   padding-right: 4px;
 }
 
-.rowLabel.size3 > div{
+.rowLabel.size3 > div {
   height: var(--size3);
 }
-.rowLabel.size4 > div{
+.rowLabel.size4 > div {
   height: var(--size4);
 }
-.rowLabel.size5 > div{
+.rowLabel.size5 > div {
   height: var(--size5);
 }
 .rowLabel.label0 {

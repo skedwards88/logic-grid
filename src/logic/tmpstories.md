@@ -5,12 +5,12 @@
 - FIRST_NAME, GPA (4.0,3.8,3.6,3.4,3.2), MAJOR, MINOR
 - FIRST_NAME, YEARS old pet (1,2,3,4,5), PET TYPE AND/OR PET NUMBER OF LEGS, PET NAME
 - Hiking accessory: poles hat water bottle sunglasses handkerchief. Miles. Elevation. Trail name.
-Vacation. Destination. Number days. Start day. Airline.
-Road trip. States. Number states. Miles. Car models.
-Commuter . Mode of transport. Minutes. Job. 
-Afternoon beverage. Time. Cup color.
-Jigsaw. Number pieces. Subject. 
-House. Number trees. Color. Accessory swing dog fence flag chimney etc
+  Vacation. Destination. Number days. Start day. Airline.
+  Road trip. States. Number states. Miles. Car models.
+  Commuter . Mode of transport. Minutes. Job. 
+  Afternoon beverage. Time. Cup color.
+  Jigsaw. Number pieces. Subject. 
+  House. Number trees. Color. Accessory swing dog fence flag chimney etc
 
 NAME - CAR AGE - CAR MAKE - CAR COLOR
 
@@ -37,27 +37,14 @@ The MODEL is DIFF years older than the MODEL
 The MODEL is DIFF years older than the COLOR car
 The MODEL is DIFF years older than NAME's car
 
-{
-  NAME: {
-    values: ["Abe", "Bob", "Colin", "Dan"],
-    leadingDescription: "NAME's car",
-    trailingDescription: "NAME's car",
-    },
-  COLOR: {
-    values: ["red", "orange", "blue", "green"],
-    leadingDescription: "The COLOR car",
-    trailingDescription: "the COLOR car",
-    },
-  MODEL: {
-    values: ["ford", "bmw", "honda", "mercedes"],
-    leadingDescription: "The MODEL",
-    trailingDescription: "the MODEL",
-    },
-  AGE: {
-    values: [1,2,3,4],
-    leadingDescription: "The AGE year old car",
-    trailingDescription: "AGE years old",
-    diffGreaterDescription: "DIFF years older"
-    diffLesserDescription: "DIFF years younger"
-    }
-}
+NAME finished in position PLACE
+NAME wore COLOR goggles
+NAME swam STROKE
+
+The person wearing COLOR goggles finished in position PLACE
+The person wearing COLOR goggles was NAME
+The person wearing COLOR goggles swam STROKE
+
+The person who finished in position PLACE wore COLOR goggles
+The person who finished in position PLACE was NAME
+The person who finished in position PLACE swam STROKE

@@ -24,7 +24,7 @@ export function gameReducer(currentGameState, payload) {
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
-    console.log('todo newGame')
+    console.log("todo newGame");
   }
   console.log("todo");
   return {...currentGameState};
