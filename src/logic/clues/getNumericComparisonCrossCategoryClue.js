@@ -7,6 +7,7 @@ import {
 import {setToFalse, setToTrue} from "../setValue.js";
 import {findMatrixValue} from "../helpers/findMatrixValue.js";
 import {findMatrixLabel} from "../helpers/findMatrixLabel.js";
+import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
@@ -14,34 +15,46 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   // find two grids in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
   // todo if everything is known about that grid, return undefined?
-  // todo make this work if there are more than one numerics
-  let numericEntries = [];
+  let numericLabels;
+  let numericDescriptionTemplates;
+  let itemALabels;
+  let itemATemplates;
+  let itemBLabels;
+  let itemBTemplates;
   for (const key of shuffleArray(Object.keys(solutionMatrix))) {
-    if (typeof solutionMatrix[key].rowLabels[0] === "number") {
-      numericEntries = [...numericEntries, {key: key, numericIsRows: true}];
-    } else if (typeof solutionMatrix[key].colLabels[0] === "number") {
-      numericEntries = [...numericEntries, {key: key, numericIsRows: false}];
-    }
-    if (numericEntries.length >= 2) {
-      break;
+    if (!itemALabels) {
+      // If we haven't found a numeric entry, choose the first that we find
+      if (typeof solutionMatrix[key].rowLabels[0] === "number") {
+        numericLabels = solutionMatrix[key].rowLabels;
+        numericDescriptionTemplates =
+          solutionMatrix[key].rowDescriptionTemplates;
+        itemALabels = solutionMatrix[key].colLabels;
+        itemATemplates = solutionMatrix[key].colDescriptionTemplates;
+      } else if (typeof solutionMatrix[key].colLabels[0] === "number") {
+        numericLabels = solutionMatrix[key].colLabels;
+        numericDescriptionTemplates =
+          solutionMatrix[key].colDescriptionTemplates;
+        itemALabels = solutionMatrix[key].rowLabels;
+        itemATemplates = solutionMatrix[key].rowDescriptionTemplates;
+      }
+    } else {
+      // in case there are multiple numeric labels, make sure we find one that matches the one we already found // todo add test for this case
+      if (arraysEqualQ(solutionMatrix[key].rowLabels, numericLabels)) {
+        itemBLabels = solutionMatrix[key].colLabels;
+        itemBTemplates = solutionMatrix[key].colDescriptionTemplates;
+      } else if (arraysEqualQ(solutionMatrix[key].colLabels, numericLabels)) {
+        itemBLabels = solutionMatrix[key].rowLabels;
+        itemBTemplates = solutionMatrix[key].rowDescriptionTemplates;
+      }
     }
   }
 
-  // figure out the numeric labels
-  const numericLabels = numericEntries[0].numericIsRows
-    ? solutionMatrix[numericEntries[0].key].rowLabels
-    : solutionMatrix[numericEntries[0].key].colLabels; // todo make sure can rely on these being sorted
+  // todo make sure can rely on the numeric labels being sorted
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
   const [itemANumericValue, itemBNumericValue] = pickRandoms(numericLabels, 2);
-  const itemALabels = numericEntries[0].numericIsRows
-    ? solutionMatrix[numericEntries[0].key].colLabels
-    : solutionMatrix[numericEntries[0].key].rowLabels;
   const itemA = findMatrixLabel(solutionMatrix, itemANumericValue, itemALabels);
-  const itemBLabels = numericEntries[1].numericIsRows
-    ? solutionMatrix[numericEntries[1].key].colLabels
-    : solutionMatrix[numericEntries[1].key].rowLabels;
   const itemB = findMatrixLabel(solutionMatrix, itemBNumericValue, itemBLabels);
 
   // e.g. if numeric labels are [10,15,20,30,40]
@@ -62,25 +75,16 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   const numericDiffClue = pickRandom(numericDiffOptions);
   const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
 
-  const itemATemplates = numericEntries[0].numericIsRows
-    ? solutionMatrix[numericEntries[0].key].colDescriptionTemplates
-    : solutionMatrix[numericEntries[0].key].rowDescriptionTemplates;
   const itemADescription = itemATemplates.leadingDescription.replace(
     "VALUE",
     itemA,
   );
 
-  const itemBTemplates = numericEntries[1].numericIsRows
-    ? solutionMatrix[numericEntries[1].key].colDescriptionTemplates
-    : solutionMatrix[numericEntries[1].key].rowDescriptionTemplates;
   const itemBDescription = itemBTemplates.trailingDescription.replace(
     "VALUE",
     itemB,
   );
 
-  const numericDescriptionTemplates = numericEntries[0].numericIsRows
-    ? solutionMatrix[numericEntries[0].key].rowDescriptionTemplates
-    : solutionMatrix[numericEntries[0].key].colDescriptionTemplates;
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
       ? numericDescriptionTemplates.diffLesserDescription

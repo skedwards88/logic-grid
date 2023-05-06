@@ -1011,3 +1011,230 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(newDerived).not.toEqual(emptyDerivedMatrix);
   });
 });
+
+describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
+  const numericLabelsYears = [1, 2, 3, 4];
+  const numericLabelsMiles = [10, 20, 30, 40];
+  const numericLabelsDollars = [100, 200, 300, 400];
+  const solutionMatrix = {
+    YearsVsMiles: {
+      rowLabels: numericLabelsYears,
+      colLabels: numericLabelsMiles,
+      grid: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE miles car",
+        trailingDescription: "VALUE miles",
+        diffGreaterDescription: "VALUE miles more",
+        diffLesserDescription: "VALUE miles less",
+      },
+    },
+    MilesVsC: {
+      rowLabels: numericLabelsMiles,
+      colLabels: numericLabelsDollars,
+      grid: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE miles car",
+        trailingDescription: "VALUE miles",
+        diffGreaterDescription: "VALUE miles more",
+        diffLesserDescription: "VALUE miles less",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE dollar car",
+        trailingDescription: "the VALUE dollar car",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+      },
+    },
+    DollarsVsYears: {
+      rowLabels: numericLabelsDollars,
+      colLabels: numericLabelsYears,
+      grid: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE dollar car",
+        trailingDescription: "the VALUE dollar car",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+    },
+  };
+  const emptyDerivedMatrix = {
+    YearsVsMiles: {
+      rowLabels: numericLabelsYears,
+      colLabels: numericLabelsMiles,
+      grid: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE miles car",
+        trailingDescription: "VALUE miles",
+        diffGreaterDescription: "VALUE miles more",
+        diffLesserDescription: "VALUE miles less",
+      },
+    },
+    MilesVsDollars: {
+      rowLabels: numericLabelsMiles,
+      colLabels: numericLabelsDollars,
+      grid: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE miles car",
+        trailingDescription: "VALUE miles",
+        diffGreaterDescription: "VALUE miles more",
+        diffLesserDescription: "VALUE miles less",
+      },
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE dollar car",
+        trailingDescription: "the VALUE dollar car",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+      },
+    },
+    DollarsVsYears: {
+      rowLabels: numericLabelsDollars,
+      colLabels: numericLabelsYears,
+      grid: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      colDescriptionTemplates: {
+        leadingDescription: "The VALUE dollar car",
+        trailingDescription: "the VALUE dollar car",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+      },
+      rowDescriptionTemplates: {
+        leadingDescription: "The VALUE year old car",
+        trailingDescription: "VALUE years old",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+    },
+  };
+  test("works even if multiple numeric categories", () => {
+    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
+    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(1);
+    jest
+      .spyOn(shuffleArrayModule, "shuffleArray")
+      .mockImplementation((arr) => arr);
+
+    const expectedGridYearsVsMiles = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ];
+    const expectedGridMilesVsDollars = [
+      [null, null, false, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+    const expectedGridDollarsVsYears = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+      [null, null, null, null],
+    ];
+
+    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    expect(clue.writtenClue).toMatchInlineSnapshot(
+      `"The 10 miles car is at least 1 years younger than the 300 dollar car."`,
+    );
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+
+    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+
+    expect(newDerivedMatrix["YearsVsMiles"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["YearsVsMiles"]["grid"],
+    );
+
+    expect(newDerivedMatrix["YearsVsMiles"]["grid"]).toEqual(
+      expectedGridYearsVsMiles,
+    );
+
+    expect(newDerivedMatrix["MilesVsDollars"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["MilesVsDollars"]["grid"],
+    );
+    expect(newDerivedMatrix["MilesVsDollars"]["grid"]).toEqual(
+      expectedGridMilesVsDollars,
+    );
+
+    expect(newDerivedMatrix["DollarsVsYears"]["grid"]).not.toEqual(
+      emptyDerivedMatrix["DollarsVsYears"]["grid"],
+    );
+    expect(newDerivedMatrix["DollarsVsYears"]["grid"]).toEqual(
+      expectedGridDollarsVsYears,
+    );
+
+    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+
+    jest.restoreAllMocks();
+  });
+
+  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+
+    expect(clue).toHaveProperty("writtenClue");
+    expect(clue).toHaveProperty("clueLogic");
+    expect(typeof clue.writtenClue).toBe("string");
+    expect(typeof clue.clueLogic).toBe("function");
+  });
+
+  test("does not modify the solution matrix when generating the clue", () => {
+    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const clue = getNumericComparisonCrossCategoryClue(matrixCopy);
+    expect(matrixCopy).toEqual(solutionMatrix);
+  });
+
+  test("does not modify the derived matrix when applying the clue", () => {
+    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const newDerived = clue.clueLogic(derivedCopy);
+
+    expect(derivedCopy).toEqual(emptyDerivedMatrix);
+    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+  });
+});
