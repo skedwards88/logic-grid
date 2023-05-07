@@ -1,5 +1,4 @@
 import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
-import {setToFalse} from "../setValue.js";
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
@@ -38,10 +37,4 @@ export function getNotClue(solutionMatrix) {
       colItem: colItem,
     },
   };
-}
-
-export function applyNotLogic(derivedMatrix, {rowItem, colItem}) {
-  let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
-
-  return newDerivedMatrix;
 }

@@ -1,8 +1,8 @@
-import {applyNotLogic} from "./getNotClue.js";
-import {applyOrLogic} from "./getOrClue.js";
-import {applyNumericComparisonLogic} from "./getNumericComparisonClue.js";
-import {applyNumericComparisonCrossCategoryLogic} from "./getNumericComparisonCrossCategoryClue.js";
-import {applyOrCrossCategoryLogic} from "./getOrCrossCategoryClue.js";
+import {applyNotLogic} from "./applyNotLogic.js";
+import {applyOrLogic} from "./applyOrLogic.js";
+import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js";
+import {applyNumericComparisonCrossCategoryLogic} from "./applyNumericComparisonCrossCategoryLogic.js";
+import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic.js";
 
 export function logicFactory(clueType) {
   switch (clueType) {

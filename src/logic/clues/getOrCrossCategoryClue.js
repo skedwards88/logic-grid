@@ -1,8 +1,6 @@
 import {findMatrixLabel} from "../helpers/findMatrixLabel.js";
-import {findMatrixValue} from "../helpers/findMatrixValue.js";
 import {pickRandom} from "../helpers/pickRandom.js";
 import {shuffleArray} from "../helpers/shuffleArray.js";
-import {setToFalse} from "../setValue.js";
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
@@ -98,22 +96,3 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   };
 }
 
-export function applyOrCrossCategoryLogic(
-  derivedMatrix,
-  {itemA, itemB, itemC},
-) {
-  let newDerivedMatrix = derivedMatrix;
-
-  // Know that itemB is not itemC
-  newDerivedMatrix = setToFalse(newDerivedMatrix, itemB, itemC);
-
-  // If you know that itemA is itemB, then you know itemA is not itemC
-  // If you know that itemA is itemC, then you know itemA is not itemB
-  if (findMatrixValue(newDerivedMatrix, itemA, itemB)) {
-    newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, itemC);
-  } else if (findMatrixValue(newDerivedMatrix, itemA, itemC)) {
-    newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, itemB);
-  }
-
-  return newDerivedMatrix;
-}
