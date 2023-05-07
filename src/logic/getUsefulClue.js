@@ -5,6 +5,7 @@ import {getNumericComparisonCrossCategoryClue} from "./clues/getNumericCompariso
 import {getOrCrossCategoryClue} from "./clues/getOrCrossCategoryClue.js";
 import {pickRandom} from "./helpers/pickRandom.js";
 import {matrixesEqualQ} from "./helpers/matrixesEqualQ.js";
+import { logicFactory } from "./clues/logicFactory.js";
 
 export function getUsefulClue(
   solutionMatrix,
@@ -34,7 +35,9 @@ export function getUsefulClue(
     clue = clueFunction(solutionMatrix);
 
     // see if it changes the derivedMatrix
-    newDerivedMatrix = clue.clueLogic(derivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType)
+
+    newDerivedMatrix = clueLogicFunction(derivedMatrix, clue.clueParameters);
     // todo write cleaner comparison method
     // could also check this at the time the clue was applied--more efficient but maybe less readable
     foundUsefulClue = !matrixesEqualQ(newDerivedMatrix, derivedMatrix);

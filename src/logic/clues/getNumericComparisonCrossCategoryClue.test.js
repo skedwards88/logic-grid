@@ -1,6 +1,7 @@
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
+import {logicFactory} from "./logicFactory";
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
@@ -156,7 +157,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -217,7 +222,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -278,7 +287,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -307,13 +320,25 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    [
+      "itemA",
+      "itemB",
+      "itemANumericValue",
+      "itemBNumericValue",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -325,10 +350,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
-
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      derivedCopy,
+      clue.clueParameters,
+    );
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
   });
 });
 
@@ -488,7 +516,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -553,7 +585,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -618,7 +654,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -647,13 +687,25 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    [
+      "itemA",
+      "itemB",
+      "itemANumericValue",
+      "itemBNumericValue",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -665,10 +717,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
-
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      derivedCopy,
+      clue.clueParameters,
+    );
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
   });
 });
 
@@ -828,7 +883,11 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -893,7 +952,11 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -958,7 +1021,11 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
       emptyDerivedMatrix["NameVsNumber"]["grid"],
@@ -987,13 +1054,25 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    [
+      "itemA",
+      "itemB",
+      "itemANumericValue",
+      "itemBNumericValue",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -1005,10 +1084,13 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
-
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      derivedCopy,
+      clue.clueParameters,
+    );
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
   });
 });
 
@@ -1184,7 +1266,11 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["YearsVsMiles"]["grid"]).not.toEqual(
       emptyDerivedMatrix["YearsVsMiles"]["grid"],
@@ -1214,13 +1300,25 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    [
+      "itemA",
+      "itemB",
+      "itemANumericValue",
+      "itemBNumericValue",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -1232,9 +1330,12 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
-
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      derivedCopy,
+      clue.clueParameters,
+    );
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
   });
 });

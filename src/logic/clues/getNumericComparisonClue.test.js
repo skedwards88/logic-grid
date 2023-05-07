@@ -1,6 +1,7 @@
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
+import {logicFactory} from "./logicFactory";
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
@@ -148,7 +149,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -186,7 +191,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -224,7 +233,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -262,7 +275,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -301,7 +318,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -340,7 +361,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -379,7 +404,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -418,7 +447,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -458,7 +491,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -497,7 +534,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -512,13 +553,25 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparison");
+    [
+      "itemANumericValue",
+      "itemBNumericValue",
+      "itemB",
+      "itemA",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -530,7 +583,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
     expect(newDerived).not.toEqual(emptyDerivedMatrix);
@@ -683,7 +737,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -721,7 +779,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -759,7 +821,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -797,7 +863,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -836,7 +906,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -875,7 +949,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -914,7 +992,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -953,7 +1035,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -993,7 +1079,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1032,7 +1122,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1047,13 +1141,25 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparison");
+    [
+      "itemANumericValue",
+      "itemBNumericValue",
+      "itemB",
+      "itemA",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -1065,7 +1171,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
     expect(newDerived).not.toEqual(emptyDerivedMatrix);
@@ -1218,7 +1325,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1256,7 +1367,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1294,7 +1409,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1332,7 +1451,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1371,7 +1494,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1410,7 +1537,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1449,7 +1580,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1488,7 +1623,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1528,7 +1667,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1567,7 +1710,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["0v3"]["grid"]).toEqual(
       emptyDerivedMatrix["0v3"]["grid"],
     );
@@ -1582,13 +1729,25 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("numericComparison");
+    [
+      "itemANumericValue",
+      "itemBNumericValue",
+      "itemB",
+      "itemA",
+      "numericLabels",
+      "actualNumericDiff",
+      "numericDiffClue",
+    ].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -1600,7 +1759,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
     expect(newDerived).not.toEqual(emptyDerivedMatrix);

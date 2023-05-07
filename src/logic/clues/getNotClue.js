@@ -30,14 +30,18 @@ export function getNotClue(solutionMatrix) {
   ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItem);
   const writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
 
-  function clueLogic(derivedMatrix) {
-    let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
-
-    return newDerivedMatrix;
-  }
-
   return {
     writtenClue: writtenClue,
-    clueLogic: clueLogic,
+    clueType: "not",
+    clueParameters: {
+      rowItem: rowItem,
+      colItem: colItem,
+    },
   };
+}
+
+export function applyNotLogic(derivedMatrix, {rowItem, colItem}) {
+  let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
+
+  return newDerivedMatrix;
 }

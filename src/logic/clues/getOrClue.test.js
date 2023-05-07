@@ -1,5 +1,6 @@
 import {getOrClue} from "./getOrClue";
 import * as pickRandomModule from "../helpers/pickRandom";
+import {logicFactory} from "./logicFactory";
 
 const solutionMatrix = {
   "0v1": {
@@ -117,7 +118,122 @@ const solutionMatrix = {
     },
   },
 };
-
+const emptyDerivedMatrix = {
+  "0v1": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: [1, 2, 3, 4],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
+  },
+  "0v2": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
+  },
+  "0v3": {
+    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    rowDescriptionTemplates: {
+      leadingDescription: "VALUE's car",
+      trailingDescription: "VALUE's car",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
+  },
+  "1v2": {
+    rowLabels: [1, 2, 3, 4],
+    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
+  },
+  "1v3": {
+    rowLabels: [1, 2, 3, 4],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE year old car",
+      trailingDescription: "VALUE years old",
+      diffGreaterDescription: "VALUE years older",
+      diffLesserDescription: "VALUE years younger",
+    },
+  },
+  "2v3": {
+    rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    colLabels: ["red", "blue", "green", "yellow"],
+    grid: [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ],
+    rowDescriptionTemplates: {
+      leadingDescription: "The VALUE",
+      trailingDescription: "the VALUE",
+    },
+    colDescriptionTemplates: {
+      leadingDescription: "The VALUE car",
+      trailingDescription: "the VALUE car",
+    },
+  },
+};
 describe("getOrClue", () => {
   test('returns an "or" clue for a given solution matrix (using mocked values)', () => {
     jest
@@ -195,7 +311,11 @@ describe("getOrClue", () => {
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = clue.clueLogic(derivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      derivedMatrix,
+      clue.clueParameters,
+    );
     expect(newDerivedMatrix["1v2"]["grid"]).toEqual(
       derivedMatrix["1v2"]["grid"],
     );
@@ -478,19 +598,34 @@ describe("getOrClue", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getOrClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("or");
+    ["colLabels", "colIndexTrue", "colIndexFalse", "rowItem"].forEach(
+      (name) => {
+        expect(clue.clueParameters).toHaveProperty(name);
+      },
+    );
   });
 
-  test("does not modify the solution matrix", () => {
+  test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
     const clue = getOrClue(matrixCopy);
-
     expect(matrixCopy).toEqual(solutionMatrix);
+  });
+
+  test("does not modify the derived matrix when applying the clue", () => {
+    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const clue = getOrClue(solutionMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+
+    expect(derivedCopy).toEqual(emptyDerivedMatrix);
+    expect(newDerived).not.toEqual(emptyDerivedMatrix);
   });
 });

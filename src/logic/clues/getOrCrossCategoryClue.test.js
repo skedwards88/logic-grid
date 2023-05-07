@@ -1,6 +1,7 @@
 import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
+import {logicFactory} from "./logicFactory";
 
 describe("getOrCrossCategoryClue", () => {
   const solutionMatrix = {
@@ -153,8 +154,11 @@ describe("getOrCrossCategoryClue", () => {
       `"Colin's car is 1 years old or the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    const newDerivedMatrix = clue.clueLogic(emptyDerivedMatrix);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyDerivedMatrix,
+      clue.clueParameters,
+    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
       expectedGridNameVsNumber,
@@ -174,13 +178,17 @@ describe("getOrCrossCategoryClue", () => {
     jest.restoreAllMocks();
   });
 
-  test("returns a clue object with a writtenClue string and clueLogic function", () => {
+  test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getOrCrossCategoryClue(solutionMatrix);
 
     expect(clue).toHaveProperty("writtenClue");
-    expect(clue).toHaveProperty("clueLogic");
+    expect(clue).toHaveProperty("clueType");
+    expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(typeof clue.clueLogic).toBe("function");
+    expect(clue.clueType).toEqual("orCrossCategory");
+    ["itemA", "itemB", "itemC"].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
@@ -192,7 +200,8 @@ describe("getOrCrossCategoryClue", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
     const clue = getOrCrossCategoryClue(solutionMatrix);
-    const newDerived = clue.clueLogic(derivedCopy);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
     expect(derivedCopy).toEqual(emptyDerivedMatrix);
     expect(newDerived).not.toEqual(emptyDerivedMatrix);
