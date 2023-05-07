@@ -1,50 +1,99 @@
-- FIRST_NAME, SCORE (A/B/C/D/E corresponding to 1/2/3/4/5, or 100/95/etc), COLOR ink, SUBJECT
 - FIRST_NAME, PLACE (1,2,3,4,5), COLOR JERSEY, DISTANCE (50m, 100m, 200m, 400m, 1600m)
-- FIRST_NAME, YEARS old car (1,3,5,7,9), CAR MAKE, COLOR CAR
-- FIRST_NAME, NUMBER smores eaten, CONSTELLATION, COLOR sleeping bag
 - FIRST_NAME, GPA (4.0,3.8,3.6,3.4,3.2), MAJOR, MINOR
 - FIRST_NAME, YEARS old pet (1,2,3,4,5), PET TYPE AND/OR PET NUMBER OF LEGS, PET NAME
-- Hiking accessory: poles hat water bottle sunglasses handkerchief. Miles. Elevation. Trail name.
   Vacation. Destination. Number days. Start day. Airline.
   Road trip. States. Number states. Miles. Car models.
   Commuter . Mode of transport. Minutes. Job. 
-  Afternoon beverage. Time. Cup color.
-  Jigsaw. Number pieces. Subject. 
-  House. Number trees. Color. Accessory swing dog fence flag chimney etc
 
-NAME - CAR AGE - CAR MAKE - CAR COLOR
+bread - filling (turkey, eggplant, tofu)- drink -cost - condiment (ketchup,mustard,soy sauce, bbq sauce, relish, salsa,hot sauce,pepper,salt,vinegar)
+animal - age - pet name - owner name
+sport watched - mascot - 
+musical instrument - composer - style
+job - salary - hours
+tv genre - emotion - episodes
+clothing item - cost - accessory
+holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
+borrowed tool (hammer, wrench, saw, ratchet)- build (fence, swing, chair) - time borrowed
+cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
+fish species - length - method (net, line, fly, harpoon)
+tattoo of - body part- cm wide
+broken bone - cast color - weeks
+gemstone - jewlery (necklace, brooch, earings, ring, bracelet) - number stones
+spelling bee word, place
+season+yearround, activity, minutes per day
+boat (sailboat, canoe, kayak,rowboat)
+dog breed - dog name - owner name - dog years - dog leash color
+name - asked santa for - number presents
+studies x century - wrote about (trade, war, disease, religion, science)
+halloween costume - pieces of candy - preferred candy
+potluck dish
+tree species - years old
+send a probe to planet - space agency
+dance style [tango, swing, salsa, cha-cha, waltz, rumba, polka] - place - country of competition
+bird species - number sighted
+job - starts work at - 
+preferred candy - number easter eggs -dyed color
 
-NAME's car is not AGE years old
-NAME's car is not a MODEL
-NAME's car is not COLOR
-The AGE year old car is not NAME's car
-The AGE year old car is not the MODEL
-The AGE year old car is not COLOR
-The MODEL is not NAME's car
-The MODEL is not AGE years old
-THE MODEL is not COLOR
-The COLOR car is not NAME's car
-The COLOR car is not AGE years old
-The COLOR car is not the MODEL
-
-NAME's car is AGE years old or the MODEL
-
-NAME's car is DIFF years older than NAME's car
-NAME's car is DIFF years older than the MODEL
-NAME's car is DIFF years older than the COLOR car
-
-The MODEL is DIFF years older than the MODEL
-The MODEL is DIFF years older than the COLOR car
-The MODEL is DIFF years older than NAME's car
-
-NAME finished in position PLACE
-NAME wore COLOR goggles
-NAME swam STROKE
-
-The person wearing COLOR goggles finished in position PLACE
-The person wearing COLOR goggles was NAME
-The person wearing COLOR goggles swam STROKE
-
-The person who finished in position PLACE wore COLOR goggles
-The person who finished in position PLACE was NAME
-The person who finished in position PLACE swam STROKE
+Animals
+Fruits
+Vegetables
+Shapes
+Countries
+Languages
+Sports
+Musical instruments
+Famous people
+Clothing items
+Emotions
+Professions
+Foods
+Planets
+Hobbies
+Books
+Movies
+TV shows
+Types of weather
+Flowers
+Mythical creatures
+Famous landmarks
+Forms of transportation
+Types of trees
+Art movements
+Dance styles
+Currencies
+Beverages
+Historical events
+Mammals
+Inventors
+Kitchen appliances
+Mountains
+Landmarks
+Jobs
+Styles of architecture
+Types of art
+Celestial bodies
+Parts of a house
+Types of insects
+Types of rocks
+Types of cheese
+Parts of a car
+Types of pasta
+Types of clouds
+Fictional places
+Parts of a computer
+Types of shoes
+Art materials
+Types of candy bars
+Types of hats
+Types of sea creatures
+Parts of a plant
+Types of gems
+Types of soup
+Types of spirits
+Types of fabric
+Types of seafood
+Types of mushrooms
+Types of tea
+Types of clouds
+Types of bread
+Types of beer
