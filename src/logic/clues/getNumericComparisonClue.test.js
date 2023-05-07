@@ -562,10 +562,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparison");
     [
-      "itemANumericValue",
-      "itemBNumericValue",
-      "itemB",
-      "itemA",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",
@@ -1150,10 +1148,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparison");
     [
-      "itemANumericValue",
-      "itemBNumericValue",
-      "itemB",
-      "itemA",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",
@@ -1738,10 +1734,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparison");
     [
-      "itemANumericValue",
-      "itemBNumericValue",
-      "itemB",
-      "itemA",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",

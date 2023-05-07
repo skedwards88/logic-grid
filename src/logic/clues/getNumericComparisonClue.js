@@ -110,18 +110,18 @@ export function getNumericComparisonClue(solutionMatrix) {
       : "at least "
   }${numericDescription} than ${trailingDescription}.`;
 
+  const [greaterItem, lesserItem] =
+    itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
+
   return {
     writtenClue: writtenClue,
     clueType: "numericComparison",
     clueParameters: {
-      itemANumericValue,
-      itemBNumericValue,
-      itemB,
-      itemA,
+      greaterItem,
+      lesserItem,
       numericLabels,
       actualNumericDiff,
       numericDiffClue,
     },
   };
 }
-

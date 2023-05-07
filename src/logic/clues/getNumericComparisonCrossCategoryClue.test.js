@@ -329,10 +329,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparisonCrossCategory");
     [
-      "itemA",
-      "itemB",
-      "itemANumericValue",
-      "itemBNumericValue",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",
@@ -696,10 +694,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparisonCrossCategory");
     [
-      "itemA",
-      "itemB",
-      "itemANumericValue",
-      "itemBNumericValue",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",
@@ -1063,10 +1059,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparisonCrossCategory");
     [
-      "itemA",
-      "itemB",
-      "itemANumericValue",
-      "itemBNumericValue",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",
@@ -1309,10 +1303,8 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("numericComparisonCrossCategory");
     [
-      "itemA",
-      "itemB",
-      "itemANumericValue",
-      "itemBNumericValue",
+      "greaterItem",
+      "lesserItem",
       "numericLabels",
       "actualNumericDiff",
       "numericDiffClue",

@@ -608,7 +608,7 @@ describe("getNotClue", () => {
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("not");
-    ["colItem", "rowItem"].forEach((name) => {
+    ["itemA", "itemB"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
   });

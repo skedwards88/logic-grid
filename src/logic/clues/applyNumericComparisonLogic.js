@@ -1,4 +1,3 @@
-
 import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
@@ -8,15 +7,7 @@ import {findMatrixValue} from "../helpers/findMatrixValue.js";
 
 export function applyNumericComparisonLogic(
   derivedMatrix,
-  {
-    itemANumericValue,
-    itemBNumericValue,
-    itemB,
-    itemA,
-    numericLabels,
-    actualNumericDiff,
-    numericDiffClue,
-  },
+  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
   let newDerivedMatrix = derivedMatrix;
 
@@ -25,9 +16,6 @@ export function applyNumericComparisonLogic(
   // so pull the current info about A/B when this function is executed
 
   // todo this relies on labels being sorted by size
-
-  const [greaterItem, lesserItem] =
-    itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
   // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
   // than the lowest index (or the lowest index that the smaller item can be)

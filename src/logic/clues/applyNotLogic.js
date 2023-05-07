@@ -1,7 +1,7 @@
 import {setToFalse} from "../setValue.js";
 
-export function applyNotLogic(derivedMatrix, {rowItem, colItem}) {
-  let newDerivedMatrix = setToFalse(derivedMatrix, rowItem, colItem);
+export function applyNotLogic(derivedMatrix, {itemA, itemB}) {
+  let newDerivedMatrix = setToFalse(derivedMatrix, itemA, itemB);
 
   return newDerivedMatrix;
 }

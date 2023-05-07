@@ -95,4 +95,3 @@ export function getOrCrossCategoryClue(solutionMatrix) {
     clueParameters: {itemA, itemB, itemC},
   };
 }
-

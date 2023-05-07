@@ -606,11 +606,9 @@ describe("getOrClue", () => {
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("or");
-    ["colLabels", "colIndexTrue", "colIndexFalse", "rowItem"].forEach(
-      (name) => {
-        expect(clue.clueParameters).toHaveProperty(name);
-      },
-    );
+    ["notItems", "itemB"].forEach((name) => {
+      expect(clue.clueParameters).toHaveProperty(name);
+    });
   });
 
   test("does not modify the solution matrix when generating the clue", () => {

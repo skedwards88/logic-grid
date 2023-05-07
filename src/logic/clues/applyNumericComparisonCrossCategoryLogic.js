@@ -1,4 +1,3 @@
-
 import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
@@ -8,29 +7,18 @@ import {findMatrixValue} from "../helpers/findMatrixValue.js";
 
 export function applyNumericComparisonCrossCategoryLogic(
   derivedMatrix,
-  {
-    itemA,
-    itemB,
-    itemANumericValue,
-    itemBNumericValue,
-    numericLabels,
-    actualNumericDiff,
-    numericDiffClue,
-  },
+  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
   let newDerivedMatrix = derivedMatrix;
 
-  // Know that itemA is not itemB
-  newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, itemB);
+  // Know that greaterItem is not lesserItem
+  newDerivedMatrix = setToFalse(newDerivedMatrix, greaterItem, lesserItem);
 
   // we know that the value of the numeric item for itemA is greater/less than for itemB,
   // but we can only use what the other clues have told us about itemA/B, which will change as we get more clues
-  // so pull the current info about A/B when this function is executed
+  // so pull the current info about the two items when this function is executed
 
   // todo this relies on labels being sorted by size
-
-  const [greaterItem, lesserItem] =
-    itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
   // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
   // than the lowest index (or the lowest index that the smaller item can be)

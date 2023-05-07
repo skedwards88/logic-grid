@@ -33,8 +33,8 @@ export function getNotClue(solutionMatrix) {
     writtenClue: writtenClue,
     clueType: "not",
     clueParameters: {
-      rowItem: rowItem,
-      colItem: colItem,
+      itemA: rowItem,
+      itemB: colItem,
     },
   };
 }

@@ -94,18 +94,18 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       : "at least "
   }${numericDescription} than ${itemBDescription}.`;
 
+  const [greaterItem, lesserItem] =
+    itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
+
   return {
     writtenClue: writtenClue,
     clueType: "numericComparisonCrossCategory",
     clueParameters: {
-      itemA,
-      itemB,
-      itemANumericValue,
-      itemBNumericValue,
+      greaterItem,
+      lesserItem,
       numericLabels,
       actualNumericDiff,
       numericDiffClue,
     },
   };
 }
-

@@ -36,15 +36,22 @@ export function getOrClue(solutionMatrix) {
   ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItemFalse);
   const writtenClue = `${leadingDescription} is ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
 
+  // the "or" clue equates to "not" clues for all other indexes
+  // ("Colin is 1 or 2" means "Colin is not 3", "Colin is not 4")
+  let notItems = [];
+  for (let colIndex = 0; colIndex < colLabels.length; colIndex++) {
+    if (colIndex === colIndexTrue || colIndex === colIndexFalse) {
+      continue;
+    }
+    notItems = [...notItems, colLabels[colIndex]];
+  }
+
   return {
     writtenClue: writtenClue,
     clueType: "or",
     clueParameters: {
-      colLabels,
-      colIndexTrue,
-      colIndexFalse,
-      rowItem,
+      notItems: notItems,
+      itemB: rowItem,
     },
   };
 }
-

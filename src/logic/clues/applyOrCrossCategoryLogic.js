@@ -1,4 +1,3 @@
-
 import {findMatrixValue} from "../helpers/findMatrixValue.js";
 import {setToFalse} from "../setValue.js";
 
