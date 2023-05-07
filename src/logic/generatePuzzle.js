@@ -29,12 +29,8 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   let puzzleIsSolved = false;
   let clue;
   let newDerivedMatrix = derivedMatrix;
-  let count = 0;
 
-  while (!puzzleIsSolved && count < 100) {
-    //todo remove count
-    console.log(count);
-    count++;
+  while (!puzzleIsSolved) {
     ({clue, newDerivedMatrix} = getUsefulClue(
       solutionMatrix,
       newDerivedMatrix,
@@ -43,22 +39,11 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     ));
     clues = [...clues, clue];
 
-    console.log(clue.writtenClue);
     newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix);
-    console.log(JSON.stringify(newDerivedMatrix.category0_category1.colLabels));
-    newDerivedMatrix.category0_category1.grid.forEach((element, index) => {
-      console.log(
-        JSON.stringify([
-          index,
-          ...element.map((i) => (i ? "O" : i === false ? "X" : " ")),
-        ]),
-      );
-    });
-    // console.log(JSON.stringify(newDerivedMatrix.category0_category1.grid))
+    newDerivedMatrix.category0_category1.grid.forEach((element, index) => {});
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
-  // console.log(clues.map((clue) => clue.writtenClue).join("\n"));
   return {
     clues: clues,
     solutionMatrix: solutionMatrix,
