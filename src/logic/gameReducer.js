@@ -1,3 +1,5 @@
+import {gameInit} from "./gameInit.js"
+
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "changeCellState") {
     let newDerivedMatrix = JSON.parse(
@@ -24,7 +26,7 @@ export function gameReducer(currentGameState, payload) {
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
-    console.log("todo newGame");
+    return gameInit({ ...payload, useSaved: false });
   }
   console.log("todo");
   return {...currentGameState};
