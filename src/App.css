@@ -26,6 +26,7 @@ body {
     "clues";
   grid-template-rows: auto auto 1fr;
   overflow: hidden;
+  font-size: calc(var(--size5) * 0.8)
 }
 
 /* Matrix */
@@ -34,6 +35,8 @@ body {
   width: fit-content;
   height: fit-content;
   grid-area: matrix;
+  justify-self: center;
+  align-self: center;
 }
 
 .matrix.size2 {
@@ -98,7 +101,7 @@ body {
 }
 
 .grid > div {
-  box-shadow: -1px -1px var(--light-color);
+  box-shadow: 1px -1px var(--light-color);
   text-align: center;
 }
 
@@ -117,7 +120,7 @@ body {
 }
 
 .columnLabel > div {
-  box-shadow: 1px 0 var(--light-color);
+  box-shadow: -1px -1px var(--light-color);
   padding-top: 4px;
   transform: rotate(180deg);
 }
@@ -159,7 +162,7 @@ body {
 }
 
 .rowLabel > div {
-  box-shadow: 0 -1px var(--light-color);
+  box-shadow: 1px -1px var(--light-color);
   padding-right: 4px;
 }
 
@@ -187,6 +190,10 @@ body {
 
 /* Clues */
 
+.clues > ol {
+  padding: 5px;
+}
+
 .clues {
   overflow: scroll;
   grid-area: clues;
@@ -195,6 +202,7 @@ body {
 
 .clue.true {
   text-decoration: line-through;
+  color: rgb(202 202 202);
 }
 
 .clueInfo {
@@ -211,7 +219,7 @@ body {
   grid-area: controls;
   width: 100%;
   height: 5vmax;
-  border-bottom: 2px solid var(--light-color);
+  /* border-bottom: 2px solid var(--light-color); */
   margin-bottom: 5px;
 }
 
@@ -240,4 +248,25 @@ body {
 
 #settingsButton {
   background-image: url("./images/settings.svg");
+}
+
+/* larger screens */
+@media (min-width: 768px) {
+  body {
+    --size3: 3vmin;
+    --size4: 3vmin;
+    --size5: 3vmin;
+  }
+}
+
+/* wider screens */
+@media (orientation: landscape) {
+  #app {
+    grid-template-areas:
+    "matrix controls"
+    "matrix clues";
+    grid-template-rows: auto 1fr;
+    grid-template-columns: auto 1fr;
+
+   } 
 }
