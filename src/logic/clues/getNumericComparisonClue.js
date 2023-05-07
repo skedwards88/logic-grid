@@ -97,6 +97,7 @@ export function getNumericComparisonClue(solutionMatrix) {
     itemANumericValue < itemBNumericValue
       ? numericDescriptionTemplates.diffLesserDescription
       : numericDescriptionTemplates.diffGreaterDescription;
+  const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
     : numericDescriptionTemplate.replace("VALUE", "some");
@@ -109,7 +110,7 @@ export function getNumericComparisonClue(solutionMatrix) {
         selectedKey
       ].rowDescriptionTemplates.trailingDescription.replace("VALUE", itemB);
 
-  const writtenClue = `${leadingDescription} is ${
+  const writtenClue = `${leadingDescription} ${numericComparisonVerb} ${
     numericDiffClue === undefined || actualNumericDiff === numericDiffClue
       ? ""
       : "at least "

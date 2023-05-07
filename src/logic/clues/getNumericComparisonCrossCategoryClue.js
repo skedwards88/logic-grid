@@ -89,11 +89,12 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     itemANumericValue < itemBNumericValue
       ? numericDescriptionTemplates.diffLesserDescription
       : numericDescriptionTemplates.diffGreaterDescription;
+  const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
     : numericDescriptionTemplate.replace("VALUE", "some");
 
-  const writtenClue = `${itemADescription} is ${
+  const writtenClue = `${itemADescription} ${numericComparisonVerb} ${
     numericDiffClue === undefined || actualNumericDiff === numericDiffClue
       ? ""
       : "at least "
