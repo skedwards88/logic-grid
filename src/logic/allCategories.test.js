@@ -1,0 +1,516 @@
+import {allCategories} from "./allCategories";
+
+// todo test that:
+// all categories have at least 1 numeric label set (?)
+// more/less text errors
+
+function arrayValuesAreUniqueQ(array) {
+  const uniqueArray = Array.from(new Set(array));
+  return array.length === uniqueArray.length;
+}
+
+function arraysDoNotOverlapQ(...arrays) {
+  // Get rid of unique values within each array before comparing
+  const uniqueArrays = arrays.map((array) => Array.from(new Set(array)));
+  // Combine all unique arrays
+  const combinedArray = [].concat(...uniqueArrays);
+
+  // Create a unique combined array
+  const uniqueCombinedArray = Array.from(new Set(combinedArray));
+
+  // Check if the combined array has the same length as the unique combined array
+  return uniqueCombinedArray.length === combinedArray.length;
+}
+
+describe("allCategories: tests per scenario", () => {
+  allCategories.forEach((scenario, index) => {
+    test(`Scenario ${index} with keys ${Object.keys(
+      scenario,
+    )} has values that are unique across categories`, () => {
+      const allValues = Object.keys(scenario).map(
+        (category) => scenario[category].values,
+      );
+      const valuesAreUniqueAcrossCategories = arraysDoNotOverlapQ(...allValues);
+      expect(valuesAreUniqueAcrossCategories).toBe(true);
+    });
+
+    test(`Scenario ${index} with keys ${Object.keys(
+      scenario,
+    )} has at least 4 categories`, () => {
+      expect(Object.keys(scenario).length).toBeGreaterThanOrEqual(4);
+    });
+
+    for (const category in scenario) {
+      test(`Scenario ${index} with keys ${Object.keys(
+        scenario,
+      )} for key ${category} has values that are unique within each category`, () => {
+        expect(arrayValuesAreUniqueQ(scenario[category].values)).toBe(true);
+      });
+
+      test(`Scenario ${index} with keys ${Object.keys(
+        scenario,
+      )} for key ${category} has VALUE in every description`, () => {
+        for (const template in scenario[category].descriptionTemplates) {
+          if (template === "verb") continue;
+          expect(scenario[category].descriptionTemplates[template]).toContain(
+            "VALUE",
+          );
+        }
+      });
+    }
+  });
+});
+
+describe("allCategories example text", () => {
+  test("A sampling of clue text", () => {
+    let descriptions = [];
+    allCategories.forEach((scenario) => {
+      for (const labelA in scenario) {
+        const valueA = scenario[labelA].values[0];
+        const templatesA = scenario[labelA].descriptionTemplates;
+        for (const labelB in scenario) {
+          if (labelA === labelB) continue;
+          const valueB = scenario[labelB].values[0];
+          const valueB2 = scenario[labelB].values[1];
+          const templatesB = scenario[labelB].descriptionTemplates;
+          const leadingDescription = templatesA.leadingDescription.replace(
+            "VALUE",
+            valueA,
+          );
+          const trailingDescription = templatesB.trailingDescription.replace(
+            "VALUE",
+            valueB,
+          );
+          const trailingDescription2 = templatesB.trailingDescription.replace(
+            "VALUE",
+            valueB2,
+          );
+          descriptions = [
+            ...descriptions,
+            `${leadingDescription} is not ${trailingDescription}.`,
+          ];
+          descriptions = [
+            ...descriptions,
+            `${leadingDescription} is ${trailingDescription} or ${trailingDescription2}.`,
+          ];
+          if (typeof valueB != "number") continue;
+          const numericGreaterDescription =
+            templatesB.diffGreaterDescription.replace("VALUE", valueB);
+          const numericLesserDescription =
+            templatesB.diffLesserDescription.replace("VALUE", valueB);
+          const numericSomeDescription =
+            templatesB.diffGreaterDescription.replace("VALUE", "some");
+          const numericComparisonVerb = templatesB.verb || "is";
+          descriptions = [
+            ...descriptions,
+            `${leadingDescription} ${numericComparisonVerb} at least ${numericGreaterDescription} than ${trailingDescription}.`,
+          ];
+          descriptions = [
+            ...descriptions,
+            `${leadingDescription} ${numericComparisonVerb} at least ${numericLesserDescription} than ${trailingDescription}.`,
+          ];
+          descriptions = [
+            ...descriptions,
+            `${leadingDescription} ${numericComparisonVerb} ${numericSomeDescription} than ${trailingDescription}.`,
+          ];
+        }
+      }
+    });
+    expect(descriptions).toMatchInlineSnapshot(`
+      [
+        "The 1 year old car is not 10000 miles.",
+        "The 1 year old car is 10000 miles or 20000 miles.",
+        "The 1 year old car has at least 10000 more miles than 10000 miles.",
+        "The 1 year old car has at least 10000 less miles than 10000 miles.",
+        "The 1 year old car has some more miles than 10000 miles.",
+        "The 1 year old car is not the red car.",
+        "The 1 year old car is the red car or the orange car.",
+        "The 1 year old car is not Abe's car.",
+        "The 1 year old car is Abe's car or Alex's car.",
+        "The 1 year old car is not the Ford.",
+        "The 1 year old car is the Ford or the BMW.",
+        "The car with 10000 miles is not 1 years old.",
+        "The car with 10000 miles is 1 years old or 2 years old.",
+        "The car with 10000 miles is at least 1 years older than 1 years old.",
+        "The car with 10000 miles is at least 1 years younger than 1 years old.",
+        "The car with 10000 miles is some years older than 1 years old.",
+        "The car with 10000 miles is not the red car.",
+        "The car with 10000 miles is the red car or the orange car.",
+        "The car with 10000 miles is not Abe's car.",
+        "The car with 10000 miles is Abe's car or Alex's car.",
+        "The car with 10000 miles is not the Ford.",
+        "The car with 10000 miles is the Ford or the BMW.",
+        "The red car is not 1 years old.",
+        "The red car is 1 years old or 2 years old.",
+        "The red car is at least 1 years older than 1 years old.",
+        "The red car is at least 1 years younger than 1 years old.",
+        "The red car is some years older than 1 years old.",
+        "The red car is not 10000 miles.",
+        "The red car is 10000 miles or 20000 miles.",
+        "The red car has at least 10000 more miles than 10000 miles.",
+        "The red car has at least 10000 less miles than 10000 miles.",
+        "The red car has some more miles than 10000 miles.",
+        "The red car is not Abe's car.",
+        "The red car is Abe's car or Alex's car.",
+        "The red car is not the Ford.",
+        "The red car is the Ford or the BMW.",
+        "Abe's car is not 1 years old.",
+        "Abe's car is 1 years old or 2 years old.",
+        "Abe's car is at least 1 years older than 1 years old.",
+        "Abe's car is at least 1 years younger than 1 years old.",
+        "Abe's car is some years older than 1 years old.",
+        "Abe's car is not 10000 miles.",
+        "Abe's car is 10000 miles or 20000 miles.",
+        "Abe's car has at least 10000 more miles than 10000 miles.",
+        "Abe's car has at least 10000 less miles than 10000 miles.",
+        "Abe's car has some more miles than 10000 miles.",
+        "Abe's car is not the red car.",
+        "Abe's car is the red car or the orange car.",
+        "Abe's car is not the Ford.",
+        "Abe's car is the Ford or the BMW.",
+        "The Ford is not 1 years old.",
+        "The Ford is 1 years old or 2 years old.",
+        "The Ford is at least 1 years older than 1 years old.",
+        "The Ford is at least 1 years younger than 1 years old.",
+        "The Ford is some years older than 1 years old.",
+        "The Ford is not 10000 miles.",
+        "The Ford is 10000 miles or 20000 miles.",
+        "The Ford has at least 10000 more miles than 10000 miles.",
+        "The Ford has at least 10000 less miles than 10000 miles.",
+        "The Ford has some more miles than 10000 miles.",
+        "The Ford is not the red car.",
+        "The Ford is the red car or the orange car.",
+        "The Ford is not Abe's car.",
+        "The Ford is Abe's car or Alex's car.",
+        "The person who swam in lane 1 is not wearing red goggles.",
+        "The person who swam in lane 1 is wearing red goggles or wearing orange goggles.",
+        "The person who swam in lane 1 is not Abe.",
+        "The person who swam in lane 1 is Abe or Alex.",
+        "The person who swam in lane 1 is not the person who swam fly.",
+        "The person who swam in lane 1 is the person who swam fly or the person who swam back.",
+        "The person wearing red goggles is not the person who swam in lane 1.",
+        "The person wearing red goggles is the person who swam in lane 1 or the person who swam in lane 2.",
+        "The person wearing red goggles was at least 1 lane numbers higher than the person who swam in lane 1.",
+        "The person wearing red goggles was at least 1 lane numbers lower than the person who swam in lane 1.",
+        "The person wearing red goggles was some lane numbers higher than the person who swam in lane 1.",
+        "The person wearing red goggles is not Abe.",
+        "The person wearing red goggles is Abe or Alex.",
+        "The person wearing red goggles is not the person who swam fly.",
+        "The person wearing red goggles is the person who swam fly or the person who swam back.",
+        "Abe is not the person who swam in lane 1.",
+        "Abe is the person who swam in lane 1 or the person who swam in lane 2.",
+        "Abe was at least 1 lane numbers higher than the person who swam in lane 1.",
+        "Abe was at least 1 lane numbers lower than the person who swam in lane 1.",
+        "Abe was some lane numbers higher than the person who swam in lane 1.",
+        "Abe is not wearing red goggles.",
+        "Abe is wearing red goggles or wearing orange goggles.",
+        "Abe is not the person who swam fly.",
+        "Abe is the person who swam fly or the person who swam back.",
+        "The person who swam fly is not the person who swam in lane 1.",
+        "The person who swam fly is the person who swam in lane 1 or the person who swam in lane 2.",
+        "The person who swam fly was at least 1 lane numbers higher than the person who swam in lane 1.",
+        "The person who swam fly was at least 1 lane numbers lower than the person who swam in lane 1.",
+        "The person who swam fly was some lane numbers higher than the person who swam in lane 1.",
+        "The person who swam fly is not wearing red goggles.",
+        "The person who swam fly is wearing red goggles or wearing orange goggles.",
+        "The person who swam fly is not Abe.",
+        "The person who swam fly is Abe or Alex.",
+        "The person whose grade was 100 is not using red ink.",
+        "The person whose grade was 100 is using red ink or using orange ink.",
+        "The person whose grade was 100 is not Abe.",
+        "The person whose grade was 100 is Abe or Alex.",
+        "The person whose grade was 100 is not the person who wrote about dogs.",
+        "The person whose grade was 100 is the person who wrote about dogs or the person who wrote about bats.",
+        "The person using red ink is not the person whose grade was 100.",
+        "The person using red ink is the person whose grade was 100 or the person whose grade was 95.",
+        "The person using red ink scored at least 100 points higher than the person whose grade was 100.",
+        "The person using red ink scored at least 100 points lower than the person whose grade was 100.",
+        "The person using red ink scored some points higher than the person whose grade was 100.",
+        "The person using red ink is not Abe.",
+        "The person using red ink is Abe or Alex.",
+        "The person using red ink is not the person who wrote about dogs.",
+        "The person using red ink is the person who wrote about dogs or the person who wrote about bats.",
+        "Abe is not the person whose grade was 100.",
+        "Abe is the person whose grade was 100 or the person whose grade was 95.",
+        "Abe scored at least 100 points higher than the person whose grade was 100.",
+        "Abe scored at least 100 points lower than the person whose grade was 100.",
+        "Abe scored some points higher than the person whose grade was 100.",
+        "Abe is not using red ink.",
+        "Abe is using red ink or using orange ink.",
+        "Abe is not the person who wrote about dogs.",
+        "Abe is the person who wrote about dogs or the person who wrote about bats.",
+        "The person who wrote about dogs is not the person whose grade was 100.",
+        "The person who wrote about dogs is the person whose grade was 100 or the person whose grade was 95.",
+        "The person who wrote about dogs scored at least 100 points higher than the person whose grade was 100.",
+        "The person who wrote about dogs scored at least 100 points lower than the person whose grade was 100.",
+        "The person who wrote about dogs scored some points higher than the person whose grade was 100.",
+        "The person who wrote about dogs is not using red ink.",
+        "The person who wrote about dogs is using red ink or using orange ink.",
+        "The person who wrote about dogs is not Abe.",
+        "The person who wrote about dogs is Abe or Alex.",
+        "The person who ate 1 s'mores is not the person with the red sleeping bag.",
+        "The person who ate 1 s'mores is the person with the red sleeping bag or the person with the orange sleeping bag.",
+        "The person who ate 1 s'mores is not Abe.",
+        "The person who ate 1 s'mores is Abe or Alex.",
+        "The person who ate 1 s'mores is not the person who spotted Orion.",
+        "The person who ate 1 s'mores is the person who spotted Orion or the person who spotted Gemini.",
+        "The person with the red sleeping bag is not the person who ate 1 s'mores.",
+        "The person with the red sleeping bag is the person who ate 1 s'mores or the person who ate 2 s'mores.",
+        "The person with the red sleeping bag ate at least 1 more s'mores than the person who ate 1 s'mores.",
+        "The person with the red sleeping bag ate at least 1 less s'mores than the person who ate 1 s'mores.",
+        "The person with the red sleeping bag ate some more s'mores than the person who ate 1 s'mores.",
+        "The person with the red sleeping bag is not Abe.",
+        "The person with the red sleeping bag is Abe or Alex.",
+        "The person with the red sleeping bag is not the person who spotted Orion.",
+        "The person with the red sleeping bag is the person who spotted Orion or the person who spotted Gemini.",
+        "Abe is not the person who ate 1 s'mores.",
+        "Abe is the person who ate 1 s'mores or the person who ate 2 s'mores.",
+        "Abe ate at least 1 more s'mores than the person who ate 1 s'mores.",
+        "Abe ate at least 1 less s'mores than the person who ate 1 s'mores.",
+        "Abe ate some more s'mores than the person who ate 1 s'mores.",
+        "Abe is not the person with the red sleeping bag.",
+        "Abe is the person with the red sleeping bag or the person with the orange sleeping bag.",
+        "Abe is not the person who spotted Orion.",
+        "Abe is the person who spotted Orion or the person who spotted Gemini.",
+        "The person who spotted Orion is not the person who ate 1 s'mores.",
+        "The person who spotted Orion is the person who ate 1 s'mores or the person who ate 2 s'mores.",
+        "The person who spotted Orion ate at least 1 more s'mores than the person who ate 1 s'mores.",
+        "The person who spotted Orion ate at least 1 less s'mores than the person who ate 1 s'mores.",
+        "The person who spotted Orion ate some more s'mores than the person who ate 1 s'mores.",
+        "The person who spotted Orion is not the person with the red sleeping bag.",
+        "The person who spotted Orion is the person with the red sleeping bag or the person with the orange sleeping bag.",
+        "The person who spotted Orion is not Abe.",
+        "The person who spotted Orion is Abe or Alex.",
+        "The person who hiked 1 miles is not the person who gained 100 feet in elevation.",
+        "The person who hiked 1 miles is the person who gained 100 feet in elevation or the person who gained 200 feet in elevation.",
+        "The person who hiked 1 miles gained at least 100 more feet than the person who gained 100 feet in elevation.",
+        "The person who hiked 1 miles gained at least 100 less feet than the person who gained 100 feet in elevation.",
+        "The person who hiked 1 miles gained some more feet than the person who gained 100 feet in elevation.",
+        "The person who hiked 1 miles is not the person who hiked to the lake.",
+        "The person who hiked 1 miles is the person who hiked to the lake or the person who hiked to the river.",
+        "The person who hiked 1 miles is not Abe.",
+        "The person who hiked 1 miles is Abe or Alex.",
+        "The person who hiked 1 miles is not the person with the hat.",
+        "The person who hiked 1 miles is the person with the hat or the person with the bottle.",
+        "The person who gained 100 feet in elevation is not the person who hiked 1 miles.",
+        "The person who gained 100 feet in elevation is the person who hiked 1 miles or the person who hiked 2 miles.",
+        "The person who gained 100 feet in elevation hiked at least 1 more miles than the person who hiked 1 miles.",
+        "The person who gained 100 feet in elevation hiked at least 1 less miles than the person who hiked 1 miles.",
+        "The person who gained 100 feet in elevation hiked some more miles than the person who hiked 1 miles.",
+        "The person who gained 100 feet in elevation is not the person who hiked to the lake.",
+        "The person who gained 100 feet in elevation is the person who hiked to the lake or the person who hiked to the river.",
+        "The person who gained 100 feet in elevation is not Abe.",
+        "The person who gained 100 feet in elevation is Abe or Alex.",
+        "The person who gained 100 feet in elevation is not the person with the hat.",
+        "The person who gained 100 feet in elevation is the person with the hat or the person with the bottle.",
+        "The person who hiked to the lake is not the person who hiked 1 miles.",
+        "The person who hiked to the lake is the person who hiked 1 miles or the person who hiked 2 miles.",
+        "The person who hiked to the lake hiked at least 1 more miles than the person who hiked 1 miles.",
+        "The person who hiked to the lake hiked at least 1 less miles than the person who hiked 1 miles.",
+        "The person who hiked to the lake hiked some more miles than the person who hiked 1 miles.",
+        "The person who hiked to the lake is not the person who gained 100 feet in elevation.",
+        "The person who hiked to the lake is the person who gained 100 feet in elevation or the person who gained 200 feet in elevation.",
+        "The person who hiked to the lake gained at least 100 more feet than the person who gained 100 feet in elevation.",
+        "The person who hiked to the lake gained at least 100 less feet than the person who gained 100 feet in elevation.",
+        "The person who hiked to the lake gained some more feet than the person who gained 100 feet in elevation.",
+        "The person who hiked to the lake is not Abe.",
+        "The person who hiked to the lake is Abe or Alex.",
+        "The person who hiked to the lake is not the person with the hat.",
+        "The person who hiked to the lake is the person with the hat or the person with the bottle.",
+        "Abe is not the person who hiked 1 miles.",
+        "Abe is the person who hiked 1 miles or the person who hiked 2 miles.",
+        "Abe hiked at least 1 more miles than the person who hiked 1 miles.",
+        "Abe hiked at least 1 less miles than the person who hiked 1 miles.",
+        "Abe hiked some more miles than the person who hiked 1 miles.",
+        "Abe is not the person who gained 100 feet in elevation.",
+        "Abe is the person who gained 100 feet in elevation or the person who gained 200 feet in elevation.",
+        "Abe gained at least 100 more feet than the person who gained 100 feet in elevation.",
+        "Abe gained at least 100 less feet than the person who gained 100 feet in elevation.",
+        "Abe gained some more feet than the person who gained 100 feet in elevation.",
+        "Abe is not the person who hiked to the lake.",
+        "Abe is the person who hiked to the lake or the person who hiked to the river.",
+        "Abe is not the person with the hat.",
+        "Abe is the person with the hat or the person with the bottle.",
+        "The person with the hat is not the person who hiked 1 miles.",
+        "The person with the hat is the person who hiked 1 miles or the person who hiked 2 miles.",
+        "The person with the hat hiked at least 1 more miles than the person who hiked 1 miles.",
+        "The person with the hat hiked at least 1 less miles than the person who hiked 1 miles.",
+        "The person with the hat hiked some more miles than the person who hiked 1 miles.",
+        "The person with the hat is not the person who gained 100 feet in elevation.",
+        "The person with the hat is the person who gained 100 feet in elevation or the person who gained 200 feet in elevation.",
+        "The person with the hat gained at least 100 more feet than the person who gained 100 feet in elevation.",
+        "The person with the hat gained at least 100 less feet than the person who gained 100 feet in elevation.",
+        "The person with the hat gained some more feet than the person who gained 100 feet in elevation.",
+        "The person with the hat is not the person who hiked to the lake.",
+        "The person with the hat is the person who hiked to the lake or the person who hiked to the river.",
+        "The person with the hat is not Abe.",
+        "The person with the hat is Abe or Alex.",
+        "The person who finished in 1 hours is not did the 100 piece puzzle.",
+        "The person who finished in 1 hours is did the 100 piece puzzle or did the 200 piece puzzle.",
+        "The person who finished in 1 hours assembled at least 100 more pieces than did the 100 piece puzzle.",
+        "The person who finished in 1 hours assembled at least 100 less pieces than did the 100 piece puzzle.",
+        "The person who finished in 1 hours assembled some more pieces than did the 100 piece puzzle.",
+        "The person who finished in 1 hours is not Abe.",
+        "The person who finished in 1 hours is Abe or Alex.",
+        "The person who finished in 1 hours is not the person who did a puzzle of cats.",
+        "The person who finished in 1 hours is the person who did a puzzle of cats or the person who did a puzzle of dogs.",
+        "The person who did the 100 piece puzzle is not finished in 1 hours.",
+        "The person who did the 100 piece puzzle is finished in 1 hours or finished in 2 hours.",
+        "The person who did the 100 piece puzzle took at least 1 more hours than finished in 1 hours.",
+        "The person who did the 100 piece puzzle took at least 1 less hours than finished in 1 hours.",
+        "The person who did the 100 piece puzzle took some more hours than finished in 1 hours.",
+        "The person who did the 100 piece puzzle is not Abe.",
+        "The person who did the 100 piece puzzle is Abe or Alex.",
+        "The person who did the 100 piece puzzle is not the person who did a puzzle of cats.",
+        "The person who did the 100 piece puzzle is the person who did a puzzle of cats or the person who did a puzzle of dogs.",
+        "Abe is not finished in 1 hours.",
+        "Abe is finished in 1 hours or finished in 2 hours.",
+        "Abe took at least 1 more hours than finished in 1 hours.",
+        "Abe took at least 1 less hours than finished in 1 hours.",
+        "Abe took some more hours than finished in 1 hours.",
+        "Abe is not did the 100 piece puzzle.",
+        "Abe is did the 100 piece puzzle or did the 200 piece puzzle.",
+        "Abe assembled at least 100 more pieces than did the 100 piece puzzle.",
+        "Abe assembled at least 100 less pieces than did the 100 piece puzzle.",
+        "Abe assembled some more pieces than did the 100 piece puzzle.",
+        "Abe is not the person who did a puzzle of cats.",
+        "Abe is the person who did a puzzle of cats or the person who did a puzzle of dogs.",
+        "The person who did a puzzle of cats is not finished in 1 hours.",
+        "The person who did a puzzle of cats is finished in 1 hours or finished in 2 hours.",
+        "The person who did a puzzle of cats took at least 1 more hours than finished in 1 hours.",
+        "The person who did a puzzle of cats took at least 1 less hours than finished in 1 hours.",
+        "The person who did a puzzle of cats took some more hours than finished in 1 hours.",
+        "The person who did a puzzle of cats is not did the 100 piece puzzle.",
+        "The person who did a puzzle of cats is did the 100 piece puzzle or did the 200 piece puzzle.",
+        "The person who did a puzzle of cats assembled at least 100 more pieces than did the 100 piece puzzle.",
+        "The person who did a puzzle of cats assembled at least 100 less pieces than did the 100 piece puzzle.",
+        "The person who did a puzzle of cats assembled some more pieces than did the 100 piece puzzle.",
+        "The person who did a puzzle of cats is not Abe.",
+        "The person who did a puzzle of cats is Abe or Alex.",
+        "The house with 1 trees is not Abe's house.",
+        "The house with 1 trees is Abe's house or Alex's house.",
+        "The house with 1 trees is not the red house.",
+        "The house with 1 trees is the red house or the orange house.",
+        "The house with 1 trees is not the house with the swing.",
+        "The house with 1 trees is the house with the swing or the house with the dog.",
+        "Abe's house is not the house with 1 trees.",
+        "Abe's house is the house with 1 trees or the house with 2 trees.",
+        "Abe's house has at least 1 more trees than the house with 1 trees.",
+        "Abe's house has at least 1 less trees than the house with 1 trees.",
+        "Abe's house has some more trees than the house with 1 trees.",
+        "Abe's house is not the red house.",
+        "Abe's house is the red house or the orange house.",
+        "Abe's house is not the house with the swing.",
+        "Abe's house is the house with the swing or the house with the dog.",
+        "The red house is not the house with 1 trees.",
+        "The red house is the house with 1 trees or the house with 2 trees.",
+        "The red house has at least 1 more trees than the house with 1 trees.",
+        "The red house has at least 1 less trees than the house with 1 trees.",
+        "The red house has some more trees than the house with 1 trees.",
+        "The red house is not Abe's house.",
+        "The red house is Abe's house or Alex's house.",
+        "The red house is not the house with the swing.",
+        "The red house is the house with the swing or the house with the dog.",
+        "The house with the swing is not the house with 1 trees.",
+        "The house with the swing is the house with 1 trees or the house with 2 trees.",
+        "The house with the swing has at least 1 more trees than the house with 1 trees.",
+        "The house with the swing has at least 1 less trees than the house with 1 trees.",
+        "The house with the swing has some more trees than the house with 1 trees.",
+        "The house with the swing is not Abe's house.",
+        "The house with the swing is Abe's house or Alex's house.",
+        "The house with the swing is not the red house.",
+        "The house with the swing is the red house or the orange house.",
+        "The person who snacks at 1 o'clock is not the person who takes 10 minutes.",
+        "The person who snacks at 1 o'clock is the person who takes 10 minutes or the person who takes 15 minutes.",
+        "The person who snacks at 1 o'clock takes at least 10 minutes more than the person who takes 10 minutes.",
+        "The person who snacks at 1 o'clock takes at least 10 minutes less than the person who takes 10 minutes.",
+        "The person who snacks at 1 o'clock takes some minutes more than the person who takes 10 minutes.",
+        "The person who snacks at 1 o'clock is not Abe.",
+        "The person who snacks at 1 o'clock is Abe or Alex.",
+        "The person who snacks at 1 o'clock is not the person with the red cup.",
+        "The person who snacks at 1 o'clock is the person with the red cup or the person with the orange cup.",
+        "The person who snacks at 1 o'clock is not the person who drinks tea.",
+        "The person who snacks at 1 o'clock is the person who drinks tea or the person who drinks coffee.",
+        "The person who snacks at 1 o'clock is not the person who eats the VALeUE.",
+        "The person who snacks at 1 o'clock is the person who eats the VALeUE or the person who eats the VALeUE.",
+        "The person who takes 10 minutes is not the person who snacks at 1 o'clock.",
+        "The person who takes 10 minutes is the person who snacks at 1 o'clock or the person who snacks at 2 o'clock.",
+        "The person who takes 10 minutes snacks at least 1 hours more than the person who snacks at 1 o'clock.",
+        "The person who takes 10 minutes snacks at least 1 hours less than the person who snacks at 1 o'clock.",
+        "The person who takes 10 minutes snacks some hours more than the person who snacks at 1 o'clock.",
+        "The person who takes 10 minutes is not Abe.",
+        "The person who takes 10 minutes is Abe or Alex.",
+        "The person who takes 10 minutes is not the person with the red cup.",
+        "The person who takes 10 minutes is the person with the red cup or the person with the orange cup.",
+        "The person who takes 10 minutes is not the person who drinks tea.",
+        "The person who takes 10 minutes is the person who drinks tea or the person who drinks coffee.",
+        "The person who takes 10 minutes is not the person who eats the VALeUE.",
+        "The person who takes 10 minutes is the person who eats the VALeUE or the person who eats the VALeUE.",
+        "Abe is not the person who snacks at 1 o'clock.",
+        "Abe is the person who snacks at 1 o'clock or the person who snacks at 2 o'clock.",
+        "Abe snacks at least 1 hours more than the person who snacks at 1 o'clock.",
+        "Abe snacks at least 1 hours less than the person who snacks at 1 o'clock.",
+        "Abe snacks some hours more than the person who snacks at 1 o'clock.",
+        "Abe is not the person who takes 10 minutes.",
+        "Abe is the person who takes 10 minutes or the person who takes 15 minutes.",
+        "Abe takes at least 10 minutes more than the person who takes 10 minutes.",
+        "Abe takes at least 10 minutes less than the person who takes 10 minutes.",
+        "Abe takes some minutes more than the person who takes 10 minutes.",
+        "Abe is not the person with the red cup.",
+        "Abe is the person with the red cup or the person with the orange cup.",
+        "Abe is not the person who drinks tea.",
+        "Abe is the person who drinks tea or the person who drinks coffee.",
+        "Abe is not the person who eats the VALeUE.",
+        "Abe is the person who eats the VALeUE or the person who eats the VALeUE.",
+        "The person with the red cup is not the person who snacks at 1 o'clock.",
+        "The person with the red cup is the person who snacks at 1 o'clock or the person who snacks at 2 o'clock.",
+        "The person with the red cup snacks at least 1 hours more than the person who snacks at 1 o'clock.",
+        "The person with the red cup snacks at least 1 hours less than the person who snacks at 1 o'clock.",
+        "The person with the red cup snacks some hours more than the person who snacks at 1 o'clock.",
+        "The person with the red cup is not the person who takes 10 minutes.",
+        "The person with the red cup is the person who takes 10 minutes or the person who takes 15 minutes.",
+        "The person with the red cup takes at least 10 minutes more than the person who takes 10 minutes.",
+        "The person with the red cup takes at least 10 minutes less than the person who takes 10 minutes.",
+        "The person with the red cup takes some minutes more than the person who takes 10 minutes.",
+        "The person with the red cup is not Abe.",
+        "The person with the red cup is Abe or Alex.",
+        "The person with the red cup is not the person who drinks tea.",
+        "The person with the red cup is the person who drinks tea or the person who drinks coffee.",
+        "The person with the red cup is not the person who eats the VALeUE.",
+        "The person with the red cup is the person who eats the VALeUE or the person who eats the VALeUE.",
+        "The person who drinks tea is not the person who snacks at 1 o'clock.",
+        "The person who drinks tea is the person who snacks at 1 o'clock or the person who snacks at 2 o'clock.",
+        "The person who drinks tea snacks at least 1 hours more than the person who snacks at 1 o'clock.",
+        "The person who drinks tea snacks at least 1 hours less than the person who snacks at 1 o'clock.",
+        "The person who drinks tea snacks some hours more than the person who snacks at 1 o'clock.",
+        "The person who drinks tea is not the person who takes 10 minutes.",
+        "The person who drinks tea is the person who takes 10 minutes or the person who takes 15 minutes.",
+        "The person who drinks tea takes at least 10 minutes more than the person who takes 10 minutes.",
+        "The person who drinks tea takes at least 10 minutes less than the person who takes 10 minutes.",
+        "The person who drinks tea takes some minutes more than the person who takes 10 minutes.",
+        "The person who drinks tea is not Abe.",
+        "The person who drinks tea is Abe or Alex.",
+        "The person who drinks tea is not the person with the red cup.",
+        "The person who drinks tea is the person with the red cup or the person with the orange cup.",
+        "The person who drinks tea is not the person who eats the VALeUE.",
+        "The person who drinks tea is the person who eats the VALeUE or the person who eats the VALeUE.",
+        "The person who eats the apple is not the person who snacks at 1 o'clock.",
+        "The person who eats the apple is the person who snacks at 1 o'clock or the person who snacks at 2 o'clock.",
+        "The person who eats the apple snacks at least 1 hours more than the person who snacks at 1 o'clock.",
+        "The person who eats the apple snacks at least 1 hours less than the person who snacks at 1 o'clock.",
+        "The person who eats the apple snacks some hours more than the person who snacks at 1 o'clock.",
+        "The person who eats the apple is not the person who takes 10 minutes.",
+        "The person who eats the apple is the person who takes 10 minutes or the person who takes 15 minutes.",
+        "The person who eats the apple takes at least 10 minutes more than the person who takes 10 minutes.",
+        "The person who eats the apple takes at least 10 minutes less than the person who takes 10 minutes.",
+        "The person who eats the apple takes some minutes more than the person who takes 10 minutes.",
+        "The person who eats the apple is not Abe.",
+        "The person who eats the apple is Abe or Alex.",
+        "The person who eats the apple is not the person with the red cup.",
+        "The person who eats the apple is the person with the red cup or the person with the orange cup.",
+        "The person who eats the apple is not the person who drinks tea.",
+        "The person who eats the apple is the person who drinks tea or the person who drinks coffee.",
+      ]
+    `);
+  });
+});
