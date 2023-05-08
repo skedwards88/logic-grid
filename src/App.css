@@ -199,6 +199,7 @@ body {
   overflow: scroll;
   grid-area: clues;
   padding: 5vmin;
+  margin-bottom: 5vh;
 }
 
 .clue.true {
