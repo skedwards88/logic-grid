@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ControlBar({dispatchGameState}) {
+export default function ControlBar({dispatchGameState, setDisplay}) {
   return (
     <div id="controls">
       <button
@@ -13,7 +13,7 @@ export default function ControlBar({dispatchGameState}) {
       ></button>
       <button
         id="settingsButton"
-        onClick={() => console.log("todo make settings")}
+        onClick={() => setDisplay("settings")}
       ></button>
       <button
         id="heartButton"

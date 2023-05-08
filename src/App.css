@@ -26,7 +26,22 @@ body {
     "clues";
   grid-template-rows: auto auto 1fr;
   overflow: hidden;
-  font-size: calc(var(--size5) * 0.8)
+  font-size: calc(var(--size5) * 0.8);
+}
+
+button {
+  all: unset;
+  text-decoration: none;
+  text-align: center;
+  appearance: none;
+  font-size: calc(var(--size5) * 0.8);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: var(--light-color);
+  border: 1px solid var(--light-color);
+  border-radius: 2px;
+  color: black;
+  margin: 0;
+  padding: 1px 6px;
 }
 
 /* Matrix */
@@ -252,6 +267,63 @@ body {
   background-image: url("./images/settings.svg");
 }
 
+/* Settings */
+
+.settings {
+  text-align: center;
+  overflow: scroll;
+  font-size: calc(var(--size5) * 0.8);
+  justify-items: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#settings {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  width: 90%;
+  align-items: stretch;
+}
+
+.setting {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  margin: 0.5cm;
+}
+
+.setting-description {
+  padding: 0 5px 0 0;
+}
+
+#setting-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 90%;
+}
+
+#setting-buttons > button {
+  margin: 10px;
+}
+
+select {
+  font-size: calc(var(--size5) * 0.8);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: var(--light-color);
+  border: 1px solid var(--light-color);
+  border-radius: 2px;
+  text-align: center;
+  color: black;
+  margin: 0;
+  padding: 1px 6px;
+  height: fit-content;
+}
+
 /* larger screens */
 @media (min-width: 768px) {
   body {
@@ -265,10 +337,9 @@ body {
 @media (orientation: landscape) {
   #app {
     grid-template-areas:
-    "matrix controls"
-    "matrix clues";
+      "matrix controls"
+      "matrix clues";
     grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr;
-
-   } 
+  }
 }
