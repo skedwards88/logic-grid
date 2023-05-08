@@ -1,7 +1,7 @@
 const path = require("path");
 // const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   if (argv.mode === "development") {
@@ -15,14 +15,14 @@ module.exports = (env, argv) => {
     template: "./src/index.html",
   });
 
-  // const copyPlugin = new CopyPlugin({
-  //   patterns: [
+  const copyPlugin = new CopyPlugin({
+    patterns: [
   //     { from: "./src/images/favicon.svg", to: "./assets/favicon.svg" },
   //     { from: "./src/images/favicon.ico", to: "./assets/favicon.ico" },
   //     { from: "./src/images/icon_192.png", to: "./assets/icon_192.png" },
   //     { from: "./src/images/icon_512.png", to: "./assets/icon_512.png" },
   //     { from: "./src/images/maskable_icon.png", to: "./assets/maskable_icon.png" },
-  //     { from: "./src/manifest.json", to: "./assets/manifest.json" },
+      { from: "./src/manifest.json", to: "./assets/manifest.json" },
   //     { from: "./src/assetlinks.json", to: "./.well-known/assetlinks.json" },
   //     { from: "./src/privacy.html", to: "./privacy.html" },
   //     { from: "./src/images/screenshot_720_1280_1.png", to: "./assets/screenshot_720_1280_1.png" },
@@ -34,11 +34,11 @@ module.exports = (env, argv) => {
   //     { from: "./src/images/screenshot_1080_1080_3.png", to: "./assets/screenshot_1080_1080_3.png" },
   //     { from: "./src/images/screenshot_1080_1080_4.png", to: "./assets/screenshot_1080_1080_4.png" },
 
-  //   ],
-  //   options: {
-  //     concurrency: 100,
-  //   },
-  // })
+    ],
+    options: {
+      concurrency: 100,
+    },
+  })
 
   // const serviceWorkerPlugin = new WorkboxPlugin.GenerateSW({
   //   // these options encourage the ServiceWorkers to get in there fast
@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
   //   maximumFileSizeToCacheInBytes: 4200000, // special case to cache word list for offline play
   // })
 
-  const plugins = argv.mode === "development" ? [htmlPlugin] : [htmlPlugin]; //todo serviceWorkerPlugin to last case, copyPlugin in both
+  const plugins = argv.mode === "development" ? [htmlPlugin, copyPlugin] : [htmlPlugin, copyPlugin]; //todo serviceWorkerPlugin to last case, copyPlugin in both
 
   return {
     entry: "./src/index.js",

@@ -1,0 +1,15 @@
+{
+  "name": "Logic Grid",
+  "short_name": "Logic Grid",
+  "description": "A logic grid puzzle",
+  "dir": "auto",
+  "lang": "en-US",
+  "display": "standalone",
+  "start_url": "../.",
+  "background_color": "#373647",
+  "theme_color": "#373647",
+  "shortcuts": [],
+  "categories": ["games", "entertainment", "education"],
+  "icons": [],
+  "screenshots": []
+}
