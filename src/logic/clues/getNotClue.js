@@ -23,11 +23,12 @@ export function getNotClue(solutionMatrix) {
 
   const leadingDescription = solutionMatrix[
     solutionKey
-  ].rowDescriptionTemplates.leadingDescription.replace("VALUE", rowItem);
+  ].rowDescriptionTemplates.description.replace("VALUE", rowItem);
   const trailingDescription = solutionMatrix[
     solutionKey
-  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItem);
-  const writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
+  ].colDescriptionTemplates.description.replace("VALUE", colItem);
+  let writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
+  writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {
     writtenClue: writtenClue,

@@ -16,12 +16,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -36,12 +34,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -54,12 +50,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [null, null, null, null],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -77,12 +71,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -97,12 +89,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -115,12 +105,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -602,12 +590,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -622,12 +608,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -640,12 +624,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [null, null, null, null],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -663,12 +645,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -683,12 +663,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -701,12 +679,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -1188,12 +1164,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -1208,12 +1182,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -1226,12 +1198,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [null, null, null, null],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -1249,12 +1219,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -1269,12 +1237,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     "1v3": {
@@ -1287,12 +1253,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },

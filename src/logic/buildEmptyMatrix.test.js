@@ -6,15 +6,13 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["cat", "dog", "cow"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE",
-          trailingDescription: "the VALUE",
+          description: "the VALUE",
         },
       },
       {
         labels: [1, 2, 3],
         descriptionTemplates: {
-          leadingDescription: "The VALUE year old animal",
-          trailingDescription: "VALUE years old",
+          description: "VALUE years old",
           diffGreaterDescription: "VALUE years older",
           diffLesserDescription: "VALUE years younger",
         },
@@ -22,8 +20,7 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["red", "orange", "blue"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE animal",
-          trailingDescription: "the VALUE animal",
+          description: "the VALUE animal",
         },
       },
     ];
@@ -78,15 +75,13 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["cat", "dog", "cow", "horse", "spider"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE",
-          trailingDescription: "the VALUE",
+          description: "the VALUE",
         },
       },
       {
         labels: [1, 2, 3, 4, 5],
         descriptionTemplates: {
-          leadingDescription: "The VALUE year old animal",
-          trailingDescription: "VALUE years old",
+          description: "VALUE years old",
           diffGreaterDescription: "VALUE years older",
           diffLesserDescription: "VALUE years younger",
         },
@@ -94,15 +89,13 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["red", "blue", "green", "orange", "yellow"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE animal",
-          trailingDescription: "the VALUE animal",
+          description: "the VALUE animal",
         },
       },
       {
         labels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
         descriptionTemplates: {
-          leadingDescription: "VALUE's pet",
-          trailingDescription: "VALUE's pet",
+          description: "VALUE's pet",
         },
       },
     ];
@@ -157,15 +150,13 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["cat", "dog", "cow"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE",
-          trailingDescription: "the VALUE",
+          description: "the VALUE",
         },
       },
       {
         labels: [1, 2, 3],
         descriptionTemplates: {
-          leadingDescription: "The VALUE year old animal",
-          trailingDescription: "VALUE years old",
+          description: "VALUE years old",
           diffGreaterDescription: "VALUE years older",
           diffLesserDescription: "VALUE years younger",
         },
@@ -173,15 +164,13 @@ describe("buildEmptyMatrix", () => {
       {
         labels: ["red", "blue", "green"],
         descriptionTemplates: {
-          leadingDescription: "The VALUE animal",
-          trailingDescription: "the VALUE animal",
+          description: "the VALUE animal",
         },
       },
       {
         labels: ["Tom", "Bob", "Jim"],
         descriptionTemplates: {
-          leadingDescription: "VALUE's pet",
-          trailingDescription: "VALUE's pet",
+          description: "VALUE's pet",
         },
       },
     ];

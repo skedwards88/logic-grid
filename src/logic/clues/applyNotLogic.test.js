@@ -11,12 +11,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -31,12 +29,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
   },
   "0v3": {
@@ -49,12 +45,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
   "1v2": {
@@ -67,12 +61,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -87,12 +79,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -107,12 +97,10 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
 };

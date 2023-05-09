@@ -5,29 +5,25 @@ const mockedCategories = {
   NAME: {
     values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
     descriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
   },
   COLOR: {
     values: ["red", "orange", "blue", "green", "yellow"],
     descriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
   MODEL: {
     values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
     descriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
   },
   AGE: {
     values: [1, 2, 3, 4, 5],
     descriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -49,10 +45,7 @@ describe("chooseCategories", () => {
       expect(category.descriptionTemplates);
 
       expect(category.descriptionTemplates).toHaveProperty(
-        "leadingDescription",
-      );
-      expect(category.descriptionTemplates).toHaveProperty(
-        "trailingDescription",
+        "description",
       );
       if (typeof category.labels[0] === "number") {
         expect(category.descriptionTemplates).toHaveProperty(
@@ -74,10 +67,7 @@ describe("chooseCategories", () => {
     for (const category of categories) {
       expect(category.labels.length).toBe(numItems);
       expect(category.descriptionTemplates).toHaveProperty(
-        "leadingDescription",
-      );
-      expect(category.descriptionTemplates).toHaveProperty(
-        "trailingDescription",
+        "description",
       );
       if (typeof category.labels[0] === "number") {
         expect(category.descriptionTemplates).toHaveProperty(

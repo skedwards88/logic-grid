@@ -15,12 +15,10 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -35,12 +33,10 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     ColorVsNumber: {
@@ -53,12 +49,10 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -75,12 +69,10 @@ describe("getOrCrossCategoryClue", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -95,12 +87,10 @@ describe("getOrCrossCategoryClue", () => {
         [null, null, null, null],
       ],
       rowDescriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     ColorVsNumber: {
@@ -113,12 +103,10 @@ describe("getOrCrossCategoryClue", () => {
         [null, null, null, null],
       ],
       colDescriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
       rowDescriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "VALUE years old",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },

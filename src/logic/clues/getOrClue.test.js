@@ -13,12 +13,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -33,12 +31,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
   },
   "0v3": {
@@ -51,12 +47,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
   "1v2": {
@@ -69,12 +63,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -89,12 +81,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -109,12 +99,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
 };
@@ -129,12 +117,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -149,12 +135,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
   },
   "0v3": {
@@ -167,12 +151,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "VALUE's car",
-      trailingDescription: "VALUE's car",
+      description: "VALUE's car",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
   "1v2": {
@@ -185,12 +167,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -205,12 +185,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE year old car",
-      trailingDescription: "VALUE years old",
+      description: "VALUE years old",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
     },
@@ -225,12 +203,10 @@ const emptyDerivedMatrix = {
       [null, null, null, null],
     ],
     rowDescriptionTemplates: {
-      leadingDescription: "The VALUE",
-      trailingDescription: "the VALUE",
+      description: "the VALUE",
     },
     colDescriptionTemplates: {
-      leadingDescription: "The VALUE car",
-      trailingDescription: "the VALUE car",
+      description: "the VALUE car",
     },
   },
 };
@@ -305,7 +281,7 @@ describe("getOrClue", () => {
       },
     };
 
-    const expectedClue = "The Ford is the red car or the blue car.";
+    const expectedClue = "The Ford is either the red car or the blue car.";
     const clue = getOrClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);

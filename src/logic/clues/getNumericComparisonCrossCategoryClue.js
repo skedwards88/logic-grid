@@ -69,15 +69,9 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   const numericDiffClue = pickRandom(numericDiffOptions);
   const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
 
-  const itemADescription = itemATemplates.leadingDescription.replace(
-    "VALUE",
-    itemA,
-  );
+  const itemADescription = itemATemplates.description.replace("VALUE", itemA);
 
-  const itemBDescription = itemBTemplates.trailingDescription.replace(
-    "VALUE",
-    itemB,
-  );
+  const itemBDescription = itemBTemplates.description.replace("VALUE", itemB);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
@@ -88,11 +82,12 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
     : numericDescriptionTemplate.replace("VALUE", "some");
 
-  const writtenClue = `${itemADescription} ${numericComparisonVerb} ${
+  let writtenClue = `${itemADescription} ${numericComparisonVerb} ${
     numericDiffClue === undefined || actualNumericDiff === numericDiffClue
       ? ""
       : "at least "
   }${numericDescription} than ${itemBDescription}.`;
+  writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   const [greaterItem, lesserItem] =
     itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];

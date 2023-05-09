@@ -84,8 +84,10 @@ export function getNumericComparisonClue(solutionMatrix) {
           solutionMatrix[selectedKey].rowDescriptionTemplates,
         ];
 
-  const leadingDescription =
-    nonNumericDescriptionTemplates.leadingDescription.replace("VALUE", itemA);
+  const leadingDescription = nonNumericDescriptionTemplates.description.replace(
+    "VALUE",
+    itemA,
+  );
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
@@ -97,18 +99,21 @@ export function getNumericComparisonClue(solutionMatrix) {
     : numericDescriptionTemplate.replace("VALUE", "some");
 
   const trailingDescription = numericIsRows
-    ? solutionMatrix[
-        selectedKey
-      ].colDescriptionTemplates.trailingDescription.replace("VALUE", itemB)
-    : solutionMatrix[
-        selectedKey
-      ].rowDescriptionTemplates.trailingDescription.replace("VALUE", itemB);
+    ? solutionMatrix[selectedKey].colDescriptionTemplates.description.replace(
+        "VALUE",
+        itemB,
+      )
+    : solutionMatrix[selectedKey].rowDescriptionTemplates.description.replace(
+        "VALUE",
+        itemB,
+      );
 
-  const writtenClue = `${leadingDescription} ${numericComparisonVerb} ${
+  let writtenClue = `${leadingDescription} ${numericComparisonVerb} ${
     numericDiffClue === undefined || actualNumericDiff === numericDiffClue
       ? ""
       : "at least "
   }${numericDescription} than ${trailingDescription}.`;
+  writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   const [greaterItem, lesserItem] =
     itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];

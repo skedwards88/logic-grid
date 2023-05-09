@@ -415,8 +415,7 @@ export const allCategories = [
     CAR_AGE: {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        leadingDescription: "The VALUE year old car",
-        trailingDescription: "VALUE years old",
+        description: "the VALUE year old car",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
@@ -424,8 +423,7 @@ export const allCategories = [
     CAR_MILES: {
       values: [10000, 20000, 30000, 40000, 50000],
       descriptionTemplates: {
-        leadingDescription: "The car with VALUE miles",
-        trailingDescription: "VALUE miles",
+        description: "the car with VALUE miles",
         diffGreaterDescription: "VALUE more miles",
         diffLesserDescription: "VALUE less miles",
         verb: "has",
@@ -434,22 +432,19 @@ export const allCategories = [
     CAR_COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The VALUE car",
-        trailingDescription: "the VALUE car",
+        description: "the VALUE car",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE's car",
-        trailingDescription: "VALUE's car",
+        description: "VALUE's car",
       },
     },
     CAR_MODEL: {
       values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
       descriptionTemplates: {
-        leadingDescription: "The VALUE",
-        trailingDescription: "the VALUE",
+        description: "the VALUE",
       },
     },
   },
@@ -457,8 +452,7 @@ export const allCategories = [
     LANE: {
       values: [1, 2, 3, 4, 5, 6],
       descriptionTemplates: {
-        leadingDescription: "The person who swam in lane VALUE",
-        trailingDescription: "the person who swam in lane VALUE",
+        description: "the person who swam in lane VALUE",
         diffGreaterDescription: "VALUE lane numbers higher",
         diffLesserDescription: "VALUE lane numbers lower",
         verb: "was",
@@ -467,22 +461,19 @@ export const allCategories = [
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The person wearing VALUE goggles",
-        trailingDescription: "wearing VALUE goggles",
+        description: "the person wearing VALUE goggles",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     STROKE: {
       values: ["fly", "back", "breast", "free", "IM"],
       descriptionTemplates: {
-        leadingDescription: "The person who swam VALUE",
-        trailingDescription: "the person who swam VALUE",
+        description: "the person who swam VALUE",
       },
     },
   },
@@ -490,8 +481,7 @@ export const allCategories = [
     TEST_SCORE: {
       values: [100, 95, 90, 85, 80],
       descriptionTemplates: {
-        leadingDescription: "The person whose grade was VALUE",
-        trailingDescription: "the person whose grade was VALUE",
+        description: "the person whose grade was VALUE",
         diffGreaterDescription: "VALUE points higher",
         diffLesserDescription: "VALUE points lower",
         verb: "scored",
@@ -500,15 +490,13 @@ export const allCategories = [
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The person using VALUE ink",
-        trailingDescription: "using VALUE ink",
+        description: "the person using VALUE ink",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     SUBJECT: {
@@ -540,8 +528,7 @@ export const allCategories = [
         "rocks",
       ],
       descriptionTemplates: {
-        leadingDescription: "The person who wrote about VALUE",
-        trailingDescription: "the person who wrote about VALUE",
+        description: "the person who wrote about VALUE",
       },
     },
   },
@@ -549,8 +536,7 @@ export const allCategories = [
     NUMBER: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       descriptionTemplates: {
-        leadingDescription: "The person who ate VALUE s'mores",
-        trailingDescription: "the person who ate VALUE s'mores",
+        description: "the person who ate VALUE s'mores",
         diffGreaterDescription: "VALUE more s'mores",
         diffLesserDescription: "VALUE less s'mores",
         verb: "ate",
@@ -559,15 +545,13 @@ export const allCategories = [
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The person with the VALUE sleeping bag",
-        trailingDescription: "the person with the VALUE sleeping bag",
+        description: "the person with the VALUE sleeping bag",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     CONSTELLATION: {
@@ -584,8 +568,7 @@ export const allCategories = [
         "Cancer",
       ],
       descriptionTemplates: {
-        leadingDescription: "The person who spotted VALUE",
-        trailingDescription: "the person who spotted VALUE",
+        description: "the person who spotted VALUE",
       },
     },
   },
@@ -593,8 +576,7 @@ export const allCategories = [
     NUMBER: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       descriptionTemplates: {
-        leadingDescription: "The person who hiked VALUE miles",
-        trailingDescription: "the person who hiked VALUE miles",
+        description: "the person who hiked VALUE miles",
         diffGreaterDescription: "VALUE more miles",
         diffLesserDescription: "VALUE less miles",
         verb: "hiked",
@@ -603,8 +585,7 @@ export const allCategories = [
     ELEVATION: {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       descriptionTemplates: {
-        leadingDescription: "The person who gained VALUE feet in elevation",
-        trailingDescription: "the person who gained VALUE feet in elevation",
+        description: "the person who gained VALUE feet in elevation",
         diffGreaterDescription: "VALUE more feet",
         diffLesserDescription: "VALUE less feet",
         verb: "gained",
@@ -625,22 +606,19 @@ export const allCategories = [
         "ruins",
       ],
       descriptionTemplates: {
-        leadingDescription: "The person who hiked to the VALUE",
-        trailingDescription: "the person who hiked to the VALUE",
+        description: "the person who hiked to the VALUE",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     ACCESSORY: {
       values: ["hat", "bottle", "poles", "glasses", "visor", "bandana"],
       descriptionTemplates: {
-        leadingDescription: "The person with the VALUE",
-        trailingDescription: "the person with the VALUE",
+        description: "the person with the VALUE",
       },
     },
   },
@@ -648,8 +626,7 @@ export const allCategories = [
     HOURS: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       descriptionTemplates: {
-        leadingDescription: "The person who finished in VALUE hours",
-        trailingDescription: "finished in VALUE hours",
+        description: "the person who finished in VALUE hours",
         diffGreaterDescription: "VALUE more hours",
         diffLesserDescription: "VALUE less hours",
         verb: "took",
@@ -658,8 +635,7 @@ export const allCategories = [
     PIECES: {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       descriptionTemplates: {
-        leadingDescription: "The person who did the VALUE piece puzzle",
-        trailingDescription: "did the VALUE piece puzzle",
+        description: "the person who did the VALUE piece puzzle",
         diffGreaterDescription: "VALUE more pieces",
         diffLesserDescription: "VALUE less pieces",
         verb: "assembled",
@@ -668,8 +644,7 @@ export const allCategories = [
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     SUBJECT: {
@@ -697,8 +672,7 @@ export const allCategories = [
         "birds",
       ],
       descriptionTemplates: {
-        leadingDescription: "The person who did a puzzle of VALUE",
-        trailingDescription: "the person who did a puzzle of VALUE",
+        description: "the person who did a puzzle of VALUE",
       },
     },
   },
@@ -706,8 +680,7 @@ export const allCategories = [
     TREES: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       descriptionTemplates: {
-        leadingDescription: "The house with VALUE trees",
-        trailingDescription: "the house with VALUE trees",
+        description: "the house with VALUE trees",
         diffGreaterDescription: "VALUE more trees",
         diffLesserDescription: "VALUE less trees",
         verb: "has",
@@ -716,15 +689,13 @@ export const allCategories = [
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE's house",
-        trailingDescription: "VALUE's house",
+        description: "VALUE's house",
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The VALUE house",
-        trailingDescription: "the VALUE house",
+        description: "the VALUE house",
       },
     },
     ACCESSORY: {
@@ -741,8 +712,7 @@ export const allCategories = [
         "tree",
       ],
       descriptionTemplates: {
-        leadingDescription: "The house with the VALUE",
-        trailingDescription: "the house with the VALUE",
+        description: "the house with the VALUE",
       },
     },
   },
@@ -750,18 +720,16 @@ export const allCategories = [
     TIME: {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        leadingDescription: "The person who snacks at VALUE o'clock",
-        trailingDescription: "the person who snacks at VALUE o'clock",
-        diffGreaterDescription: "VALUE hours more",
-        diffLesserDescription: "VALUE hours less",
+        description: "the person who snacks at VALUE o'clock",
+        diffGreaterDescription: "VALUE hours earlier",
+        diffLesserDescription: "VALUE hours later",
         verb: "snacks",
       },
     },
     DURATION: {
       values: [10, 15, 20, 25, 30],
       descriptionTemplates: {
-        leadingDescription: "The person who takes VALUE minutes",
-        trailingDescription: "the person who takes VALUE minutes",
+        description: "the person who takes VALUE minutes",
         diffGreaterDescription: "VALUE minutes more",
         diffLesserDescription: "VALUE minutes less",
         verb: "takes",
@@ -770,29 +738,25 @@ export const allCategories = [
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        leadingDescription: "VALUE",
-        trailingDescription: "VALUE",
+        description: "VALUE",
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        leadingDescription: "The person with the VALUE cup",
-        trailingDescription: "the person with the VALUE cup",
+        description: "the person with the VALUE cup",
       },
     },
     DRINK: {
       values: ["tea", "coffee", "water", "milk", "wine", "beer", "juice"],
       descriptionTemplates: {
-        leadingDescription: "The person who drinks VALUE",
-        trailingDescription: "the person who drinks VALUE",
+        description: "the person who drinks VALUE",
       },
     },
     SNACK: {
       values: ["apple", "cookie", "bun", "pear", "donut", "banana"],
       descriptionTemplates: {
-        leadingDescription: "The person who eats the VALUE",
-        trailingDescription: "the person who eats the VALUE",
+        description: "the person who eats the VALUE",
       },
     },
   },
@@ -800,8 +764,7 @@ export const allCategories = [
   //   NUMBER_WON: {
   //     values: [1,2,3,4,5],
   //     descriptionTemplates: {
-  //       leadingDescription: "The person who won VALUE games",
-  //       trailingDescription: "the person who won VALUE games",
+  //       description: "the person who won VALUE games",
   //       diffGreaterDescription: "VALUE more games",
   //       diffLesserDescription: "VALUE more games",
   //       verb: "won",
@@ -810,15 +773,13 @@ export const allCategories = [
   //   NAME: {
   //     values: firstNames,
   //     descriptionTemplates: {
-  //       leadingDescription: "VALUE",
-  //       trailingDescription: "VALUE",
+  //       description: "VALUE",
   //     },
   //   },
   //   GAME: {
   //     values: ["Plague","Hanabi","Dixit","Boggle","Botanik","Kokoro","Cards"],
   //     descriptionTemplates: {
-  //       leadingDescription: "The person who likes VALUE",
-  //       trailingDescription: "the person who likes VALUE",
+  //       description: "the person who likes VALUE",
   //     },
   //   },
   // },

@@ -27,14 +27,15 @@ export function getOrClue(solutionMatrix) {
 
   const leadingDescription = solutionMatrix[
     solutionKey
-  ].rowDescriptionTemplates.leadingDescription.replace("VALUE", rowItem);
+  ].rowDescriptionTemplates.description.replace("VALUE", rowItem);
   const trailingDescriptionTrue = solutionMatrix[
     solutionKey
-  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItemTrue);
+  ].colDescriptionTemplates.description.replace("VALUE", colItemTrue);
   const trailingDescriptionFalse = solutionMatrix[
     solutionKey
-  ].colDescriptionTemplates.trailingDescription.replace("VALUE", colItemFalse);
-  const writtenClue = `${leadingDescription} is ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
+  ].colDescriptionTemplates.description.replace("VALUE", colItemFalse);
+  let writtenClue = `${leadingDescription} is either ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
+  writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   // the "or" clue equates to "not" clues for all other indexes
   // ("Colin is 1 or 2" means "Colin is not 3", "Colin is not 4")
