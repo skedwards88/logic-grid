@@ -15,6 +15,10 @@ export default function App() {
     gameInit,
   );
 
+  React.useEffect(() => {
+    window.localStorage.setItem("logicGridState", JSON.stringify(gameState));
+  }, [gameState]);
+
   switch (display) {
     case "settings":
       return (
