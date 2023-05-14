@@ -21,5 +21,5 @@ export function applyCluesAdNauseam(clues, derivedMatrix) {
     matrixMayChange = !matrixesEqualQ(matrixPreClues, matrixPostClues);
     matrixPreClues = matrixPostClues;
   }
-  return derivedMatrix;
+  return matrixPostClues;
 }
