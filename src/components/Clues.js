@@ -21,7 +21,7 @@ export default function Clues({writtenClues}) {
     <div className="clues">
       <div className="clueInfo">{`${clues.length} Clues`}</div>
       <ol>{clues}</ol>
-      <div className="clueInfo">End of Clues</div>
+      <div className="clueInfo">End of Clues v1.0</div>
     </div>
   );
 }
