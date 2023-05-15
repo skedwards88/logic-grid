@@ -94,9 +94,6 @@ describe("applyOrCrossCategoryLogic", () => {
       itemB: "blue",
       itemC: 3,
     });
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
-    );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
       [null, null, false, null],
@@ -105,10 +102,43 @@ describe("applyOrCrossCategoryLogic", () => {
       [null, null, null, null],
     ]);
     expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
+      partiallySolvedMatrix["NameVsColor"]["grid"],
     );
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
+      partiallySolvedMatrix["ColorVsNumber"]["grid"],
+    );
+
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, false, null, null],
+      [null, null, null, null],
+    ]);
+  });
+
+  test('applies a cross category "or" clue when know that itemA is not itemB', () => {
+    let partiallySolvedMatrix = {...emptyMatrix};
+    partiallySolvedMatrix.NameVsColor.grid = [
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+    const newDerivedMatrix = applyOrCrossCategoryLogic(partiallySolvedMatrix, {
+      itemA: "Colin",
+      itemB: "blue",
+      itemC: 3,
+    });
+
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
+      [false, false, true, false],
+      [null, null, false, null],
+      [null, null, false, null],
+      [null, null, false, null],
+    ]);
+
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
+      partiallySolvedMatrix["NameVsColor"]["grid"],
     );
 
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
