@@ -139,7 +139,7 @@ describe("getOrCrossCategoryClue", () => {
 
     const clue = getOrCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is 1 years old or the blue car."`,
+      `"Colin's car is either 1 years old or the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
     const clueLogicFunction = logicFactory(clue.clueType);
