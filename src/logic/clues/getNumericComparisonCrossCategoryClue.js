@@ -82,10 +82,15 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
     : numericDescriptionTemplate.replace("VALUE", "some");
 
+
+  let relationWord = ""
+  if (actualNumericDiff === numericDiffClue) {
+    relationWord = "exactly "
+  } else if (numericDiffClue != undefined) {
+    relationWord = "at least "
+  }
   let writtenClue = `${itemADescription} ${numericComparisonVerb} ${
-    numericDiffClue === undefined || actualNumericDiff === numericDiffClue
-      ? ""
-      : "at least "
+    relationWord
   }${numericDescription} than ${itemBDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
