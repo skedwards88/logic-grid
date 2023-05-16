@@ -7,16 +7,15 @@ export default function Cell({
   value,
   dispatchGameState,
 }) {
-  let renderedValue;
+  let className = "cell";
   if (value) {
-    renderedValue = "O";
+    className += " true";
   } else if (value === false) {
-    renderedValue = "X";
-  } else {
-    renderedValue = " ";
+    className += " false";
   }
   return (
     <div
+    className={className}
       onClick={() =>
         dispatchGameState({
           action: "changeCellState",
@@ -26,7 +25,6 @@ export default function Cell({
         })
       }
     >
-      {renderedValue}
     </div>
   );
 }

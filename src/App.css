@@ -121,6 +121,19 @@ button {
   text-align: center;
 }
 
+.cell {
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.cell.true {
+  background-image: url("./images/true.svg");
+}
+
+.cell.false {
+  background-image: url("./images/false.svg");
+}
+
 /* Labels */
 
 .columnLabel {
