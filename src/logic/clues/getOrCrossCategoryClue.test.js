@@ -4,6 +4,10 @@ import * as shuffleArrayModule from "../helpers/shuffleArray";
 import {logicFactory} from "./logicFactory";
 
 describe("getOrCrossCategoryClue", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -58,84 +62,22 @@ describe("getOrCrossCategoryClue", () => {
       },
     },
   };
-  const emptyDerivedMatrix = {
-    NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: [1, 2, 3, 4],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-    NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-    },
-    ColorVsNumber: {
-      rowLabels: [1, 2, 3, 4],
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-      rowDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-  };
+
+  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  for (const key in emptyMatrix) {
+    emptyMatrix[key].grid = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+  }
+
   test('returns a "cross category or" clue for a given solution matrix (using mocked random values)', () => {
     jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce("Colin"); // itemA
     jest
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
-
-    const expectedGridNameVsNumber = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
 
     const clue = getOrCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
@@ -144,26 +86,25 @@ describe("getOrCrossCategoryClue", () => {
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
-
-    jest.restoreAllMocks();
+    for (const key in newDerivedMatrix) {
+      if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -186,12 +127,12 @@ describe("getOrCrossCategoryClue", () => {
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getOrCrossCategoryClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerived).not.toEqual(emptyMatrix);
   });
 });
