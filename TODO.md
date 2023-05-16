@@ -1,17 +1,25 @@
 # TODO
 
-- remove clues that are non-additive in end ?
-- convert clues to better english
-- category library
-- check that solution is valid
+- Raise clue crossed off state up to game state so that can retail after remount and update with undo
+- Add undo function
+- Remove non-additive clues after clue set is generated
+- Check that solution is valid
   - check if any of the clues do not work with the user's solution + one true per row/col
   - maybe clue can return validator as well as clue function. takes input matrix and verifies that certain things are true about it
-- front end
-- add deploy workflow, set up website
-- add readme
-- add to sect games site
-
-// the red house has an even number of trees (maybe not; this is a glorified "or")
-// the red house has more than 3 trees (maybe not; this is a glorified "or")
-// the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
-// the red house or Colin's house has 3 trees (also tells you red is not Colin)
+- Add share function
+- Add install function
+- when URL bar is showing, can't scroll to bottom?
+- Add Readme
+- Add to Sect games site
+- Add favicon
+- Add service worker
+- Make deployment workflow bump version
+- Make deployment workflow run tests
+- Make pickRandom test more robust
+- Clean up todos in code
+- Add more scenarios
+- Could add more clues?
+  - the red house has an even number of trees (maybe not; this is a glorified "or")
+  - the red house has more than 3 trees (maybe not; this is a glorified "or")
+  - the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
+- Put in app store
