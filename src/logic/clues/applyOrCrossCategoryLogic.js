@@ -5,7 +5,6 @@ export function applyOrCrossCategoryLogic(
   derivedMatrix,
   {itemA, itemB, itemC},
 ) {
-  console.log('in applyOrCrossCategoryLogic')
   let newDerivedMatrix = derivedMatrix;
 
   // Know that itemB is not itemC
