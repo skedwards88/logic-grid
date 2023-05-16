@@ -62,60 +62,15 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       },
     },
   };
-  const emptyDerivedMatrix = {
-    NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-    NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-    },
-    ColorVsNumber: {
-      rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-      rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-  };
+  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  for (const key in emptyMatrix) {
+    emptyMatrix[key].grid = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+  }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values to return clue "undefined")', () => {
     jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
     jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
@@ -123,60 +78,54 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [null, null, null, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is some years younger than the green car."`,
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
-
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
@@ -186,60 +135,54 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [null, null, false, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 2 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
-      clue.clueParameters,
-    );
-
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyMatrix,
+      clue.clueParameters,
+    );
+
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
@@ -249,60 +192,54 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [true, false, false, false],
-      [false, null, null, null],
-      [false, null, null, null],
-      [false, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, false, null],
-      [null, null, false, null],
-      [false, false, true, false],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 3 years younger than the green car."`,
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
-
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [true, false, false, false],
+          [false, null, null, null],
+          [false, null, null, null],
+          [false, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, false, null],
+          [null, null, false, null],
+          [false, false, true, false],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -326,20 +263,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonCrossCategoryClue(matrixCopy);
+    getNumericComparisonCrossCategoryClue(matrixCopy);
     expect(matrixCopy).toEqual(solutionMatrix);
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
       derivedCopy,
       clue.clueParameters,
     );
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
   });
 });
 
@@ -402,60 +339,15 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       },
     },
   };
-  const emptyDerivedMatrix = {
-    NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-    NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-    },
-    ColorVsNumber: {
-      rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-      rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-  };
+  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  for (const key in emptyMatrix) {
+    emptyMatrix[key].grid = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+  }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
     jest
       .spyOn(pickRandomModule, "pickRandoms")
@@ -465,60 +357,53 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [null, null, null, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is some years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
-      clue.clueParameters,
-    );
-
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyMatrix,
+      clue.clueParameters,
+    );
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
@@ -532,60 +417,54 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [null, null, false, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 20 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
-      clue.clueParameters,
-    );
-
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyMatrix,
+      clue.clueParameters,
+    );
+
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
@@ -599,60 +478,54 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridNameVsNumber = [
-      [true, false, false, false],
-      [false, null, null, null],
-      [false, null, null, null],
-      [false, null, null, null],
-    ];
-    const expectedGridNameVsColor = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridColorVsNumber = [
-      [null, null, false, null],
-      [null, null, false, null],
-      [null, null, false, null],
-      [false, false, true, false],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 30 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
-      clue.clueParameters,
-    );
-
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    const clueLogicFunction = logicFactory(clue.clueType);
+    const newDerivedMatrix = clueLogicFunction(
+      emptyMatrix,
+      clue.clueParameters,
+    );
+
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [true, false, false, false],
+          [false, null, null, null],
+          [false, null, null, null],
+          [false, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, false, null],
+          [null, null, false, null],
+          [false, false, true, false],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -676,20 +549,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonCrossCategoryClue(matrixCopy);
+    getNumericComparisonCrossCategoryClue(matrixCopy);
     expect(matrixCopy).toEqual(solutionMatrix);
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
       derivedCopy,
       clue.clueParameters,
     );
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
   });
 });
 
@@ -752,60 +625,15 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       },
     },
   };
-  const emptyDerivedMatrix = {
-    NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-    NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "VALUE's car",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-    },
-    ColorVsNumber: {
-      rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      colDescriptionTemplates: {
-        description: "the VALUE car",
-      },
-      rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-  };
+  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  for (const key in emptyMatrix) {
+    emptyMatrix[key].grid = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+  }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff undefined)', () => {
     jest
       .spyOn(pickRandomModule, "pickRandoms")
@@ -842,26 +670,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
+      emptyMatrix["NameVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
       expectedGridNameVsNumber,
     );
 
     expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
+      emptyMatrix["NameVsColor"]["grid"],
     );
     expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
       expectedGridNameVsColor,
     );
 
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
+      emptyMatrix["ColorVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
       expectedGridColorVsNumber,
@@ -909,26 +737,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
+      emptyMatrix["NameVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
       expectedGridNameVsNumber,
     );
 
     expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
+      emptyMatrix["NameVsColor"]["grid"],
     );
     expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
       expectedGridNameVsColor,
     );
 
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
+      emptyMatrix["ColorVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
       expectedGridColorVsNumber,
@@ -976,26 +804,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsNumber"]["grid"],
+      emptyMatrix["NameVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
       expectedGridNameVsNumber,
     );
 
     expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["NameVsColor"]["grid"],
+      emptyMatrix["NameVsColor"]["grid"],
     );
     expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
       expectedGridNameVsColor,
     );
 
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["ColorVsNumber"]["grid"],
+      emptyMatrix["ColorVsNumber"]["grid"],
     );
     expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
       expectedGridColorVsNumber,
@@ -1031,15 +859,15 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
       derivedCopy,
       clue.clueParameters,
     );
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
   });
 });
 
@@ -1072,78 +900,14 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         verb: "has",
       },
     },
-    MilesVsC: {
-      rowLabels: numericLabelsMiles,
-      colLabels: numericLabelsDollars,
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
-      rowDescriptionTemplates: {
-        description: "the car with VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
-        verb: "has",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE dollar car",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
-      },
-    },
-    DollarsVsYears: {
-      rowLabels: numericLabelsDollars,
-      colLabels: numericLabelsYears,
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
-      rowDescriptionTemplates: {
-        description: "the VALUE dollar car",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
-      },
-      colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-    },
-  };
-  const emptyDerivedMatrix = {
-    YearsVsMiles: {
-      rowLabels: numericLabelsYears,
-      colLabels: numericLabelsMiles,
-      grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-      ],
-      rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
-      },
-      colDescriptionTemplates: {
-        description: "the car with VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
-        verb: "has",
-      },
-    },
     MilesVsDollars: {
       rowLabels: numericLabelsMiles,
       colLabels: numericLabelsDollars,
       grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
       ],
       rowDescriptionTemplates: {
         description: "the car with VALUE miles",
@@ -1161,23 +925,32 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       rowLabels: numericLabelsDollars,
       colLabels: numericLabelsYears,
       grid: [
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
-        [null, null, null, null],
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      rowDescriptionTemplates: {
         description: "the VALUE dollar car",
         diffGreaterDescription: "VALUE dollars more",
         diffLesserDescription: "VALUE dollars less",
       },
-      rowDescriptionTemplates: {
+      colDescriptionTemplates: {
         description: "the VALUE year old car",
         diffGreaterDescription: "VALUE years older",
         diffLesserDescription: "VALUE years younger",
       },
     },
   };
+  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  for (const key in emptyMatrix) {
+    emptyMatrix[key].grid = [
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ];
+  }
   test("works even if multiple numeric categories", () => {
     jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
     jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(1);
@@ -1185,61 +958,53 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       .spyOn(shuffleArrayModule, "shuffleArray")
       .mockImplementation((arr) => arr);
 
-    const expectedGridYearsVsMiles = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [false, null, null, null],
-    ];
-    const expectedGridMilesVsDollars = [
-      [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    const expectedGridDollarsVsYears = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [false, null, null, null],
-      [null, null, null, null],
-    ];
-
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The car with 10 miles is at least 1 years younger than the 300 dollar car."`,
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-
+    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      emptyDerivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
-    expect(newDerivedMatrix["YearsVsMiles"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["YearsVsMiles"]["grid"],
-    );
-
-    expect(newDerivedMatrix["YearsVsMiles"]["grid"]).toEqual(
-      expectedGridYearsVsMiles,
-    );
-
-    expect(newDerivedMatrix["MilesVsDollars"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["MilesVsDollars"]["grid"],
-    );
-    expect(newDerivedMatrix["MilesVsDollars"]["grid"]).toEqual(
-      expectedGridMilesVsDollars,
-    );
-
-    expect(newDerivedMatrix["DollarsVsYears"]["grid"]).not.toEqual(
-      emptyDerivedMatrix["DollarsVsYears"]["grid"],
-    );
-    expect(newDerivedMatrix["DollarsVsYears"]["grid"]).toEqual(
-      expectedGridDollarsVsYears,
-    );
-
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    for (const key in newDerivedMatrix) {
+      if (key === "YearsVsMiles") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [false, null, null, null],
+        ]);
+      } else if (key === "MilesVsDollars") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "DollarsVsYears") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, null],
+          [null, null, null, null],
+          [false, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -1268,14 +1033,14 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
       derivedCopy,
       clue.clueParameters,
     );
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
   });
 });
