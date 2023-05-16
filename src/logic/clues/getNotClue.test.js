@@ -3,7 +3,7 @@ import * as pickRandomModule from "../helpers/pickRandom";
 import {logicFactory} from "./logicFactory";
 
 const solutionMatrix = {
-  "0v1": {
+  NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: [1, 2, 3, 4],
     grid: [
@@ -21,7 +21,7 @@ const solutionMatrix = {
       diffLesserDescription: "VALUE years younger",
     },
   },
-  "0v2": {
+  NameVsMake: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
@@ -37,7 +37,7 @@ const solutionMatrix = {
       description: "the VALUE",
     },
   },
-  "0v3": {
+  NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -53,7 +53,7 @@ const solutionMatrix = {
       description: "the VALUE car",
     },
   },
-  "1v2": {
+  NumberVsMake: {
     rowLabels: [1, 2, 3, 4],
     colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
@@ -71,7 +71,7 @@ const solutionMatrix = {
       diffLesserDescription: "VALUE years younger",
     },
   },
-  "1v3": {
+  NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -89,7 +89,7 @@ const solutionMatrix = {
       diffLesserDescription: "VALUE years younger",
     },
   },
-  "2v3": {
+  MakeVsColor: {
     rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -97,110 +97,6 @@ const solutionMatrix = {
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
-    ],
-    rowDescriptionTemplates: {
-      description: "the VALUE",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
-  },
-};
-const emptyDerivedMatrix = {
-  "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
-  },
-  "0v2": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE",
-    },
-  },
-  "0v3": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
-  },
-  "1v2": {
-    rowLabels: [1, 2, 3, 4],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-    colDescriptionTemplates: {
-      description: "the VALUE",
-    },
-    rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
-  },
-  "1v3": {
-    rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
-    rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
-  },
-  "2v3": {
-    rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    colLabels: ["red", "blue", "green", "yellow"],
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
     ],
     rowDescriptionTemplates: {
       description: "the VALUE",
@@ -211,76 +107,28 @@ const emptyDerivedMatrix = {
   },
 };
 
+let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+for (const key in emptyMatrix) {
+  emptyMatrix[key].grid = [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ];
+}
+
 describe("getNotClue", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   test('returns a "not" clue for a given solution matrix (using mocked values)', () => {
     jest
       .spyOn(pickRandomModule, "pickRandom")
-      .mockReturnValueOnce("2v3") // solutionKey
+      .mockReturnValueOnce("MakeVsColor") // solutionKey
       .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
     jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
-    const derivedMatrix = {
-      "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-      "0v2": {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["Ford", "Honda", "Kia", "Subaru"],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-      "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["red", "blue", "green", "yellow"],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-      "1v2": {
-        rowLabels: [1, 2, 3, 4],
-        colLabels: ["Ford", "Honda", "Kia", "Subaru"],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-      "1v3": {
-        rowLabels: [1, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-      "2v3": {
-        rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
-        colLabels: ["red", "blue", "green", "yellow"],
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
-      },
-    };
     const expectedClue = "The Ford is not the blue car.";
     const clue = getNotClue(solutionMatrix);
     expect(clue.writtenClue).toBe(expectedClue);
@@ -290,290 +138,25 @@ describe("getNotClue", () => {
 
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerivedMatrix = clueLogicFunction(
-      derivedMatrix,
+      emptyMatrix,
       clue.clueParameters,
     );
 
-    expect(newDerivedMatrix["1v2"]["grid"]).toEqual(
-      derivedMatrix["1v2"]["grid"],
-    );
-    expect(newDerivedMatrix["2v3"]["grid"]).not.toEqual(
-      derivedMatrix["2v3"]["grid"],
-    );
-    expect(newDerivedMatrix["2v3"]["grid"]).toMatchInlineSnapshot(`
-[
-  [
-    null,
-    false,
-    null,
-    null,
-  ],
-  [
-    null,
-    null,
-    null,
-    null,
-  ],
-  [
-    null,
-    null,
-    null,
-    null,
-  ],
-  [
-    null,
-    null,
-    null,
-    null,
-  ],
-]
-`);
-    expect(newDerivedMatrix).toMatchInlineSnapshot(`
-{
-  "0v1": {
-    "colLabels": [
-      1,
-      2,
-      3,
-      4,
-    ],
-    "grid": [
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      "Colin",
-      "Sarah",
-      "Fefe",
-      "Meme",
-    ],
-  },
-  "0v2": {
-    "colLabels": [
-      "Ford",
-      "Honda",
-      "Kia",
-      "Subaru",
-    ],
-    "grid": [
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      "Colin",
-      "Sarah",
-      "Fefe",
-      "Meme",
-    ],
-  },
-  "0v3": {
-    "colLabels": [
-      "red",
-      "blue",
-      "green",
-      "yellow",
-    ],
-    "grid": [
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      "Colin",
-      "Sarah",
-      "Fefe",
-      "Meme",
-    ],
-  },
-  "1v2": {
-    "colLabels": [
-      "Ford",
-      "Honda",
-      "Kia",
-      "Subaru",
-    ],
-    "grid": [
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      1,
-      2,
-      3,
-      4,
-    ],
-  },
-  "1v3": {
-    "colLabels": [
-      "red",
-      "blue",
-      "green",
-      "yellow",
-    ],
-    "grid": [
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      1,
-      2,
-      3,
-      4,
-    ],
-  },
-  "2v3": {
-    "colLabels": [
-      "red",
-      "blue",
-      "green",
-      "yellow",
-    ],
-    "grid": [
-      [
-        null,
-        false,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-      [
-        null,
-        null,
-        null,
-        null,
-      ],
-    ],
-    "rowLabels": [
-      "Ford",
-      "Honda",
-      "Kia",
-      "Subaru",
-    ],
-  },
-}
-`);
-
-    jest.restoreAllMocks();
+    for (const key in newDerivedMatrix) {
+      if (key === "MakeVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -591,17 +174,17 @@ describe("getNotClue", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNotClue(matrixCopy);
+    getNotClue(matrixCopy);
     expect(matrixCopy).toEqual(solutionMatrix);
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyDerivedMatrix));
+    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNotClue(solutionMatrix);
     const clueLogicFunction = logicFactory(clue.clueType);
     const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
 
-    expect(derivedCopy).toEqual(emptyDerivedMatrix);
-    expect(newDerived).not.toEqual(emptyDerivedMatrix);
+    expect(derivedCopy).toEqual(emptyMatrix);
+    expect(newDerived).not.toEqual(emptyMatrix);
   });
 });
