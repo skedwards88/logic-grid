@@ -46,35 +46,41 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
       },
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
-      [null, null, null, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('applies a "numeric comparison" clue (diff 1, actual diff 2)', () => {
@@ -89,35 +95,41 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
       },
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
-      [null, null, null, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('applies a "numeric comparison" clue (diff 2, actual diff 2)', () => {
@@ -132,35 +144,41 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
       },
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
-      [null, null, false, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, false, false],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('applies a "numeric comparison" clue (diff 2, actual diff 2, know greater value)', () => {
@@ -188,29 +206,31 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
       },
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      inputMatrix["NameVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
-      [true, false, false, false],
-      [false, null, null, null],
-      [false, null, null, null],
-      [false, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      inputMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      inputMatrix["ColorVsNumber"]["grid"],
-    );
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          inputMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [true, false, false, false],
+          [false, null, null, null],
+          [false, null, null, null],
+          [false, null, null, null],
+        ]);
+      } else if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          inputMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+      }
+    }
   });
 
   test('applies a "numeric comparison" clue (diff 2, actual diff 2, know lesser value)', () => {
@@ -238,29 +258,31 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
       },
     );
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      inputMatrix["NameVsNumber"]["grid"],
-    );
-
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      inputMatrix["NameVsColor"]["grid"],
-    );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ]);
-
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      inputMatrix["ColorVsNumber"]["grid"],
-    );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
-      [null, false, null, null],
-      [null, false, null, null],
-      [null, false, null, null],
-      [false, true, false, false],
-    ]);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          inputMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          inputMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+          [false, true, false, false],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+      }
+    }
   });
 
   test("does not modify the input matrix when applying the clue", () => {
