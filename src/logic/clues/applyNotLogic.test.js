@@ -1,7 +1,7 @@
 import {applyNotLogic} from "./applyNotLogic";
 
 const emptyMatrix = {
-  "0v1": {
+  NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: [1, 2, 3, 4],
     grid: [
@@ -10,16 +10,8 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
   },
-  "0v2": {
+  NameVsMake: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
@@ -28,14 +20,8 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE",
-    },
   },
-  "0v3": {
+  NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -44,14 +30,8 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    rowDescriptionTemplates: {
-      description: "VALUE's car",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
   },
-  "1v2": {
+  NumberVsMake: {
     rowLabels: [1, 2, 3, 4],
     colLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
@@ -60,16 +40,8 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    colDescriptionTemplates: {
-      description: "the VALUE",
-    },
-    rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
   },
-  "1v3": {
+  NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -78,16 +50,8 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
-    rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
-    },
   },
-  "2v3": {
+  MakeVsColor: {
     rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -96,60 +60,78 @@ const emptyMatrix = {
       [null, null, null, null],
       [null, null, null, null],
     ],
-    rowDescriptionTemplates: {
-      description: "the VALUE",
-    },
-    colDescriptionTemplates: {
-      description: "the VALUE car",
-    },
   },
 };
 
 describe("applyNotLogic", () => {
-  test("sets an intersection to false", () => {
+  test("sets an intersection to false (when both items are strings)", () => {
     const newDerivedMatrix = applyNotLogic(emptyMatrix, {
       itemA: "Colin",
       itemB: "blue",
     });
-    const expectedGrid = [
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-    expect(newDerivedMatrix["0v1"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["0v2"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["0v3"]["grid"]).not.toEqual(
-      emptyMatrix["0v1"]["grid"],
-    );
-    expect(newDerivedMatrix["1v2"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["1v3"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["2v3"]["grid"]).toEqual(emptyMatrix["2v3"]["grid"]);
 
-    expect(newDerivedMatrix["0v3"]["grid"]).toEqual(expectedGrid);
+    for (const key in newDerivedMatrix) {
+      if (key === "NameVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
   });
 
-  test("sets an intersection to false (string and number)", () => {
+  test("sets an intersection to false (when one item is string, one is number)", () => {
     const newDerivedMatrix = applyNotLogic(emptyMatrix, {
       itemA: 3,
       itemB: "blue",
     });
-    const expectedGrid = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, false, null, null],
-      [null, null, null, null],
-    ];
-    expect(newDerivedMatrix["0v1"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["0v2"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["0v3"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["1v2"]["grid"]).toEqual(emptyMatrix["0v1"]["grid"]);
-    expect(newDerivedMatrix["1v3"]["grid"]).not.toEqual(
-      emptyMatrix["0v1"]["grid"],
-    );
-    expect(newDerivedMatrix["2v3"]["grid"]).toEqual(emptyMatrix["2v3"]["grid"]);
 
-    expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
+    for (const key in newDerivedMatrix) {
+      if (key === "NumberVsColor") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrix[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, false, null, null],
+          [null, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
+  });
+
+  test("works even if the intersection is already false", () => {
+    const inputMatrix = {
+      ...emptyMatrix,
+      NameVsColor: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, false, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    const newDerivedMatrix = applyNotLogic(inputMatrix, {
+      itemA: "Colin",
+      itemB: "blue",
+    });
+
+    for (const key in newDerivedMatrix) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+    }
   });
 
   test("does not modify the input matrix when applying the clue", () => {
