@@ -4,6 +4,9 @@ import * as shuffleArrayModule from "../helpers/shuffleArray";
 import {logicFactory} from "./logicFactory";
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [1, 2, 3, 4];
   const emptyDerivedMatrix = {
     "0v1": {
@@ -152,8 +155,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
@@ -194,8 +195,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
@@ -236,8 +235,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
@@ -278,8 +275,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 1)', () => {
@@ -321,8 +316,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 2)', () => {
@@ -364,8 +357,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 3 (exact))', () => {
@@ -407,8 +398,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, exact diff 1)', () => {
@@ -450,8 +439,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 2)', () => {
@@ -494,8 +481,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 3)', () => {
@@ -537,8 +522,6 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -578,6 +561,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 });
 
 describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [10, 20, 30, 40];
   const emptyDerivedMatrix = {
     "0v1": {
@@ -726,8 +712,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
@@ -768,8 +752,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
@@ -810,8 +792,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
@@ -852,8 +832,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
@@ -895,8 +873,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
@@ -938,8 +914,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
@@ -981,8 +955,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
@@ -1024,8 +996,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
@@ -1068,8 +1038,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
@@ -1111,8 +1079,6 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -1152,6 +1118,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 });
 
 describe("getNumericComparisonClue, not evenly spaced", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [10, 15, 30, 40];
   const emptyDerivedMatrix = {
     "0v1": {
@@ -1300,8 +1269,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
@@ -1342,8 +1309,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
@@ -1384,8 +1349,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
@@ -1426,8 +1389,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
@@ -1469,8 +1430,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
@@ -1512,8 +1471,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
@@ -1555,8 +1512,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["0v1"]["grid"],
     );
     expect(newDerivedMatrix["0v1"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
@@ -1571,10 +1526,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       .mockImplementation((arr) => arr.reverse());
 
     const expectedGrid = [
-      [null, false, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [false, null, null, null],
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, null, null],
+      [false, false, null, null],
     ];
 
     const clue = getNumericComparisonClue(solutionMatrix);
@@ -1598,8 +1553,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
@@ -1642,8 +1595,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
@@ -1685,8 +1636,6 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       emptyDerivedMatrix["1v3"]["grid"],
     );
     expect(newDerivedMatrix["1v3"]["grid"]).toEqual(expectedGrid);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {

@@ -4,6 +4,9 @@ import * as shuffleArrayModule from "../helpers/shuffleArray";
 import {logicFactory} from "./logicFactory";
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [1, 2, 3, 4];
   const solutionMatrix = {
     NameVsNumber: {
@@ -113,7 +116,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       },
     },
   };
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values to return clue "undefined")', () => {
     jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
     jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
     jest
@@ -174,8 +177,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
@@ -239,8 +240,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
@@ -304,8 +303,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -347,6 +344,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [10, 20, 30, 40];
   const solutionMatrix = {
     NameVsNumber: {
@@ -519,8 +519,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
@@ -588,8 +586,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
@@ -657,8 +653,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -700,6 +694,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabels = [10, 15, 30, 40];
   const solutionMatrix = {
     NameVsNumber: {
@@ -809,7 +806,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       },
     },
   };
-  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
+  test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff undefined)', () => {
     jest
       .spyOn(pickRandomModule, "pickRandoms")
       .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
@@ -872,8 +869,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
@@ -888,10 +883,10 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       .mockImplementation((arr) => arr);
 
     const expectedGridNameVsNumber = [
-      [null, null, false, false],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
+      [true, false, false, false],
+      [false, null, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
     ];
     const expectedGridNameVsColor = [
       [null, null, false, null],
@@ -902,8 +897,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     const expectedGridColorVsNumber = [
       [null, null, false, null],
       [null, null, false, null],
-      [null, null, null, null],
-      [null, null, null, null],
+      [false, false, true, false],
+      [null, null, false, null],
     ];
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
@@ -941,8 +936,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
@@ -1010,8 +1003,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -1053,6 +1044,9 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 });
 
 describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   const numericLabelsYears = [1, 2, 3, 4];
   const numericLabelsMiles = [10, 20, 30, 40];
   const numericLabelsDollars = [100, 200, 300, 400];
@@ -1246,8 +1240,6 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-
-    jest.restoreAllMocks();
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {

@@ -9,40 +9,56 @@ export function applyNumericComparisonCrossCategoryLogic(
   derivedMatrix,
   {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
+  // todo this relies on labels being sorted by size
+
   let newDerivedMatrix = derivedMatrix;
 
   // Know that greaterItem is not lesserItem
   newDerivedMatrix = setToFalse(newDerivedMatrix, greaterItem, lesserItem);
 
-  // we know that the value of the numeric item for itemA is greater/less than for itemB,
-  // but we can only use what the other clues have told us about itemA/B, which will change as we get more clues
-  // so pull the current info about the two items when this function is executed
-
-  // todo this relies on labels being sorted by size
-
-  // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
-  // than the lowest index (or the lowest index that the smaller item can be)
-  // If we know the exact diff, then can exclude the "at least"
   const lesserItemLowestPossibleIndex = getFirstPossibleIndex(
     derivedMatrix,
     lesserItem,
     numericLabels,
   );
+
   const lesserItemLowestPossibleValue =
     numericLabels[lesserItemLowestPossibleIndex];
+
   if (
     actualNumericDiff === numericDiffClue &&
     findMatrixValue(derivedMatrix, lesserItem, lesserItemLowestPossibleValue)
   ) {
-    // if we know the exact diff
+    // If we know the exact diff
     // and we know the value of the lesser item
-    //then we know the value of the greater item
+    // then we know the value of the greater item
     newDerivedMatrix = setToTrue(
       newDerivedMatrix,
       greaterItem,
       lesserItemLowestPossibleValue + numericDiffClue,
     );
+  } else if (actualNumericDiff === numericDiffClue) {
+    // If we know the exact diff,
+    // then we exclude any combos that don't match the diff
+    for (
+      let numericIndex = 0;
+      numericIndex < numericLabels.length;
+      numericIndex++
+    ) {
+      const matchingDiffs = numericLabels.filter(
+        (value) => numericLabels[numericIndex] - value === numericDiffClue,
+      );
+      if (matchingDiffs.length === 0) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          greaterItem,
+          numericLabels[numericIndex],
+        );
+      }
+    }
   } else {
+    // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // than the lowest index (or the lowest index that the smaller item can be)
     const greaterItemLowestPossibleIndex = numericLabels.findIndex(
       (i) =>
         i >=
@@ -61,29 +77,49 @@ export function applyNumericComparisonCrossCategoryLogic(
     }
   }
 
-  // Know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
-  // than the lowest index (or the lowest index that the smaller item can be)
-  // If we know the exact diff, then can exclude the "at least"
   const greaterItemHighestPossibleIndex = getLastPossibleIndex(
     derivedMatrix,
     greaterItem,
     numericLabels,
   );
+
   const greaterItemHighestPossibleValue =
     numericLabels[greaterItemHighestPossibleIndex];
+
   if (
     actualNumericDiff === numericDiffClue &&
     findMatrixValue(derivedMatrix, greaterItem, greaterItemHighestPossibleValue)
   ) {
-    // if we know the exact diff
+    // If we know the exact diff
     // and we know the value of the greater item
-    //then we know the value of the lesser item
+    // then we know the value of the lesser item
     newDerivedMatrix = setToTrue(
       newDerivedMatrix,
       lesserItem,
       greaterItemHighestPossibleValue - numericDiffClue,
     );
+  } else if (actualNumericDiff === numericDiffClue) {
+    // If we know the exact diff,
+    // then we exclude any combos that don't match the diff
+    for (
+      let numericIndex = 0;
+      numericIndex < numericLabels.length;
+      numericIndex++
+    ) {
+      const matchingDiffs = numericLabels.filter(
+        (value) => value - numericLabels[numericIndex] === numericDiffClue,
+      );
+      if (matchingDiffs.length === 0) {
+        newDerivedMatrix = setToFalse(
+          newDerivedMatrix,
+          lesserItem,
+          numericLabels[numericIndex],
+        );
+      }
+    }
   } else {
+    // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // than the lowest index (or the lowest index that the smaller item can be)
     const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
       (i) =>
         i <=

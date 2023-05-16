@@ -163,6 +163,106 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     ]);
   });
 
+  test('applies a "numeric comparison" clue (diff 2, actual diff 2, know greater value)', () => {
+    const inputMatrix = {
+      ...emptyMatrix,
+      ColorVsNumber: {
+        rowLabels: [1, 2, 3, 4],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, false, null, null],
+          [null, false, null, null],
+          [false, true, false, false],
+          [null, false, null, null],
+        ],
+      },
+    };
+    const newDerivedMatrix = applyNumericComparisonCrossCategoryLogic(
+      inputMatrix,
+      {
+        greaterItem: "blue",
+        lesserItem: "Colin",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 2,
+      },
+    );
+
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
+      inputMatrix["NameVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, null, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
+      inputMatrix["NameVsColor"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
+      inputMatrix["ColorVsNumber"]["grid"],
+    );
+  });
+
+  test('applies a "numeric comparison" clue (diff 2, actual diff 2, know lesser value)', () => {
+    const inputMatrix = {
+      ...emptyMatrix,
+      NameVsNumber: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        colLabels: [1, 2, 3, 4],
+        grid: [
+          [false, true, false, false],
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+        ],
+      },
+    };
+    const newDerivedMatrix = applyNumericComparisonCrossCategoryLogic(
+      inputMatrix,
+      {
+        greaterItem: "blue",
+        lesserItem: "Colin",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 2,
+      },
+    );
+
+    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
+      inputMatrix["NameVsNumber"]["grid"],
+    );
+
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
+      inputMatrix["NameVsColor"]["grid"],
+    );
+    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
+      inputMatrix["ColorVsNumber"]["grid"],
+    );
+    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, false, null, null],
+      [null, false, null, null],
+      [false, true, false, false],
+    ]);
+  });
+
   test("does not modify the input matrix when applying the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const newDerivedMatrix = applyNumericComparisonCrossCategoryLogic(
