@@ -66,8 +66,9 @@ const emptyMatrix = {
 describe("applyOrLogic", () => {
   test('applies an "or" clue (when all items are strings)', () => {
     const newDerivedMatrix = applyOrLogic(emptyMatrix, {
-      notItems: ["Sarah", "Colin"],
-      itemB: "blue",
+      itemA: "blue",
+      orItems: ["Meme", "Fefe"],
+      allItems: ["Colin", "Sarah", "Fefe", "Meme"],
     });
     for (const key in newDerivedMatrix) {
       if (key === "NameVsColor") {
@@ -88,8 +89,9 @@ describe("applyOrLogic", () => {
 
   test('applies an "or" clue (when some items are numbers)', () => {
     const newDerivedMatrix = applyOrLogic(emptyMatrix, {
-      notItems: [1, 4],
-      itemB: "blue",
+      itemA: "blue",
+      orItems: [2, 3],
+      allItems: [1, 2, 3, 4],
     });
     for (const key in newDerivedMatrix) {
       if (key === "NumberVsColor") {
@@ -123,8 +125,9 @@ describe("applyOrLogic", () => {
       },
     };
     const newDerivedMatrix = applyOrLogic(inputMatrix, {
-      notItems: ["Sarah", "Colin"],
-      itemB: "blue",
+      itemA: "blue",
+      orItems: ["Meme", "Fefe"],
+      allItems: ["Colin", "Sarah", "Fefe", "Meme"],
     });
 
     for (const key in newDerivedMatrix) {
@@ -135,8 +138,9 @@ describe("applyOrLogic", () => {
   test("does not modify the input matrix when applying the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const newDerivedMatrix = applyOrLogic(emptyMatrix, {
-      notItems: ["Sarah", "Colin"],
-      itemB: "blue",
+      itemA: "blue",
+      orItems: ["Meme", "Fefe"],
+      allItems: ["Colin", "Sarah", "Fefe", "Meme"],
     });
     expect(matrixCopy).toEqual(emptyMatrix);
     expect(matrixCopy).not.toEqual(newDerivedMatrix);

@@ -39,8 +39,9 @@ describe("removeRedundantClues", () => {
       {
         clueType: "or",
         clueParameters: {
-          notItems: ["green", "blue"],
-          itemB: "Colin",
+          itemA: "Colin",
+          orItems: ["red", "yellow"],
+          allItems: ["green", "blue", "red", "yellow"],
         },
       },
       {
@@ -68,8 +69,9 @@ describe("removeRedundantClues", () => {
       {
         clueType: "or",
         clueParameters: {
-          notItems: ["green", "blue"],
-          itemB: "Colin",
+          itemA: "Colin",
+          orItems: ["red", "yellow"],
+          allItems: ["green", "blue", "red", "yellow"],
         },
       },
     ];
@@ -119,8 +121,9 @@ describe("removeRedundantClues", () => {
       {
         clueType: "or",
         clueParameters: {
-          notItems: ["green", "blue"],
-          itemB: "Colin",
+          itemA: "Colin",
+          orItems: ["red", "yellow"],
+          allItems: ["green", "blue", "red", "yellow"],
         },
       },
     ];

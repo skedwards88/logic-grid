@@ -166,7 +166,7 @@ describe("getOrClue", () => {
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("or");
-    ["notItems", "itemB"].forEach((name) => {
+    ["itemA", "orItems", "allItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
   });
