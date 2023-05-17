@@ -1,26 +1,31 @@
 import React from "react";
 
-function Clue({writtenClue}) {
-  const [clueCrossedOff, setClueCrossedOff] = React.useState(false);
-
+function Clue({clue, dispatchGameState, index}) {
   return (
     <li
-      onClick={() => setClueCrossedOff(!clueCrossedOff)}
-      className={`clue ${clueCrossedOff}`}
+      onClick={() =>
+        dispatchGameState({action: "setClueCrossedOff", index: index})
+      }
+      className={`clue ${clue.crossedOff}`}
     >
-      {writtenClue}
+      {clue.writtenClue}
     </li>
   );
 }
 
-export default function Clues({writtenClues}) {
-  const clues = writtenClues.map((writtenClue, index) => (
-    <Clue writtenClue={writtenClue} key={index}></Clue>
+export default function Clues({clues, dispatchGameState}) {
+  const clueDivs = clues.map((clue, index) => (
+    <Clue
+      clue={clue}
+      dispatchGameState={dispatchGameState}
+      index={index}
+      key={index}
+    ></Clue>
   ));
   return (
     <div className="clues">
       <div className="clueInfo">{`${clues.length} Clues`}</div>
-      <ol>{clues}</ol>
+      <ol>{clueDivs}</ol>
       <div className="clueInfo">End of Clues v1.3</div>
     </div>
   );

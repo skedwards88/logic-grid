@@ -1,4 +1,4 @@
-import {gameInit} from "./gameInit.js"
+import {gameInit} from "./gameInit.js";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "changeCellState") {
@@ -26,7 +26,12 @@ export function gameReducer(currentGameState, payload) {
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
-    return gameInit({ ...payload, useSaved: false });
+    return gameInit({...payload, useSaved: false});
+  } else if (payload.action === "setClueCrossedOff") {
+    let newGameState = {...currentGameState};
+    newGameState.clues[payload.index].crossedOff =
+      !newGameState.clues[payload.index].crossedOff;
+    return newGameState;
   }
   console.log("todo");
   return {...currentGameState};

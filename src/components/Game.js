@@ -54,7 +54,8 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         {labels}
       </div>
       <Clues
-        writtenClues={gameState.clues.map((clue) => clue.writtenClue)}
+        clues={gameState.clues}
+        dispatchGameState={dispatchGameState}
       ></Clues>
     </div>
   );
