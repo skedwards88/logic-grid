@@ -84,6 +84,6 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   return {
     writtenClue: writtenClue,
     clueType: "orCrossCategory",
-    clueParameters: {itemA, itemB, itemC},
+    clueParameters: {itemA, orItems: [itemB, itemC]},
   };
 }

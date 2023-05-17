@@ -37,8 +37,7 @@ describe("applyOrCrossCategoryLogic", () => {
   test('applies a cross category "or" clue when you know nothing about the matrix', () => {
     const newDerivedMatrix = applyOrCrossCategoryLogic(emptyMatrix, {
       itemA: "Colin",
-      itemB: "blue",
-      itemC: 3,
+      orItems: ["blue", 3],
     });
 
     for (const key in newDerivedMatrix) {
@@ -68,8 +67,7 @@ describe("applyOrCrossCategoryLogic", () => {
     ];
     const newDerivedMatrix = applyOrCrossCategoryLogic(partiallySolvedMatrix, {
       itemA: "Colin",
-      itemB: "blue",
-      itemC: 3,
+      orItems: ["blue", 3],
     });
 
     for (const key in newDerivedMatrix) {
@@ -109,8 +107,7 @@ describe("applyOrCrossCategoryLogic", () => {
     ];
     const newDerivedMatrix = applyOrCrossCategoryLogic(partiallySolvedMatrix, {
       itemA: "Colin",
-      itemB: 3,
-      itemC: "blue",
+      orItems: ["blue", 3],
     });
 
     for (const key in newDerivedMatrix) {
@@ -150,8 +147,7 @@ describe("applyOrCrossCategoryLogic", () => {
     ];
     const newDerivedMatrix = applyOrCrossCategoryLogic(partiallySolvedMatrix, {
       itemA: "Colin",
-      itemB: "blue",
-      itemC: 3,
+      orItems: ["blue", 3],
     });
 
     for (const key in newDerivedMatrix) {
@@ -191,8 +187,7 @@ describe("applyOrCrossCategoryLogic", () => {
     ];
     const newDerivedMatrix = applyOrCrossCategoryLogic(partiallySolvedMatrix, {
       itemA: "Colin",
-      itemB: 3,
-      itemC: "blue",
+      orItems: ["blue", 3],
     });
 
     for (const key in newDerivedMatrix) {
@@ -226,8 +221,7 @@ describe("applyOrCrossCategoryLogic", () => {
     const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const newDerivedMatrix = applyOrCrossCategoryLogic(emptyMatrix, {
       itemA: "Colin",
-      itemB: "blue",
-      itemC: 3,
+      orItems: ["blue", 3],
     });
     expect(matrixCopy).toEqual(emptyMatrix);
     expect(matrixCopy).not.toEqual(newDerivedMatrix);

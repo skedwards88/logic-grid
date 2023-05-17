@@ -115,14 +115,15 @@ describe("getOrCrossCategoryClue", () => {
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
     expect(clue.clueType).toEqual("orCrossCategory");
-    ["itemA", "itemB", "itemC"].forEach((name) => {
+    ["itemA", "orItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
+    expect(clue.clueParameters.orItems.length).toBe(2);
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getOrCrossCategoryClue(matrixCopy);
+    getOrCrossCategoryClue(matrixCopy);
     expect(matrixCopy).toEqual(solutionMatrix);
   });
 

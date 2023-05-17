@@ -3,7 +3,7 @@ import {setToFalse, setToTrue} from "../setValue.js";
 
 export function applyOrCrossCategoryLogic(
   derivedMatrix,
-  {itemA, itemB, itemC},
+  {itemA, orItems: [itemB, itemC]},
 ) {
   let newDerivedMatrix = derivedMatrix;
 
