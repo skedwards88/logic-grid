@@ -3,10 +3,8 @@ html {
 }
 
 body {
-  /* todo set max for box size/font size or set different size for large screens */
-  --size3: 8vmin;
-  --size4: 6vmin;
-  --size5: 5vmin;
+  --capped-cell-size: min(var(--cell-size), 0.8cm);
+  --font-size: min(calc(var(--capped-cell-size) * 0.8), 0.5cm);
   --dark-color: rgb(55 54 71);
   --light-color: rgb(239 239 239);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -26,7 +24,7 @@ body {
     "clues";
   grid-template-rows: auto auto 1fr;
   overflow: hidden;
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
 }
 
 button {
@@ -34,7 +32,7 @@ button {
   text-decoration: none;
   text-align: center;
   appearance: none;
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   background-color: var(--light-color);
   border: 1px solid var(--light-color);
@@ -85,16 +83,16 @@ button {
 }
 
 .grid.size5 {
-  grid-template-columns: repeat(5, var(--size5));
-  grid-template-rows: repeat(5, var(--size5));
+  grid-template-columns: repeat(5, var(--capped-cell-size));
+  grid-template-rows: repeat(5, var(--capped-cell-size));
 }
 .grid.size4 {
-  grid-template-columns: repeat(4, var(--size4));
-  grid-template-rows: repeat(4, var(--size4));
+  grid-template-columns: repeat(4, var(--capped-cell-size));
+  grid-template-rows: repeat(4, var(--capped-cell-size));
 }
 .grid.size3 {
-  grid-template-columns: repeat(3, var(--size3));
-  grid-template-rows: repeat(3, var(--size3));
+  grid-template-columns: repeat(3, var(--capped-cell-size));
+  grid-template-rows: repeat(3, var(--capped-cell-size));
 }
 
 .grid#category0_category1 {
@@ -144,7 +142,7 @@ button {
   text-orientation: sideways;
   display: grid;
   width: fit-content;
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
   overflow: scroll;
 }
 
@@ -152,18 +150,21 @@ button {
   box-shadow: -1px -1px var(--light-color);
   padding-top: 4px;
   transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .columnLabel.size3 > div {
-  width: var(--size3);
+  width: var(--capped-cell-size);
 }
 
 .columnLabel.size4 > div {
-  width: var(--size4);
+  width: var(--capped-cell-size);
 }
 
 .columnLabel.size5 > div {
-  width: var(--size5);
+  width: var(--capped-cell-size);
 }
 
 .columnLabel.label0 {
@@ -186,23 +187,26 @@ button {
   display: grid;
   text-align: right;
   height: fit-content;
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
   overflow: scroll;
 }
 
 .rowLabel > div {
   box-shadow: 1px -1px var(--light-color);
   padding-right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .rowLabel.size3 > div {
-  height: var(--size3);
+  height: var(--capped-cell-size);
 }
 .rowLabel.size4 > div {
-  height: var(--size4);
+  height: var(--capped-cell-size);
 }
 .rowLabel.size5 > div {
-  height: var(--size5);
+  height: var(--capped-cell-size);
 }
 .rowLabel.label0 {
   grid-area: rowLabel0;
@@ -285,7 +289,7 @@ button {
 .settings {
   text-align: center;
   overflow: scroll;
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
   justify-items: center;
   align-items: center;
   display: flex;
@@ -325,7 +329,7 @@ button {
 }
 
 select {
-  font-size: calc(var(--size5) * 0.8);
+  font-size: var(--font-size);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   background-color: var(--light-color);
   border: 1px solid var(--light-color);
@@ -340,9 +344,9 @@ select {
 /* larger screens */
 @media (min-width: 768px) {
   body {
-    --size3: 3vmin;
-    --size4: 3vmin;
-    --size5: 3vmin;
+    --capped-cell-size: 3vmin;
+    --capped-cell-size: 3vmin;
+    --capped-cell-size: 3vmin;
   }
 }
 

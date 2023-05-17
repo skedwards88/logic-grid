@@ -6,6 +6,17 @@ import Clues from "./Clues";
 import ControlBar from "./ControlBar";
 
 export default function Game({gameState, dispatchGameState, setDisplay}) {
+  const numSquaresWide =
+    (gameState.numCategories - 1) * gameState.numItemsPerCategory;
+
+  React.useEffect(() => {
+    // adjust the size of the cells based on the size of the game
+    document.documentElement.style.setProperty(
+      "--cell-size",
+      `${74 / numSquaresWide}vmin`,
+    );
+  }, [gameState.numCategories, gameState.numItemsPerCategory]);
+
   let grids = [];
   for (const key in gameState.derivedMatrix) {
     grids = [
