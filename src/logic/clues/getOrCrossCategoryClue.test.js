@@ -1,7 +1,7 @@
 import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {logicFactory} from "./logicFactory";
+import {applyClueLogic} from "./applyClueLogic";
 
 describe("getOrCrossCategoryClue", () => {
   afterEach(() => {
@@ -84,8 +84,8 @@ describe("getOrCrossCategoryClue", () => {
       `"Colin's car is either 1 years old or the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -129,8 +129,11 @@ describe("getOrCrossCategoryClue", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getOrCrossCategoryClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+    const newDerived = applyClueLogic(
+      clue.clueType,
+      derivedCopy,
+      clue.clueParameters,
+    );
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);

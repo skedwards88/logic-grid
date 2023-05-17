@@ -108,15 +108,13 @@ export function getNumericComparisonClue(solutionMatrix) {
         itemB,
       );
 
-  let relationWord = ""
+  let relationWord = "";
   if (actualNumericDiff === numericDiffClue) {
-    relationWord = "exactly "
+    relationWord = "exactly ";
   } else if (numericDiffClue != undefined) {
-    relationWord = "at least "
+    relationWord = "at least ";
   }
-  let writtenClue = `${leadingDescription} ${numericComparisonVerb} ${
-    relationWord
-  }${numericDescription} than ${trailingDescription}.`;
+  let writtenClue = `${leadingDescription} ${numericComparisonVerb} ${relationWord}${numericDescription} than ${trailingDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   const [greaterItem, lesserItem] =

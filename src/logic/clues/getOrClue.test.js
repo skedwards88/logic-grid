@@ -1,6 +1,6 @@
 import {getOrClue} from "./getOrClue";
 import * as pickRandomModule from "../helpers/pickRandom";
-import {logicFactory} from "./logicFactory";
+import {applyClueLogic} from "./applyClueLogic";
 
 const solutionMatrix = {
   NameVsNumber: {
@@ -135,8 +135,8 @@ describe("getOrClue", () => {
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -180,8 +180,11 @@ describe("getOrClue", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getOrClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+    const newDerived = applyClueLogic(
+      clue.clueType,
+      derivedCopy,
+      clue.clueParameters,
+    );
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);

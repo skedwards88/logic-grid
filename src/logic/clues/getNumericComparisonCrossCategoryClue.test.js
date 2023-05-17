@@ -1,7 +1,7 @@
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {logicFactory} from "./logicFactory";
+import {applyClueLogic} from "./applyClueLogic";
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   afterEach(() => {
@@ -85,8 +85,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -142,8 +142,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -199,8 +199,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -270,8 +270,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       derivedCopy,
       clue.clueParameters,
     );
@@ -364,8 +364,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -424,8 +424,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -485,8 +485,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -556,8 +556,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       derivedCopy,
       clue.clueParameters,
     );
@@ -668,8 +668,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -735,8 +735,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -802,8 +802,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -861,8 +861,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       derivedCopy,
       clue.clueParameters,
     );
@@ -964,8 +964,8 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1035,8 +1035,8 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       derivedCopy,
       clue.clueParameters,
     );

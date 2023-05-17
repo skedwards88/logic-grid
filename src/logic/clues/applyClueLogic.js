@@ -4,18 +4,18 @@ import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js";
 import {applyNumericComparisonCrossCategoryLogic} from "./applyNumericComparisonCrossCategoryLogic.js";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic.js";
 
-export function logicFactory(clueType) {
+export function applyClueLogic(clueType, matrix, clueParameters) {
   switch (clueType) {
     case "not":
-      return applyNotLogic;
+      return applyNotLogic(matrix, clueParameters);
     case "or":
-      return applyOrLogic;
+      return applyOrLogic(matrix, clueParameters);
     case "numericComparison":
-      return applyNumericComparisonLogic;
+      return applyNumericComparisonLogic(matrix, clueParameters);
     case "numericComparisonCrossCategory":
-      return applyNumericComparisonCrossCategoryLogic;
+      return applyNumericComparisonCrossCategoryLogic(matrix, clueParameters);
     case "orCrossCategory":
-      return applyOrCrossCategoryLogic;
+      return applyOrCrossCategoryLogic(matrix, clueParameters);
     default:
       throw new Error(`Invalid clue type: ${clueType}`);
   }

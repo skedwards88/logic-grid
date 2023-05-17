@@ -1,5 +1,5 @@
 import {matrixesEqualQ} from "./matrixesEqualQ.js";
-import { logicFactory } from "../clues/logicFactory.js";
+import {applyClueLogic} from "../clues/applyClueLogic.js";
 
 export function applyCluesAdNauseam(clues, derivedMatrix) {
   // Continually apply the clues to the matrix until the clues no longer change the matrix.
@@ -14,9 +14,11 @@ export function applyCluesAdNauseam(clues, derivedMatrix) {
 
   while (matrixMayChange) {
     for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
-      const clueLogicFunction = logicFactory(clues[clueIndex].clueType)
-
-      matrixPostClues = clueLogicFunction(matrixPostClues, clues[clueIndex].clueParameters);
+      matrixPostClues = applyClueLogic(
+        clues[clueIndex].clueType,
+        matrixPostClues,
+        clues[clueIndex].clueParameters,
+      );
     }
     matrixMayChange = !matrixesEqualQ(matrixPreClues, matrixPostClues);
     matrixPreClues = matrixPostClues;

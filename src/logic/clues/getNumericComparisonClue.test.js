@@ -1,7 +1,7 @@
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {logicFactory} from "./logicFactory";
+import {applyClueLogic} from "./applyClueLogic";
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   afterEach(() => {
@@ -89,8 +89,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -128,8 +128,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -167,8 +167,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -206,8 +206,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -246,8 +246,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -286,8 +286,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -326,8 +326,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -366,8 +366,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -407,8 +407,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -447,8 +447,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -498,8 +498,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+    const newDerived = applyClueLogic(
+      clue.clueType,
+      derivedCopy,
+      clue.clueParameters,
+    );
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);
@@ -592,8 +595,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -631,8 +634,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -670,8 +673,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -709,8 +712,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -749,8 +752,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -789,8 +792,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -829,8 +832,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -869,8 +872,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -910,8 +913,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -950,8 +953,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1001,8 +1004,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+    const newDerived = applyClueLogic(
+      clue.clueType,
+      derivedCopy,
+      clue.clueParameters,
+    );
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);
@@ -1095,8 +1101,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1134,8 +1140,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1173,8 +1179,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1212,8 +1218,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1252,8 +1258,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1292,8 +1298,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1331,8 +1337,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1371,8 +1377,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1412,8 +1418,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1452,8 +1458,8 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerivedMatrix = clueLogicFunction(
+    const newDerivedMatrix = applyClueLogic(
+      clue.clueType,
       emptyMatrix,
       clue.clueParameters,
     );
@@ -1503,8 +1509,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const clue = getNumericComparisonClue(solutionMatrix);
-    const clueLogicFunction = logicFactory(clue.clueType);
-    const newDerived = clueLogicFunction(derivedCopy, clue.clueParameters);
+    const newDerived = applyClueLogic(
+      clue.clueType,
+      derivedCopy,
+      clue.clueParameters,
+    );
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);
