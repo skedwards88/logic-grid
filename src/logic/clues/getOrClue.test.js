@@ -169,6 +169,8 @@ describe("getOrClue", () => {
     ["itemA", "orItems", "allItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
+    expect(clue.clueParameters.orItems.length).toBe(2);
+    expect(clue.clueParameters.allItems.length).toBe(4);
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
