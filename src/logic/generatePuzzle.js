@@ -4,11 +4,12 @@ import {applyCluesAdNauseam} from "./helpers/applyCluesAdNauseam.js";
 import {chooseCategories} from "./chooseCategories.js";
 import {generateSolutionMatrix} from "./generateSolutionMatrix.js";
 import {buildEmptyMatrix} from "./buildEmptyMatrix.js";
+import {removeRedundantClues} from "./removeRedundantClues.js";
 
 export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
   const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
-  const derivedMatrix = buildEmptyMatrix(categoryLabelsAndTemplates);
+  const emptyMatrix = buildEmptyMatrix(categoryLabelsAndTemplates);
 
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
@@ -28,7 +29,7 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   let clues = [];
   let puzzleIsSolved = false;
   let clue;
-  let newDerivedMatrix = derivedMatrix;
+  let newDerivedMatrix = JSON.parse(JSON.stringify(emptyMatrix));
 
   while (!puzzleIsSolved) {
     ({clue, newDerivedMatrix} = getUsefulClue(
@@ -44,10 +45,12 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
+  const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+
   return {
-    clues: clues,
+    clues: nonRedundantClues,
     solutionMatrix: solutionMatrix,
-    derivedMatrix: derivedMatrix,
+    derivedMatrix: emptyMatrix,
     matrixRowLabels: matrixRowLabels,
     matrixColumnLabels: matrixColumnLabels,
   };
