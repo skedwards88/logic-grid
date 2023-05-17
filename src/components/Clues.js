@@ -26,7 +26,7 @@ export default function Clues({clues, dispatchGameState}) {
     <div className="clues">
       <div className="clueInfo">{`${clues.length} Clues`}</div>
       <ol>{clueDivs}</ol>
-      <div className="clueInfo">End of Clues v1.3</div>
+      <div className="clueInfo">End of Clues v1.4</div>
     </div>
   );
 }
