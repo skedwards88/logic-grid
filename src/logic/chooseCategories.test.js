@@ -44,9 +44,7 @@ describe("chooseCategories", () => {
       expect(category.labels.length).toBe(numItems);
       expect(category.descriptionTemplates);
 
-      expect(category.descriptionTemplates).toHaveProperty(
-        "description",
-      );
+      expect(category.descriptionTemplates).toHaveProperty("description");
       if (typeof category.labels[0] === "number") {
         expect(category.descriptionTemplates).toHaveProperty(
           "diffGreaterDescription",
@@ -66,9 +64,7 @@ describe("chooseCategories", () => {
     expect(categories.length).toBe(numCategories);
     for (const category of categories) {
       expect(category.labels.length).toBe(numItems);
-      expect(category.descriptionTemplates).toHaveProperty(
-        "description",
-      );
+      expect(category.descriptionTemplates).toHaveProperty("description");
       if (typeof category.labels[0] === "number") {
         expect(category.descriptionTemplates).toHaveProperty(
           "diffGreaterDescription",

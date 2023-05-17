@@ -15,7 +15,7 @@ export default function Cell({
   }
   return (
     <div
-    className={className}
+      className={className}
       onClick={() =>
         dispatchGameState({
           action: "changeCellState",
@@ -24,7 +24,6 @@ export default function Cell({
           columnIndex: columnIndex,
         })
       }
-    >
-    </div>
+    ></div>
   );
 }
