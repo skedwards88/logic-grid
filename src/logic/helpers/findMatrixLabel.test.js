@@ -1,7 +1,7 @@
 import {findMatrixLabel} from "./findMatrixLabel.js";
 
 const matrix = {
-  "0v1": {
+  NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: [1, 2, 3, 4],
     grid: [
@@ -11,7 +11,7 @@ const matrix = {
       [false, false, false, true],
     ],
   },
-  "0v3": {
+  NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -21,7 +21,7 @@ const matrix = {
       [true, false, false, false],
     ],
   },
-  "1v3": {
+  NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
     colLabels: ["red", "blue", "green", "yellow"],
     grid: [
@@ -51,5 +51,43 @@ describe("findMatrixLabel", () => {
       findMatrixLabel(matrix, 1, ["red", "blue", "green", "yellow"]),
     ).toEqual("green");
     expect(findMatrixLabel(matrix, "blue", [1, 2, 3, 4])).toEqual(2);
+  });
+
+  test("returns undefined if there is not a 'true' intersection", () => {
+    const emptyMatrix = {
+      NameVsNumber: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        colLabels: [1, 2, 3, 4],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+      NameVsColor: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+      NumberVsColor: {
+        rowLabels: [1, 2, 3, 4],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    expect(
+      findMatrixLabel(emptyMatrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+    ).toEqual(undefined);
   });
 });
