@@ -26,7 +26,12 @@ export function gameReducer(currentGameState, payload) {
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
-    return gameInit({...payload, useSaved: false});
+    return gameInit({
+      numItemsPerCategory: currentGameState.numItemsPerCategory,
+      numCategories: currentGameState.numCategories,
+      ...payload,
+      useSaved: false,
+    });
   } else if (payload.action === "setClueCrossedOff") {
     let newGameState = {...currentGameState};
     newGameState.clues[payload.index].crossedOff =
