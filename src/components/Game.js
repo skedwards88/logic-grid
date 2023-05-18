@@ -25,6 +25,7 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         solutionEntry={gameState.derivedMatrix[key]}
         key={key}
         id={key}
+        easyTrue={gameState.easyTrue}
         dispatchGameState={dispatchGameState}
       ></Grid>,
     ];

@@ -317,6 +317,10 @@ button {
   padding: 0 5px 0 0;
 }
 
+.setting-info {
+  font-size: calc(var(--font-size) * 0.7);
+}
+
 #setting-buttons {
   display: flex;
   flex-direction: row;
@@ -339,6 +343,28 @@ select {
   margin: 0;
   padding: 1px 6px;
   height: fit-content;
+}
+
+input[type="checkbox" i] {
+  all: unset;
+  text-decoration: none;
+  text-align: center;
+  appearance: none;
+  min-width: var(--font-size);
+  min-height: var(--font-size);
+  border-radius: 2px;
+  background-color: var(--light-color);
+  border: 3px solid var(--light-color);
+  margin: 0;
+  padding: 1px 6px;
+  height: fit-content;
+}
+
+input[type="checkbox" i]:checked {
+  background-image: url("./images/checkmark-black.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 /* larger screens */

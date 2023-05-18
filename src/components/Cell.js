@@ -5,6 +5,7 @@ export default function Cell({
   columnIndex,
   gridID,
   value,
+  easyTrue,
   dispatchGameState,
 }) {
   let className = "cell";
@@ -16,14 +17,25 @@ export default function Cell({
   return (
     <div
       className={className}
-      onClick={() =>
+      onContextMenu={(event) => {
+        if (easyTrue) {
+          event.preventDefault();
+          dispatchGameState({
+            action: "setCellTrueOthersFalse",
+            gridID: gridID,
+            rowIndex: rowIndex,
+            columnIndex: columnIndex,
+          });
+        }
+      }}
+      onClick={() => {
         dispatchGameState({
           action: "changeCellState",
           gridID: gridID,
           rowIndex: rowIndex,
           columnIndex: columnIndex,
-        })
-      }
+        });
+      }}
     ></div>
   );
 }

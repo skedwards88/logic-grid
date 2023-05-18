@@ -25,6 +25,41 @@ export function gameReducer(currentGameState, payload) {
     ] = newCellValue;
 
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
+  } else if (payload.action === "utilizeEasyTrue") {
+    // regardless of the current cell value,
+    //  change the value to true
+    //  and make everything else in the row/col false
+    let newDerivedMatrix = JSON.parse(
+      JSON.stringify(currentGameState.derivedMatrix),
+    );
+    const currentGrid = newDerivedMatrix[payload.gridID].grid;
+    let newGrid = [];
+    for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
+      let newRow = [];
+      for (
+        let columnIndex = 0;
+        columnIndex < currentGrid[rowIndex].length;
+        columnIndex++
+      ) {
+        if (
+          rowIndex === payload.rowIndex &&
+          columnIndex === payload.columnIndex
+        ) {
+          newRow = [...newRow, true];
+        } else if (
+          rowIndex === payload.rowIndex ||
+          columnIndex === payload.columnIndex
+        ) {
+          newRow = [...newRow, false];
+        } else {
+          newRow = [...newRow, currentGrid[rowIndex][columnIndex]];
+        }
+      }
+      newGrid = [...newGrid, newRow];
+    }
+    newDerivedMatrix[payload.gridID].grid = newGrid;
+
+    return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
     return gameInit({
       numItemsPerCategory: currentGameState.numItemsPerCategory,
@@ -37,7 +72,10 @@ export function gameReducer(currentGameState, payload) {
     newGameState.clues[payload.index].crossedOff =
       !newGameState.clues[payload.index].crossedOff;
     return newGameState;
+  } else if (payload.action === "changeEasyTrue") {
+    return {...currentGameState, easyTrue: !currentGameState.easyTrue};
+  } else {
+    console.log("todo");
+    return {...currentGameState};
   }
-  console.log("todo");
-  return {...currentGameState};
 }

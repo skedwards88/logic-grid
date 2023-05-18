@@ -3,6 +3,7 @@ import {generatePuzzle} from "./generatePuzzle";
 export function gameInit({
   numCategories = 3,
   numItemsPerCategory = 4,
+  easyTrue = false,
   useSaved = true,
 }) {
   const savedState = useSaved
@@ -17,7 +18,8 @@ export function gameInit({
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
     savedState.matrixRowLabels &&
-    savedState.matrixColumnLabels
+    savedState.matrixColumnLabels &&
+    savedState.easyTrue != undefined
   ) {
     return savedState;
   }
@@ -46,5 +48,6 @@ export function gameInit({
     numItemsPerCategory: numItemsPerCategory,
     matrixRowLabels: matrixRowLabels,
     matrixColumnLabels: matrixColumnLabels,
+    easyTrue: easyTrue,
   };
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import Cell from "./Cell";
 
-export default function Grid({solutionEntry, id, dispatchGameState}) {
+export default function Grid({solutionEntry, id, easyTrue, dispatchGameState}) {
   const numRows = solutionEntry.grid.length;
   let cells = [];
   for (let rowIndex = 0; rowIndex < solutionEntry.grid.length; rowIndex++) {
@@ -19,6 +19,7 @@ export default function Grid({solutionEntry, id, dispatchGameState}) {
           value={solutionEntry.grid[rowIndex][columnIndex]}
           key={`${id}_${rowIndex}-${columnIndex}`}
           dispatchGameState={dispatchGameState}
+          easyTrue={easyTrue}
         ></Cell>,
       ];
     }
