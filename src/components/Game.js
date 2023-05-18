@@ -18,11 +18,13 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
   }, [gameState.numCategories, gameState.numItemsPerCategory]);
 
   let grids = [];
-  for (const key in gameState.derivedMatrix) {
+  const derivedMatrix =
+    gameState.derivedMatrixHistory[gameState.derivedMatrixHistory.length - 1];
+  for (const key in derivedMatrix) {
     grids = [
       ...grids,
       <Grid
-        solutionEntry={gameState.derivedMatrix[key]}
+        solutionEntry={derivedMatrix[key]}
         key={key}
         id={key}
         easyTrue={gameState.easyTrue}
@@ -58,6 +60,7 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
   return (
     <div id="app">
       <ControlBar
+        undoDisabled={gameState.derivedMatrixHistory.length <= 1}
         dispatchGameState={dispatchGameState}
         setDisplay={setDisplay}
       ></ControlBar>

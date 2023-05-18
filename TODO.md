@@ -1,11 +1,9 @@
 # TODO
 
-- Raise clue crossed off state up to game state so that can retail after remount and update with undo
-- Add undo function
-- Remove non-additive clues after clue set is generated
 - Check that solution is valid
   - check if any of the clues do not work with the user's solution + one true per row/col
   - maybe clue can return validator as well as clue function. takes input matrix and verifies that certain things are true about it
+- Make sure that logic considers distinction between 0 and null
 - Add share function
 - Add install function
 - when URL bar is showing, can't scroll to bottom?
@@ -22,4 +20,5 @@
   - the red house has an even number of trees (maybe not; this is a glorified "or")
   - the red house has more than 3 trees (maybe not; this is a glorified "or")
   - the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
+- Add analytics and privacy policy?
 - Put in app store

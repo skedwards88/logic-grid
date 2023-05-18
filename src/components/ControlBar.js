@@ -1,8 +1,17 @@
 import React from "react";
 
-export default function ControlBar({dispatchGameState, setDisplay}) {
+export default function ControlBar({dispatchGameState, setDisplay, undoDisabled}) {
   return (
     <div id="controls">
+      <button
+        id="undoButton"
+        disabled={undoDisabled}
+        onClick={() => {
+          dispatchGameState({
+            action: "undo",
+          });
+        }}
+      ></button>
       <button
         id="newGameButton"
         onClick={() => {

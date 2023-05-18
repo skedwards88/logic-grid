@@ -2,9 +2,11 @@ import {gameInit} from "./gameInit.js";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "changeCellState") {
-    let newDerivedMatrix = JSON.parse(
-      JSON.stringify(currentGameState.derivedMatrix),
-    );
+    const currentDerivedMatrix =
+      currentGameState.derivedMatrixHistory[
+        currentGameState.derivedMatrixHistory.length - 1
+      ];
+    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
     const currentCellValue =
       newDerivedMatrix[payload.gridID].grid[payload.rowIndex][
         payload.columnIndex
@@ -24,14 +26,22 @@ export function gameReducer(currentGameState, payload) {
       payload.columnIndex
     ] = newCellValue;
 
-    return {...currentGameState, derivedMatrix: newDerivedMatrix};
+    return {
+      ...currentGameState,
+      derivedMatrixHistory: [
+        ...currentGameState.derivedMatrixHistory,
+        newDerivedMatrix,
+      ],
+    };
   } else if (payload.action === "utilizeEasyTrue") {
     // regardless of the current cell value,
     //  change the value to true
     //  and make everything else in the row/col false
-    let newDerivedMatrix = JSON.parse(
-      JSON.stringify(currentGameState.derivedMatrix),
-    );
+    const currentDerivedMatrix =
+      currentGameState.derivedMatrixHistory[
+        currentGameState.derivedMatrixHistory.length - 1
+      ];
+    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
     const currentGrid = newDerivedMatrix[payload.gridID].grid;
     let newGrid = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
@@ -59,7 +69,13 @@ export function gameReducer(currentGameState, payload) {
     }
     newDerivedMatrix[payload.gridID].grid = newGrid;
 
-    return {...currentGameState, derivedMatrix: newDerivedMatrix};
+    return {
+      ...currentGameState,
+      derivedMatrixHistory: [
+        ...currentGameState.derivedMatrixHistory,
+        newDerivedMatrix,
+      ],
+    };
   } else if (payload.action === "newGame") {
     return gameInit({
       ...currentGameState,
@@ -73,6 +89,14 @@ export function gameReducer(currentGameState, payload) {
     return newGameState;
   } else if (payload.action === "changeEasyTrue") {
     return {...currentGameState, easyTrue: !currentGameState.easyTrue};
+  } else if (payload.action === "undo") {
+    return {
+      ...currentGameState,
+      derivedMatrixHistory: currentGameState.derivedMatrixHistory.slice(
+        0,
+        Math.max(1, currentGameState.derivedMatrixHistory.length - 1),
+      ),
+    };
   } else {
     console.log(`todo: ${payload.action}`);
     return {...currentGameState};

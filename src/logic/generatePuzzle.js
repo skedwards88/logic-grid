@@ -49,7 +49,6 @@ export function generatePuzzle(numCats, numItemsPerCat) {
 
   return {
     clues: nonRedundantClues,
-    solutionMatrix: solutionMatrix,
     derivedMatrix: emptyMatrix,
     matrixRowLabels: matrixRowLabels,
     matrixColumnLabels: matrixColumnLabels,

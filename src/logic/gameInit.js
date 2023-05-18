@@ -13,8 +13,7 @@ export function gameInit({
   if (
     savedState &&
     savedState.clues &&
-    savedState.solutionMatrix &&
-    savedState.derivedMatrix &&
+    savedState.derivedMatrixHistory &&
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
     savedState.matrixRowLabels &&
@@ -31,7 +30,6 @@ export function gameInit({
 
   let {
     clues,
-    solutionMatrix,
     derivedMatrix,
     matrixRowLabels,
     matrixColumnLabels,
@@ -42,8 +40,7 @@ export function gameInit({
 
   return {
     clues: clues,
-    solutionMatrix: solutionMatrix,
-    derivedMatrix: derivedMatrix,
+    derivedMatrixHistory: [derivedMatrix],
     numCategories: numCategories,
     numItemsPerCategory: numItemsPerCategory,
     matrixRowLabels: matrixRowLabels,

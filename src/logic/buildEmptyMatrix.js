@@ -13,17 +13,13 @@ export function buildEmptyMatrix(categoryLabelsAndTemplates) {
         Array.from({length: numItems}, () => null),
       );
       const rowLabels = categoryLabelsAndTemplates[categoryIndexA].labels;
-      const rowDescriptionTemplates =
         categoryLabelsAndTemplates[categoryIndexA].descriptionTemplates;
       const colLabels = categoryLabelsAndTemplates[categoryIndexB].labels;
-      const colDescriptionTemplates =
         categoryLabelsAndTemplates[categoryIndexB].descriptionTemplates;
 
       derivedMatrix[`category${categoryIndexA}_category${categoryIndexB}`] = {
         rowLabels: rowLabels,
         colLabels: colLabels,
-        rowDescriptionTemplates: rowDescriptionTemplates,
-        colDescriptionTemplates: colDescriptionTemplates,
         grid: grid,
       };
     }

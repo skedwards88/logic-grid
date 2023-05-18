@@ -284,6 +284,14 @@ button {
   background-image: url("./images/settings.svg");
 }
 
+#undoButton {
+  background-image: url("./images/undo.svg");
+}
+
+#undoButton:disabled {
+  opacity: .5;
+}
+
 /* Settings */
 
 .settings {
