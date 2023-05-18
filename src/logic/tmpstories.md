@@ -4,35 +4,34 @@
   Vacation. Destination. Number days. Start day. Airline.
   Road trip. States. Number states. Miles. Car models.
   Commuter . Mode of transport. Minutes. Job. 
-
-bread - filling (turkey, eggplant, tofu)- drink -cost - condiment (ketchup,mustard,soy sauce, bbq sauce, relish, salsa,hot sauce,pepper,salt,vinegar)
-animal - age - pet name - owner name
-sport watched - mascot - 
-musical instrument - composer - style
-job - salary - hours
-tv genre - emotion - episodes
-clothing item - cost - accessory
-holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
-borrowed tool (hammer, wrench, saw, ratchet)- build (fence, swing, chair) - time borrowed
-cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
-fish species - length - method (net, line, fly, harpoon)
-tattoo of - body part- cm wide
-broken bone - cast color - weeks
-gemstone - jewlery (necklace, brooch, earings, ring, bracelet) - number stones
-spelling bee word, place
-season+yearround, activity, minutes per day
-boat (sailboat, canoe, kayak,rowboat)
-dog breed - dog name - owner name - dog years - dog leash color
-name - asked santa for - number presents
-studies x century - wrote about (trade, war, disease, religion, science)
-halloween costume - pieces of candy - preferred candy
-potluck dish
-tree species - years old
-send a probe to planet - space agency
-dance style [tango, swing, salsa, cha-cha, waltz, rumba, polka] - place - country of competition
-bird species - number sighted
-job - starts work at - 
-preferred candy - number easter eggs -dyed color
+  bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
+  bread - filling (turkey, eggplant, tofu)- drink -cost - condiment (ketchup,mustard,soy sauce, bbq sauce, relish, salsa,hot sauce,pepper,salt,vinegar)
+  animal - age - pet name - owner name
+  sport watched - mascot -
+  musical instrument - composer - style
+  job - salary - hours
+  tv genre - emotion - episodes
+  clothing item - cost - accessory
+  holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
+  borrowed tool (hammer, wrench, saw, ratchet)- build (fence, swing, chair) - time borrowed
+  cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
+  fish species - length - method (net, line, fly, harpoon)
+  tattoo of - body part- cm wide
+  broken bone - cast color - weeks
+  spelling bee word, place
+  season+yearround, activity, minutes per day
+  boat (sailboat, canoe, kayak,rowboat)
+  dog breed - dog name - owner name - dog years - dog leash color
+  name - asked santa for - number presents
+  studies x century - wrote about (trade, war, disease, religion, science)
+  halloween costume - pieces of candy - preferred candy
+  potluck dish
+  tree species - years old
+  send a probe to planet - space agency
+  dance style [tango, swing, salsa, cha-cha, waltz, rumba, polka] - place - country of competition
+  bird species - number sighted
+  job - starts work at -
+  preferred candy - number easter eggs -dyed color
 
 Animals
 Fruits

@@ -378,28 +378,19 @@ const firstNames = [
 ];
 
 const petNames = [
-  "Abby",
   "Ace",
   "Angel",
-  "Annie",
   "Apollo",
-  "Bailey",
   "Bandit",
   "Baxter",
   "Bear",
-  "Bella",
-  "Belle",
   "Blue",
   "Bonnie",
   "Boomer",
   "Brutus",
-  "Charlie",
-  "Chloe",
   "Cleo",
   "Coco",
-  "Cody",
-  "Cooper",
-  "Daisy",
+  "Coop",
   "Dixie",
   "Duke",
   "Fido",
@@ -499,6 +490,10 @@ const farmAnimals = [
   "mule",
   "sheep",
   "lamb",
+  "colt",
+  "calf",
+  "chicken",
+  "goat",
 ];
 
 export const allCategories = [
@@ -569,7 +564,7 @@ export const allCategories = [
     },
   },
   {
-    TEST_SCORE: {
+    SCORE: {
       values: [100, 95, 90, 85, 80],
       descriptionTemplates: {
         description: "the person whose grade was VALUE",
@@ -812,8 +807,8 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
         description: "the person who snacks at VALUE o'clock",
-        diffGreaterDescription: "VALUE hours earlier",
-        diffLesserDescription: "VALUE hours later",
+        diffGreaterDescription: "VALUE hours later",
+        diffLesserDescription: "VALUE hours earlier",
         verb: "snacks",
       },
     },
@@ -848,6 +843,52 @@ export const allCategories = [
       values: ["apple", "cookie", "bun", "pear", "donut", "banana"],
       descriptionTemplates: {
         description: "the person who eats the VALUE",
+      },
+    },
+  },
+  {
+    COST: {
+      values: [100, 150, 200, 250, 300, 350, 400, 450, 500],
+      descriptionTemplates: {
+        description: "the jewelry that cost VALUE dollars",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+        verb: "cost",
+      },
+    },
+    NUMBER: {
+      values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      descriptionTemplates: {
+        description: "the jewelry with VALUE stones",
+        diffGreaterDescription: "VALUE more stones",
+        diffLesserDescription: "VALUE less stones",
+        verb: "has",
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: "VALUE's jewelry",
+      },
+    },
+    STONE: {
+      values: ["ruby", "emerald", "sapphire", "agate"], //todo more
+      descriptionTemplates: {
+        description: "the jewelry with the VALUE",
+      },
+    },
+    JEWELRY: {
+      values: [
+        "necklace",
+        "brooch",
+        "bracelet",
+        "ring",
+        "earings",
+        "cufflinks",
+        "pendant",
+      ],
+      descriptionTemplates: {
+        description: "the VALUE",
       },
     },
   },
