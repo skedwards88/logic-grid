@@ -62,8 +62,7 @@ export function gameReducer(currentGameState, payload) {
     return {...currentGameState, derivedMatrix: newDerivedMatrix};
   } else if (payload.action === "newGame") {
     return gameInit({
-      numItemsPerCategory: currentGameState.numItemsPerCategory,
-      numCategories: currentGameState.numCategories,
+      ...currentGameState,
       ...payload,
       useSaved: false,
     });
@@ -75,7 +74,7 @@ export function gameReducer(currentGameState, payload) {
   } else if (payload.action === "changeEasyTrue") {
     return {...currentGameState, easyTrue: !currentGameState.easyTrue};
   } else {
-    console.log("todo");
+    console.log(`todo: ${payload.action}`);
     return {...currentGameState};
   }
 }
