@@ -21,7 +21,7 @@ export default function Cell({
         if (easyTrue) {
           event.preventDefault();
           dispatchGameState({
-            action: "setCellTrueOthersFalse",
+            action: "utilizeEasyTrue",
             gridID: gridID,
             rowIndex: rowIndex,
             columnIndex: columnIndex,
