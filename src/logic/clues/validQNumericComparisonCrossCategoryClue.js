@@ -12,8 +12,8 @@ export function validQNumericComparisonCrossCategoryClue({
   },
   strict = false,
 }) {
-  // the greaterItem cannot be the lesserItem
-  if (findMatrixValue(matrix, greaterItem, lesserItem)) {
+  // in strict mode, the greaterItem cannot be the lesserItem
+  if (strict && findMatrixValue(matrix, greaterItem, lesserItem)) {
     return false;
   }
 

@@ -55,6 +55,60 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     expect(validQ).toBe(true);
   });
 
+  test("returns true even if the items are equal to each other", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsAnimal: {
+        rowLabels: numericLabels,
+        colLabels: ["dog", "cat", "cow", "ape"],
+        grid: [
+          [true, false, false, false],
+          [false, true, false, false],
+          [false, false, true, false],
+          [false, false, false, true],
+        ],
+      },
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [true, false, false, false],
+          [false, true, false, false],
+          [false, false, true, false],
+          [false, false, false, true],
+        ],
+      },
+
+      AnimalVsColor: {
+        rowLabels: ["dog", "cat", "cow", "ape"],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, true],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
   test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
     const greaterItem = "yellow";
     const lesserItem = "dog";
@@ -960,6 +1014,61 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     });
 
     expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are set to each other", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsAnimal: {
+        rowLabels: numericLabels,
+        colLabels: ["dog", "cat", "cow", "ape"],
+        grid: [
+          [true, false, false, false],
+          [false, true, false, false],
+          [false, false, true, false],
+          [false, false, false, true],
+        ],
+      },
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [true, false, false, false],
+          [false, true, false, false],
+          [false, false, true, false],
+          [false, false, false, true],
+        ],
+      },
+
+      AnimalVsColor: {
+        rowLabels: ["dog", "cat", "cow", "ape"],
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, true],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
   });
 
   test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
