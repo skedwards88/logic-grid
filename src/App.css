@@ -56,22 +56,22 @@ button {
 .matrix.size2 {
   grid-template-areas:
     ".         columnLabel0"
-    "rowLabel0 category0_category1";
+    "rowLabel0 rowSet0_columnSet0";
 }
 
 .matrix.size3 {
   grid-template-areas:
     ".         columnLabel0        columnLabel1"
-    "rowLabel0 category0_category1 category0_category2"
-    "rowLabel1 category1_category2 .";
+    "rowLabel0 rowSet0_columnSet0 rowSet0_columnSet1"
+    "rowLabel1 rowSet1_columnSet0 .";
 }
 
 .matrix.size4 {
   grid-template-areas:
     ".         columnLabel0        columnLabel1        columnLabel2"
-    "rowLabel0 category0_category1 category0_category2 category0_category3"
-    "rowLabel1 category1_category3 category2_category3 ."
-    "rowLabel2 category1_category2 .                   .";
+    "rowLabel0 rowSet0_columnSet0 rowSet0_columnSet1 rowSet0_columnSet2"
+    "rowLabel1 rowSet1_columnSet0 rowSet1_columnSet1 ."
+    "rowLabel2 rowSet2_columnSet0 .                   .";
 }
 
 .grid {
@@ -96,23 +96,23 @@ button {
   grid-template-rows: repeat(3, var(--capped-cell-size));
 }
 
-.grid#category0_category1 {
-  grid-area: category0_category1;
+.grid#rowSet0_columnSet0 {
+  grid-area: rowSet0_columnSet0;
 }
-.grid#category0_category2 {
-  grid-area: category0_category2;
+.grid#rowSet0_columnSet1 {
+  grid-area: rowSet0_columnSet1;
 }
-.grid#category0_category3 {
-  grid-area: category0_category3;
+.grid#rowSet0_columnSet2 {
+  grid-area: rowSet0_columnSet2;
 }
-.grid#category1_category3 {
-  grid-area: category1_category3;
+.grid#rowSet1_columnSet0 {
+  grid-area: rowSet1_columnSet0;
 }
-.grid#category2_category3 {
-  grid-area: category2_category3;
+.grid#rowSet1_columnSet1 {
+  grid-area: rowSet1_columnSet1;
 }
-.grid#category1_category2 {
-  grid-area: category1_category2;
+.grid#rowSet2_columnSet0 {
+  grid-area: rowSet2_columnSet0;
 }
 
 .grid > div {

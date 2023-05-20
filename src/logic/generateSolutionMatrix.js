@@ -1,25 +1,37 @@
 import {generateSolution} from "./generateSolution.js";
 
 export function generateSolutionMatrix(categoryLabelsAndTemplates) {
+  // the computer just cares about one category vs another (but doesn't care which is a row vs column)
+  // but humans generally make a matrix where it does matter which category is the row vs which is the column
+  const matrixColumnInfo = categoryLabelsAndTemplates.slice(
+    1,
+    categoryLabelsAndTemplates.length,
+  );
+  const matrixRowInfo = [
+    categoryLabelsAndTemplates[0],
+    ...categoryLabelsAndTemplates
+      .slice(2, categoryLabelsAndTemplates.length)
+      .reverse(),
+  ];
+
   let solution = generateSolution(
     categoryLabelsAndTemplates.map((i) => i.labels),
   );
 
-  const numCats = categoryLabelsAndTemplates.length;
   let solutionMatrix = {};
 
-  for (let categoryIndexA = 0; categoryIndexA < numCats; categoryIndexA++) {
+  for (let rowIndex = 0; rowIndex < matrixRowInfo.length; rowIndex++) {
     for (
-      let categoryIndexB = categoryIndexA + 1;
-      categoryIndexB < numCats;
-      categoryIndexB++
+      let colIndex = 0;
+      colIndex < matrixColumnInfo.length - rowIndex;
+      colIndex++
     ) {
-      const rowLabels = categoryLabelsAndTemplates[categoryIndexA].labels;
+      const rowLabels = matrixRowInfo[rowIndex].labels;
       const rowDescriptionTemplates =
-        categoryLabelsAndTemplates[categoryIndexA].descriptionTemplates;
-      const colLabels = categoryLabelsAndTemplates[categoryIndexB].labels;
+        matrixRowInfo[rowIndex].descriptionTemplates;
+      const colLabels = matrixColumnInfo[colIndex].labels;
       const colDescriptionTemplates =
-        categoryLabelsAndTemplates[categoryIndexB].descriptionTemplates;
+        matrixColumnInfo[colIndex].descriptionTemplates;
 
       let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
@@ -40,7 +52,7 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
         grid = [...grid, row];
       }
 
-      solutionMatrix[`category${categoryIndexA}_category${categoryIndexB}`] = {
+      solutionMatrix[`rowSet${rowIndex}_columnSet${colIndex}`] = {
         rowLabels: rowLabels,
         colLabels: colLabels,
         rowDescriptionTemplates: rowDescriptionTemplates,

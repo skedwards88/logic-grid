@@ -9,22 +9,27 @@ import {removeRedundantClues} from "./removeRedundantClues.js";
 export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
   const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
-  const emptyMatrix = buildEmptyMatrix(categoryLabelsAndTemplates);
-
+  const emptyMatrix = buildEmptyMatrix(solutionMatrix);
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
-  // so make this lookup to avoid convoluted calculations later
-  const categoryLabels = categoryLabelsAndTemplates.map((i) => i.labels);
-  const matrixColumnLabels = categoryLabels.slice(1, categoryLabels.length);
-  const matrixRowLabels = [
-    categoryLabels[0],
-    ...categoryLabels.slice(2, categoryLabels.length).reverse(),
+  // pull out the labels to avoid some convoluted calculations later //todo should i try to avoid; this does duplicate code in generateSolutionMatrix now and could be derived now
+  const matrixColumnInfo = categoryLabelsAndTemplates.slice(
+    1,
+    categoryLabelsAndTemplates.length,
+  );
+  const matrixRowInfo = [
+    categoryLabelsAndTemplates[0],
+    ...categoryLabelsAndTemplates
+      .slice(2, categoryLabelsAndTemplates.length)
+      .reverse(),
   ];
+  const matrixColumnLabels = matrixColumnInfo.map((i) => i.labels);
+  const matrixRowLabels = matrixRowInfo.map((i) => i.labels);
 
   const includeCrossCategoryClues = numCats > 2;
-  const includeNumericClues = categoryLabels.some(
-    (i) => typeof i[0] === "number",
-  );
+  const includeNumericClues = categoryLabelsAndTemplates
+    .map((i) => i.labels)
+    .some((i) => typeof i[0] === "number");
 
   let clues = [];
   let puzzleIsSolved = false;
@@ -41,7 +46,6 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     clues = [...clues, clue];
 
     newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix);
-    newDerivedMatrix.category0_category1.grid.forEach((element, index) => {});
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
   }
 
