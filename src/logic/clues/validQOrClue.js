@@ -11,13 +11,11 @@ export function validQOrClue({
 
   // item A cannot be both itemB and itemC
   if (aVsB && aVsC) {
-    console.log('### 1');
     return false
   };
 
   // item A cannot not be both itemB and itemC
   if (aVsB === false && aVsC === false) {
-    console.log('### 2');
     return false
   };
 
@@ -25,7 +23,6 @@ export function validQOrClue({
   for (const item of allItems) {
     if (!orItems.includes(item)) {
       if (findMatrixValue(matrix, itemA, item)) {
-        console.log('### 3');
         return false
       };
     }
@@ -40,6 +37,5 @@ export function validQOrClue({
     };
   }
 
-  console.log('### 5')
   return true;
 }
