@@ -58,7 +58,7 @@ export function applyNumericComparisonLogic(
     const greaterItemLowestPossibleIndex = numericLabels.findIndex(
       (i) =>
         i >=
-        lesserItemLowestPossibleValue + (numericDiffClue ? numericDiffClue : 1),
+        lesserItemLowestPossibleValue + (numericDiffClue ?? 1),
     );
     for (
       let numericIndex = 0;
@@ -120,7 +120,7 @@ export function applyNumericComparisonLogic(
       (i) =>
         i <=
         greaterItemHighestPossibleValue -
-          (numericDiffClue ? numericDiffClue : 1),
+          (numericDiffClue ?? 1),
     );
     for (
       let numericIndex = numericLabels.length - 1;
