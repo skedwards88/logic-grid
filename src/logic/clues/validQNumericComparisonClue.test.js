@@ -238,10 +238,10 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
         rowLabels: numericLabels,
         colLabels: ["red", "blue", "green", "yellow"],
         grid: [
-          [true, null, false, null],
-          [null, null, false, null],
+          [true, null, null, null],
           [null, null, null, null],
-          [null, null, null, true],
+          [null, null, null, null],
+          [null, null, null, null],
         ],
       },
     };
@@ -268,7 +268,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        colLabels: numericLabels,
         grid: [
           [true, null, null, null],
           [null, null, false, null],
@@ -467,6 +467,70 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, false],
           [null, null, null, false],
           [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, true, null, null],
+          [null, true, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, true],
+          [null, null, null, true],
         ],
       },
     };
@@ -761,7 +825,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        colLabels: numericLabels,
         grid: [
           [true, null, null, null],
           [null, null, false, null],
@@ -1438,6 +1502,70 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
           [null, null, null, false],
           [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, true, null, null],
+          [null, true, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, true],
+          [null, null, null, true],
         ],
       },
     };
@@ -2291,6 +2419,69 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
           [null, null, null, false],
           [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, true, null, null],
+          [null, true, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+  test("returns false if the greater item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, true],
+          [null, null, null, true],
         ],
       },
     };

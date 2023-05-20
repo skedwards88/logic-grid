@@ -1,3 +1,4 @@
+import {findMatrixValue} from "../helpers/findMatrixValue";
 import {findMatrixLabel} from "../helpers/findMatrixLabel";
 import {getAllPossibleIndexes} from "../helpers/getPossibleIndex.js";
 
@@ -20,6 +21,24 @@ export function validQNumericComparisonClue({
     return false;
   }
 
+  // if either item has more than two trues, return false
+  let lesserTrues = [];
+  let greaterTrues = [];
+  for (const numericValue of numericLabels) {
+    const lesserValue = findMatrixValue(matrix, lesserItem, numericValue);
+    if (lesserValue) {
+      lesserTrues.push(lesserValue);
+    }
+    const greaterValue = findMatrixValue(matrix, greaterItem, numericValue);
+    if (greaterValue) {
+      greaterTrues.push(greaterValue);
+    }
+  }
+
+  if (lesserTrues.length > 1 || greaterTrues.length > 1) {
+    return false;
+  }
+
   if (greaterValue != undefined && lesserValue != undefined) {
     if (actualNumericDiff === numericDiffClue) {
       // exact diff and both known: diff between the known values needs to match exactly
@@ -39,7 +58,6 @@ export function validQNumericComparisonClue({
     }
   } else {
     const lesserItemPossibleIndexes = getAllPossibleIndexes(
-      //todo test where all false, multiple true, mix of true and null
       matrix,
       lesserItem,
       numericLabels,
