@@ -46,7 +46,7 @@ export default function Clues({
     <div className="clues">
       <div className="clueInfo">{`${clues.length} Clues`}</div>
       <ol>{clueDivs}</ol>
-      <div className="clueInfo">End of Clues v1.4</div>
+      <div className="clueInfo">End of Clues v1.5</div>
     </div>
   );
 }
