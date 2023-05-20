@@ -1,6 +1,7 @@
 import {
   getFirstPossibleIndex,
   getLastPossibleIndex,
+  getAllPossibleIndexes,
 } from "./getPossibleIndex.js";
 
 const matrix = {
@@ -113,5 +114,34 @@ describe("getLastPossibleIndex", () => {
   test("returns the index of the first true or null (case with multiple nulls)", () => {
     expect(getLastPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(3);
     expect(getLastPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(3);
+  });
+});
+
+describe("getAllPossibleIndexes", () => {
+  test("returns the index of the true when there is a single true", () => {
+    expect(
+      getAllPossibleIndexes(matrix, "Sarah", [
+        "red",
+        "blue",
+        "green",
+        "yellow",
+      ]),
+    ).toEqual([1]);
+  });
+
+  test("returns the index of the first true when there are multiple trues", () => {
+    expect(
+      getAllPossibleIndexes(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+    ).toEqual([0]);
+  });
+
+  test("returns the index of the all nulls when there are no trues", () => {
+    expect(getAllPossibleIndexes(matrix, "Sarah", [1, 2, 3, 4])).toEqual([
+      0, 1, 2, 3,
+    ]);
+  });
+
+  test("returns an empty array when there are no trues or nulls", () => {
+    expect(getAllPossibleIndexes(matrix, "red", [1, 2, 3, 4])).toEqual([]);
   });
 });

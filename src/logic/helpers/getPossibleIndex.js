@@ -34,3 +34,24 @@ export function getLastPossibleIndex(derivedMatrix, item, intersectingItems) {
     }
   }
 }
+
+export function getAllPossibleIndexes(derivedMatrix, item, intersectingItems) {
+  // If there is a true, just returns the first true index
+  // Otherwise, returns all null indexes
+
+  let possibleIndexes = [];
+  for (let index = 0; index < intersectingItems.length; index++) {
+    const value = findMatrixValue(
+      derivedMatrix,
+      item,
+      intersectingItems[index],
+    );
+    if (value === true) {
+      return [index];
+    } else if (value === null) {
+      possibleIndexes = [...possibleIndexes, index];
+    }
+  }
+
+  return possibleIndexes;
+}
