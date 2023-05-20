@@ -32,7 +32,6 @@ export function validQOrClue({
     // itemA has to be one of B or C
     // (currently not forcing the other item to be 'false')
     if (!(aVsB || aVsC)) {
-      console.log('### 4');
       return false
     };
   }
