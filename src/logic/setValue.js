@@ -50,7 +50,7 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-function propagateValue(matrix, items, value) {
+export function propagateValue(matrix, items, value) {
   const [itemA, itemB] = items;
 
   if (value === true) {

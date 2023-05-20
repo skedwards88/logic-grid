@@ -4,6 +4,7 @@ export function gameInit({
   numCategories = 3,
   numItemsPerCategory = 4,
   easyTrue = false,
+  showViolations = false,
   useSaved = true,
 }) {
   const savedState = useSaved
@@ -18,7 +19,8 @@ export function gameInit({
     savedState.numItemsPerCategory &&
     savedState.matrixRowLabels &&
     savedState.matrixColumnLabels &&
-    savedState.easyTrue != undefined
+    savedState.easyTrue != undefined &&
+    savedState.showViolations != undefined
   ) {
     return savedState;
   }
@@ -46,5 +48,6 @@ export function gameInit({
     matrixRowLabels: matrixRowLabels,
     matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
+    showViolations: showViolations,
   };
 }

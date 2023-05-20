@@ -21,8 +21,9 @@ body {
   grid-template-areas:
     "controls"
     "matrix"
+    "result"
     "clues";
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
   overflow: hidden;
   font-size: var(--font-size);
 }
@@ -221,6 +222,18 @@ button {
   grid-area: rowLabel3;
 }
 
+/* result */
+
+#result {
+  grid-area: result;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vmin;
+  white-space: pre;
+  text-align: center;
+}
+
 /* Clues */
 
 .clues > ol {
@@ -234,9 +247,13 @@ button {
   margin-bottom: 5vh;
 }
 
-.clue.true {
+.clue.crossedOff {
   text-decoration: line-through;
   color: rgb(202 202 202);
+}
+
+.clue.violated {
+  color: rgb(218, 71, 71);
 }
 
 .clueInfo {
@@ -389,8 +406,9 @@ input[type="checkbox" i]:checked {
   #app {
     grid-template-areas:
       "matrix controls"
+      "matrix result"
       "matrix clues";
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: auto 1fr;
   }
 }

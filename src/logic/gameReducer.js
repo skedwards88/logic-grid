@@ -1,5 +1,7 @@
 import {gameInit} from "./gameInit.js";
 
+import {autocomplete} from "./autocomplete.js";
+
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "changeCellState") {
     const currentDerivedMatrix =
@@ -76,6 +78,20 @@ export function gameReducer(currentGameState, payload) {
         newDerivedMatrix,
       ],
     };
+  } else if (payload.action === "autofill") {
+    const currentDerivedMatrix =
+      currentGameState.derivedMatrixHistory[
+        currentGameState.derivedMatrixHistory.length - 1
+      ];
+    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
+    newDerivedMatrix = autocomplete(newDerivedMatrix);
+    return {
+      ...currentGameState,
+      derivedMatrixHistory: [
+        ...currentGameState.derivedMatrixHistory,
+        newDerivedMatrix,
+      ],
+    };
   } else if (payload.action === "newGame") {
     return gameInit({
       ...currentGameState,
@@ -89,6 +105,11 @@ export function gameReducer(currentGameState, payload) {
     return newGameState;
   } else if (payload.action === "changeEasyTrue") {
     return {...currentGameState, easyTrue: !currentGameState.easyTrue};
+  } else if (payload.action === "changeShowViolations") {
+    return {
+      ...currentGameState,
+      showViolations: !currentGameState.showViolations,
+    };
   } else if (payload.action === "undo") {
     return {
       ...currentGameState,

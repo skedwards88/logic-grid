@@ -4,6 +4,7 @@ import LabelSet from "./LabelSet";
 import Grid from "./Grid";
 import Clues from "./Clues";
 import ControlBar from "./ControlBar";
+import Result from "./Result";
 
 export default function Game({gameState, dispatchGameState, setDisplay}) {
   const numSquaresWide =
@@ -17,9 +18,10 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
     );
   }, [gameState.numCategories, gameState.numItemsPerCategory]);
 
-  let grids = [];
   const derivedMatrix =
     gameState.derivedMatrixHistory[gameState.derivedMatrixHistory.length - 1];
+
+  let grids = [];
   for (const key in derivedMatrix) {
     grids = [
       ...grids,
@@ -68,9 +70,17 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         {grids}
         {labels}
       </div>
+      <Result
+        clues={gameState.clues}
+        matrix={derivedMatrix}
+        dispatchGameState={dispatchGameState}
+        showViolations={gameState.showViolations}
+      ></Result>
       <Clues
         clues={gameState.clues}
         dispatchGameState={dispatchGameState}
+        matrix={derivedMatrix}
+        showViolations={gameState.showViolations}
       ></Clues>
     </div>
   );
