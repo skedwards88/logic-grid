@@ -33,7 +33,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
 
     expect(validQ).toBe(true);
   });
-  
+
   test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
     const greaterItem = "yellow";
     const lesserItem = "red";
@@ -164,7 +164,6 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   });
 
   test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -229,7 +228,6 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   });
 
   test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "blue";
     const lesserItem = "red";
     const numericLabels = [1, 2, 3, 4];
@@ -295,7 +293,6 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   });
 
   test("returns true if neither item is known but both items have options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -422,6 +419,70 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
 
     expect(validQ).toBe(false);
   });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
 });
 
 describe("validQNumericComparisonClue, strict, exact diff", () => {
@@ -458,7 +519,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
 
     expect(validQ).toBe(true);
   });
-  
+
   test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
     const greaterItem = "yellow";
     const lesserItem = "red";
@@ -944,7 +1005,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
 
     expect(validQ).toBe(true);
   });
-  
+
   test("returns true if both items are known and they are separated by the given diff even if one item is 0", () => {
     const greaterItem = "green";
     const lesserItem = "red";
@@ -1075,7 +1136,6 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
   });
 
   test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -1140,7 +1200,6 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
   });
 
   test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -1205,7 +1264,6 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
   });
 
   test("returns true if neither item is known but both items have options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -1332,6 +1390,70 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
 
     expect(validQ).toBe(false);
   });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
 });
 
 describe("validQNumericComparisonClue, strict, non-exact diff", () => {
@@ -1368,7 +1490,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
 
     expect(validQ).toBe(true);
   });
-  
+
   test("returns true if both items are known and they are separated by the given diff even if one item is 0", () => {
     const greaterItem = "green";
     const lesserItem = "red";
@@ -1867,7 +1989,6 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
   });
 
   test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -1932,7 +2053,6 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
   });
 
   test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -1997,7 +2117,6 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
   });
 
   test("returns true if neither item is known but both items have options to be valid", () => {
-    // todo false for strict
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
@@ -2124,6 +2243,70 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
 
     expect(validQ).toBe(false);
   });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+          [null, false, null, null],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "blue";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrix = {
+      NumberVsColor: {
+        rowLabels: numericLabels,
+        colLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+          [null, null, null, false],
+        ],
+      },
+    };
+    const validQ = validQNumericComparisonClue({
+      matrix: matrix,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
 });
 
 describe("validQNumericComparisonClue, strict, unknown diff", () => {
@@ -2160,7 +2343,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
 
     expect(validQ).toBe(true);
   });
-  
+
   test("returns true if both items are known and the greater item is greater than the lesser item even if one item is 0", () => {
     const greaterItem = "green";
     const lesserItem = "red";
