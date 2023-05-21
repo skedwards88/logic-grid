@@ -51,22 +51,6 @@ button {
   grid-area: matrix;
   justify-self: center;
   align-self: center;
-}
-
-.matrix.size2 {
-  grid-template-areas:
-    ".         columnLabel0"
-    "rowLabel0 rowSet0_columnSet0";
-}
-
-.matrix.size3 {
-  grid-template-areas:
-    ".         columnLabel0        columnLabel1"
-    "rowLabel0 rowSet0_columnSet0 rowSet0_columnSet1"
-    "rowLabel1 rowSet1_columnSet0 .";
-}
-
-.matrix.size4 {
   grid-template-areas:
     ".         columnLabel0        columnLabel1        columnLabel2"
     "rowLabel0 rowSet0_columnSet0 rowSet0_columnSet1 rowSet0_columnSet2"
@@ -154,6 +138,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  min-height: 10vmin;
 }
 
 .columnLabel.size3 > div {
@@ -198,6 +183,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  min-width: 10vmin;
 }
 
 .rowLabel.size3 > div {
