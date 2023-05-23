@@ -1,19 +1,36 @@
 import React from "react";
 import {validQ} from "../logic/clues/validQ";
+import {autocomplete} from "../logic/autocomplete";
 
-export default function Result({clues, matrix, showViolations, dispatchGameState}) {
+export default function Result({
+  clues,
+  matrix,
+  showViolations,
+  dispatchGameState,
+}) {
   // check if every square is filled
   const matrixComplete = Object.values(matrix).every(
     (entry) => !entry.grid.flat().includes(null),
   );
+  console.log(`matrixComplete ${matrixComplete}`);
 
   // Check if all clues are valid
   const allCluesValid = clues.every((clue) =>
     validQ({clue, matrix, strict: true}),
   );
+  console.log(`allCluesValid ${allCluesValid}`);
 
-  // If all clues are valid but the matrix is incomplete, offer to autofill
-  if (allCluesValid && !matrixComplete) {
+  let matrixAutofillable;
+  try {
+    autocomplete(matrix);
+    matrixAutofillable = true;
+  } catch (error) {
+    matrixAutofillable = false;
+  }
+  console.log(`matrixValid ${matrixAutofillable}`);
+
+  // If all clues are valid and autofillabled but the matrix is incomplete, offer to autofill
+  if (allCluesValid && matrixAutofillable && !matrixComplete) {
     return (
       <div id="result">
         <div>{`All clues satisfied!`}</div>
@@ -25,7 +42,7 @@ export default function Result({clues, matrix, showViolations, dispatchGameState
   }
 
   // if all clues are valid and the matrix is complete, game is won
-  else if (allCluesValid && matrixComplete) {
+  else if (allCluesValid && matrixAutofillable && matrixComplete) {
     return (
       <div id="result">
         <div>{`Success!`}</div>
@@ -37,7 +54,15 @@ export default function Result({clues, matrix, showViolations, dispatchGameState
   else if (!allCluesValid && matrixComplete) {
     return (
       <div id="result">
-        <div>{`Try again! Some clues are violated.${showViolations ? "" : '\nEnable "Show violations" to see which ones.'}`}</div>
+        <div>{`Try again! Some clues are violated.${
+          showViolations ? "" : '\nEnable "Show violations" to see which ones.'
+        }`}</div>
+      </div>
+    );
+  } else if (allCluesValid && !matrixAutofillable && matrixComplete) {
+    return (
+      <div id="result">
+        <div>{`Try again! Your solution may disagree with itself.`}</div>
       </div>
     );
   } else {
