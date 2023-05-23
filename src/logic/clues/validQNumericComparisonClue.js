@@ -52,7 +52,7 @@ export function validQNumericComparisonClue({
       }
     } else {
       // unknown diff and both known: the greater item must be more than the lesser item
-      if (greaterValue && lesserValue && greaterValue < lesserValue) {
+      if (greaterValue <= lesserValue) {
         return false;
       }
     }
