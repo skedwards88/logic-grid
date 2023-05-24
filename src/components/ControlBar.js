@@ -24,11 +24,6 @@ export default function ControlBar({dispatchGameState, setDisplay, undoDisabled}
         id="settingsButton"
         onClick={() => setDisplay("settings")}
       ></button>
-      <button
-        id="heartButton"
-        onClick={() => console.log("todo make heart")}
-      ></button>
-      {/* console.log('todo add install button') */}
     </div>
   );
 }
