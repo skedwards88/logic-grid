@@ -1,5 +1,4 @@
 import React from "react";
-
 import LabelSet from "./LabelSet";
 import Grid from "./Grid";
 import Clues from "./Clues";

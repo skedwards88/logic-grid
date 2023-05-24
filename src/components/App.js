@@ -1,8 +1,6 @@
 import React from "react";
-
 import {gameInit} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
-
 import Game from "./Game";
 import Settings from "./Settings";
 
