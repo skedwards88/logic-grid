@@ -28,7 +28,7 @@ export function autocomplete(matrix) {
         columnIndex++
       ) {
         const value = grid[rowIndex][columnIndex];
-        if (value) {
+        if (value === true) {
           autofilledMatrix = setToTrue(
             autofilledMatrix,
             rowLabels[rowIndex],

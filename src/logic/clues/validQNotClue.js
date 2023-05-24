@@ -7,7 +7,7 @@ export function validQNotClue({
 }) {
   const value = findMatrixValue(matrix, itemA, itemB);
 
-  if (value) {
+  if (value === true) {
     // if value is true, clue is violated
     return false;
   } else if (strict && value === null) {
