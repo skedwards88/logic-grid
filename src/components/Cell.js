@@ -9,7 +9,7 @@ export default function Cell({
   dispatchGameState,
 }) {
   let className = "cell";
-  if (value) {
+  if (value === true) {
     className += " true";
   } else if (value === false) {
     className += " false";
