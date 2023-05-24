@@ -64,7 +64,7 @@ export function autocomplete(matrix) {
         ) {
           console.log(`disagreement`);
           throw new Error(
-            "Popoagating the trues leads to a disagreement with the original array.",
+            "Popoagating the trues leads to a disagreement with the original array",
           );
         }
       }
