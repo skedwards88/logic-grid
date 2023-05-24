@@ -56,9 +56,7 @@ export function applyNumericComparisonLogic(
     // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
     const greaterItemLowestPossibleIndex = numericLabels.findIndex(
-      (i) =>
-        i >=
-        lesserItemLowestPossibleValue + (numericDiffClue ?? 1),
+      (i) => i >= lesserItemLowestPossibleValue + (numericDiffClue ?? 1),
     );
     for (
       let numericIndex = 0;
@@ -117,10 +115,7 @@ export function applyNumericComparisonLogic(
     // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
     const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
-      (i) =>
-        i <=
-        greaterItemHighestPossibleValue -
-          (numericDiffClue ?? 1),
+      (i) => i <= greaterItemHighestPossibleValue - (numericDiffClue ?? 1),
     );
     for (
       let numericIndex = numericLabels.length - 1;

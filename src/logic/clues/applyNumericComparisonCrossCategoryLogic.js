@@ -1,5 +1,5 @@
 import {setToFalse} from "../setValue.js";
-import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js"
+import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js";
 export function applyNumericComparisonCrossCategoryLogic(
   derivedMatrix,
   {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},

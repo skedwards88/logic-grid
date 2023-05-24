@@ -11,20 +11,20 @@ export function validQOrClue({
 
   // item A cannot be both itemB and itemC
   if (aVsB && aVsC) {
-    return false
-  };
+    return false;
+  }
 
   // item A cannot not be both itemB and itemC
   if (aVsB === false && aVsC === false) {
-    return false
-  };
+    return false;
+  }
 
   // itemA cannot be any of the non-or items
   for (const item of allItems) {
     if (!orItems.includes(item)) {
       if (findMatrixValue(matrix, itemA, item)) {
-        return false
-      };
+        return false;
+      }
     }
   }
 
@@ -32,8 +32,8 @@ export function validQOrClue({
     // itemA has to be one of B or C
     // (currently not forcing the other item to be 'false')
     if (!(aVsB || aVsC)) {
-      return false
-    };
+      return false;
+    }
   }
 
   return true;

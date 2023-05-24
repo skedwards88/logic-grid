@@ -225,7 +225,6 @@ describe("validQOrClue, strict", () => {
   });
 });
 
-
 describe("validQOrClue, non-strict", () => {
   test("returns false if the item is any of the non-'or' items", () => {
     const itemA = "Colin";
