@@ -107,6 +107,9 @@ button {
 .cell {
   background-repeat: no-repeat;
   background-size: contain;
+  /* Required because iOS13 doesn't respect standard context menu handling */
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .cell.true {
