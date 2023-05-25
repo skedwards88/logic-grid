@@ -14,16 +14,20 @@ export default function Result({
   );
   console.log(`matrixComplete ${matrixComplete}`);
 
-  // Check if all clues are valid
+  // Verify that no clues are actively violated
   const allCluesValid = clues.every((clue) =>
-    validQ({clue, matrix, strict: true}),
+    validQ({clue, matrix}),
   );
   console.log(`allCluesValid ${allCluesValid}`);
 
   let matrixAutofillable;
   try {
-    autocomplete(matrix);
-    matrixAutofillable = true;
+    const autofilledMatrix = autocomplete(matrix);
+    // Check if all clues are satisfied
+    const autofilledValid = clues.every((clue) =>
+      validQ({clue, autofilledMatrix, strict: true}),
+    );
+    matrixAutofillable = autofilledValid;
   } catch (error) {
     matrixAutofillable = false;
   }
