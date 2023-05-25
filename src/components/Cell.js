@@ -8,6 +8,8 @@ export default function Cell({
   easyTrue,
   dispatchGameState,
 }) {
+  const [timer, setTimer] = React.useState(null);
+
   let className = "cell";
   if (value === true) {
     className += " true";
@@ -17,6 +19,34 @@ export default function Cell({
   return (
     <div
       className={className}
+      // ios13 doesn't respect context menu event
+      onTouchStart={(event) => {
+        setTimer(
+          setTimeout(() => {
+            console.log("Long Press");
+
+            if (easyTrue) {
+              event.preventDefault();
+              dispatchGameState({
+                action: "utilizeEasyTrue",
+                gridID: gridID,
+                rowIndex: rowIndex,
+                columnIndex: columnIndex,
+              });
+            }
+          }, 1000),
+        );
+      }}
+      onTouchEnd={() => {
+        if (timer) {
+          clearTimeout(timer);
+        }
+      }}
+      onTouchMove={() => {
+        if (timer) {
+          clearTimeout(timer);
+        }
+      }}
       onContextMenu={(event) => {
         if (easyTrue) {
           event.preventDefault();
