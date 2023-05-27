@@ -13,6 +13,7 @@ export function gameInit({
 
   if (
     savedState &&
+    savedState.tempFrom &&
     savedState.clues &&
     savedState.derivedMatrixHistory &&
     savedState.numCategories &&
