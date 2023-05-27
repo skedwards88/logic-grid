@@ -23,8 +23,6 @@ export default function Cell({
       onTouchStart={(event) => {
         setTimer(
           setTimeout(() => {
-            console.log("Long Press");
-
             if (easyTrue) {
               event.preventDefault();
               dispatchGameState({
@@ -32,6 +30,7 @@ export default function Cell({
                 gridID: gridID,
                 rowIndex: rowIndex,
                 columnIndex: columnIndex,
+                tempFrom: "long touch"
               });
             }
           }, 1000),
@@ -55,6 +54,7 @@ export default function Cell({
             gridID: gridID,
             rowIndex: rowIndex,
             columnIndex: columnIndex,
+            tempFrom: "menu"
           });
         }
       }}

@@ -45,5 +45,6 @@ export function gameInit({
     matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
     showViolations: showViolations,
+    tempFrom: [],
   };
 }
