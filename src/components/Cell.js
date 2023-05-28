@@ -21,8 +21,10 @@ export default function Cell({
       className={className}
       // ios13 doesn't respect context menu event
       onTouchStart={(event) => {
+        console.log('touch start')
         setTimer(
           setTimeout(() => {
+            console.log('timeout')
             if (easyTrue) {
               event.preventDefault();
               dispatchGameState({
@@ -37,16 +39,19 @@ export default function Cell({
         );
       }}
       onTouchEnd={() => {
+        console.log('touch end')
         if (timer) {
           clearTimeout(timer);
         }
       }}
       onTouchMove={() => {
+        console.log('touch move')
         if (timer) {
           clearTimeout(timer);
         }
       }}
       onContextMenu={(event) => {
+        console.log('menu')
         if (easyTrue) {
           event.preventDefault();
           dispatchGameState({
@@ -59,11 +64,13 @@ export default function Cell({
         }
       }}
       onClick={() => {
+        console.log('click')
         dispatchGameState({
           action: "changeCellState",
           gridID: gridID,
           rowIndex: rowIndex,
           columnIndex: columnIndex,
+          tempFrom: "click",
         });
       }}
     ></div>
