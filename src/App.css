@@ -115,10 +115,12 @@ button {
 
 .cell.true {
   background-image: url("./images/true.svg");
+  -webkit-touch-callout: none;
 }
 
 .cell.false {
   background-image: url("./images/false.svg");
+  -webkit-touch-callout: none;
 }
 
 /* Labels */

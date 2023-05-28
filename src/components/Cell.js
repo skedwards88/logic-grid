@@ -19,7 +19,8 @@ export default function Cell({
   return (
     <div
       className={className}
-      // ios13 doesn't respect context menu event
+      // ios13 doesn't respect context menu event, so need to monitor long touch instead
+      // but desktop doesn't use touch, so also need context menu
       onTouchStart={(event) => {
         console.log('touch start')
         setTimer(
@@ -51,16 +52,18 @@ export default function Cell({
         }
       }}
       onContextMenu={(event) => {
-        console.log('menu')
-        if (easyTrue) {
-          event.preventDefault();
-          dispatchGameState({
-            action: "utilizeEasyTrue",
-            gridID: gridID,
-            rowIndex: rowIndex,
-            columnIndex: columnIndex,
-            tempFrom: "menu"
-          });
+        event.preventDefault();
+        if (!timer) {
+          console.log('menu')
+          if (easyTrue) {
+            dispatchGameState({
+              action: "utilizeEasyTrue",
+              gridID: gridID,
+              rowIndex: rowIndex,
+              columnIndex: columnIndex,
+              tempFrom: "menu"
+            });
+          }
         }
       }}
       onClick={() => {
