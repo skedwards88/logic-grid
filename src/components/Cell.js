@@ -21,9 +21,9 @@ export default function Cell({
       className={className}
       // ios13 doesn't respect context menu event, so need to monitor long touch instead
       // but desktop doesn't use touch, so also need context menu
-      onTouchStart={(event) => {
-        event.preventDefault();
-        console.log('touch start')
+      onTouchStart={(event, passive=false) => {
+        // event.preventDefault();
+        // console.log('touch start')
         setTimer(
           setTimeout(() => {
             console.log('timeout')
@@ -41,14 +41,14 @@ export default function Cell({
         );
       }}
       onTouchEnd={(event) => {
-        event.preventDefault();
+        // event.preventDefault();
         console.log('touch end')
         if (timer) {
           clearTimeout(timer);
         }
       }}
       onTouchMove={(event) => {
-        event.preventDefault();
+        // event.preventDefault();
         console.log('touch move')
         if (timer) {
           clearTimeout(timer);
