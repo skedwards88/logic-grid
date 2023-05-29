@@ -44,6 +44,7 @@ export default function Cell({
     if (timerID.current) {
       clearTimeout(timerID.current);
     }
+    handleClick()
   }
 
   function handleClick() {
@@ -68,12 +69,13 @@ export default function Cell({
     <div
       className={className}
       // ios13 doesn't respect context menu event, so need to monitor long touch instead
+      // Also iso seems to fire the click event a second time at the end of a long touch,
+      //   so not using onClick
       onTouchStart={handleTouchStart}
       onMouseDown={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onMouseUp={handleTouchEnd}
       onTouchMove={handleTouchEnd}
-      onClick={handleClick}
       onContextMenu={(event) => {
         event.preventDefault();
       }}
