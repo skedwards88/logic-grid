@@ -33,7 +33,7 @@ export default function Cell({
           gridID: gridID,
           rowIndex: rowIndex,
           columnIndex: columnIndex,
-          tempFrom: "long touch",
+          tempFrom: `long touch ${timerID.current}`,
         });
       }
     }, 500);
@@ -61,7 +61,7 @@ export default function Cell({
       gridID: gridID,
       rowIndex: rowIndex,
       columnIndex: columnIndex,
-      tempFrom: "click",
+      tempFrom: `click ${timerID.current}`,
     });
   }
 
@@ -72,13 +72,12 @@ export default function Cell({
       // Also iso seems to fire the click event a second time at the end of a long touch,
       //   so not using onClick
       onTouchStart={handleTouchStart}
-      onMouseDown={handleTouchStart}
+      // onMouseDown={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      onMouseUp={handleTouchEnd}
-      onTouchMove={handleTouchEnd}
-      onContextMenu={(event) => {
-        event.preventDefault();
-      }}
+      // onMouseUp={handleTouchEnd}
+      // onContextMenu={(event) => {
+      //   event.preventDefault();
+      // }}
     ></div>
   );
 }
