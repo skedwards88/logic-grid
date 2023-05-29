@@ -23,8 +23,8 @@ export function generatePuzzle(numCats, numItemsPerCat) {
       .slice(2, categoryLabelsAndTemplates.length)
       .reverse(),
   ];
-  const matrixColumnLabels = matrixColumnInfo.map((i) => i.labels);
-  const matrixRowLabels = matrixRowInfo.map((i) => i.labels);
+  const matrixColumnLabels = matrixColumnInfo.map((i) => i.displayLabels);
+  const matrixRowLabels = matrixRowInfo.map((i) => i.displayLabels);
 
   const includeCrossCategoryClues = numCats > 2;
   const includeNumericClues = categoryLabelsAndTemplates

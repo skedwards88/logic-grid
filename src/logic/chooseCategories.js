@@ -23,6 +23,7 @@ export function chooseCategories(numCats, numItemsPerCat) {
       : selectedValues.sort();
     const categoryInfo = {
       labels: selectedValues,
+      displayLabels: categorySet[categoryName].display ? selectedValues.map(value => categorySet[categoryName].display.replace("VALUE", value)) : selectedValues,
       descriptionTemplates: categorySet[categoryName].descriptionTemplates,
     };
     categoryLabelsAndTemplates = [...categoryLabelsAndTemplates, categoryInfo];

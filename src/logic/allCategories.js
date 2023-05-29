@@ -528,6 +528,7 @@ export const allCategories = [
   {
     CAR_AGE: {
       values: [1, 2, 3, 4, 5],
+      display: "VALUE years",
       descriptionTemplates: {
         description: "the VALUE year old car",
         diffGreaterDescription: "VALUE years older",
@@ -536,6 +537,7 @@ export const allCategories = [
     },
     CAR_MILES: {
       values: [10000, 20000, 30000, 40000, 50000],
+      display: "VALUE miles",
       descriptionTemplates: {
         description: "the car with VALUE miles",
         diffGreaterDescription: "VALUE more miles",
@@ -565,6 +567,7 @@ export const allCategories = [
   {
     LANE: {
       values: [1, 2, 3, 4, 5, 6],
+      display: "lane VALUE",
       descriptionTemplates: {
         description: "the person who swam in lane VALUE",
         diffGreaterDescription: "VALUE lane numbers higher",
@@ -649,6 +652,7 @@ export const allCategories = [
   {
     NUMBER: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      display: "VALUE s'mores",
       descriptionTemplates: {
         description: "the person who ate VALUE s'mores",
         diffGreaterDescription: "VALUE more s'mores",
@@ -689,6 +693,7 @@ export const allCategories = [
   {
     NUMBER: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      display: "VALUE miles",
       descriptionTemplates: {
         description: "the person who hiked VALUE miles",
         diffGreaterDescription: "VALUE more miles",
@@ -698,6 +703,7 @@ export const allCategories = [
     },
     ELEVATION: {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+      display: "VALUE feet",
       descriptionTemplates: {
         description: "the person who gained VALUE feet in elevation",
         diffGreaterDescription: "VALUE more feet",
@@ -739,6 +745,7 @@ export const allCategories = [
   {
     HOURS: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      display: "VALUE hours",
       descriptionTemplates: {
         description: "the person who finished in VALUE hours",
         diffGreaterDescription: "VALUE more hours",
@@ -748,6 +755,7 @@ export const allCategories = [
     },
     PIECES: {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+      display: "VALUE pieces",
       descriptionTemplates: {
         description: "the person who did the VALUE piece puzzle",
         diffGreaterDescription: "VALUE more pieces",
@@ -793,6 +801,7 @@ export const allCategories = [
   {
     TREES: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      display: "VALUE trees",
       descriptionTemplates: {
         description: "the house with VALUE trees",
         diffGreaterDescription: "VALUE more trees",
@@ -833,6 +842,7 @@ export const allCategories = [
   {
     TIME: {
       values: [1, 2, 3, 4, 5],
+      display: "VALUE o'clock",
       descriptionTemplates: {
         description: "the person who snacks at VALUE o'clock",
         diffGreaterDescription: "VALUE hours later",
@@ -842,6 +852,7 @@ export const allCategories = [
     },
     DURATION: {
       values: [10, 15, 20, 25, 30],
+      display: "VALUE minutes",
       descriptionTemplates: {
         description: "the person who takes VALUE minutes",
         diffGreaterDescription: "VALUE minutes more",
@@ -877,6 +888,7 @@ export const allCategories = [
   {
     COST: {
       values: [100, 150, 200, 250, 300, 350, 400, 450, 500],
+      display: "$VALUE",
       descriptionTemplates: {
         description: "the jewelry that cost VALUE dollars",
         diffGreaterDescription: "VALUE dollars more",
@@ -886,6 +898,7 @@ export const allCategories = [
     },
     NUMBER: {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+      display: "VALUE stones",
       descriptionTemplates: {
         description: "the jewelry with VALUE stones",
         diffGreaterDescription: "VALUE more stones",
@@ -929,6 +942,7 @@ export const allCategories = [
     },
     DURATION: {
       values: [10, 20, 30, 40, 50, 60],
+      display: "VALUE minutes",
       descriptionTemplates: {
         description: "the person who does their activity for VALUE minutes",
         diffGreaterDescription: "VALUE minutes more",
@@ -974,6 +988,7 @@ export const allCategories = [
     },
     AGE: {
       values: [1, 2, 3, 4, 5],
+      display: "VALUE years",
       descriptionTemplates: {
         description: "the VALUE year old dog",
         diffGreaterDescription: "VALUE years older",
@@ -1008,6 +1023,7 @@ export const allCategories = [
     },
     COST: {
       values: [7, 8, 9, 10, 11, 12, 13],
+      display: "$VALUE",
       descriptionTemplates: {
         description: "the sandwich that cost $VALUE",
         diffGreaterDescription: "VALUE dollars more",
@@ -1037,6 +1053,7 @@ export const allCategories = [
     },
     COST: {
       values: [5, 10, 15, 20, 25, 30],
+      display: "VALUE pieces",
       descriptionTemplates: {
         description: "the person who got VALUE pieces of candy",
         diffGreaterDescription: "VALUE more pieces",
