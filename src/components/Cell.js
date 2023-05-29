@@ -39,8 +39,9 @@ export default function Cell({
     }, 500);
   }
 
-  function handleTouchEnd() {
+  function handleTouchEnd(event) {
     console.log("touch end");
+    event.preventDefault();
     if (timerID.current) {
       clearTimeout(timerID.current);
     }
