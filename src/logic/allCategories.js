@@ -495,6 +495,34 @@ const farmAnimals = [
   "chicken",
   "goat",
 ];
+const petAnimals = [
+  "dog",
+  "cat",
+  "fish",
+  "snake",
+  "lizard",
+  "turtle",
+  "parrot",
+  "mouse",
+  "rat",
+  "toad",
+];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+const weekdaysAndWeekends = [...weekdays, "Saturday", " Sunday"];
 
 export const allCategories = [
   {
@@ -889,6 +917,45 @@ export const allCategories = [
       ],
       descriptionTemplates: {
         description: "the VALUE",
+      },
+    },
+  },
+  {
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: "VALUE",
+      },
+    },
+    DURATION: {
+      values: [10, 15, 20, 25, 30],
+      descriptionTemplates: {
+        description: "the person who does their activity for VALUE minutes",
+        diffGreaterDescription: "VALUE minutes more",
+        diffLesserDescription: "VALUE minutes less",
+        verb: "does",
+      },
+    },
+    ACTIVITY: {
+      values: [
+        "bakes",
+        "runs",
+        "hikes",
+        "swims",
+        "crafts",
+        "writes",
+        "reads",
+        "draws",
+        "bikes",
+      ],
+      descriptionTemplates: {
+        description: "the person who VALUE",
+      },
+    },
+    SEASON: {
+      values: weekdaysAndWeekends,
+      descriptionTemplates: {
+        description: "the person who does their activity on VALUE",
       },
     },
   },
