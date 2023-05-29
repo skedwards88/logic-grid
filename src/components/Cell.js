@@ -71,9 +71,9 @@ export default function Cell({
       // ios13 doesn't respect context menu event, so need to monitor long touch instead
       // Also iso seems to fire the click event a second time at the end of a long touch,
       //   so not using onClick
-      onTouchStart={handleTouchStart}
+      onPointerDown={handleTouchStart}
       // onMouseDown={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      onPointerUp={handleTouchEnd}
       // onMouseUp={handleTouchEnd}
       // onContextMenu={(event) => {
       //   event.preventDefault();
