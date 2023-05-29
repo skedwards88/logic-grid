@@ -72,12 +72,10 @@ export default function Cell({
       // Also iso seems to fire the click event a second time at the end of a long touch,
       //   so not using onClick
       onPointerDown={handleTouchStart}
-      // onMouseDown={handleTouchStart}
       onPointerUp={handleTouchEnd}
-      // onMouseUp={handleTouchEnd}
-      // onContextMenu={(event) => {
-      //   event.preventDefault();
-      // }}
+      onContextMenu={(event) => {
+        event.preventDefault();
+      }}
     ></div>
   );
 }
