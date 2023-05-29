@@ -928,7 +928,7 @@ export const allCategories = [
       },
     },
     DURATION: {
-      values: [10, 15, 20, 25, 30],
+      values: [10, 20, 30, 40, 50, 60],
       descriptionTemplates: {
         description: "the person who does their activity for VALUE minutes",
         diffGreaterDescription: "VALUE minutes more",
@@ -956,6 +956,34 @@ export const allCategories = [
       values: weekdaysAndWeekends,
       descriptionTemplates: {
         description: "the person who does their activity on VALUE",
+      },
+    },
+  },
+  {
+    NAME: {
+      values: petNames,
+      descriptionTemplates: {
+        description: "VALUE",
+      },
+    },
+    BREED: {
+      values: ["collie","labrador","poodle","beagle","terrier","spaniel","corgi","boxer","bulldog","husky","whippet","maltese"],
+      descriptionTemplates: {
+        description: "the VALUE",
+      },
+    },
+    AGE: {
+      values: [1, 2, 3, 4, 5],
+      descriptionTemplates: {
+        description: "the VALUE year old dog",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
+      },
+    },
+    COLOR: {
+      values: colors,
+      descriptionTemplates: {
+        description: "the dog with the VALUE leash",
       },
     },
   },
