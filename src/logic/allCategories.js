@@ -1016,6 +1016,35 @@ export const allCategories = [
       },
     },
   },
+  {
+    COSTUME: {
+      values: ["ghost","vampire","witch","zombie","monster","troll","mummy","ghoul"],
+      descriptionTemplates: {
+        description: "the person who dressed as a VALUE",
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: "VALUE",
+      },
+    },
+    CANDY: {
+      values: ["snickers","twix","skittles","m&ms","smarties","resses","kit kat","nerds","starbursts","twizzlers"],
+      descriptionTemplates: {
+        description: "the person who favors VALUE",
+      },
+    },
+    COST: {
+      values: [5, 10, 15, 20, 25, 30],
+      descriptionTemplates: {
+        description: "the person who got VALUE pieces of candy",
+        diffGreaterDescription: "VALUE more pieces",
+        diffLesserDescription: "VALUE fewer pieces",
+        verb: "got",
+      },
+    },
+  },
   // {
   //   NUMBER_WON: {
   //     values: [1,2,3,4,5],
