@@ -987,6 +987,35 @@ export const allCategories = [
       },
     },
   },
+  {
+    BREAD: {
+      values: ["french","sourdough","marble","rye","white","wheat","focaccia","multigrain","pita","ciabatta"],
+      descriptionTemplates: {
+        description: "the sandwich on VALUE bread",
+      },
+    },
+    FILLING: {
+      values: ["eggplant","tofu","mushroom","turkey","ham","pork","beef","bologna","egg","cheese"],
+      descriptionTemplates: {
+        description: "the VALUE sandwich",
+      },
+    },
+    CONDIMENT: {
+      values: ["mayo","hot sauce","soy sauce","vinegar","mustard","bbq sauce","ketchup","relish","salt","pepper"],
+      descriptionTemplates: {
+        description: "the sandwich flavored with VALUE",
+      },
+    },
+    COST: {
+      values: [7, 8, 9, 10, 11, 12, 13],
+      descriptionTemplates: {
+        description: "the sandwich that cost $VALUE",
+        diffGreaterDescription: "VALUE dollars more",
+        diffLesserDescription: "VALUE dollars less",
+        verb: "costs",
+      },
+    },
+  },
   // {
   //   NUMBER_WON: {
   //     values: [1,2,3,4,5],
