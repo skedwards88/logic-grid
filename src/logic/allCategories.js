@@ -1093,7 +1093,7 @@ export const allCategories = [
     },
   },
   {
-    GIFT: {
+    TOPIC: {
       values: ["disease","wealth","war","famine","equality","tarde","religion","science"],
       descriptionTemplates: {
         description: "the historian who studies VALUE",
@@ -1119,6 +1119,35 @@ export const allCategories = [
         diffGreaterDescription: "VALUE centuries later",
         diffLesserDescription: "VALUE centuries earlier",
         verb: "studies the period",
+      },
+    },
+  },
+  {
+    SPECIES: {
+      values: ["fir","oak","willow","pine","maple","birch","spruce","cedar","ash","beech","poplar","elm","cypress","cherry","walnut","sycamore","olive","dogwood","palm","ginkgo"],
+      descriptionTemplates: {
+        description: "the VALUE tree",
+      },
+    },
+    TRAIT: {
+      values: ["height","width","canopy","history","branches"],
+      descriptionTemplates: {
+        description: "the tree that is know for its VALUE",
+      },
+    },
+    STATE: {
+      values: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
+      descriptionTemplates: {
+        description: "the tree in VALUE",
+      },
+    },
+    AGE: {
+      values: [10,20,50,100,150,200],
+      display: "VALUE years",
+      descriptionTemplates: {
+        description: "the VALUE year old tree",
+        diffGreaterDescription: "VALUE years older",
+        diffLesserDescription: "VALUE years younger",
       },
     },
   },
