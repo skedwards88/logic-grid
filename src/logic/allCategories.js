@@ -1075,13 +1075,13 @@ export const allCategories = [
         description: "VALUE",
       },
     },
-    CANDY: {
+    PAPER: {
       values: ["candy","reindeer","Rudolph","Santa","sled","snow","elf"],
       descriptionTemplates: {
         description: "the person whose gifts were wrapped in VALUE wrapping paper",
       },
     },
-    COST: {
+    NUMBER: {
       values: [1,2,3,4,5],
       display: "VALUE gifts",
       descriptionTemplates: {
@@ -1089,6 +1089,36 @@ export const allCategories = [
         diffGreaterDescription: "VALUE more gifts",
         diffLesserDescription: "VALUE fewer gifts",
         verb: "received",
+      },
+    },
+  },
+  {
+    GIFT: {
+      values: ["disease","wealth","war","famine","equality","tarde","religion","science"],
+      descriptionTemplates: {
+        description: "the historian who studies VALUE",
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: "VALUE",
+      },
+    },
+    UNIVERSITY: {
+      values: ["Stanford","Harvard","UCLA","Berkeley","Oxford","MIT","UCSD"],
+      descriptionTemplates: {
+        description: "the historian who studies at VALUE",
+      },
+    },
+    CENTURY: {
+      values: [14,15,16,17,18,19,20],
+      display: "VALUE",
+      descriptionTemplates: {
+        description: "the historian who studies the VALUEth century",
+        diffGreaterDescription: "VALUE centuries later",
+        diffLesserDescription: "VALUE centuries earlier",
+        verb: "studies the period",
       },
     },
   },
