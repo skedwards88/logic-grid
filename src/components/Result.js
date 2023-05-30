@@ -25,7 +25,7 @@ export default function Result({
     const autofilledMatrix = autocomplete(matrix);
     // Check if all clues are satisfied
     const autofilledValid = clues.every((clue) =>
-      validQ({clue, autofilledMatrix, strict: true}),
+      validQ({clue, matrix:autofilledMatrix, strict: true}),
     );
     matrixAutofillable = autofilledValid;
   } catch (error) {
