@@ -18,16 +18,19 @@ export function chooseCategories(numCats, numItemsPerCat) {
     const selectedValues = possibleValues.slice(0, numItemsPerCat);
     // sort the values to make more user friendly
     // note: the numeric clues also assume that the numeric labels are sorted
-    typeof (selectedValues[0] === "number")
+    typeof selectedValues[0] === "number"
       ? selectedValues.sort((a, b) => a - b)
       : selectedValues.sort();
     const categoryInfo = {
       labels: selectedValues,
-      displayLabels: categorySet[categoryName].display ? selectedValues.map(value => categorySet[categoryName].display.replace("VALUE", value)) : selectedValues,
+      displayLabels: categorySet[categoryName].display
+        ? selectedValues.map((value) =>
+            categorySet[categoryName].display.replace("VALUE", value),
+          )
+        : selectedValues,
       descriptionTemplates: categorySet[categoryName].descriptionTemplates,
     };
     categoryLabelsAndTemplates = [...categoryLabelsAndTemplates, categoryInfo];
   }
-
   return categoryLabelsAndTemplates;
 }
