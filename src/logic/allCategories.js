@@ -1062,6 +1062,36 @@ export const allCategories = [
       },
     },
   },
+  {
+    GIFT: {
+      values: ["puppy","pony","kitty","kite","plane","train","book","toolbox", "bike","scooter","computer","phone"],
+      descriptionTemplates: {
+        description: "the person who asked Santa for a VALUE",
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: "VALUE",
+      },
+    },
+    CANDY: {
+      values: ["candy","reindeer","Rudolph","Santa","sled","snow","elf"],
+      descriptionTemplates: {
+        description: "the person whose gifts were wrapped in VALUE wrapping paper",
+      },
+    },
+    COST: {
+      values: [1,2,3,4,5],
+      display: "VALUE gifts",
+      descriptionTemplates: {
+        description: "the person who received VALUE gifts",
+        diffGreaterDescription: "VALUE more gifts",
+        diffLesserDescription: "VALUE fewer gifts",
+        verb: "received",
+      },
+    },
+  },
   // {
   //   NUMBER_WON: {
   //     values: [1,2,3,4,5],
