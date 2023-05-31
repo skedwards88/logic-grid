@@ -913,7 +913,18 @@ export const allCategories = [
       },
     },
     STONE: {
-      values: ["ruby", "emerald", "sapphire", "agate"], //todo more
+      values: [
+        "ruby",
+        "emerald",
+        "sapphire",
+        "agate",
+        "diamond",
+        "opal",
+        "pearl",
+        "topaz",
+        "garnet",
+        "jade",
+      ],
       descriptionTemplates: {
         description: "the jewelry with the VALUE",
       },
@@ -924,8 +935,8 @@ export const allCategories = [
         "brooch",
         "bracelet",
         "ring",
-        "earings",
-        "cufflinks",
+        "earing",
+        "cufflink",
         "pendant",
       ],
       descriptionTemplates: {
@@ -981,7 +992,20 @@ export const allCategories = [
       },
     },
     BREED: {
-      values: ["collie","labrador","poodle","beagle","terrier","spaniel","corgi","boxer","bulldog","husky","whippet","maltese"],
+      values: [
+        "collie",
+        "labrador",
+        "poodle",
+        "beagle",
+        "terrier",
+        "spaniel",
+        "corgi",
+        "boxer",
+        "bulldog",
+        "husky",
+        "whippet",
+        "maltese",
+      ],
       descriptionTemplates: {
         description: "the VALUE",
       },
@@ -1004,19 +1028,52 @@ export const allCategories = [
   },
   {
     BREAD: {
-      values: ["french","sourdough","marble","rye","white","wheat","focaccia","multigrain","pita","ciabatta"],
+      values: [
+        "french",
+        "sourdough",
+        "marble",
+        "rye",
+        "white",
+        "wheat",
+        "focaccia",
+        "multigrain",
+        "pita",
+        "ciabatta",
+      ],
       descriptionTemplates: {
         description: "the sandwich on VALUE bread",
       },
     },
     FILLING: {
-      values: ["eggplant","tofu","mushroom","turkey","ham","pork","beef","bologna","egg","cheese"],
+      values: [
+        "eggplant",
+        "tofu",
+        "mushroom",
+        "turkey",
+        "ham",
+        "pork",
+        "beef",
+        "bologna",
+        "egg",
+        "cheese",
+      ],
       descriptionTemplates: {
         description: "the VALUE sandwich",
       },
     },
     CONDIMENT: {
-      values: ["mayo","hot sauce","soy sauce","vinegar","mustard","bbq sauce","ketchup","relish","salt","pepper"],
+      values: [
+        "mayo",
+        "hot sauce",
+        "soy sauce",
+        "vinegar",
+        "mustard",
+        "bbq sauce",
+        "ketchup",
+        "relish",
+        "salt",
+        "pepper",
+      ],
       descriptionTemplates: {
         description: "the sandwich flavored with VALUE",
       },
@@ -1034,7 +1091,16 @@ export const allCategories = [
   },
   {
     COSTUME: {
-      values: ["ghost","vampire","witch","zombie","monster","troll","mummy","ghoul"],
+      values: [
+        "ghost",
+        "vampire",
+        "witch",
+        "zombie",
+        "monster",
+        "troll",
+        "mummy",
+        "ghoul",
+      ],
       descriptionTemplates: {
         description: "the person who dressed as a VALUE",
       },
@@ -1046,7 +1112,18 @@ export const allCategories = [
       },
     },
     CANDY: {
-      values: ["snickers","twix","skittles","m&ms","smarties","resses","kit kat","nerds","starbursts","twizzlers"],
+      values: [
+        "snickers",
+        "twix",
+        "skittles",
+        "m&ms",
+        "smarties",
+        "resses",
+        "kit kat",
+        "nerds",
+        "starbursts",
+        "twizzlers",
+      ],
       descriptionTemplates: {
         description: "the person who favors VALUE",
       },
@@ -1064,7 +1141,20 @@ export const allCategories = [
   },
   {
     GIFT: {
-      values: ["puppy","pony","kitty","kite","plane","train","book","toolbox", "bike","scooter","computer","phone"],
+      values: [
+        "puppy",
+        "pony",
+        "kitty",
+        "kite",
+        "plane",
+        "train",
+        "book",
+        "toolbox",
+        "bike",
+        "scooter",
+        "computer",
+        "phone",
+      ],
       descriptionTemplates: {
         description: "the person who asked Santa for a VALUE",
       },
@@ -1076,13 +1166,14 @@ export const allCategories = [
       },
     },
     PAPER: {
-      values: ["candy","reindeer","Rudolph","Santa","sled","snow","elf"],
+      values: ["candy", "reindeer", "Rudolph", "Santa", "sled", "snow", "elf"],
       descriptionTemplates: {
-        description: "the person whose gifts were wrapped in VALUE wrapping paper",
+        description:
+          "the person whose gifts were wrapped in VALUE wrapping paper",
       },
     },
     NUMBER: {
-      values: [1,2,3,4,5],
+      values: [1, 2, 3, 4, 5],
       display: "VALUE gifts",
       descriptionTemplates: {
         description: "the person who received VALUE gifts",
@@ -1094,7 +1185,16 @@ export const allCategories = [
   },
   {
     TOPIC: {
-      values: ["disease","wealth","war","famine","equality","tarde","religion","science"],
+      values: [
+        "disease",
+        "wealth",
+        "war",
+        "famine",
+        "equality",
+        "trade",
+        "religion",
+        "science",
+      ],
       descriptionTemplates: {
         description: "the historian who studies VALUE",
       },
@@ -1106,13 +1206,21 @@ export const allCategories = [
       },
     },
     UNIVERSITY: {
-      values: ["Stanford","Harvard","UCLA","Berkeley","Oxford","MIT","UCSD"],
+      values: [
+        "Stanford",
+        "Harvard",
+        "UCLA",
+        "Berkeley",
+        "Oxford",
+        "MIT",
+        "UCSD",
+      ],
       descriptionTemplates: {
         description: "the historian who studies at VALUE",
       },
     },
     CENTURY: {
-      values: [14,15,16,17,18,19,20],
+      values: [14, 15, 16, 17, 18, 19, 20],
       display: "VALUE",
       descriptionTemplates: {
         description: "the historian who studies the VALUEth century",
@@ -1124,25 +1232,97 @@ export const allCategories = [
   },
   {
     SPECIES: {
-      values: ["fir","oak","willow","pine","maple","birch","spruce","cedar","ash","beech","poplar","elm","cypress","cherry","walnut","sycamore","olive","dogwood","palm","ginkgo"],
+      values: [
+        "fir",
+        "oak",
+        "willow",
+        "pine",
+        "maple",
+        "birch",
+        "spruce",
+        "cedar",
+        "ash",
+        "beech",
+        "poplar",
+        "elm",
+        "cypress",
+        "cherry",
+        "walnut",
+        "sycamore",
+        "olive",
+        "dogwood",
+        "palm",
+        "ginkgo",
+      ],
       descriptionTemplates: {
         description: "the VALUE tree",
       },
     },
     TRAIT: {
-      values: ["height","width","canopy","history","branches"],
+      values: ["height", "width", "canopy", "history", "branches"],
       descriptionTemplates: {
-        description: "the tree that is know for its VALUE",
+        description: "the tree that is known for its VALUE",
       },
     },
     STATE: {
-      values: ["Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"],
+      values: [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming",
+      ],
       descriptionTemplates: {
         description: "the tree in VALUE",
       },
     },
     AGE: {
-      values: [10,20,50,100,150,200],
+      values: [10, 20, 50, 100, 150, 200],
       display: "VALUE years",
       descriptionTemplates: {
         description: "the VALUE year old tree",
@@ -1151,27 +1331,4 @@ export const allCategories = [
       },
     },
   },
-  // {
-  //   NUMBER_WON: {
-  //     values: [1,2,3,4,5],
-  //     descriptionTemplates: {
-  //       description: "the person who won VALUE games",
-  //       diffGreaterDescription: "VALUE more games",
-  //       diffLesserDescription: "VALUE more games",
-  //       verb: "won",
-  //     },
-  //   },
-  //   NAME: {
-  //     values: firstNames,
-  //     descriptionTemplates: {
-  //       description: "VALUE",
-  //     },
-  //   },
-  //   GAME: {
-  //     values: ["Plague","Hanabi","Dixit","Boggle","Botanik","Kokoro","Cards"],
-  //     descriptionTemplates: {
-  //       description: "the person who likes VALUE",
-  //     },
-  //   },
-  // },
 ];
