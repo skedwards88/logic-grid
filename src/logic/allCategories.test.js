@@ -64,13 +64,12 @@ describe("allCategories: tests per scenario", () => {
       
       test(`Scenario ${index} with keys ${Object.keys(
         scenario,
-      )} for key ${category} has VALUE in every description`, () => {
-        for (const template in scenario[category].descriptionTemplates) {
-          if (template === "verb") continue;
-          expect(scenario[category].descriptionTemplates[template]).toContain(
-            "VALUE",
-          );
+      )} for key ${category} has the expected description templates`, () => {
+        if (typeof(scenario[category].values[0]) === 'number') {
+          expect(scenario[category].descriptionTemplates).toHaveProperty("diffLesserDescription")
+          expect(scenario[category].descriptionTemplates).toHaveProperty("diffGreaterDescription")
         }
+        expect(scenario[category].descriptionTemplates).toHaveProperty("description")
       });
     }
   });
