@@ -1,8 +1,5 @@
 import {allCategories} from "./allCategories";
 
-// todo test that:
-// all categories have at least 1 numeric label set (?)
-// more/less text errors
 // numeric categories have greater/less desc
 
 function arrayValuesAreUniqueQ(array) {
@@ -48,6 +45,23 @@ describe("allCategories: tests per scenario", () => {
         expect(arrayValuesAreUniqueQ(scenario[category].values)).toBe(true);
       });
 
+      test(`Scenario ${index} with keys ${Object.keys(
+        scenario,
+      )} for key ${category} has at least 5 values`, () => {
+        expect(scenario[category].values.length).toBeGreaterThanOrEqual(5);
+      });
+
+      test(`Scenario ${index} with keys ${Object.keys(
+        scenario,
+      )} for key ${category} has VALUE in every description`, () => {
+        for (const template in scenario[category].descriptionTemplates) {
+          if (template === "verb") continue;
+          expect(scenario[category].descriptionTemplates[template]).toContain(
+            "VALUE",
+          );
+        }
+      });
+      
       test(`Scenario ${index} with keys ${Object.keys(
         scenario,
       )} for key ${category} has VALUE in every description`, () => {
@@ -773,8 +787,8 @@ describe("allCategories example text", () => {
         "the historian who studies the 14th century is Aaron or Abby.",
         "the historian who studies the 14th century is not the historian who studies at Stanford.",
         "the historian who studies the 14th century is the historian who studies at Stanford or the historian who studies at Harvard.",
-        "the fir tree is not the tree that is know for its height.",
-        "the fir tree is the tree that is know for its height or the tree that is know for its width.",
+        "the fir tree is not the tree that is known for its height.",
+        "the fir tree is the tree that is known for its height or the tree that is known for its width.",
         "the fir tree is not the tree in Alabama.",
         "the fir tree is the tree in Alabama or the tree in Alaska.",
         "the fir tree is not the 10 year old tree.",
@@ -782,19 +796,19 @@ describe("allCategories example text", () => {
         "the fir tree is at least 10 years older than the 10 year old tree.",
         "the fir tree is at least 10 years younger than the 10 year old tree.",
         "the fir tree is some years older than the 10 year old tree.",
-        "the tree that is know for its height is not the fir tree.",
-        "the tree that is know for its height is the fir tree or the oak tree.",
-        "the tree that is know for its height is not the tree in Alabama.",
-        "the tree that is know for its height is the tree in Alabama or the tree in Alaska.",
-        "the tree that is know for its height is not the 10 year old tree.",
-        "the tree that is know for its height is the 10 year old tree or the 20 year old tree.",
-        "the tree that is know for its height is at least 10 years older than the 10 year old tree.",
-        "the tree that is know for its height is at least 10 years younger than the 10 year old tree.",
-        "the tree that is know for its height is some years older than the 10 year old tree.",
+        "the tree that is known for its height is not the fir tree.",
+        "the tree that is known for its height is the fir tree or the oak tree.",
+        "the tree that is known for its height is not the tree in Alabama.",
+        "the tree that is known for its height is the tree in Alabama or the tree in Alaska.",
+        "the tree that is known for its height is not the 10 year old tree.",
+        "the tree that is known for its height is the 10 year old tree or the 20 year old tree.",
+        "the tree that is known for its height is at least 10 years older than the 10 year old tree.",
+        "the tree that is known for its height is at least 10 years younger than the 10 year old tree.",
+        "the tree that is known for its height is some years older than the 10 year old tree.",
         "the tree in Alabama is not the fir tree.",
         "the tree in Alabama is the fir tree or the oak tree.",
-        "the tree in Alabama is not the tree that is know for its height.",
-        "the tree in Alabama is the tree that is know for its height or the tree that is know for its width.",
+        "the tree in Alabama is not the tree that is known for its height.",
+        "the tree in Alabama is the tree that is known for its height or the tree that is known for its width.",
         "the tree in Alabama is not the 10 year old tree.",
         "the tree in Alabama is the 10 year old tree or the 20 year old tree.",
         "the tree in Alabama is at least 10 years older than the 10 year old tree.",
@@ -802,8 +816,8 @@ describe("allCategories example text", () => {
         "the tree in Alabama is some years older than the 10 year old tree.",
         "the 10 year old tree is not the fir tree.",
         "the 10 year old tree is the fir tree or the oak tree.",
-        "the 10 year old tree is not the tree that is know for its height.",
-        "the 10 year old tree is the tree that is know for its height or the tree that is know for its width.",
+        "the 10 year old tree is not the tree that is known for its height.",
+        "the 10 year old tree is the tree that is known for its height or the tree that is known for its width.",
         "the 10 year old tree is not the tree in Alabama.",
         "the 10 year old tree is the tree in Alabama or the tree in Alaska.",
       ]
