@@ -81,7 +81,6 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         matrix={derivedMatrix}
         showViolations={gameState.showViolations}
       ></Clues>
-      <div>{gameState.tempFrom.join(", ")}</div>
     </div>
   );
 }

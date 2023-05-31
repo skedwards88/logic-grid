@@ -30,7 +30,6 @@ export function gameReducer(currentGameState, payload) {
 
     return {
       ...currentGameState,
-      tempFrom: [...currentGameState.tempFrom, payload.tempFrom],
       derivedMatrixHistory: [
         ...currentGameState.derivedMatrixHistory,
         newDerivedMatrix,
@@ -74,7 +73,6 @@ export function gameReducer(currentGameState, payload) {
 
     return {
       ...currentGameState,
-      tempFrom: [...currentGameState.tempFrom, payload.tempFrom],
       derivedMatrixHistory: [
         ...currentGameState.derivedMatrixHistory,
         newDerivedMatrix,

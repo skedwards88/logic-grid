@@ -33,7 +33,6 @@ export default function Cell({
           gridID: gridID,
           rowIndex: rowIndex,
           columnIndex: columnIndex,
-          tempFrom: `long touch ${timerID.current}`,
         });
       }
     }, 500);
@@ -62,7 +61,6 @@ export default function Cell({
       gridID: gridID,
       rowIndex: rowIndex,
       columnIndex: columnIndex,
-      tempFrom: `click ${timerID.current}`,
     });
   }
 

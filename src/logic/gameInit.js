@@ -13,7 +13,6 @@ export function gameInit({
 
   if (
     savedState &&
-    savedState.tempFrom &&
     savedState.clues &&
     savedState.derivedMatrixHistory &&
     savedState.numCategories &&
@@ -46,6 +45,5 @@ export function gameInit({
     matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
     showViolations: showViolations,
-    tempFrom: [],
   };
 }
