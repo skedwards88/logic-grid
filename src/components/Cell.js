@@ -14,17 +14,14 @@ export default function Cell({
   } else if (value === false) {
     className += " false";
   }
-  console.log("RENDER");
 
   const timerID = React.useRef();
   const pressIsLong = React.useRef();
 
   function handleTouchStart() {
-    console.log("touch start");
     // When the press initiates, it isn't long (yet)
     pressIsLong.current = false;
     timerID.current = setTimeout(() => {
-      console.log("long press");
       // If the press exceeds the timeout, it is long
       pressIsLong.current = true;
       if (easyTrue) {
@@ -39,22 +36,16 @@ export default function Cell({
   }
 
   function handleTouchEnd(event) {
-    console.log("touch end");
     event.preventDefault();
+
     if (timerID.current) {
       clearTimeout(timerID.current);
     }
-    handleClick()
-  }
 
-  function handleClick() {
-    console.log("click");
     if (pressIsLong.current) {
       // If the press/click was treated as a long press, don't do anything
-      console.log("Not clicking--already long press");
       return;
     }
-    clearTimeout(timerID.current);
 
     dispatchGameState({
       action: "changeCellState",
