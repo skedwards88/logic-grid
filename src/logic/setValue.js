@@ -259,7 +259,7 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
     return derivedMatrix;
   }
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix)); //todo make better deep copy method
+  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
 
   newDerivedMatrix[solutionKey].grid[rowIndex][colIndex] = false;
 

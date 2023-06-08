@@ -17,8 +17,7 @@ export function getUsefulClue(
   let clue;
   let newDerivedMatrix;
 
-  let clueFunctions = [getNotClue, getOrClue]; // todo add more clues to here as build
-
+  let clueFunctions = [getNotClue, getOrClue];
   if (includeCrossCategoryClues) {
     clueFunctions = [...clueFunctions, getOrCrossCategoryClue];
   }
@@ -40,12 +39,7 @@ export function getUsefulClue(
       derivedMatrix,
       clue.clueParameters,
     );
-    // todo write cleaner comparison method
-    // could also check this at the time the clue was applied--more efficient but maybe less readable
     foundUsefulClue = !matrixesEqualQ(newDerivedMatrix, derivedMatrix);
-
-    // If this put the next to last false in a row/col, the last null is true
-    // If this put a true in a space, all other items in that row/col are false
   }
 
   return {

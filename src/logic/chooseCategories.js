@@ -17,7 +17,7 @@ export function chooseCategories(numCats, numItemsPerCat) {
     const possibleValues = shuffleArray(categorySet[categoryName].values);
     const selectedValues = possibleValues.slice(0, numItemsPerCat);
     // sort the values to make more user friendly
-    // note: the numeric clues also assume that the numeric labels are sorted
+    // note: the numeric clues assume that the numeric labels are sorted
     typeof selectedValues[0] === "number"
       ? selectedValues.sort((a, b) => a - b)
       : selectedValues.sort();

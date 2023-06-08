@@ -4,8 +4,6 @@ export function applyNumericComparisonCrossCategoryLogic(
   derivedMatrix,
   {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
-  // todo this relies on labels being sorted by size
-
   let newDerivedMatrix = derivedMatrix;
 
   // Know that greaterItem is not lesserItem
