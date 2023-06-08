@@ -4,6 +4,8 @@ import {shuffleArray} from "../helpers/shuffleArray.js";
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
 export function getNumericComparisonClue(solutionMatrix) {
+  // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
+
   // choose a grid in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
   // todo if everything is known about that grid, return undefined?
@@ -26,7 +28,7 @@ export function getNumericComparisonClue(solutionMatrix) {
   // figure out the numeric labels
   const numericLabels = numericIsRows
     ? solutionMatrix[selectedKey].rowLabels
-    : solutionMatrix[selectedKey].colLabels; // todo make sure can rely on these being sorted
+    : solutionMatrix[selectedKey].colLabels;
 
   // choose two random items in the other label set
   const otherLabels = numericIsRows

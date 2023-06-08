@@ -6,6 +6,8 @@ import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
 export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
+  // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
+
   // find two grids in the solution matrix that uses a numeric category
   // todo if there are none, error? or return undefined? can we rely on there always being one?
   // todo if everything is known about that grid, return undefined?
@@ -42,8 +44,6 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       }
     }
   }
-
-  // todo make sure can rely on the numeric labels being sorted
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value

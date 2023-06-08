@@ -1,6 +1,4 @@
-import {generateSolution} from "./generateSolution.js";
-
-export function generateSolutionMatrix(categoryLabelsAndTemplates) {
+export function generateSolutionMatrix(solution, categoryLabelsAndTemplates) {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
   const matrixColumnInfo = categoryLabelsAndTemplates.slice(
@@ -13,10 +11,6 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
       .slice(2, categoryLabelsAndTemplates.length)
       .reverse(),
   ];
-
-  let solution = generateSolution(
-    categoryLabelsAndTemplates.map((i) => i.labels),
-  );
 
   let solutionMatrix = {};
 
