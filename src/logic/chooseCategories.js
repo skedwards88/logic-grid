@@ -18,19 +18,56 @@ export function chooseCategories(numCats, numItemsPerCat) {
     const selectedValues = possibleValues.slice(0, numItemsPerCat);
     // sort the values to make more user friendly
     // note: the numeric clues assume that the numeric labels are sorted
-    typeof selectedValues[0] === "number"
-      ? selectedValues.sort((a, b) => a - b)
-      : selectedValues.sort();
+    const sortedValues = sortLabels(selectedValues);
     const categoryInfo = {
-      labels: selectedValues,
+      labels: sortedValues,
       displayLabels: categorySet[categoryName].display
-        ? selectedValues.map((value) =>
-            categorySet[categoryName].display.replace("VALUE", value),
-          )
-        : selectedValues,
+        ? sortedValues.map((value) => categorySet[categoryName].display(value))
+        : sortedValues,
       descriptionTemplates: categorySet[categoryName].descriptionTemplates,
     };
     categoryLabelsAndTemplates = [...categoryLabelsAndTemplates, categoryInfo];
   }
   return categoryLabelsAndTemplates;
+}
+
+function sortLabels(labels) {
+  labels = [...labels];
+
+  const dayOrder = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  const monthOrder = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  if (typeof labels[0] === "number") {
+    return labels.sort((a, b) => a - b);
+  }
+  if (dayOrder.includes(labels[0])) {
+    return labels.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
+  }
+  if (monthOrder.includes(labels[0])) {
+    return labels.sort((a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
+  } else {
+    return labels.sort();
+  }
 }
