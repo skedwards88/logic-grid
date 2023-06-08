@@ -20,7 +20,8 @@ export function gameInit({
     savedState.matrixRowLabels &&
     savedState.matrixColumnLabels &&
     savedState.easyTrue != undefined &&
-    savedState.showViolations != undefined
+    savedState.showViolations != undefined &&
+    savedState.solution
   ) {
     return savedState;
   }
@@ -30,7 +31,7 @@ export function gameInit({
   // Make sure numItemsPerCategory is 3-5
   numItemsPerCategory = Math.min(5, Math.max(3, numItemsPerCategory));
 
-  let {clues, derivedMatrix, matrixRowLabels, matrixColumnLabels} =
+  let {clues, derivedMatrix, matrixRowLabels, matrixColumnLabels, solution} =
     generatePuzzle(numCategories, numItemsPerCategory);
 
   // Every clue is not crossed off to start
@@ -45,5 +46,6 @@ export function gameInit({
     matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
     showViolations: showViolations,
+    solution: solution,
   };
 }
