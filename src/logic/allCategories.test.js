@@ -53,23 +53,29 @@ describe("allCategories: tests per scenario", () => {
 
       test(`Scenario ${index} with keys ${Object.keys(
         scenario,
-      )} for key ${category} has VALUE in every description`, () => {
+      )} for key ${category} uses VALUE in every description`, () => {
         for (const template in scenario[category].descriptionTemplates) {
           if (template === "verb") continue;
-          expect(scenario[category].descriptionTemplates[template]).toContain(
-            "VALUE",
-          );
+          const generatedDescription =
+            scenario[category].descriptionTemplates[template]("X_TEST_VALUE");
+          expect(generatedDescription).toContain("X_TEST_VALUE");
         }
       });
-      
+
       test(`Scenario ${index} with keys ${Object.keys(
         scenario,
       )} for key ${category} has the expected description templates`, () => {
-        if (typeof(scenario[category].values[0]) === 'number') {
-          expect(scenario[category].descriptionTemplates).toHaveProperty("diffLesserDescription")
-          expect(scenario[category].descriptionTemplates).toHaveProperty("diffGreaterDescription")
+        if (typeof scenario[category].values[0] === "number") {
+          expect(scenario[category].descriptionTemplates).toHaveProperty(
+            "diffLesserDescription",
+          );
+          expect(scenario[category].descriptionTemplates).toHaveProperty(
+            "diffGreaterDescription",
+          );
         }
-        expect(scenario[category].descriptionTemplates).toHaveProperty("description")
+        expect(scenario[category].descriptionTemplates).toHaveProperty(
+          "description",
+        );
       });
     }
   });
@@ -87,18 +93,9 @@ describe("allCategories example text", () => {
           const valueB = scenario[labelB].values[0];
           const valueB2 = scenario[labelB].values[1];
           const templatesB = scenario[labelB].descriptionTemplates;
-          const leadingDescription = templatesA.description.replace(
-            "VALUE",
-            valueA,
-          );
-          const trailingDescription = templatesB.description.replace(
-            "VALUE",
-            valueB,
-          );
-          const trailingDescription2 = templatesB.description.replace(
-            "VALUE",
-            valueB2,
-          );
+          const leadingDescription = templatesA.description(valueA);
+          const trailingDescription = templatesB.description(valueB);
+          const trailingDescription2 = templatesB.description(valueB2);
           descriptions = [
             ...descriptions,
             `${leadingDescription} is not ${trailingDescription}.`,
@@ -109,11 +106,11 @@ describe("allCategories example text", () => {
           ];
           if (typeof valueB != "number") continue;
           const numericGreaterDescription =
-            templatesB.diffGreaterDescription.replace("VALUE", valueB);
+            templatesB.diffGreaterDescription(valueB);
           const numericLesserDescription =
-            templatesB.diffLesserDescription.replace("VALUE", valueB);
+            templatesB.diffLesserDescription(valueB);
           const numericSomeDescription =
-            templatesB.diffGreaterDescription.replace("VALUE", "some");
+            templatesB.diffGreaterDescription("some");
           const numericComparisonVerb = templatesB.verb || "is";
           descriptions = [
             ...descriptions,
@@ -689,8 +686,8 @@ describe("allCategories example text", () => {
         "the sandwich that cost $7 is the sandwich flavored with mayo or the sandwich flavored with hot sauce.",
         "the person who dressed as a ghost is not Aaron.",
         "the person who dressed as a ghost is Aaron or Abby.",
-        "the person who dressed as a ghost is not the person who favors snickers.",
-        "the person who dressed as a ghost is the person who favors snickers or the person who favors twix.",
+        "the person who dressed as a ghost is not the person who favors Snickers.",
+        "the person who dressed as a ghost is the person who favors Snickers or the person who favors Twix.",
         "the person who dressed as a ghost is not the person who got 5 pieces of candy.",
         "the person who dressed as a ghost is the person who got 5 pieces of candy or the person who got 10 pieces of candy.",
         "the person who dressed as a ghost got at least 5 more pieces than the person who got 5 pieces of candy.",
@@ -698,28 +695,28 @@ describe("allCategories example text", () => {
         "the person who dressed as a ghost got some more pieces than the person who got 5 pieces of candy.",
         "Aaron is not the person who dressed as a ghost.",
         "Aaron is the person who dressed as a ghost or the person who dressed as a vampire.",
-        "Aaron is not the person who favors snickers.",
-        "Aaron is the person who favors snickers or the person who favors twix.",
+        "Aaron is not the person who favors Snickers.",
+        "Aaron is the person who favors Snickers or the person who favors Twix.",
         "Aaron is not the person who got 5 pieces of candy.",
         "Aaron is the person who got 5 pieces of candy or the person who got 10 pieces of candy.",
         "Aaron got at least 5 more pieces than the person who got 5 pieces of candy.",
         "Aaron got at least 5 fewer pieces than the person who got 5 pieces of candy.",
         "Aaron got some more pieces than the person who got 5 pieces of candy.",
-        "the person who favors snickers is not the person who dressed as a ghost.",
-        "the person who favors snickers is the person who dressed as a ghost or the person who dressed as a vampire.",
-        "the person who favors snickers is not Aaron.",
-        "the person who favors snickers is Aaron or Abby.",
-        "the person who favors snickers is not the person who got 5 pieces of candy.",
-        "the person who favors snickers is the person who got 5 pieces of candy or the person who got 10 pieces of candy.",
-        "the person who favors snickers got at least 5 more pieces than the person who got 5 pieces of candy.",
-        "the person who favors snickers got at least 5 fewer pieces than the person who got 5 pieces of candy.",
-        "the person who favors snickers got some more pieces than the person who got 5 pieces of candy.",
+        "the person who favors Snickers is not the person who dressed as a ghost.",
+        "the person who favors Snickers is the person who dressed as a ghost or the person who dressed as a vampire.",
+        "the person who favors Snickers is not Aaron.",
+        "the person who favors Snickers is Aaron or Abby.",
+        "the person who favors Snickers is not the person who got 5 pieces of candy.",
+        "the person who favors Snickers is the person who got 5 pieces of candy or the person who got 10 pieces of candy.",
+        "the person who favors Snickers got at least 5 more pieces than the person who got 5 pieces of candy.",
+        "the person who favors Snickers got at least 5 fewer pieces than the person who got 5 pieces of candy.",
+        "the person who favors Snickers got some more pieces than the person who got 5 pieces of candy.",
         "the person who got 5 pieces of candy is not the person who dressed as a ghost.",
         "the person who got 5 pieces of candy is the person who dressed as a ghost or the person who dressed as a vampire.",
         "the person who got 5 pieces of candy is not Aaron.",
         "the person who got 5 pieces of candy is Aaron or Abby.",
-        "the person who got 5 pieces of candy is not the person who favors snickers.",
-        "the person who got 5 pieces of candy is the person who favors snickers or the person who favors twix.",
+        "the person who got 5 pieces of candy is not the person who favors Snickers.",
+        "the person who got 5 pieces of candy is the person who favors Snickers or the person who favors Twix.",
         "the person who asked Santa for a puppy is not Aaron.",
         "the person who asked Santa for a puppy is Aaron or Abby.",
         "the person who asked Santa for a puppy is not the person whose gifts were wrapped in candy wrapping paper.",
@@ -819,6 +816,48 @@ describe("allCategories example text", () => {
         "the 10 year old tree is the tree that is known for its height or the tree that is known for its width.",
         "the 10 year old tree is not the tree in Alabama.",
         "the 10 year old tree is the tree in Alabama or the tree in Alaska.",
+        "the person who came in 1st is not the person wearing the red jersey.",
+        "the person who came in 1st is the person wearing the red jersey or the person wearing the orange jersey.",
+        "the person who came in 1st is not Aaron.",
+        "the person who came in 1st is Aaron or Abby.",
+        "the person who came in 1st is not the person who ran the 50 meter race.",
+        "the person who came in 1st is the person who ran the 50 meter race or the person who ran the 100 meter race.",
+        "the person who came in 1st raced at least 50 meters more than the person who ran the 50 meter race.",
+        "the person who came in 1st raced at least 50 meters less than the person who ran the 50 meter race.",
+        "the person who came in 1st raced some meters more than the person who ran the 50 meter race.",
+        "the person wearing the red jersey is not the person who came in 1st.",
+        "the person wearing the red jersey is the person who came in 1st or the person who came in 2nd.",
+        "the person wearing the red jersey placed at least 1 places worse than the person who came in 1st.",
+        "the person wearing the red jersey placed at least 1 places better than the person who came in 1st.",
+        "the person wearing the red jersey placed some places worse than the person who came in 1st.",
+        "the person wearing the red jersey is not Aaron.",
+        "the person wearing the red jersey is Aaron or Abby.",
+        "the person wearing the red jersey is not the person who ran the 50 meter race.",
+        "the person wearing the red jersey is the person who ran the 50 meter race or the person who ran the 100 meter race.",
+        "the person wearing the red jersey raced at least 50 meters more than the person who ran the 50 meter race.",
+        "the person wearing the red jersey raced at least 50 meters less than the person who ran the 50 meter race.",
+        "the person wearing the red jersey raced some meters more than the person who ran the 50 meter race.",
+        "Aaron is not the person who came in 1st.",
+        "Aaron is the person who came in 1st or the person who came in 2nd.",
+        "Aaron placed at least 1 places worse than the person who came in 1st.",
+        "Aaron placed at least 1 places better than the person who came in 1st.",
+        "Aaron placed some places worse than the person who came in 1st.",
+        "Aaron is not the person wearing the red jersey.",
+        "Aaron is the person wearing the red jersey or the person wearing the orange jersey.",
+        "Aaron is not the person who ran the 50 meter race.",
+        "Aaron is the person who ran the 50 meter race or the person who ran the 100 meter race.",
+        "Aaron raced at least 50 meters more than the person who ran the 50 meter race.",
+        "Aaron raced at least 50 meters less than the person who ran the 50 meter race.",
+        "Aaron raced some meters more than the person who ran the 50 meter race.",
+        "the person who ran the 50 meter race is not the person who came in 1st.",
+        "the person who ran the 50 meter race is the person who came in 1st or the person who came in 2nd.",
+        "the person who ran the 50 meter race placed at least 1 places worse than the person who came in 1st.",
+        "the person who ran the 50 meter race placed at least 1 places better than the person who came in 1st.",
+        "the person who ran the 50 meter race placed some places worse than the person who came in 1st.",
+        "the person who ran the 50 meter race is not the person wearing the red jersey.",
+        "the person who ran the 50 meter race is the person wearing the red jersey or the person wearing the orange jersey.",
+        "the person who ran the 50 meter race is not Aaron.",
+        "the person who ran the 50 meter race is Aaron or Abby.",
       ]
     `);
   });

@@ -19,12 +19,12 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -37,10 +37,10 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
@@ -53,12 +53,12 @@ describe("getOrCrossCategoryClue", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -123,8 +123,9 @@ describe("getOrCrossCategoryClue", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    getOrCrossCategoryClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getOrCrossCategoryClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {

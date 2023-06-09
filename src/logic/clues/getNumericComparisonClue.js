@@ -86,10 +86,7 @@ export function getNumericComparisonClue(solutionMatrix) {
           solutionMatrix[selectedKey].rowDescriptionTemplates,
         ];
 
-  const leadingDescription = nonNumericDescriptionTemplates.description.replace(
-    "VALUE",
-    itemA,
-  );
+  const leadingDescription = nonNumericDescriptionTemplates.description(itemA);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
@@ -97,18 +94,12 @@ export function getNumericComparisonClue(solutionMatrix) {
       : numericDescriptionTemplates.diffGreaterDescription;
   const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
-    ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
-    : numericDescriptionTemplate.replace("VALUE", "some");
+    ? numericDescriptionTemplate(numericDiffClue)
+    : numericDescriptionTemplate("some");
 
   const trailingDescription = numericIsRows
-    ? solutionMatrix[selectedKey].colDescriptionTemplates.description.replace(
-        "VALUE",
-        itemB,
-      )
-    : solutionMatrix[selectedKey].rowDescriptionTemplates.description.replace(
-        "VALUE",
-        itemB,
-      );
+    ? solutionMatrix[selectedKey].colDescriptionTemplates.description(itemB)
+    : solutionMatrix[selectedKey].rowDescriptionTemplates.description(itemB);
 
   let relationWord = "";
   if (actualNumericDiff === numericDiffClue) {

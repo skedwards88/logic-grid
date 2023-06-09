@@ -69,9 +69,9 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   const numericDiffClue = pickRandom(numericDiffOptions);
   const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
 
-  const itemADescription = itemATemplates.description.replace("VALUE", itemA);
+  const itemADescription = itemATemplates.description(itemA);
 
-  const itemBDescription = itemBTemplates.description.replace("VALUE", itemB);
+  const itemBDescription = itemBTemplates.description(itemB);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
@@ -79,8 +79,8 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       : numericDescriptionTemplates.diffGreaterDescription;
   const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
-    ? numericDescriptionTemplate.replace("VALUE", numericDiffClue)
-    : numericDescriptionTemplate.replace("VALUE", "some");
+    ? numericDescriptionTemplate(numericDiffClue)
+    : numericDescriptionTemplate("some");
 
   let relationWord = "";
   if (actualNumericDiff === numericDiffClue) {

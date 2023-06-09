@@ -524,43 +524,57 @@ const months = [
 const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const weekdaysAndWeekends = [...weekdays, "Saturday", " Sunday"];
 
+function appendNth(number) {
+  const lastDigit = `${number}`[`${number}`.length - 1];
+  console.log(JSON.stringify(lastDigit));
+  if (lastDigit === "1") {
+    return `${number}st`;
+  } else if (lastDigit === "2") {
+    return `${number}nd`;
+  } else if (lastDigit === "3") {
+    return `${number}rd`;
+  } else {
+    return `${number}th`;
+  }
+}
+
 export const allCategories = [
   {
     CAR_AGE: {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `the ${value} year old car`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     CAR_MILES: {
       values: [10000, 20000, 30000, 40000, 50000],
       display: (value) => `${value} mi`,
       descriptionTemplates: {
-        description: "the car with VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
+        description: (value) => `the car with ${value} miles`,
+        diffGreaterDescription: (value) => `${value} more miles`,
+        diffLesserDescription: (value) => `${value} less miles`,
         verb: "has",
       },
     },
     CAR_COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
     },
     CAR_MODEL: {
       values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
       descriptionTemplates: {
-        description: "the VALUE",
+        description: (value) => `the ${value}`,
       },
     },
   },
@@ -569,28 +583,28 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6],
       display: (value) => `lane ${value}`,
       descriptionTemplates: {
-        description: "the person who swam in lane VALUE",
-        diffGreaterDescription: "VALUE lane numbers higher",
-        diffLesserDescription: "VALUE lane numbers lower",
+        description: (value) => `the person who swam in lane ${value}`,
+        diffGreaterDescription: (value) => `${value} lane numbers higher`,
+        diffLesserDescription: (value) => `${value} lane numbers lower`,
         verb: "was",
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the person wearing VALUE goggles",
+        description: (value) => `the person wearing ${value} goggles`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     STROKE: {
       values: ["fly", "back", "breast", "free", "IM"],
       descriptionTemplates: {
-        description: "the person who swam VALUE",
+        description: (value) => `the person who swam ${value}`,
       },
     },
   },
@@ -598,22 +612,22 @@ export const allCategories = [
     SCORE: {
       values: [100, 95, 90, 85, 80],
       descriptionTemplates: {
-        description: "the person whose grade was VALUE",
-        diffGreaterDescription: "VALUE points higher",
-        diffLesserDescription: "VALUE points lower",
+        description: (value) => `the person whose grade was ${value}`,
+        diffGreaterDescription: (value) => `${value} points higher`,
+        diffLesserDescription: (value) => `${value} points lower`,
         verb: "scored",
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the person using VALUE ink",
+        description: (value) => `the person using ${value} ink`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     SUBJECT: {
@@ -645,7 +659,7 @@ export const allCategories = [
         "rocks",
       ],
       descriptionTemplates: {
-        description: "the person who wrote about VALUE",
+        description: (value) => `the person who wrote about ${value}`,
       },
     },
   },
@@ -654,22 +668,22 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} s'mores`,
       descriptionTemplates: {
-        description: "the person who ate VALUE s'mores",
-        diffGreaterDescription: "VALUE more s'mores",
-        diffLesserDescription: "VALUE less s'mores",
+        description: (value) => `the person who ate ${value} s'mores`,
+        diffGreaterDescription: (value) => `${value} more s'mores`,
+        diffLesserDescription: (value) => `${value} less s'mores`,
         verb: "ate",
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the person with the VALUE sleeping bag",
+        description: (value) => `the person with the ${value} sleeping bag`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     CONSTELLATION: {
@@ -686,7 +700,7 @@ export const allCategories = [
         "Cancer",
       ],
       descriptionTemplates: {
-        description: "the person who spotted VALUE",
+        description: (value) => `the person who spotted ${value}`,
       },
     },
   },
@@ -695,9 +709,9 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} mi`,
       descriptionTemplates: {
-        description: "the person who hiked VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
+        description: (value) => `the person who hiked ${value} miles`,
+        diffGreaterDescription: (value) => `${value} more miles`,
+        diffLesserDescription: (value) => `${value} less miles`,
         verb: "hiked",
       },
     },
@@ -705,9 +719,10 @@ export const allCategories = [
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       display: (value) => `${value} ft`,
       descriptionTemplates: {
-        description: "the person who gained VALUE feet in elevation",
-        diffGreaterDescription: "VALUE more feet",
-        diffLesserDescription: "VALUE less feet",
+        description: (value) =>
+          `the person who gained ${value} feet in elevation`,
+        diffGreaterDescription: (value) => `${value} more feet`,
+        diffLesserDescription: (value) => `${value} less feet`,
         verb: "gained",
       },
     },
@@ -726,19 +741,19 @@ export const allCategories = [
         "ruins",
       ],
       descriptionTemplates: {
-        description: "the person who hiked to the VALUE",
+        description: (value) => `the person who hiked to the ${value}`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     ACCESSORY: {
       values: ["hat", "bottle", "poles", "glasses", "visor", "bandana"],
       descriptionTemplates: {
-        description: "the person with the VALUE",
+        description: (value) => `the person with the ${value}`,
       },
     },
   },
@@ -747,9 +762,9 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} hr`,
       descriptionTemplates: {
-        description: "the person who finished in VALUE hours",
-        diffGreaterDescription: "VALUE more hours",
-        diffLesserDescription: "VALUE less hours",
+        description: (value) => `the person who finished in ${value} hours`,
+        diffGreaterDescription: (value) => `${value} more hours`,
+        diffLesserDescription: (value) => `${value} less hours`,
         verb: "took",
       },
     },
@@ -757,16 +772,16 @@ export const allCategories = [
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       display: (value) => `${value} pi`,
       descriptionTemplates: {
-        description: "the person who did the VALUE piece puzzle",
-        diffGreaterDescription: "VALUE more pieces",
-        diffLesserDescription: "VALUE less pieces",
+        description: (value) => `the person who did the ${value} piece puzzle`,
+        diffGreaterDescription: (value) => `${value} more pieces`,
+        diffLesserDescription: (value) => `${value} less pieces`,
         verb: "assembled",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     SUBJECT: {
@@ -794,7 +809,7 @@ export const allCategories = [
         "birds",
       ],
       descriptionTemplates: {
-        description: "the person who did a puzzle of VALUE",
+        description: (value) => `the person who did a puzzle of ${value}`,
       },
     },
   },
@@ -803,22 +818,22 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} trees`,
       descriptionTemplates: {
-        description: "the house with VALUE trees",
-        diffGreaterDescription: "VALUE more trees",
-        diffLesserDescription: "VALUE less trees",
+        description: (value) => `the house with ${value} trees`,
+        diffGreaterDescription: (value) => `${value} more trees`,
+        diffLesserDescription: (value) => `${value} less trees`,
         verb: "has",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE's house",
+        description: (value) => `${value}'s house`,
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the VALUE house",
+        description: (value) => `the ${value} house`,
       },
     },
     ACCESSORY: {
@@ -835,7 +850,7 @@ export const allCategories = [
         "tree",
       ],
       descriptionTemplates: {
-        description: "the house with the VALUE",
+        description: (value) => `the house with the ${value}`,
       },
     },
   },
@@ -844,9 +859,9 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} PM`,
       descriptionTemplates: {
-        description: "the person who snacks at VALUE o'clock",
-        diffGreaterDescription: "VALUE hours later",
-        diffLesserDescription: "VALUE hours earlier",
+        description: (value) => `the person who snacks at ${value} o'clock`,
+        diffGreaterDescription: (value) => `${value} hours later`,
+        diffLesserDescription: (value) => `${value} hours earlier`,
         verb: "snacks",
       },
     },
@@ -854,34 +869,34 @@ export const allCategories = [
       values: [10, 15, 20, 25, 30],
       display: (value) => `${value} min`,
       descriptionTemplates: {
-        description: "the person who takes VALUE minutes",
-        diffGreaterDescription: "VALUE minutes more",
-        diffLesserDescription: "VALUE minutes less",
+        description: (value) => `the person who takes ${value} minutes`,
+        diffGreaterDescription: (value) => `${value} minutes more`,
+        diffLesserDescription: (value) => `${value} minutes less`,
         verb: "takes",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the person with the VALUE cup",
+        description: (value) => `the person with the ${value} cup`,
       },
     },
     DRINK: {
       values: ["tea", "coffee", "water", "milk", "wine", "beer", "juice"],
       descriptionTemplates: {
-        description: "the person who drinks VALUE",
+        description: (value) => `the person who drinks ${value}`,
       },
     },
     SNACK: {
       values: ["apple", "cookie", "bun", "pear", "donut", "banana"],
       descriptionTemplates: {
-        description: "the person who eats the VALUE",
+        description: (value) => `the person who eats the ${value}`,
       },
     },
   },
@@ -890,9 +905,9 @@ export const allCategories = [
       values: [100, 150, 200, 250, 300, 350, 400, 450, 500],
       display: (value) => `$${value}`,
       descriptionTemplates: {
-        description: "the jewelry that cost VALUE dollars",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
+        description: (value) => `the jewelry that cost ${value} dollars`,
+        diffGreaterDescription: (value) => `${value} dollars more`,
+        diffLesserDescription: (value) => `${value} dollars less`,
         verb: "cost",
       },
     },
@@ -900,16 +915,16 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} stones`,
       descriptionTemplates: {
-        description: "the jewelry with VALUE stones",
-        diffGreaterDescription: "VALUE more stones",
-        diffLesserDescription: "VALUE less stones",
+        description: (value) => `the jewelry with ${value} stones`,
+        diffGreaterDescription: (value) => `${value} more stones`,
+        diffLesserDescription: (value) => `${value} less stones`,
         verb: "has",
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE's jewelry",
+        description: (value) => `${value}'s jewelry`,
       },
     },
     STONE: {
@@ -926,7 +941,7 @@ export const allCategories = [
         "jade",
       ],
       descriptionTemplates: {
-        description: "the jewelry with the VALUE",
+        description: (value) => `the jewelry with the ${value}`,
       },
     },
     JEWELRY: {
@@ -940,7 +955,7 @@ export const allCategories = [
         "pendant",
       ],
       descriptionTemplates: {
-        description: "the VALUE",
+        description: (value) => `the ${value}`,
       },
     },
   },
@@ -948,16 +963,17 @@ export const allCategories = [
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     DURATION: {
       values: [10, 20, 30, 40, 50, 60],
       display: (value) => `${value} min`,
       descriptionTemplates: {
-        description: "the person who does their activity for VALUE minutes",
-        diffGreaterDescription: "VALUE minutes more",
-        diffLesserDescription: "VALUE minutes less",
+        description: (value) =>
+          `the person who does their activity for ${value} minutes`,
+        diffGreaterDescription: (value) => `${value} minutes more`,
+        diffLesserDescription: (value) => `${value} minutes less`,
         verb: "does",
       },
     },
@@ -974,13 +990,14 @@ export const allCategories = [
         "bikes",
       ],
       descriptionTemplates: {
-        description: "the person who VALUE",
+        description: (value) => `the person who ${value}`,
       },
     },
     DAY: {
       values: weekdaysAndWeekends,
       descriptionTemplates: {
-        description: "the person who does their activity on VALUE",
+        description: (value) =>
+          `the person who does their activity on ${value}`,
       },
     },
   },
@@ -988,7 +1005,7 @@ export const allCategories = [
     NAME: {
       values: petNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     BREED: {
@@ -1007,22 +1024,22 @@ export const allCategories = [
         "maltese",
       ],
       descriptionTemplates: {
-        description: "the VALUE",
+        description: (value) => `the ${value}`,
       },
     },
     AGE: {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
-        description: "the VALUE year old dog",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `the ${value} year old dog`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     COLOR: {
       values: colors,
       descriptionTemplates: {
-        description: "the dog with the VALUE leash",
+        description: (value) => `the dog with the ${value} leash`,
       },
     },
   },
@@ -1041,7 +1058,7 @@ export const allCategories = [
         "ciabatta",
       ],
       descriptionTemplates: {
-        description: "the sandwich on VALUE bread",
+        description: (value) => `the sandwich on ${value} bread`,
       },
     },
     FILLING: {
@@ -1058,7 +1075,7 @@ export const allCategories = [
         "cheese",
       ],
       descriptionTemplates: {
-        description: "the VALUE sandwich",
+        description: (value) => `the ${value} sandwich`,
       },
     },
     CONDIMENT: {
@@ -1075,16 +1092,16 @@ export const allCategories = [
         "pepper",
       ],
       descriptionTemplates: {
-        description: "the sandwich flavored with VALUE",
+        description: (value) => `the sandwich flavored with ${value}`,
       },
     },
     COST: {
       values: [7, 8, 9, 10, 11, 12, 13],
       display: (value) => `$${value}`,
       descriptionTemplates: {
-        description: "the sandwich that cost $VALUE",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
+        description: (value) => `the sandwich that cost $${value}`,
+        diffGreaterDescription: (value) => `${value} dollars more`,
+        diffLesserDescription: (value) => `${value} dollars less`,
         verb: "costs",
       },
     },
@@ -1102,39 +1119,39 @@ export const allCategories = [
         "ghoul",
       ],
       descriptionTemplates: {
-        description: "the person who dressed as a VALUE",
+        description: (value) => `the person who dressed as a ${value}`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     CANDY: {
       values: [
-        "snickers",
-        "twix",
-        "skittles",
-        "m&ms",
-        "smarties",
-        "resses",
-        "kit kat",
-        "nerds",
-        "starbursts",
-        "twizzlers",
+        "Snickers",
+        "Twix",
+        "Skittles",
+        "M&Ms",
+        "Smarties",
+        "Reeses",
+        "Kit Kat",
+        "Nerds",
+        "Starbursts",
+        "Twizzlers",
       ],
       descriptionTemplates: {
-        description: "the person who favors VALUE",
+        description: (value) => `the person who favors ${value}`,
       },
     },
     COST: {
       values: [5, 10, 15, 20, 25, 30],
       display: (value) => `${value} pi`,
       descriptionTemplates: {
-        description: "the person who got VALUE pieces of candy",
-        diffGreaterDescription: "VALUE more pieces",
-        diffLesserDescription: "VALUE fewer pieces",
+        description: (value) => `the person who got ${value} pieces of candy`,
+        diffGreaterDescription: (value) => `${value} more pieces`,
+        diffLesserDescription: (value) => `${value} fewer pieces`,
         verb: "got",
       },
     },
@@ -1156,29 +1173,29 @@ export const allCategories = [
         "phone",
       ],
       descriptionTemplates: {
-        description: "the person who asked Santa for a VALUE",
+        description: (value) => `the person who asked Santa for a ${value}`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     PAPER: {
       values: ["candy", "reindeer", "Rudolph", "Santa", "sled", "snow", "elf"],
       descriptionTemplates: {
-        description:
-          "the person whose gifts were wrapped in VALUE wrapping paper",
+        description: (value) =>
+          `the person whose gifts were wrapped in ${value} wrapping paper`,
       },
     },
     NUMBER: {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} gifts`,
       descriptionTemplates: {
-        description: "the person who received VALUE gifts",
-        diffGreaterDescription: "VALUE more gifts",
-        diffLesserDescription: "VALUE fewer gifts",
+        description: (value) => `the person who received ${value} gifts`,
+        diffGreaterDescription: (value) => `${value} more gifts`,
+        diffLesserDescription: (value) => `${value} fewer gifts`,
         verb: "received",
       },
     },
@@ -1196,13 +1213,13 @@ export const allCategories = [
         "science",
       ],
       descriptionTemplates: {
-        description: "the historian who studies VALUE",
+        description: (value) => `the historian who studies ${value}`,
       },
     },
     NAME: {
       values: firstNames,
       descriptionTemplates: {
-        description: "VALUE",
+        description: (value) => `${value}`,
       },
     },
     UNIVERSITY: {
@@ -1216,16 +1233,17 @@ export const allCategories = [
         "UCSD",
       ],
       descriptionTemplates: {
-        description: "the historian who studies at VALUE",
+        description: (value) => `the historian who studies at ${value}`,
       },
     },
     CENTURY: {
       values: [14, 15, 16, 17, 18, 19, 20],
       display: (value) => `${value}th`,
       descriptionTemplates: {
-        description: "the historian who studies the VALUEth century",
-        diffGreaterDescription: "VALUE centuries later",
-        diffLesserDescription: "VALUE centuries earlier",
+        description: (value) =>
+          `the historian who studies the ${value}th century`,
+        diffGreaterDescription: (value) => `${value} centuries later`,
+        diffLesserDescription: (value) => `${value} centuries earlier`,
         verb: "studies the period",
       },
     },
@@ -1255,13 +1273,13 @@ export const allCategories = [
         "ginkgo",
       ],
       descriptionTemplates: {
-        description: "the VALUE tree",
+        description: (value) => `the ${value} tree`,
       },
     },
     TRAIT: {
       values: ["height", "width", "canopy", "history", "branches"],
       descriptionTemplates: {
-        description: "the tree that is known for its VALUE",
+        description: (value) => `the tree that is known for its ${value}`,
       },
     },
     STATE: {
@@ -1318,16 +1336,49 @@ export const allCategories = [
         "Wyoming",
       ],
       descriptionTemplates: {
-        description: "the tree in VALUE",
+        description: (value) => `the tree in ${value}`,
       },
     },
     AGE: {
       values: [10, 20, 50, 100, 150, 200],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
-        description: "the VALUE year old tree",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `the ${value} year old tree`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
+      },
+    },
+  },
+  {
+    PLACE: {
+      values: [1, 2, 3, 4, 5],
+      display: (value) => appendNth(value),
+      descriptionTemplates: {
+        description: (value) => `the person who came in ${appendNth(value)}`,
+        diffGreaterDescription: (value) => `${value} places worse`,
+        diffLesserDescription: (value) => `${value} places better`,
+        verb: "placed",
+      },
+    },
+    COLOR: {
+      values: colors,
+      descriptionTemplates: {
+        description: (value) => `the person wearing the ${value} jersey`,
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => value,
+      },
+    },
+    RACE: {
+      values: [50, 100, 200, 400, 1600],
+      descriptionTemplates: {
+        description: (value) => `the person who ran the ${value} meter race`,
+        diffGreaterDescription: (value) => `${value} meters more`,
+        diffLesserDescription: (value) => `${value} meters less`,
+        verb: "raced",
       },
     },
   },

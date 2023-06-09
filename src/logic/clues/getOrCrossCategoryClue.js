@@ -75,9 +75,9 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   const itemCNot = findMatrixLabel(solutionMatrix, itemA, labelsC);
   const itemC = shuffleArray(labelsC).find((i) => i != itemCNot);
 
-  const descriptionA = descriptionTemplateA.description.replace("VALUE", itemA);
-  const descriptionB = descriptionTemplateB.description.replace("VALUE", itemB);
-  const descriptionC = descriptionTemplateC.description.replace("VALUE", itemC);
+  const descriptionA = descriptionTemplateA.description(itemA);
+  const descriptionB = descriptionTemplateB.description(itemB);
+  const descriptionC = descriptionTemplateC.description(itemC);
   let writtenClue = `${descriptionA} is either ${descriptionB} or ${descriptionC}.`; //todo should randomize A/B here so the correct value isn't always first
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 

@@ -5,27 +5,27 @@ const mockedCategories = {
   NAME: {
     values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
     descriptionTemplates: {
-      description: "VALUE's car",
+      description: (value) => `${value}'s car`,
     },
   },
   COLOR: {
     values: ["red", "orange", "blue", "green", "yellow"],
     descriptionTemplates: {
-      description: "the VALUE car",
+      description: (value) => `the ${value} car`,
     },
   },
   MODEL: {
     values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
     descriptionTemplates: {
-      description: "the VALUE",
+      description: (value) => `the ${value}`,
     },
   },
   AGE: {
     values: [1, 2, 3, 4, 5],
     descriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
+      description: (value) => `${value} years old`,
+      diffGreaterDescription: (value) => `${value} years older`,
+      diffLesserDescription: (value) => `${value} years younger`,
     },
   },
 };

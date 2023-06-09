@@ -13,12 +13,12 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      description: "VALUE's car",
+      description: (value) => `${value}'s car`,
     },
     colDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
+      description: (value) => `${value} years old`,
+      diffGreaterDescription: (value) => `${value} years older`,
+      diffLesserDescription: (value) => `${value} years younger`,
     },
   },
   NameVsMake: {
@@ -31,10 +31,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      description: "VALUE's car",
+      description: (value) => `${value}'s car`,
     },
     colDescriptionTemplates: {
-      description: "the VALUE",
+      description: (value) => `the ${value}`,
     },
   },
   NameVsColor: {
@@ -47,10 +47,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      description: "VALUE's car",
+      description: (value) => `${value}'s car`,
     },
     colDescriptionTemplates: {
-      description: "the VALUE car",
+      description: (value) => `the ${value} car`,
     },
   },
   NumberVsMake: {
@@ -63,12 +63,12 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     colDescriptionTemplates: {
-      description: "the VALUE",
+      description: (value) => `the ${value}`,
     },
     rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
+      description: (value) => `${value} years old`,
+      diffGreaterDescription: (value) => `${value} years older`,
+      diffLesserDescription: (value) => `${value} years younger`,
     },
   },
   NumberVsColor: {
@@ -81,12 +81,12 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     colDescriptionTemplates: {
-      description: "the VALUE car",
+      description: (value) => `the ${value} car`,
     },
     rowDescriptionTemplates: {
-      description: "VALUE years old",
-      diffGreaterDescription: "VALUE years older",
-      diffLesserDescription: "VALUE years younger",
+      description: (value) => `${value} years old`,
+      diffGreaterDescription: (value) => `${value} years older`,
+      diffLesserDescription: (value) => `${value} years younger`,
     },
   },
   MakeVsColor: {
@@ -99,10 +99,10 @@ const solutionMatrix = {
       [false, false, false, true],
     ],
     rowDescriptionTemplates: {
-      description: "the VALUE",
+      description: (value) => `the ${value}`,
     },
     colDescriptionTemplates: {
-      description: "the VALUE car",
+      description: (value) => `the ${value} car`,
     },
   },
 };
@@ -175,8 +175,9 @@ describe("getOrClue", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    getOrClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getOrClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {

@@ -20,12 +20,12 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -38,10 +38,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
@@ -54,12 +54,12 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -491,8 +491,9 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -526,12 +527,12 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -544,10 +545,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
@@ -560,12 +561,12 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -997,8 +998,9 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -1032,12 +1034,12 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -1050,10 +1052,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
@@ -1066,12 +1068,12 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "VALUE years old",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -1502,8 +1504,9 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {

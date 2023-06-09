@@ -25,15 +25,16 @@ export function getOrClue(solutionMatrix) {
   const colIndexFalse = pickRandom(falseIndexes);
   const colItemFalse = colLabels[colIndexFalse];
 
-  const leadingDescription = solutionMatrix[
-    solutionKey
-  ].rowDescriptionTemplates.description.replace("VALUE", rowItem);
-  const trailingDescriptionTrue = solutionMatrix[
-    solutionKey
-  ].colDescriptionTemplates.description.replace("VALUE", colItemTrue);
-  const trailingDescriptionFalse = solutionMatrix[
-    solutionKey
-  ].colDescriptionTemplates.description.replace("VALUE", colItemFalse);
+  const leadingDescription =
+    solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
+  const trailingDescriptionTrue =
+    solutionMatrix[solutionKey].colDescriptionTemplates.description(
+      colItemTrue,
+    );
+  const trailingDescriptionFalse =
+    solutionMatrix[solutionKey].colDescriptionTemplates.description(
+      colItemFalse,
+    );
   let writtenClue = `${leadingDescription} is either ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 

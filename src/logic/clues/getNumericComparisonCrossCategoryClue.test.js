@@ -19,12 +19,12 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -37,10 +37,10 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
@@ -53,12 +53,12 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -263,8 +263,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    getNumericComparisonCrossCategoryClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -296,12 +297,12 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -314,10 +315,10 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
@@ -330,12 +331,12 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -549,8 +550,9 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    getNumericComparisonCrossCategoryClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -582,12 +584,12 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
     NameVsColor: {
@@ -600,10 +602,10 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "VALUE's car",
+        description: (value) => `${value}'s car`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
@@ -616,12 +618,12 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
         [false, false, false, true],
       ],
       colDescriptionTemplates: {
-        description: "the VALUE car",
+        description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -854,8 +856,9 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonCrossCategoryClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -889,14 +892,14 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
       colDescriptionTemplates: {
-        description: "the car with VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
+        description: (value) => `the car with ${value} miles`,
+        diffGreaterDescription: (value) => `${value} more moles`,
+        diffLesserDescription: (value) => `${value} less miles`,
         verb: "has",
       },
     },
@@ -910,15 +913,15 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "the car with VALUE miles",
-        diffGreaterDescription: "VALUE more miles",
-        diffLesserDescription: "VALUE less miles",
+        description: (value) => `the car with ${value} miles`,
+        diffGreaterDescription: (value) => `${value} more moles`,
+        diffLesserDescription: (value) => `${value} less miles`,
         verb: "has",
       },
       colDescriptionTemplates: {
-        description: "the VALUE dollar car",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
+        description: (value) => `the ${value} dollar car`,
+        diffGreaterDescription: (value) => `${value} dollars more`,
+        diffLesserDescription: (value) => `${value} dollars less`,
       },
     },
     DollarsVsYears: {
@@ -931,14 +934,14 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         [false, false, false, true],
       ],
       rowDescriptionTemplates: {
-        description: "the VALUE dollar car",
-        diffGreaterDescription: "VALUE dollars more",
-        diffLesserDescription: "VALUE dollars less",
+        description: (value) => `the ${value} dollar car`,
+        diffGreaterDescription: (value) => `${value} dollars more`,
+        diffLesserDescription: (value) => `${value} dollars less`,
       },
       colDescriptionTemplates: {
-        description: "the VALUE year old car",
-        diffGreaterDescription: "VALUE years older",
-        diffLesserDescription: "VALUE years younger",
+        description: (value) => `${value} years old`,
+        diffGreaterDescription: (value) => `${value} years older`,
+        diffLesserDescription: (value) => `${value} years younger`,
       },
     },
   };
@@ -1028,8 +1031,9 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
 
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
-    const clue = getNumericComparisonCrossCategoryClue(matrixCopy);
-    expect(matrixCopy).toEqual(solutionMatrix);
+    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    // because the matrix includes function values (which we don't care about), stringify for comparison
+    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {

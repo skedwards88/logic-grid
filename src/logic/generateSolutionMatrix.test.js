@@ -6,21 +6,21 @@ describe("generateSolutionMatrix", () => {
       {
         labels: ["cat", "dog", "cow"],
         descriptionTemplates: {
-          description: "the VALUE",
+          description: (value) => `the ${value}`,
         },
       },
       {
         labels: [1, 2, 3],
         descriptionTemplates: {
-          description: "VALUE years old",
-          diffGreaterDescription: "VALUE years older",
-          diffLesserDescription: "VALUE years younger",
+          description: (value) => `${value} years old`,
+          diffGreaterDescription: (value) => `${value} years older`,
+          diffLesserDescription: (value) => `${value} years younger`,
         },
       },
       {
         labels: ["red", "orange", "blue"],
         descriptionTemplates: {
-          description: "the VALUE animal",
+          description: (value) => `the ${value} animal`,
         },
       },
     ];
@@ -92,27 +92,27 @@ describe("generateSolutionMatrix", () => {
       {
         labels: ["cat", "dog", "cow", "horse", "spider"],
         descriptionTemplates: {
-          description: "the VALUE",
+          description: (value) => `the ${value}`,
         },
       },
       {
         labels: [1, 2, 3, 4, 5],
         descriptionTemplates: {
-          description: "VALUE years old",
-          diffGreaterDescription: "VALUE years older",
-          diffLesserDescription: "VALUE years younger",
+          description: (value) => `${value} years old`,
+          diffGreaterDescription: (value) => `${value} years older`,
+          diffLesserDescription: (value) => `${value} years younger`,
         },
       },
       {
         labels: ["red", "blue", "green", "orange", "yellow"],
         descriptionTemplates: {
-          description: "the VALUE animal",
+          description: (value) => `the ${value} animal`,
         },
       },
       {
         labels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
         descriptionTemplates: {
-          description: "VALUE's pet",
+          description: (value) => `${value}'s pet`,
         },
       },
     ];
@@ -184,27 +184,27 @@ describe("generateSolutionMatrix", () => {
       {
         labels: ["cat", "dog", "cow"],
         descriptionTemplates: {
-          description: "the VALUE",
+          description: (value) => `the ${value}`,
         },
       },
       {
         labels: [1, 2, 3],
         descriptionTemplates: {
-          description: "VALUE years old",
-          diffGreaterDescription: "VALUE years older",
-          diffLesserDescription: "VALUE years younger",
+          description: (value) => `${value} years old`,
+          diffGreaterDescription: (value) => `${value} years older`,
+          diffLesserDescription: (value) => `${value} years younger`,
         },
       },
       {
         labels: ["red", "blue", "green"],
         descriptionTemplates: {
-          description: "the VALUE animal",
+          description: (value) => `the ${value} animal`,
         },
       },
       {
         labels: ["Tom", "Bob", "Jim"],
         descriptionTemplates: {
-          description: "VALUE's pet",
+          description: (value) => `${value}'s pet`,
         },
       },
     ];

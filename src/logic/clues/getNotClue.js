@@ -21,12 +21,10 @@ export function getNotClue(solutionMatrix) {
 
   const colItem = colLabels[colIndex];
 
-  const leadingDescription = solutionMatrix[
-    solutionKey
-  ].rowDescriptionTemplates.description.replace("VALUE", rowItem);
-  const trailingDescription = solutionMatrix[
-    solutionKey
-  ].colDescriptionTemplates.description.replace("VALUE", colItem);
+  const leadingDescription =
+    solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
+  const trailingDescription =
+    solutionMatrix[solutionKey].colDescriptionTemplates.description(colItem);
   let writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
