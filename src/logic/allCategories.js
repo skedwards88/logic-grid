@@ -576,7 +576,7 @@ const months = [
   "December",
 ];
 const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-const weekdaysAndWeekends = [...weekdays, "Saturday", " Sunday"];
+const weekdaysAndWeekends = [...weekdays, "Saturday", "Sunday"];
 
 function appendNth(number) {
   const lastDigit = `${number}`[`${number}`.length - 1];
