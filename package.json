@@ -5,8 +5,9 @@
   "main": "code.js",
   "scripts": {
     "test": "jest --config=jest.config.cjs",
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,8 @@
     "style-loader": "^3.3.2",
     "webpack": "^5.80.0",
     "webpack-cli": "^5.0.2",
-    "webpack-dev-server": "^4.13.3"
+    "webpack-dev-server": "^4.13.3",
+    "workbox-webpack-plugin": "^7.0.0"
   },
   "dependencies": {
     "react": "^18.2.0",

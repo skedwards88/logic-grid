@@ -1,15 +1,38 @@
 {
   "name": "Logic Grid",
   "short_name": "Logic Grid",
-  "description": "A logic grid puzzle",
+  "description": "A logic grid puzzle game",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
+  "orientation": "portrait",
   "start_url": "../.",
   "background_color": "#373647",
   "theme_color": "#373647",
   "shortcuts": [],
   "categories": ["games", "entertainment", "education"],
-  "icons": [],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "icon_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "maskable_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
   "screenshots": []
 }

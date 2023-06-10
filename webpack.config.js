@@ -1,5 +1,5 @@
 const path = require("path");
-// const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require("workbox-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
@@ -17,11 +17,10 @@ module.exports = (env, argv) => {
 
   const copyPlugin = new CopyPlugin({
     patterns: [
-  //     { from: "./src/images/favicon.svg", to: "./assets/favicon.svg" },
-  //     { from: "./src/images/favicon.ico", to: "./assets/favicon.ico" },
-  //     { from: "./src/images/icon_192.png", to: "./assets/icon_192.png" },
-  //     { from: "./src/images/icon_512.png", to: "./assets/icon_512.png" },
-  //     { from: "./src/images/maskable_icon.png", to: "./assets/maskable_icon.png" },
+      { from: "./src/images/favicon.svg", to: "./assets/favicon.svg" },
+      { from: "./src/images/favicon.png", to: "./assets/favicon.png" },
+      { from: "./src/images/icon_192.png", to: "./assets/icon_192.png" },
+      { from: "./src/images/maskable_192.png", to: "./assets/maskable_192.png" },
       { from: "./src/manifest.json", to: "./assets/manifest.json" },
   //     { from: "./src/assetlinks.json", to: "./.well-known/assetlinks.json" },
       { from: "./src/privacy.html", to: "./privacy.html" },
@@ -40,15 +39,17 @@ module.exports = (env, argv) => {
     },
   })
 
-  // const serviceWorkerPlugin = new WorkboxPlugin.GenerateSW({
-  //   // these options encourage the ServiceWorkers to get in there fast
-  //   // and not allow any straggling "old" SWs to hang around
-  //   clientsClaim: true,
-  //   skipWaiting: true,
-  //   maximumFileSizeToCacheInBytes: 4200000, // special case to cache word list for offline play
-  // })
+  const serviceWorkerPlugin = new WorkboxPlugin.GenerateSW({
+    // these options encourage the ServiceWorkers to get in there fast
+    // and not allow any straggling "old" SWs to hang around
+    clientsClaim: true,
+    skipWaiting: true,
+  });
 
-  const plugins = argv.mode === "development" ? [htmlPlugin, copyPlugin] : [htmlPlugin, copyPlugin]; //todo serviceWorkerPlugin to last case, copyPlugin in both
+  const plugins =
+    argv.mode === "development"
+      ? [htmlPlugin, copyPlugin]
+      : [htmlPlugin, copyPlugin, serviceWorkerPlugin];
 
   return {
     entry: "./src/index.js",
@@ -79,8 +80,8 @@ module.exports = (env, argv) => {
       clean: true, // removes unused files from output dir
     },
     performance: {
-      maxEntrypointSize: 2700000, // special case to cache word list for offline play
-      maxAssetSize: 2700000, // special case to cache word list for offline play
+      maxEntrypointSize: 400000, // bytes
+      maxAssetSize: 400000 // bytes
     },
     devServer: {
       static: "./dist",

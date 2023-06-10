@@ -1,10 +1,9 @@
 # TODO
 
-- Check that solution is valid
-  - check if any of the clues do not work with the user's solution + one true per row/col
-  - maybe clue can return validator as well as clue function. takes input matrix and verifies that certain things are true about it
+- for clue: make so don't need to pass "allItems"?
+- for clue: make so don't need to pass "actualNumericDiff"?
 - Make sure that logic considers distinction between 0 and null
-- Add share function
+- be consistent about col vs column in var names
 - Add install function
 - when URL bar is showing, can't scroll to bottom?
 - Add Readme
@@ -13,12 +12,12 @@
 - Add service worker
 - Make deployment workflow bump version
 - Make deployment workflow run tests
-- Make pickRandom test more robust
 - Clean up todos in code
 - Add more scenarios
 - Could add more clues?
   - the red house has an even number of trees (maybe not; this is a glorified "or")
   - the red house has more than 3 trees (maybe not; this is a glorified "or")
   - the red house does not have the most or fewest trees (maybe not; this is a glorified "or")
-- Add analytics and privacy policy?
+- Add analytics?
 - Put in app store
+- "Since this app doesn't have a custom domain, asset links for the Google Play Store are stored at https://github.com/skedwards88/.well-known (https://skedwards88.github.io/.well-known/assetlinks.json)." <- do this or delete from readme>
