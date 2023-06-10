@@ -10,7 +10,7 @@ export function applyNumericComparisonLogic(
   {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
-  
+
   let newDerivedMatrix = derivedMatrix;
 
   const lesserItemLowestPossibleIndex = getFirstPossibleIndex(
