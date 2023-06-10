@@ -1,11 +1,8 @@
-- FIRST_NAME, PLACE (1,2,3,4,5), COLOR JERSEY, DISTANCE (50m, 100m, 200m, 400m, 1600m)
 - FIRST_NAME, GPA (4.0,3.8,3.6,3.4,3.2), MAJOR, MINOR
 - FIRST_NAME, YEARS old pet (1,2,3,4,5), PET TYPE AND/OR PET NUMBER OF LEGS, PET NAME
-  Vacation. Destination. Number days. Start day. Airline.
   Road trip. States. Number states. Miles. Car models.
   Commuter . Mode of transport. Minutes. Job. 
   bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
-  bread - filling (turkey, eggplant, tofu)- drink -cost - condiment (ketchup,mustard,soy sauce, bbq sauce, relish, salsa,hot sauce,pepper,salt,vinegar)
   animal - age - pet name - owner name
   sport watched - mascot -
   musical instrument - composer - style
@@ -19,12 +16,7 @@
   tattoo of - body part- cm wide
   broken bone - cast color - weeks
   spelling bee word, place
-  season+yearround, activity, minutes per day
   boat (sailboat, canoe, kayak,rowboat)
-  dog breed - dog name - owner name - dog years - dog leash color
-  name - asked santa for - number presents
-  studies x century - wrote about (trade, war, disease, religion, science)
-  halloween costume - pieces of candy - preferred candy
   potluck dish
   tree species - years old
   send a probe to planet - space agency
@@ -96,3 +88,27 @@ Types of tea
 Types of clouds
 Types of bread
 Types of beer
+
+// {
+// NUMBER_WON: {
+// values: [1,2,3,4,5],
+// descriptionTemplates: {
+// description: "the person who won VALUE games",
+// diffGreaterDescription: "VALUE more games",
+// diffLesserDescription: "VALUE more games",
+// verb: "won",
+// },
+// },
+// NAME: {
+// values: firstNames,
+// descriptionTemplates: {
+// description: "VALUE",
+// },
+// },
+// GAME: {
+// values: ["Plague","Hanabi","Dixit","Boggle","Botanik","Kokoro","Cards"],
+// descriptionTemplates: {
+// description: "the person who likes VALUE",
+// },
+// },
+// },

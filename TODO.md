@@ -8,12 +8,10 @@
 - when URL bar is showing, can't scroll to bottom?
 - Add Readme
 - Add to Sect games site
-- Add favicon
-- Add service worker
-- Make deployment workflow bump version
 - Make deployment workflow run tests
 - Clean up todos in code
 - Add more scenarios
+- clean up webpack config
 - Could add more clues?
   - the red house has an even number of trees (maybe not; this is a glorified "or")
   - the red house has more than 3 trees (maybe not; this is a glorified "or")
