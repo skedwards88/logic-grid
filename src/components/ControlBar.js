@@ -28,6 +28,7 @@ export default function ControlBar({
         id="settingsButton"
         onClick={() => setDisplay("settings")}
       ></button>
+      <button id="heartButton" onClick={() => setDisplay("heart")}></button>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {gameInit} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
 import Settings from "./Settings";
+import Heart from "./Heart";
 
 export default function App() {
   const [display, setDisplay] = React.useState("game");
@@ -26,6 +27,9 @@ export default function App() {
           gameState={gameState}
         />
       );
+
+    case "heart":
+      return <Heart setDisplay={setDisplay}></Heart>;
 
     default:
       return (

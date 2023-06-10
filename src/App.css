@@ -110,7 +110,7 @@ button {
   background-size: contain;
   /* Required because iOS13 doesn't respect standard context menu handling */
   -webkit-user-select: none !important;
-  touch-action: none ;
+  touch-action: none;
   user-select: none !important;
 }
 
@@ -387,6 +387,26 @@ input[type="checkbox" i]:checked {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.heart {
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: scroll;
+  justify-items: center;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: calc(var(--default-font-size) * 0.75);
+}
+
+.heartText {
+  margin: 2vmax;
+}
+
+.heart a {
+  color: rgb(0 162 255);
 }
 
 /* larger screens */
