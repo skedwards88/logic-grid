@@ -580,7 +580,6 @@ const weekdaysAndWeekends = [...weekdays, "Saturday", " Sunday"];
 
 function appendNth(number) {
   const lastDigit = `${number}`[`${number}`.length - 1];
-  console.log(JSON.stringify(lastDigit));
   if (lastDigit === "1") {
     return `${number}st`;
   } else if (lastDigit === "2") {
@@ -589,6 +588,40 @@ function appendNth(number) {
     return `${number}rd`;
   } else {
     return `${number}th`;
+  }
+}
+
+function convertLegCountToAnimal(number) {
+  switch (number) {
+    case 0:
+      return "snake";
+    case 2:
+      return "bird";
+    case 4:
+      return "mouse";
+    case 6:
+      return "beetle";
+    case 8:
+      return "spider";
+    default:
+      return number;
+  }
+}
+
+function convertWheelCountToVehicle(number) {
+  switch (number) {
+    case 0:
+      return "pogo stick";
+    case 1:
+      return "unicycle";
+    case 2:
+      return "bicycle";
+    case 3:
+      return "tricycle";
+    case 4:
+      return "skateboard";
+    default:
+      return number;
   }
 }
 
@@ -1049,6 +1082,7 @@ export const allCategories = [
     },
     DAY: {
       values: weekdaysAndWeekends,
+      display: (value) => value.slice(0, 3),
       descriptionTemplates: {
         description: (value) =>
           `the person who does their activity on ${value}`,
@@ -1472,16 +1506,78 @@ export const allCategories = [
         description: (value) => `the person who flew on ${value} airline`,
       },
     },
-    NAME: {
-      values: firstNames,
+    MONTH: {
+      values: months,
+      display: (value) => value.slice(0, 3),
       descriptionTemplates: {
-        description: (value) => value,
+        description: (value) => `the person who took their trip in ${value}`,
       },
     },
     DAY: {
       values: weekdaysAndWeekends,
+      display: (value) => value.slice(0, 3),
       descriptionTemplates: {
         description: (value) => `the person who started their trip on ${value}`,
+      },
+    },
+  },
+  {
+    NAME: {
+      values: petNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+    LEGS: {
+      values: [0, 2, 4, 6, 8],
+      display: (value) => convertLegCountToAnimal(value),
+      descriptionTemplates: {
+        description: (value) => `the pet with ${value} legs`,
+        diffGreaterDescription: (value) => `${value} more legs`,
+        diffLesserDescription: (value) => `${value} fewer legs`,
+        verb: "has",
+      },
+    },
+    ACTIVITY: {
+      values: ["sleeping", "hiding", "resting", "eating", "staring"],
+      descriptionTemplates: {
+        description: (value) => `the pet that likes ${value}`,
+      },
+    },
+    CAGE: {
+      values: ["metal", "glass", "mesh", "wood", "plastic"],
+      descriptionTemplates: {
+        description: (value) => `the pet in the ${value} cage`,
+      },
+    },
+  },
+  {
+    COLOR: {
+      values: colors,
+      descriptionTemplates: {
+        description: (value) => `the clown with the ${value} hair`,
+      },
+    },
+    WHEELS: {
+      values: [0, 1, 2, 3, 4],
+      display: (value) => convertWheelCountToVehicle(value),
+      descriptionTemplates: {
+        description: (value) => `the clown on ${value} wheels`,
+        diffGreaterDescription: (value) => `${value} more wheels`,
+        diffLesserDescription: (value) => `${value} fewer wheels`,
+        verb: "used",
+      },
+    },
+    ACTIVITY: {
+      values: ["juggling", "singing", "waving", "rapping", "smiling"],
+      descriptionTemplates: {
+        description: (value) => `the clown that was ${value}`,
+      },
+    },
+    CAGE: {
+      values: ["flower", "hose", "chicken", "hammer", "sign"],
+      descriptionTemplates: {
+        description: (value) => `the clown with the ${value}`,
       },
     },
   },
