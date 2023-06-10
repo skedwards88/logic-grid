@@ -139,17 +139,15 @@ button {
   display: grid;
   width: fit-content;
   font-size: var(--font-size);
-  overflow: scroll;
+  white-space: nowrap;
 }
 
 .columnLabel > div {
   box-shadow: -1px -1px var(--light-color);
   padding-top: 4px;
   transform: rotate(180deg);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   min-height: 10vmin;
+  overflow: scroll;
 }
 
 .columnLabel.size3 > div {
@@ -185,16 +183,14 @@ button {
   text-align: right;
   height: fit-content;
   font-size: var(--font-size);
-  overflow: scroll;
+  white-space: nowrap;
 }
 
 .rowLabel > div {
   box-shadow: 1px -1px var(--light-color);
   padding-right: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   min-width: 10vmin;
+  overflow: scroll;
 }
 
 .rowLabel.size3 > div {
