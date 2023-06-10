@@ -1,4 +1,3 @@
-import {generateSolution} from "./generateSolution.js";
 import {puzzleSolvedQ} from "./helpers/puzzleSolvedQ.js";
 import {getUsefulClue} from "./getUsefulClue.js";
 import {applyCluesAdNauseam} from "./helpers/applyCluesAdNauseam.js";
@@ -9,10 +8,7 @@ import {removeRedundantClues} from "./removeRedundantClues.js";
 
 export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
-  const solution = generateSolution(
-    categoryLabelsAndTemplates.map((i) => i.labels),
-  );
-  const solutionMatrix = generateSolutionMatrix(solution, categoryLabelsAndTemplates);
+  const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
   const emptyMatrix = buildEmptyMatrix(solutionMatrix);
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
@@ -60,6 +56,5 @@ export function generatePuzzle(numCats, numItemsPerCat) {
     derivedMatrix: emptyMatrix,
     matrixRowLabels: matrixRowLabels,
     matrixColumnLabels: matrixColumnLabels,
-    solution: solution,
   };
 }

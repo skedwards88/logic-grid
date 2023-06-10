@@ -22,9 +22,8 @@ body {
     "controls"
     "matrix"
     "result"
-    "clues"
-    "solution";
-  grid-template-rows: auto auto auto 1fr auto;
+    "clues";
+  grid-template-rows: auto auto auto 1fr;
   overflow: hidden;
   font-size: var(--font-size);
 }
@@ -228,10 +227,6 @@ button {
 }
 
 /* Clues */
-#solution {
-  grid-area: solution;
-  white-space: pre;
-}
 
 .clues > ol {
   padding: 5px;
