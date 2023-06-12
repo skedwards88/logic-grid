@@ -6,6 +6,7 @@
 - when URL bar is showing, can't scroll to bottom?
 - Add to Sect games site
 - Add more scenarios
+- Complete applyCluesAdNauseam tests
 - Could add more clues?
   - the red house has an even number of trees (this is a glorified "or")
   - the red house has more than 3 trees (this is a glorified "or")

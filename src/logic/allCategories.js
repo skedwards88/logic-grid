@@ -857,7 +857,7 @@ export const allCategories = [
     },
     PIECES: {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-      display: (value) => `${value} pi`,
+      display: (value) => `${value} pieces`,
       descriptionTemplates: {
         description: (value) => `the person who did the ${value} piece puzzle`,
         diffGreaterDescription: (value) => `${value} more pieces`,
@@ -1235,7 +1235,7 @@ export const allCategories = [
     },
     COST: {
       values: [5, 10, 15, 20, 25, 30],
-      display: (value) => `${value} pi`,
+      display: (value) => `${value} pieces`,
       descriptionTemplates: {
         description: (value) => `the person who got ${value} pieces of candy`,
         diffGreaterDescription: (value) => `${value} more pieces`,
@@ -1565,13 +1565,13 @@ export const allCategories = [
         description: (value) => `the clown on ${value} wheels`,
         diffGreaterDescription: (value) => `${value} more wheels`,
         diffLesserDescription: (value) => `${value} fewer wheels`,
-        verb: "used",
+        verb: "rides on",
       },
     },
     ACTIVITY: {
-      values: ["juggling", "singing", "waving", "rapping", "smiling"],
+      values: ["juggle", "sing", "wave", "honk", "smile"],
       descriptionTemplates: {
-        description: (value) => `the clown that was ${value}`,
+        description: (value) => `the clown that ${value}s`,
       },
     },
     CAGE: {
