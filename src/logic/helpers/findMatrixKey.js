@@ -1,4 +1,6 @@
 export function findMatrixKey(matrix, itemA, itemB) {
+  // Given two items, finds the corresponding matrix key 
+  //  for the grid that contains the two items
   for (const key in matrix) {
     if (
       matrix[key].rowLabels.includes(itemA) &&

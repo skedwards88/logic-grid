@@ -1,7 +1,7 @@
 import {
-  getFirstPossibleIndex,
-  getLastPossibleIndex,
-} from "../helpers/getPossibleIndex.js";
+  findFirstPossibleIndex,
+  findLastPossibleIndex,
+} from "../helpers/findPossibleIndex.js";
 import {setToFalse, setToTrue} from "../setValue.js";
 import {findMatrixValue} from "../helpers/findMatrixValue.js";
 
@@ -13,7 +13,7 @@ export function applyNumericComparisonLogic(
 
   let newDerivedMatrix = derivedMatrix;
 
-  const lesserItemLowestPossibleIndex = getFirstPossibleIndex(
+  const lesserItemLowestPossibleIndex = findFirstPossibleIndex(
     derivedMatrix,
     lesserItem,
     numericLabels,
@@ -72,7 +72,7 @@ export function applyNumericComparisonLogic(
     }
   }
 
-  const greaterItemHighestPossibleIndex = getLastPossibleIndex(
+  const greaterItemHighestPossibleIndex = findLastPossibleIndex(
     derivedMatrix,
     greaterItem,
     numericLabels,

@@ -1,8 +1,8 @@
 import {
-  getFirstPossibleIndex,
-  getLastPossibleIndex,
-  getAllPossibleIndexes,
-} from "./getPossibleIndex.js";
+  findFirstPossibleIndex,
+  findLastPossibleIndex,
+  findAllPossibleIndexes,
+} from "./findPossibleIndex.js";
 
 const matrix = {
   "0v1": {
@@ -37,10 +37,10 @@ const matrix = {
   },
 };
 
-describe("getFirstPossibleIndex", () => {
+describe("findFirstPossibleIndex", () => {
   test("returns the index of the first true or null (case where there is a true and no null)", () => {
     expect(
-      getFirstPossibleIndex(matrix, "Sarah", [
+      findFirstPossibleIndex(matrix, "Sarah", [
         "red",
         "blue",
         "green",
@@ -51,19 +51,19 @@ describe("getFirstPossibleIndex", () => {
 
   test("returns the index of the first true or null (case where there is a null and no true)", () => {
     expect(
-      getFirstPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
+      findFirstPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
     ).toEqual(2);
   });
 
   test("returns the index of the first true or null (case where there is null before a true)", () => {
     expect(
-      getFirstPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
+      findFirstPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
     ).toEqual(1);
   });
 
   test("returns the index of the first true or null (case where there is true before a null)", () => {
     expect(
-      getFirstPossibleIndex(matrix, "Colin", [
+      findFirstPossibleIndex(matrix, "Colin", [
         "red",
         "blue",
         "green",
@@ -73,54 +73,54 @@ describe("getFirstPossibleIndex", () => {
   });
 
   test("returns the index of the first true or null (swap col and row input)", () => {
-    expect(getFirstPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
+    expect(findFirstPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
   });
 
   test("returns the index of the first true or null (case with multiple nulls)", () => {
-    expect(getFirstPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(0);
-    expect(getFirstPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(0);
+    expect(findFirstPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(0);
+    expect(findFirstPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(0);
   });
 });
 
-describe("getLastPossibleIndex", () => {
+describe("findLastPossibleIndex", () => {
   test("returns the index of the last true or null (case where there is a true and no null)", () => {
     expect(
-      getLastPossibleIndex(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
+      findLastPossibleIndex(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
     ).toEqual(1);
   });
 
   test("returns the index of the last true or null (case where there is a null and no true)", () => {
     expect(
-      getLastPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
+      findLastPossibleIndex(matrix, 1, ["red", "blue", "green", "yellow"]),
     ).toEqual(2);
   });
 
   test("returns the index of the last true or null (case where there is null before a true)", () => {
     expect(
-      getLastPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
+      findLastPossibleIndex(matrix, "Fefe", ["red", "blue", "green", "yellow"]),
     ).toEqual(2);
   });
 
   test("returns the index of the last true or null (case where there is true before a null)", () => {
     expect(
-      getLastPossibleIndex(matrix, "Colin", ["red", "blue", "green", "yellow"]),
+      findLastPossibleIndex(matrix, "Colin", ["red", "blue", "green", "yellow"]),
     ).toEqual(3);
   });
 
   test("returns the index of the last true or null (swap col and row input)", () => {
-    expect(getLastPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
+    expect(findLastPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
   });
 
   test("returns the index of the first true or null (case with multiple nulls)", () => {
-    expect(getLastPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(3);
-    expect(getLastPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(3);
+    expect(findLastPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(3);
+    expect(findLastPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(3);
   });
 });
 
-describe("getAllPossibleIndexes", () => {
+describe("findAllPossibleIndexes", () => {
   test("returns the index of the true when there is a single true", () => {
     expect(
-      getAllPossibleIndexes(matrix, "Sarah", [
+      findAllPossibleIndexes(matrix, "Sarah", [
         "red",
         "blue",
         "green",
@@ -131,17 +131,17 @@ describe("getAllPossibleIndexes", () => {
 
   test("returns the index of the first true when there are multiple trues", () => {
     expect(
-      getAllPossibleIndexes(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+      findAllPossibleIndexes(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
     ).toEqual([0]);
   });
 
   test("returns the index of the all nulls when there are no trues", () => {
-    expect(getAllPossibleIndexes(matrix, "Sarah", [1, 2, 3, 4])).toEqual([
+    expect(findAllPossibleIndexes(matrix, "Sarah", [1, 2, 3, 4])).toEqual([
       0, 1, 2, 3,
     ]);
   });
 
   test("returns an empty array when there are no trues or nulls", () => {
-    expect(getAllPossibleIndexes(matrix, "red", [1, 2, 3, 4])).toEqual([]);
+    expect(findAllPossibleIndexes(matrix, "red", [1, 2, 3, 4])).toEqual([]);
   });
 });

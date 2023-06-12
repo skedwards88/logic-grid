@@ -1,6 +1,6 @@
 import {findMatrixValue} from "../helpers/findMatrixValue";
-import {findMatrixLabel} from "../helpers/findMatrixLabel";
-import {getAllPossibleIndexes} from "../helpers/getPossibleIndex.js";
+import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection";
+import {findAllPossibleIndexes} from "../helpers/findPossibleIndex.js";
 
 export function validQNumericComparisonClue({
   matrix,
@@ -13,8 +13,8 @@ export function validQNumericComparisonClue({
   },
   strict = false,
 }) {
-  const greaterValue = findMatrixLabel(matrix, greaterItem, numericLabels);
-  const lesserValue = findMatrixLabel(matrix, lesserItem, numericLabels);
+  const greaterValue = findFirstTrueIntersection(matrix, greaterItem, numericLabels);
+  const lesserValue = findFirstTrueIntersection(matrix, lesserItem, numericLabels);
 
   // if strict mode, both items must be known
   if (strict && (greaterValue === undefined || lesserValue === undefined)) {
@@ -57,13 +57,13 @@ export function validQNumericComparisonClue({
       }
     }
   } else {
-    const lesserItemPossibleIndexes = getAllPossibleIndexes(
+    const lesserItemPossibleIndexes = findAllPossibleIndexes(
       matrix,
       lesserItem,
       numericLabels,
     );
 
-    const greaterItemPossibleIndexes = getAllPossibleIndexes(
+    const greaterItemPossibleIndexes = findAllPossibleIndexes(
       matrix,
       greaterItem,
       numericLabels,

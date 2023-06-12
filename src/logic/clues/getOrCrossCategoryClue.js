@@ -1,4 +1,4 @@
-import {findMatrixLabel} from "../helpers/findMatrixLabel.js";
+import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
 import {pickRandom} from "../helpers/pickRandom.js";
 import {shuffleArray} from "../helpers/shuffleArray.js";
 
@@ -71,8 +71,8 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   // e.g. "red" and "1" in "colin is red or 1"
   // we've already randomized the key order above,
   //   so we can just make the first item true and the second false
-  const itemB = findMatrixLabel(solutionMatrix, itemA, labelsB);
-  const itemCNot = findMatrixLabel(solutionMatrix, itemA, labelsC);
+  const itemB = findFirstTrueIntersection(solutionMatrix, itemA, labelsB);
+  const itemCNot = findFirstTrueIntersection(solutionMatrix, itemA, labelsC);
   const itemC = shuffleArray(labelsC).find((i) => i != itemCNot);
 
   const descriptionA = descriptionTemplateA.description(itemA);

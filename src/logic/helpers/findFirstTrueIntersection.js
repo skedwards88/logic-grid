@@ -1,6 +1,6 @@
-import {findMatrixValue} from "./findMatrixValue.js";
+import { findMatrixValue } from "./findMatrixValue.js";
 
-export function findMatrixLabel(matrix, item, intersectingItems) {
+export function findFirstTrueIntersection(matrix, item, intersectingItems) {
   // Given an item and list of intersecting items, find the first intersecting item that is "true"
   // if one is not found, returns undefined
   for (let index = 0; index < intersectingItems.length; index++) {

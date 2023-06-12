@@ -1,4 +1,5 @@
 export function findMatrixValue(matrix, itemA, itemB) {
+  // Given two items, finds the value of their intersection
   for (const key in matrix) {
     if (
       matrix[key].rowLabels.includes(itemA) &&

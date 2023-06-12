@@ -1,4 +1,4 @@
-import {findMatrixLabel} from "./findMatrixLabel.js";
+import {findFirstTrueIntersection} from "./findFirstTrueIntersection.js";
 
 const matrix = {
   NameVsNumber: {
@@ -33,24 +33,24 @@ const matrix = {
   },
 };
 
-describe("findMatrixLabel", () => {
+describe("findFirstTrueIntersection", () => {
   test("returns the item that forms a 'true' with the input item (row vs col)", () => {
     expect(
-      findMatrixLabel(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
+      findFirstTrueIntersection(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
     ).toEqual("blue");
   });
 
   test("returns the item that forms a 'true' with the input item (col vs row)", () => {
     expect(
-      findMatrixLabel(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+      findFirstTrueIntersection(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
     ).toEqual("Sarah");
   });
 
   test("works on non-strings", () => {
     expect(
-      findMatrixLabel(matrix, 1, ["red", "blue", "green", "yellow"]),
+      findFirstTrueIntersection(matrix, 1, ["red", "blue", "green", "yellow"]),
     ).toEqual("green");
-    expect(findMatrixLabel(matrix, "blue", [1, 2, 3, 4])).toEqual(2);
+    expect(findFirstTrueIntersection(matrix, "blue", [1, 2, 3, 4])).toEqual(2);
   });
 
   test("returns undefined if there is not a 'true' intersection", () => {
@@ -87,7 +87,7 @@ describe("findMatrixLabel", () => {
       },
     };
     expect(
-      findMatrixLabel(emptyMatrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+      findFirstTrueIntersection(emptyMatrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
     ).toEqual(undefined);
   });
 });

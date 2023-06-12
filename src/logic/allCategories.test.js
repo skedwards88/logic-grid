@@ -1,6 +1,6 @@
 import {allCategories} from "./allCategories";
 
-// numeric categories have greater/less desc
+// todo numeric categories have greater/less desc
 
 function arrayValuesAreUniqueQ(array) {
   const uniqueArray = Array.from(new Set(array));
