@@ -12,7 +12,7 @@ A classic logic grid puzzle.
 
 Did you find an error when playing the game? Please open an issue, and include screenshots to illustrate the error.
 
-Do you want to add a new scenario? TODO
+Do you want to add a new scenario? Open an issue describing the scenario. Or, open a pull request to modify `src/logic/allCategories.js`. Run `npm t -- src/logic/allCategories.test.js -u` and commit the changes along with your pull request.
 
 ## Development
 
@@ -23,5 +23,3 @@ To run locally with live reloading and no service worker, run `npm run dev`. (If
 To run locally and register the service worker, run `npm start`.
 
 To deploy, push to `main` or manually trigger the `.github/workflows/deploy.yml` workflow.
-
-Since this app doesn't have a custom domain, asset links for the Google Play Store are stored at https://github.com/skedwards88/.well-known (https://skedwards88.github.io/.well-known/assetlinks.json).
