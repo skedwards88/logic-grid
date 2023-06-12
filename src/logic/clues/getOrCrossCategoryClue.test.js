@@ -80,9 +80,11 @@ describe("getOrCrossCategoryClue", () => {
       .mockImplementation((arr) => arr);
 
     const clue = getOrCrossCategoryClue(solutionMatrix);
-    expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is either 1 years old or the blue car."`,
-    );
+    const expectedClue = [
+      "Colin's car is either 1 years old or the blue car.",
+      "Colin's car is either the blue car or 1 years old.",
+    ];
+    expect(expectedClue).toContain(clue.writtenClue);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,

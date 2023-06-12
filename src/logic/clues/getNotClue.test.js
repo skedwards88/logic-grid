@@ -129,9 +129,9 @@ describe("getNotClue", () => {
       .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
     jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
-    const expectedClue = "The Ford is not the blue car.";
+    const expectedClue = ["The Ford is not the blue car.","The blue car is not the Ford."];
     const clue = getNotClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(expectedClue).toContain(clue.writtenClue);
 
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);

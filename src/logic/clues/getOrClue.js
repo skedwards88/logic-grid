@@ -1,4 +1,5 @@
 import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js"
 
 // Generates an "or" clue
 // e.g. "Colin is red or blue"
@@ -10,7 +11,7 @@ export function getOrClue(solutionMatrix) {
   const rowLabels = solutionMatrix[solutionKey].rowLabels;
   const grid = solutionMatrix[solutionKey].grid;
 
-  // Choose a random row label (e.g. 'Colin') // todo later randomize row vs col?
+  // Choose a random row label (e.g. 'Colin')
   const rowIndex = pickRandomIndex(rowLabels);
   const rowItem = rowLabels[rowIndex];
 
@@ -35,7 +36,11 @@ export function getOrClue(solutionMatrix) {
     solutionMatrix[solutionKey].colDescriptionTemplates.description(
       colItemFalse,
     );
-  let writtenClue = `${leadingDescription} is either ${trailingDescriptionTrue} or ${trailingDescriptionFalse}.`; //todo should randomize so the correct value isn't always first
+  const [trailingDescriptionA, trailingDescriptionB] = shuffleArray([
+    trailingDescriptionTrue,
+    trailingDescriptionFalse,
+  ]);
+  let writtenClue = `${leadingDescription} is either ${trailingDescriptionA} or ${trailingDescriptionB}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {

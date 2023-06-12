@@ -1,4 +1,5 @@
 import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
@@ -21,11 +22,15 @@ export function getNotClue(solutionMatrix) {
 
   const colItem = colLabels[colIndex];
 
-  const leadingDescription =
+  const rowDescription =
     solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
-  const trailingDescription =
+  const colDescription =
     solutionMatrix[solutionKey].colDescriptionTemplates.description(colItem);
-  let writtenClue = `${leadingDescription} is not ${trailingDescription}.`; //todo can randomize order
+  const [leadingDescription, trailingDescription] = shuffleArray([
+    rowDescription,
+    colDescription,
+  ]);
+  let writtenClue = `${leadingDescription} is not ${trailingDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {

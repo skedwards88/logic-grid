@@ -129,9 +129,9 @@ describe("getOrClue", () => {
       .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
     jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
-    const expectedClue = "The Ford is either the red car or the blue car.";
+    const expectedClue = ["The Ford is either the red car or the blue car.","The Ford is either the blue car or the red car."];
     const clue = getOrClue(solutionMatrix);
-    expect(clue.writtenClue).toBe(expectedClue);
+    expect(expectedClue).toContain(clue.writtenClue);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
     expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
 
