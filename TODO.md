@@ -5,7 +5,6 @@
 - Add install function
 - when URL bar is showing, can't scroll to bottom?
 - Add to Sect games site
-- Make deployment workflow run tests
 - Add more scenarios
 - Could add more clues?
   - the red house has an even number of trees (this is a glorified "or")

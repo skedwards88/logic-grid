@@ -28,6 +28,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Install requirements
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
       - name: Setup git config
         run: |
           git config --global user.name "skedwards88"
@@ -39,9 +45,6 @@ jobs:
       - name: Push
         run: |
           git push origin main
-
-      - name: Install requirements
-        run: npm install
 
       - name: Build
         run: npm run build
