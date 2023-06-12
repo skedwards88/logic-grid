@@ -9,8 +9,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // find two grids in the solution matrix that uses a numeric category
-  // todo if there are none, error? or return undefined? can we rely on there always being one?
-  // todo if everything is known about that grid, return undefined?
+  // (upstream logic ensures that this function is only called if there is a numeric category)
   let numericLabels;
   let numericDescriptionTemplates;
   let itemALabels;
@@ -34,7 +33,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
         itemATemplates = solutionMatrix[key].rowDescriptionTemplates;
       }
     } else {
-      // in case there are multiple numeric labels, make sure we find one that matches the one we already found // todo add test for this case
+      // in case there are multiple numeric labels, make sure we find one that matches the one we already found
       if (arraysEqualQ(solutionMatrix[key].rowLabels, numericLabels)) {
         itemBLabels = solutionMatrix[key].colLabels;
         itemBTemplates = solutionMatrix[key].colDescriptionTemplates;

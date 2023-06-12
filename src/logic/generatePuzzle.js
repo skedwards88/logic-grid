@@ -10,9 +10,10 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
   const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
   const emptyMatrix = buildEmptyMatrix(solutionMatrix);
+
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
-  // pull out the labels to avoid some convoluted calculations later //todo should i try to avoid; this does duplicate code in generateSolutionMatrix now and could be derived now
+  // pull out the labels to avoid some convoluted calculations later
   const matrixColumnInfo = categoryLabelsAndTemplates.slice(
     1,
     categoryLabelsAndTemplates.length,

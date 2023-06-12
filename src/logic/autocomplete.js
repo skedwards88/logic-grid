@@ -71,7 +71,5 @@ export function autocomplete(matrix) {
     }
   }
 
-  // todo Verify that there is exactly one true per row/col ?
-
   return autofilledMatrix;
 }

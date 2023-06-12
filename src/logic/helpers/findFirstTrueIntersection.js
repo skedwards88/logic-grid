@@ -11,5 +11,3 @@ export function findFirstTrueIntersection(matrix, item, intersectingItems) {
     }
   }
 }
-
-// todo add error handling

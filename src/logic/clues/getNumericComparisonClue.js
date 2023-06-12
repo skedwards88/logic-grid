@@ -7,8 +7,7 @@ export function getNumericComparisonClue(solutionMatrix) {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // choose a grid in the solution matrix that uses a numeric category
-  // todo if there are none, error? or return undefined? can we rely on there always being one?
-  // todo if everything is known about that grid, return undefined?
+  // (upstream logic ensures that this function is only called if there is a numeric category)
   const shuffledKeys = shuffleArray(Object.keys(solutionMatrix));
   let selectedKey;
   let numericIsRows;

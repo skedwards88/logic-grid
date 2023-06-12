@@ -1,7 +1,5 @@
 import {allCategories} from "./allCategories";
 
-// todo numeric categories have greater/less desc
-
 function arrayValuesAreUniqueQ(array) {
   const uniqueArray = Array.from(new Set(array));
   return array.length === uniqueArray.length;
@@ -53,7 +51,7 @@ describe("allCategories: tests per scenario", () => {
 
       test(`Scenario ${index} with keys ${Object.keys(
         scenario,
-      )} for key ${category} uses VALUE in every description`, () => {
+      )} for key ${category} uses the value in every description`, () => {
         for (const template in scenario[category].descriptionTemplates) {
           if (template === "verb") continue;
           const generatedDescription =
