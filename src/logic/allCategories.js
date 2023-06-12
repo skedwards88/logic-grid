@@ -1581,4 +1581,87 @@ export const allCategories = [
       },
     },
   },
+  {
+    DANCE: {
+      values: ["tango", "swing", "salsa", "cha-cha", "waltz", "rumba", "polka"],
+      descriptionTemplates: {
+        description: (value) => `the ${value} dancer`,
+      },
+    },
+    SONGS: {
+      values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} songs`,
+      descriptionTemplates: {
+        description: (value) => `the dancer that performed ${value} songs`,
+        diffGreaterDescription: (value) => `${value} more songs`,
+        diffLesserDescription: (value) => `${value} fewer songs`,
+        verb: "performed",
+      },
+    },
+    MUSIC: {
+      values: [
+        "pop",
+        "jazz",
+        "indie",
+        "folk",
+        "classical",
+        "country",
+        "rock",
+        "electronic",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the dancer that performed to ${value} music`,
+      },
+    },
+    ROOM: {
+      values: ["Grand", "Crystal", "Royal", "Rose", "Moonlight"],
+      descriptionTemplates: {
+        description: (value) =>
+          `the dancer that performed in the ${value} ballroom`,
+      },
+    },
+  },
+  {
+    DANCE: {
+      values: ["tango", "swing", "salsa", "cha-cha", "waltz", "rumba", "polka"],
+      descriptionTemplates: {
+        description: (value) => `the dancer that likes ${value}`,
+      },
+    },
+    TIME: {
+      values: [7, 8, 9, 10, 11],
+      display: (value) => `${value} PM`,
+      descriptionTemplates: {
+        description: (value) => `the dancer that danced until ${value} PM`,
+        diffGreaterDescription: (value) => `${value} more hours`,
+        diffLesserDescription: (value) => `${value} fewer hours`,
+        verb: "danced",
+      },
+    },
+    SONGS: {
+      values: [15, 20, 25, 30, 35],
+      display: (value) => `${value} songs`,
+      descriptionTemplates: {
+        description: (value) => `the dancer that danced ${value} songs`,
+        diffGreaterDescription: (value) => `${value} more songs`,
+        diffLesserDescription: (value) => `${value} fewer songs`,
+        verb: "danced",
+      },
+    },
+    MUSIC: {
+      values: [
+        "pop",
+        "jazz",
+        "indie",
+        "folk",
+        "classical",
+        "country",
+        "rock",
+        "electronic",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the dancer that likes ${value} music`,
+      },
+    },
+  },
 ];
