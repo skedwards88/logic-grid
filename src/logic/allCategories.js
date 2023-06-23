@@ -1422,7 +1422,6 @@ export const allCategories = [
   {
     DAYS: {
       values: [1, 2, 3, 4, 5],
-      display: (value) => appendNth(value),
       descriptionTemplates: {
         description: (value) => `the person vacationed for ${value} days`,
         diffGreaterDescription: (value) => `${value} more days`,

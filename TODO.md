@@ -18,3 +18,4 @@
 - should autocomplete verify that there is exactly one true per row/col?
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
+- set up eslint
