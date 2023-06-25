@@ -1663,4 +1663,33 @@ export const allCategories = [
       },
     },
   },
+  {
+    TOPPINGS: {
+      values: ["pepperoni", "cheese", "pepper", "BBQ", "Hawaiian", "pesto", "mushroom","olive"],
+      descriptionTemplates: {
+        description: (value) => `the person who ate ${value} pizza`,
+      },
+    },
+    TIME: {
+      values: [1,2,3,4,5],
+      descriptionTemplates: {
+        description: (value) => `the person who ate ${value} slices`,
+        diffGreaterDescription: (value) => `${value} more slices`,
+        diffLesserDescription: (value) => `${value} fewer slices`,
+        verb: "ate",
+      },
+    },
+    NAME: {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+    DRINK: {
+      values: ["water", "milk", "wine", "beer", "juice", "soda"],
+      descriptionTemplates: {
+        description: (value) => `the person who drank ${value}`,
+      },
+    },
+  }
 ];
