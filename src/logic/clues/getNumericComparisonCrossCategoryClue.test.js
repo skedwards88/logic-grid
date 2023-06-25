@@ -80,7 +80,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than the green car."`,
+      `"Colin's car is at least 1 years younger than the green car."`,
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
@@ -360,7 +360,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than the green car."`,
+      `"Colin's car is at least 10 years younger than the green car."`,
     );
 
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
@@ -666,7 +666,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than the green car."`,
+      `"Colin's car is at least 5 years younger than the green car."`,
     );
     expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
 

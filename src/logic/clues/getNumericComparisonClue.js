@@ -87,6 +87,15 @@ export function getNumericComparisonClue(solutionMatrix) {
 
   const leadingDescription = nonNumericDescriptionTemplates.description(itemA);
 
+  // figure out the minimum numeric diff
+  let minimumNumericDiff = Math.abs(numericLabels[0] - numericLabels[1]);
+  for (let index = 1; index < numericLabels.length - 1; index++) {
+    const diff = Math.abs(numericLabels[index] - numericLabels[index + 1]);
+    if (diff < minimumNumericDiff) {
+      minimumNumericDiff = diff;
+    }
+  }
+
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
       ? numericDescriptionTemplates.diffLesserDescription
@@ -94,7 +103,7 @@ export function getNumericComparisonClue(solutionMatrix) {
   const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
-    : numericDescriptionTemplate("some");
+    : numericDescriptionTemplate(`at least ${minimumNumericDiff}`);
 
   const trailingDescription = numericIsRows
     ? solutionMatrix[selectedKey].colDescriptionTemplates.description(itemB)

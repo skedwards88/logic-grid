@@ -85,7 +85,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Meme's car."`,
+      `"Colin's car is at least 1 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -124,7 +124,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Sarah's car."`,
+      `"Colin's car is at least 1 years younger than Sarah's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -163,7 +163,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the yellow car."`,
+      `"The red car is at least 1 years younger than the yellow car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -202,7 +202,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the blue car."`,
+      `"The red car is at least 1 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -592,7 +592,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Meme's car."`,
+      `"Colin's car is at least 10 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -631,7 +631,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Sarah's car."`,
+      `"Colin's car is at least 10 years younger than Sarah's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -670,7 +670,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the yellow car."`,
+      `"The red car is at least 10 years younger than the yellow car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -709,7 +709,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the blue car."`,
+      `"The red car is at least 10 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1099,7 +1099,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Meme's car."`,
+      `"Colin's car is at least 5 years younger than Meme's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1138,7 +1138,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"Colin's car is some years younger than Sarah's car."`,
+      `"Colin's car is at least 5 years younger than Sarah's car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1177,7 +1177,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the yellow car."`,
+      `"The red car is at least 5 years younger than the yellow car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 
@@ -1216,7 +1216,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
-      `"The red car is some years younger than the blue car."`,
+      `"The red car is at least 5 years younger than the blue car."`,
     );
     expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(3);
 

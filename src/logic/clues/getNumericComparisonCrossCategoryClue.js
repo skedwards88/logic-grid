@@ -1,7 +1,7 @@
-import { pickRandoms, pickRandom } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js";
-import { findFirstTrueIntersection } from "../helpers/findFirstTrueIntersection.js";
-import { arraysEqualQ } from "../helpers/arraysEqualQ.js";
+import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
+import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
+import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
@@ -47,8 +47,16 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
   const [itemANumericValue, itemBNumericValue] = pickRandoms(numericLabels, 2);
-  const itemA = findFirstTrueIntersection(solutionMatrix, itemANumericValue, itemALabels);
-  const itemB = findFirstTrueIntersection(solutionMatrix, itemBNumericValue, itemBLabels);
+  const itemA = findFirstTrueIntersection(
+    solutionMatrix,
+    itemANumericValue,
+    itemALabels,
+  );
+  const itemB = findFirstTrueIntersection(
+    solutionMatrix,
+    itemBNumericValue,
+    itemBLabels,
+  );
 
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
@@ -72,6 +80,15 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
 
   const itemBDescription = itemBTemplates.description(itemB);
 
+  // figure out the minimum numeric diff
+  let minimumNumericDiff = Math.abs(numericLabels[0] - numericLabels[1]);
+  for (let index = 1; index < numericLabels.length - 1; index++) {
+    const diff = Math.abs(numericLabels[index] - numericLabels[index + 1]);
+    if (diff < minimumNumericDiff) {
+      minimumNumericDiff = diff;
+    }
+  }
+
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
       ? numericDescriptionTemplates.diffLesserDescription
@@ -79,7 +96,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
-    : numericDescriptionTemplate("some");
+    : numericDescriptionTemplate(`at least ${minimumNumericDiff}`);
 
   let relationWord = "";
   if (actualNumericDiff === numericDiffClue) {
