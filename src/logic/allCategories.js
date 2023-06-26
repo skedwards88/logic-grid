@@ -400,8 +400,8 @@ const lastNames = [
   "Walker",
   "Young",
   "Hernandez",
-  "Baker"
-]
+  "Baker",
+];
 
 const petNames = [
   "Ace",
@@ -1691,13 +1691,22 @@ export const allCategories = [
   },
   {
     TOPPINGS: {
-      values: ["pepperoni", "cheese", "pepper", "BBQ", "Hawaiian", "pesto", "mushroom","olive"],
+      values: [
+        "pepperoni",
+        "cheese",
+        "pepper",
+        "BBQ",
+        "Hawaiian",
+        "pesto",
+        "mushroom",
+        "olive",
+      ],
       descriptionTemplates: {
         description: (value) => `the person who ate ${value} pizza`,
       },
     },
     TIME: {
-      values: [1,2,3,4,5],
+      values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
         description: (value) => `the person who ate ${value} slices`,
         diffGreaterDescription: (value) => `${value} more slices`,
@@ -1720,14 +1729,22 @@ export const allCategories = [
   },
   {
     TOPPINGS: {
-      values: ["mystery", "romance", "fiction", "fantasy", "sci-fi", "history", "nonfiction"],
+      values: [
+        "mystery",
+        "romance",
+        "fiction",
+        "fantasy",
+        "sci-fi",
+        "history",
+        "nonfiction",
+      ],
       descriptionTemplates: {
         description: (value) => `the ${value} novel`,
       },
     },
     TIME: {
-      values: [100,150,200,250,300],
-      display: value => `${value} pages`,
+      values: [100, 150, 200, 250, 300],
+      display: (value) => `${value} pages`,
       descriptionTemplates: {
         description: (value) => `the ${value} page novel`,
         diffGreaterDescription: (value) => `${value} more pages`,
@@ -1736,7 +1753,7 @@ export const allCategories = [
       },
     },
     DATE: {
-      values: [2020,2015,2010,2005,2000],
+      values: [2020, 2015, 2010, 2005, 2000],
       descriptionTemplates: {
         description: (value) => `the novel published in ${value}`,
         diffGreaterDescription: (value) => `${value} years earlier`,
@@ -1750,5 +1767,5 @@ export const allCategories = [
         description: (value) => `the novel written by ${value}`,
       },
     },
-  }
+  },
 ];
