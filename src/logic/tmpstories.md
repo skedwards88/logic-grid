@@ -1,3 +1,21 @@
+Car model, car manufacturer, year of production, fuel type.
+Country name, capital city, official language, currency.
+Movie title, director, lead actor, genre.
+Music band, genre, hit song, year formed.
+Restaurant name, cuisine type, location, average rating.
+University name, location, number of students, notable alumni.
+Recipe name, cuisine type, main ingredients, cooking time.
+Athlete's name, sport, team, position.
+Plant species, native region, growth season, light requirements.
+Painting title, artist, year of creation, art movement.
+Video game title, platform, developer, genre.
+Scientist name, field of study, notable discovery, nationality.
+Software name, developer, release date, platform.
+Historical event, year it occurred, location, key figures.
+Clothing brand, product type, material, target audience.
+Skyscraper name, city, height, year of completion.
+Wine name, winery, region, grape variety.
+
 - FIRST_NAME, GPA (4.0,3.8,3.6,3.4,3.2), MAJOR, MINOR
 - FIRST_NAME, YEARS old pet (1,2,3,4,5), PET TYPE AND/OR PET NUMBER OF LEGS, PET NAME
   Road trip. States. Number states. Miles. Car models.

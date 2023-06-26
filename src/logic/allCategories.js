@@ -377,6 +377,32 @@ const firstNames = [
   "Zoe",
 ];
 
+const lastNames = [
+  "Smith",
+  "Edwards",
+  "Thom",
+  "Clark",
+  "Sekar",
+  "Cheng",
+  "Nelson",
+  "Geppert",
+  "Jones",
+  "Brown",
+  "Davis",
+  "Miller",
+  "Moore",
+  "Anderson",
+  "Jackson",
+  "Garcia",
+  "Martinez",
+  "Robinson",
+  "Lee",
+  "Walker",
+  "Young",
+  "Hernandez",
+  "Baker"
+]
+
 const petNames = [
   "Ace",
   "Angel",
@@ -1689,6 +1715,39 @@ export const allCategories = [
       values: ["water", "milk", "wine", "beer", "juice", "soda"],
       descriptionTemplates: {
         description: (value) => `the person who drank ${value}`,
+      },
+    },
+  },
+  {
+    TOPPINGS: {
+      values: ["mystery", "romance", "fiction", "fantasy", "sci-fi", "history", "nonfiction"],
+      descriptionTemplates: {
+        description: (value) => `the ${value} novel`,
+      },
+    },
+    TIME: {
+      values: [100,150,200,250,300],
+      display: value => `${value} pages`,
+      descriptionTemplates: {
+        description: (value) => `the ${value} page novel`,
+        diffGreaterDescription: (value) => `${value} more pages`,
+        diffLesserDescription: (value) => `${value} fewer pages`,
+        verb: "has",
+      },
+    },
+    DATE: {
+      values: [2020,2015,2010,2005,2000],
+      descriptionTemplates: {
+        description: (value) => `the novel published in ${value}`,
+        diffGreaterDescription: (value) => `${value} years earlier`,
+        diffLesserDescription: (value) => `${value} fewer pages`,
+        verb: "was published",
+      },
+    },
+    NAME: {
+      values: lastNames,
+      descriptionTemplates: {
+        description: (value) => `the novel written by ${value}`,
       },
     },
   }
