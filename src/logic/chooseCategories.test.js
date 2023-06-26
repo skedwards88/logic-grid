@@ -1,26 +1,26 @@
 import {chooseCategories} from "./chooseCategories";
 import * as pickRandomModule from "./helpers/pickRandom.js";
 
-const mockedCategories = {
-  NAME: {
+const mockedCategories = [
+  {
     values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
     descriptionTemplates: {
       description: (value) => `${value}'s car`,
     },
   },
-  COLOR: {
+  {
     values: ["red", "orange", "blue", "green", "yellow"],
     descriptionTemplates: {
       description: (value) => `the ${value} car`,
     },
   },
-  MODEL: {
+  {
     values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
     descriptionTemplates: {
       description: (value) => `the ${value}`,
     },
   },
-  AGE: {
+  {
     values: [1, 2, 3, 4, 5],
     descriptionTemplates: {
       description: (value) => `${value} years old`,
@@ -28,7 +28,7 @@ const mockedCategories = {
       diffLesserDescription: (value) => `${value} years younger`,
     },
   },
-};
+];
 
 describe("chooseCategories", () => {
   test("gets the specified number of categories with the specified number of items per category, mocked values", () => {
