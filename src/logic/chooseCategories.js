@@ -7,24 +7,24 @@ export function chooseCategories(numCats, numItemsPerCat) {
 
   const categorySet = pickRandom(allCategories);
 
-  const categoryNames = shuffleArray(Object.keys(categorySet)).slice(
+  const categories = shuffleArray(categorySet).slice(
     0,
     numCats,
   );
 
   let categoryLabelsAndTemplates = [];
-  for (const categoryName of categoryNames) {
-    const possibleValues = shuffleArray(categorySet[categoryName].values);
+  for (const category of categories) {
+    const possibleValues = shuffleArray(category.values);
     const selectedValues = possibleValues.slice(0, numItemsPerCat);
     // sort the values to make more user friendly
     // note: the numeric clues assume that the numeric labels are sorted
     const sortedValues = sortLabels(selectedValues);
     const categoryInfo = {
       labels: sortedValues,
-      displayLabels: categorySet[categoryName].display
-        ? sortedValues.map((value) => categorySet[categoryName].display(value))
+      displayLabels: category.display
+        ? sortedValues.map((value) => category.display(value))
         : sortedValues,
-      descriptionTemplates: categorySet[categoryName].descriptionTemplates,
+      descriptionTemplates: category.descriptionTemplates,
     };
     categoryLabelsAndTemplates = [...categoryLabelsAndTemplates, categoryInfo];
   }

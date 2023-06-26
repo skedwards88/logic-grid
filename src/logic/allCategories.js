@@ -652,8 +652,8 @@ function convertWheelCountToVehicle(number) {
 }
 
 export const allCategories = [
-  {
-    CAR_AGE: {
+  [
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
@@ -662,7 +662,7 @@ export const allCategories = [
         diffLesserDescription: (value) => `${value} years younger`,
       },
     },
-    CAR_MILES: {
+    {
       values: [10000, 20000, 30000, 40000, 50000],
       display: (value) => `${value} mi`,
       descriptionTemplates: {
@@ -672,27 +672,27 @@ export const allCategories = [
         verb: "has",
       },
     },
-    CAR_COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
     },
-    CAR_MODEL: {
+    {
       values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
       descriptionTemplates: {
         description: (value) => `the ${value}`,
       },
     },
-  },
-  {
-    LANE: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5, 6],
       display: (value) => `lane ${value}`,
       descriptionTemplates: {
@@ -702,27 +702,27 @@ export const allCategories = [
         verb: "was",
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person wearing ${value} goggles`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    STROKE: {
+    {
       values: ["fly", "back", "breast", "free", "IM"],
       descriptionTemplates: {
         description: (value) => `the person who swam ${value}`,
       },
     },
-  },
-  {
-    SCORE: {
+  ],
+  [
+    {
       values: [100, 95, 90, 85, 80],
       descriptionTemplates: {
         description: (value) => `the person whose grade was ${value}`,
@@ -731,19 +731,19 @@ export const allCategories = [
         verb: "scored",
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person using ${value} ink`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    SUBJECT: {
+    {
       values: [
         "dogs",
         "bats",
@@ -775,9 +775,9 @@ export const allCategories = [
         description: (value) => `the person who wrote about ${value}`,
       },
     },
-  },
-  {
-    NUMBER: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} s'mores`,
       descriptionTemplates: {
@@ -787,19 +787,19 @@ export const allCategories = [
         verb: "ate",
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person with the ${value} sleeping bag`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    CONSTELLATION: {
+    {
       values: [
         "Orion",
         "Gemini",
@@ -816,9 +816,9 @@ export const allCategories = [
         description: (value) => `the person who spotted ${value}`,
       },
     },
-  },
-  {
-    NUMBER: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} mi`,
       descriptionTemplates: {
@@ -828,7 +828,7 @@ export const allCategories = [
         verb: "hiked",
       },
     },
-    ELEVATION: {
+    {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       display: (value) => `${value} ft`,
       descriptionTemplates: {
@@ -839,7 +839,7 @@ export const allCategories = [
         verb: "gained",
       },
     },
-    DESTINATION: {
+    {
       values: [
         "lake",
         "river",
@@ -857,21 +857,21 @@ export const allCategories = [
         description: (value) => `the person who hiked to the ${value}`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    ACCESSORY: {
+    {
       values: ["hat", "bottle", "poles", "glasses", "visor", "bandana"],
       descriptionTemplates: {
         description: (value) => `the person with the ${value}`,
       },
     },
-  },
-  {
-    HOURS: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} hr`,
       descriptionTemplates: {
@@ -881,7 +881,7 @@ export const allCategories = [
         verb: "took",
       },
     },
-    PIECES: {
+    {
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
       display: (value) => `${value} pieces`,
       descriptionTemplates: {
@@ -891,13 +891,13 @@ export const allCategories = [
         verb: "assembled",
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    SUBJECT: {
+    {
       values: [
         "cats",
         "dogs",
@@ -925,9 +925,9 @@ export const allCategories = [
         description: (value) => `the person who did a puzzle of ${value}`,
       },
     },
-  },
-  {
-    TREES: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} trees`,
       descriptionTemplates: {
@@ -937,19 +937,19 @@ export const allCategories = [
         verb: "has",
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}'s house`,
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the ${value} house`,
       },
     },
-    ACCESSORY: {
+    {
       values: [
         "swing",
         "dog",
@@ -966,9 +966,9 @@ export const allCategories = [
         description: (value) => `the house with the ${value}`,
       },
     },
-  },
-  {
-    TIME: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} PM`,
       descriptionTemplates: {
@@ -978,7 +978,7 @@ export const allCategories = [
         verb: "snacks",
       },
     },
-    DURATION: {
+    {
       values: [10, 15, 20, 25, 30],
       display: (value) => `${value} min`,
       descriptionTemplates: {
@@ -988,33 +988,33 @@ export const allCategories = [
         verb: "takes",
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person with the ${value} cup`,
       },
     },
-    DRINK: {
+    {
       values: ["tea", "coffee", "water", "milk", "wine", "beer", "juice"],
       descriptionTemplates: {
         description: (value) => `the person who drinks ${value}`,
       },
     },
-    SNACK: {
+    {
       values: ["apple", "cookie", "bun", "pear", "donut", "banana"],
       descriptionTemplates: {
         description: (value) => `the person who eats the ${value}`,
       },
     },
-  },
-  {
-    COST: {
+  ],
+  [
+    {
       values: [100, 150, 200, 250, 300, 350, 400, 450, 500],
       display: (value) => `$${value}`,
       descriptionTemplates: {
@@ -1024,7 +1024,7 @@ export const allCategories = [
         verb: "cost",
       },
     },
-    NUMBER: {
+    {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} stones`,
       descriptionTemplates: {
@@ -1034,13 +1034,13 @@ export const allCategories = [
         verb: "has",
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}'s jewelry`,
       },
     },
-    STONE: {
+    {
       values: [
         "ruby",
         "emerald",
@@ -1057,7 +1057,7 @@ export const allCategories = [
         description: (value) => `the jewelry with the ${value}`,
       },
     },
-    JEWELRY: {
+    {
       values: [
         "necklace",
         "brooch",
@@ -1071,15 +1071,15 @@ export const allCategories = [
         description: (value) => `the ${value}`,
       },
     },
-  },
-  {
-    NAME: {
+  ],
+  [
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    DURATION: {
+    {
       values: [10, 20, 30, 40, 50, 60],
       display: (value) => `${value} min`,
       descriptionTemplates: {
@@ -1090,7 +1090,7 @@ export const allCategories = [
         verb: "does",
       },
     },
-    ACTIVITY: {
+    {
       values: [
         "bakes",
         "runs",
@@ -1106,7 +1106,7 @@ export const allCategories = [
         description: (value) => `the person who ${value}`,
       },
     },
-    DAY: {
+    {
       values: weekdaysAndWeekends,
       display: (value) => value.slice(0, 3),
       descriptionTemplates: {
@@ -1114,15 +1114,15 @@ export const allCategories = [
           `the person who does their activity on ${value}`,
       },
     },
-  },
-  {
-    NAME: {
+  ],
+  [
+    {
       values: petNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    BREED: {
+    {
       values: [
         "collie",
         "labrador",
@@ -1141,7 +1141,7 @@ export const allCategories = [
         description: (value) => `the ${value}`,
       },
     },
-    AGE: {
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
@@ -1150,15 +1150,15 @@ export const allCategories = [
         diffLesserDescription: (value) => `${value} years younger`,
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the dog with the ${value} leash`,
       },
     },
-  },
-  {
-    BREAD: {
+  ],
+  [
+    {
       values: [
         "french",
         "sourdough",
@@ -1175,7 +1175,7 @@ export const allCategories = [
         description: (value) => `the sandwich on ${value} bread`,
       },
     },
-    FILLING: {
+    {
       values: [
         "eggplant",
         "tofu",
@@ -1192,7 +1192,7 @@ export const allCategories = [
         description: (value) => `the ${value} sandwich`,
       },
     },
-    CONDIMENT: {
+    {
       values: [
         "mayo",
         "hot sauce",
@@ -1209,7 +1209,7 @@ export const allCategories = [
         description: (value) => `the sandwich flavored with ${value}`,
       },
     },
-    COST: {
+    {
       values: [7, 8, 9, 10, 11, 12, 13],
       display: (value) => `$${value}`,
       descriptionTemplates: {
@@ -1219,9 +1219,9 @@ export const allCategories = [
         verb: "costs",
       },
     },
-  },
-  {
-    COSTUME: {
+  ],
+  [
+    {
       values: [
         "ghost",
         "vampire",
@@ -1236,13 +1236,13 @@ export const allCategories = [
         description: (value) => `the person who dressed as a ${value}`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    CANDY: {
+    {
       values: [
         "Snickers",
         "Twix",
@@ -1259,7 +1259,7 @@ export const allCategories = [
         description: (value) => `the person who favors ${value}`,
       },
     },
-    COST: {
+    {
       values: [5, 10, 15, 20, 25, 30],
       display: (value) => `${value} pieces`,
       descriptionTemplates: {
@@ -1269,9 +1269,9 @@ export const allCategories = [
         verb: "got",
       },
     },
-  },
-  {
-    GIFT: {
+  ],
+  [
+    {
       values: [
         "puppy",
         "pony",
@@ -1290,20 +1290,20 @@ export const allCategories = [
         description: (value) => `the person who asked Santa for a ${value}`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    PAPER: {
+    {
       values: ["candy", "reindeer", "Rudolph", "Santa", "sled", "snow", "elf"],
       descriptionTemplates: {
         description: (value) =>
           `the person whose gifts were wrapped in ${value} wrapping paper`,
       },
     },
-    NUMBER: {
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} gifts`,
       descriptionTemplates: {
@@ -1313,9 +1313,9 @@ export const allCategories = [
         verb: "received",
       },
     },
-  },
-  {
-    TOPIC: {
+  ],
+  [
+    {
       values: [
         "disease",
         "wealth",
@@ -1330,13 +1330,13 @@ export const allCategories = [
         description: (value) => `the historian who studies ${value}`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    UNIVERSITY: {
+    {
       values: [
         "Stanford",
         "Harvard",
@@ -1350,7 +1350,7 @@ export const allCategories = [
         description: (value) => `the historian who studies at ${value}`,
       },
     },
-    CENTURY: {
+    {
       values: [14, 15, 16, 17, 18, 19, 20],
       display: (value) => `${value}th`,
       descriptionTemplates: {
@@ -1361,9 +1361,9 @@ export const allCategories = [
         verb: "studies the period",
       },
     },
-  },
-  {
-    SPECIES: {
+  ],
+  [
+    {
       values: [
         "fir",
         "oak",
@@ -1390,19 +1390,19 @@ export const allCategories = [
         description: (value) => `the ${value} tree`,
       },
     },
-    TRAIT: {
+    {
       values: ["height", "width", "canopy", "history", "branches"],
       descriptionTemplates: {
         description: (value) => `the tree that is known for its ${value}`,
       },
     },
-    STATE: {
+    {
       values: unitedStates,
       descriptionTemplates: {
         description: (value) => `the tree in ${value}`,
       },
     },
-    AGE: {
+    {
       values: [10, 20, 50, 100, 150, 200],
       display: (value) => `${value} yr`,
       descriptionTemplates: {
@@ -1411,9 +1411,9 @@ export const allCategories = [
         diffLesserDescription: (value) => `${value} years younger`,
       },
     },
-  },
-  {
-    PLACE: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => appendNth(value),
       descriptionTemplates: {
@@ -1423,19 +1423,19 @@ export const allCategories = [
         verb: "placed",
       },
     },
-    COLOR: {
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person wearing the ${value} jersey`,
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => value,
       },
     },
-    RACE: {
+    {
       values: [50, 100, 200, 400, 1600],
       descriptionTemplates: {
         description: (value) => `the person who ran the ${value} meter race`,
@@ -1444,9 +1444,9 @@ export const allCategories = [
         verb: "raced",
       },
     },
-  },
-  {
-    DAYS: {
+  ],
+  [
+    {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
         description: (value) => `the person vacationed for ${value} days`,
@@ -1455,7 +1455,7 @@ export const allCategories = [
         verb: "vacationed",
       },
     },
-    DESTINATION: {
+    {
       values: [
         "Belgium",
         "Croatia",
@@ -1500,7 +1500,7 @@ export const allCategories = [
         description: (value) => `the person who traveled to ${value}`,
       },
     },
-    AIRLINE: {
+    {
       values: [
         "Skyway",
         "Aero",
@@ -1531,29 +1531,29 @@ export const allCategories = [
         description: (value) => `the person who flew on ${value} airline`,
       },
     },
-    MONTH: {
+    {
       values: months,
       display: (value) => value.slice(0, 3),
       descriptionTemplates: {
         description: (value) => `the person who took their trip in ${value}`,
       },
     },
-    DAY: {
+    {
       values: weekdaysAndWeekends,
       display: (value) => value.slice(0, 3),
       descriptionTemplates: {
         description: (value) => `the person who started their trip on ${value}`,
       },
     },
-  },
-  {
-    NAME: {
+  ],
+  [
+    {
       values: petNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    LEGS: {
+    {
       values: [0, 2, 4, 6, 8],
       display: (value) => convertLegCountToAnimal(value),
       descriptionTemplates: {
@@ -1563,27 +1563,27 @@ export const allCategories = [
         verb: "has",
       },
     },
-    ACTIVITY: {
+    {
       values: ["sleeping", "hiding", "resting", "eating", "staring"],
       descriptionTemplates: {
         description: (value) => `the pet that likes ${value}`,
       },
     },
-    CAGE: {
+    {
       values: ["metal", "glass", "mesh", "wood", "plastic"],
       descriptionTemplates: {
         description: (value) => `the pet in the ${value} cage`,
       },
     },
-  },
-  {
-    COLOR: {
+  ],
+  [
+    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the clown with the ${value} hair`,
       },
     },
-    WHEELS: {
+    {
       values: [0, 1, 2, 3, 4],
       display: (value) => convertWheelCountToVehicle(value),
       descriptionTemplates: {
@@ -1593,27 +1593,27 @@ export const allCategories = [
         verb: "rides on",
       },
     },
-    ACTIVITY: {
+    {
       values: ["juggle", "sing", "wave", "honk", "smile"],
       descriptionTemplates: {
         description: (value) => `the clown that ${value}s`,
       },
     },
-    CAGE: {
+    {
       values: ["flower", "hose", "chicken", "hammer", "sign"],
       descriptionTemplates: {
         description: (value) => `the clown with the ${value}`,
       },
     },
-  },
-  {
-    DANCE: {
+  ],
+  [
+    {
       values: ["tango", "swing", "salsa", "cha-cha", "waltz", "rumba", "polka"],
       descriptionTemplates: {
         description: (value) => `the ${value} dancer`,
       },
     },
-    SONGS: {
+    {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} songs`,
       descriptionTemplates: {
@@ -1623,7 +1623,7 @@ export const allCategories = [
         verb: "performed",
       },
     },
-    MUSIC: {
+    {
       values: [
         "pop",
         "jazz",
@@ -1638,22 +1638,22 @@ export const allCategories = [
         description: (value) => `the dancer that performed to ${value} music`,
       },
     },
-    ROOM: {
+    {
       values: ["Grand", "Crystal", "Royal", "Rose", "Moonlight"],
       descriptionTemplates: {
         description: (value) =>
           `the dancer that performed in the ${value} ballroom`,
       },
     },
-  },
-  {
-    DANCE: {
+  ],
+  [
+    {
       values: ["tango", "swing", "salsa", "cha-cha", "waltz", "rumba", "polka"],
       descriptionTemplates: {
         description: (value) => `the dancer that likes ${value}`,
       },
     },
-    TIME: {
+    {
       values: [7, 8, 9, 10, 11],
       display: (value) => `${value} PM`,
       descriptionTemplates: {
@@ -1663,7 +1663,7 @@ export const allCategories = [
         verb: "danced",
       },
     },
-    SONGS: {
+    {
       values: [15, 20, 25, 30, 35],
       display: (value) => `${value} songs`,
       descriptionTemplates: {
@@ -1673,7 +1673,7 @@ export const allCategories = [
         verb: "danced",
       },
     },
-    MUSIC: {
+    {
       values: [
         "pop",
         "jazz",
@@ -1688,9 +1688,9 @@ export const allCategories = [
         description: (value) => `the dancer that likes ${value} music`,
       },
     },
-  },
-  {
-    TOPPINGS: {
+  ],
+  [
+    {
       values: [
         "pepperoni",
         "cheese",
@@ -1705,7 +1705,7 @@ export const allCategories = [
         description: (value) => `the person who ate ${value} pizza`,
       },
     },
-    TIME: {
+    {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
         description: (value) => `the person who ate ${value} slices`,
@@ -1714,21 +1714,21 @@ export const allCategories = [
         verb: "ate",
       },
     },
-    NAME: {
+    {
       values: firstNames,
       descriptionTemplates: {
         description: (value) => `${value}`,
       },
     },
-    DRINK: {
+    {
       values: ["water", "milk", "wine", "beer", "juice", "soda"],
       descriptionTemplates: {
         description: (value) => `the person who drank ${value}`,
       },
     },
-  },
-  {
-    TOPPINGS: {
+  ],
+  [
+    {
       values: [
         "mystery",
         "romance",
@@ -1742,7 +1742,7 @@ export const allCategories = [
         description: (value) => `the ${value} novel`,
       },
     },
-    TIME: {
+    {
       values: [100, 150, 200, 250, 300],
       display: (value) => `${value} pages`,
       descriptionTemplates: {
@@ -1752,7 +1752,7 @@ export const allCategories = [
         verb: "has",
       },
     },
-    DATE: {
+    {
       values: [2020, 2015, 2010, 2005, 2000],
       descriptionTemplates: {
         description: (value) => `the novel published in ${value}`,
@@ -1761,11 +1761,11 @@ export const allCategories = [
         verb: "was published",
       },
     },
-    NAME: {
+    {
       values: lastNames,
       descriptionTemplates: {
         description: (value) => `the novel written by ${value}`,
       },
     },
-  },
+  ],
 ];
