@@ -7,10 +7,7 @@
 - Add to Sect games site
 - Add more scenarios
 - Complete applyCluesAdNauseam tests
-- Could add more clues?
-  - the red house has an even number of trees (this is a glorified "or")
-  - the red house has more than 3 trees (this is a glorified "or")
-  - the red house does not have the most or fewest trees (this is a glorified "or")
+
 - Add analytics?
 - Put in app store
   - add screenshots to manifest and webpack config
@@ -19,3 +16,8 @@
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
 - set up eslint
+
+- Could add more clues?
+  - the red house has an even number of trees (this is a glorified "or")
+  - the red house has more than 3 trees (this is a glorified "or")
+  - the red house does not have the most or fewest trees (this is a glorified "or")
