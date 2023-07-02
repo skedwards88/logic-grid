@@ -147,42 +147,6 @@ button {
   white-space: nowrap;
 }
 
-.columnLabel > div {
-  box-shadow: -1px -1px var(--light-color);
-  padding-top: 4px;
-  transform: rotate(180deg);
-  min-height: 10vmin;
-  overflow: scroll;
-}
-
-.columnLabel.size3 > div {
-  width: var(--capped-cell-size);
-}
-
-.columnLabel.size4 > div {
-  width: var(--capped-cell-size);
-}
-
-.columnLabel.size5 > div {
-  width: var(--capped-cell-size);
-}
-
-.columnLabel.label0 {
-  grid-area: columnLabel0;
-}
-
-.columnLabel.label1 {
-  grid-area: columnLabel1;
-}
-
-.columnLabel.label2 {
-  grid-area: columnLabel2;
-}
-
-.columnLabel.label3 {
-  grid-area: columnLabel3;
-}
-
 .rowLabel {
   border: solid var(--light-color);
   border-width: 2px 0;
@@ -194,6 +158,14 @@ button {
   white-space: nowrap;
 }
 
+.columnLabel > div {
+  box-shadow: -1px -1px var(--light-color);
+  padding-top: 4px;
+  transform: rotate(180deg);
+  min-height: 10vmin;
+  overflow: scroll;
+}
+
 .rowLabel > div {
   box-shadow: 1px -1px var(--light-color);
   padding-right: 4px;
@@ -201,29 +173,58 @@ button {
   overflow: scroll;
 }
 
+.columnLabel.size3 > div {
+  width: var(--capped-cell-size);
+}
+
 .rowLabel.size3 > div {
   height: var(--capped-cell-size);
+}
+
+.columnLabel.size4 > div {
+  width: var(--capped-cell-size);
 }
 
 .rowLabel.size4 > div {
   height: var(--capped-cell-size);
 }
 
+.columnLabel.size5 > div {
+  width: var(--capped-cell-size);
+}
+
 .rowLabel.size5 > div {
   height: var(--capped-cell-size);
+}
+
+.columnLabel.label0 {
+  grid-area: columnLabel0;
 }
 
 .rowLabel.label0 {
   grid-area: rowLabel0;
 }
 
+.columnLabel.label1 {
+  grid-area: columnLabel1;
+}
+
 .rowLabel.label1 {
   grid-area: rowLabel1;
+}
+
+.columnLabel.label2 {
+  grid-area: columnLabel2;
 }
 
 .rowLabel.label2 {
   grid-area: rowLabel2;
 }
+
+.columnLabel.label3 {
+  grid-area: columnLabel3;
+}
+
 
 .rowLabel.label3 {
   grid-area: rowLabel3;
