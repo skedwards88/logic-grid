@@ -1,7 +1,7 @@
-import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
+import { getOrCrossCategoryClue } from "./getOrCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {applyClueLogic} from "./applyClueLogic";
+import { applyClueLogic } from "./applyClueLogic";
 
 describe("getOrCrossCategoryClue", () => {
   afterEach(() => {
@@ -11,7 +11,7 @@ describe("getOrCrossCategoryClue", () => {
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: [1, 2, 3, 4],
+      columnLabels: [1, 2, 3, 4],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -21,7 +21,7 @@ describe("getOrCrossCategoryClue", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -29,7 +29,7 @@ describe("getOrCrossCategoryClue", () => {
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -39,20 +39,20 @@ describe("getOrCrossCategoryClue", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
       rowLabels: [1, 2, 3, 4],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {

@@ -1,11 +1,11 @@
-import {getNotClue} from "./getNotClue";
+import { getNotClue } from "./getNotClue";
 import * as pickRandomModule from "../helpers/pickRandom";
-import {applyClueLogic} from "./applyClueLogic";
+import { applyClueLogic } from "./applyClueLogic";
 
 const solutionMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -15,7 +15,7 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: (value) => `${value}'s car`,
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `${value} years old`,
       diffGreaterDescription: (value) => `${value} years older`,
       diffLesserDescription: (value) => `${value} years younger`,
@@ -23,7 +23,7 @@ const solutionMatrix = {
   },
   NameVsMake: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -33,13 +33,13 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: (value) => `${value}'s car`,
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `the ${value}`,
     },
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -49,20 +49,20 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: (value) => `${value}'s car`,
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `the ${value} car`,
     },
   },
   NumberVsMake: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
     ],
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `the ${value}`,
     },
     rowDescriptionTemplates: {
@@ -73,14 +73,14 @@ const solutionMatrix = {
   },
   NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
     ],
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `the ${value} car`,
     },
     rowDescriptionTemplates: {
@@ -91,7 +91,7 @@ const solutionMatrix = {
   },
   MakeVsColor: {
     rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -101,7 +101,7 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: (value) => `the ${value}`,
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: (value) => `the ${value} car`,
     },
   },
@@ -126,10 +126,10 @@ describe("getNotClue", () => {
     jest
       .spyOn(pickRandomModule, "pickRandom")
       .mockReturnValueOnce("MakeVsColor") // solutionKey
-      .mockReturnValueOnce(1); // colIndex (corresponds to 'blue')
+      .mockReturnValueOnce(1); // columnIndex (corresponds to 'blue')
     jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
-    const expectedClue = ["The Ford is not the blue car.","The blue car is not the Ford."];
+    const expectedClue = ["The Ford is not the blue car.", "The blue car is not the Ford."];
     const clue = getNotClue(solutionMatrix);
     expect(expectedClue).toContain(clue.writtenClue);
 

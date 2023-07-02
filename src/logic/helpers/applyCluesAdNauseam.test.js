@@ -1,9 +1,9 @@
-import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
+import { applyCluesAdNauseam } from "./applyCluesAdNauseam";
 
 const solutionMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -13,7 +13,7 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: "VALUE's car",
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE year old car",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
@@ -21,7 +21,7 @@ const solutionMatrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -31,20 +31,20 @@ const solutionMatrix = {
     rowDescriptionTemplates: {
       description: "VALUE's car",
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE car",
     },
   },
   ColorVsNumber: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
       [false, false, true, false],
       [false, false, false, true],
     ],
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE car",
     },
     rowDescriptionTemplates: {
@@ -58,7 +58,7 @@ const solutionMatrix = {
 const emptyMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -68,7 +68,7 @@ const emptyMatrix = {
     rowDescriptionTemplates: {
       description: "VALUE's car",
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE year old car",
       diffGreaterDescription: "VALUE years older",
       diffLesserDescription: "VALUE years younger",
@@ -76,7 +76,7 @@ const emptyMatrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -86,20 +86,20 @@ const emptyMatrix = {
     rowDescriptionTemplates: {
       description: "VALUE's car",
     },
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE car",
     },
   },
   ColorVsNumber: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
     ],
-    colDescriptionTemplates: {
+    columnDescriptionTemplates: {
       description: "the VALUE car",
     },
     rowDescriptionTemplates: {
@@ -156,7 +156,7 @@ describe("applyCluesAdNauseam", () => {
   //   const inputMatrix = {
   //     NameVsNumber: {
   //       rowLabels: [80, 85, 90, 95],
-  //       colLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+  //       columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
   //       grid: [
   //         [null, null, null, null],
   //         [null, null, null, null],
@@ -166,7 +166,7 @@ describe("applyCluesAdNauseam", () => {
   //     },
   //     NameVsColor: {
   //       rowLabels: ["teal", "yellow", "blue", "lime"],
-  //       colLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+  //       columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
   //       grid: [
   //         [null, null, null, null],
   //         [null, null, null, null],
@@ -176,7 +176,7 @@ describe("applyCluesAdNauseam", () => {
   //     },
   //     ColorVsNumber: {
   //       rowLabels: [80, 85, 90, 95],
-  //       colLabels: ["teal", "yellow", "blue", "lime"],
+  //       columnLabels: ["teal", "yellow", "blue", "lime"],
   //       grid: [
   //         [null, null, null, null],
   //         [null, null, null, null],
@@ -290,7 +290,7 @@ describe("applyCluesAdNauseam", () => {
     const inputMatrix = {
       box1: {
         rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        colLabels: [10, 15, 20, 25],
+        columnLabels: [10, 15, 20, 25],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -300,7 +300,7 @@ describe("applyCluesAdNauseam", () => {
       },
       box2: {
         rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        colLabels: ["m&ms", "resses", "twix", "twizzlers"],
+        columnLabels: ["m&ms", "resses", "twix", "twizzlers"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -310,7 +310,7 @@ describe("applyCluesAdNauseam", () => {
       },
       box3: {
         rowLabels: ["m&ms", "resses", "twix", "twizzlers"],
-        colLabels: [10, 15, 20, 25],
+        columnLabels: [10, 15, 20, 25],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -331,7 +331,7 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "orCrossCategory",
-        clueParameters: {itemA: "vampire", orItems: [25, "twix"]},
+        clueParameters: { itemA: "vampire", orItems: [25, "twix"] },
       },
       {
         clueType: "numericComparison",
@@ -415,7 +415,7 @@ describe("applyCluesAdNauseam", () => {
   //   const inputMatrix = {
   //     NameVsNumber: {
   //       rowLabels: [80, 85, 90, 95],
-  //       colLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+  //       columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
   //       grid: [
   //         [null,null,false,null],
   //         [null,null,null,null],
@@ -425,7 +425,7 @@ describe("applyCluesAdNauseam", () => {
   //     },
   //     NameVsColor: {
   //       rowLabels: ["teal", "yellow", "blue", "lime"],
-  //       colLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+  //       columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
   //       grid: [
   //         [null,null,false,null],
   //         [null,null,null,null],
@@ -435,7 +435,7 @@ describe("applyCluesAdNauseam", () => {
   //     },
   //     ColorVsNumber: {
   //       rowLabels: [80, 85, 90, 95],
-  //       colLabels: ["teal", "yellow", "blue", "lime"],
+  //       columnLabels: ["teal", "yellow", "blue", "lime"],
   //       grid: [
   //         [null,null,false,false],
   //         [null,null,false,false],

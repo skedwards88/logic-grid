@@ -5,7 +5,7 @@ describe("autocomplete", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [true, null, null],
           [null, null, true],
@@ -14,7 +14,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, true],
           [null, true, null],
@@ -23,7 +23,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -36,7 +36,7 @@ describe("autocomplete", () => {
     expect(outputMatrix).toEqual({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [true, false, false],
           [false, false, true],
@@ -45,7 +45,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [false, false, true],
           [false, true, false],
@@ -54,7 +54,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [false, true, false],
           [false, false, true],
@@ -68,7 +68,7 @@ describe("autocomplete", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [false, false, true],
           [null, true, null],
@@ -77,7 +77,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, true, null],
           [true, null, null],
@@ -86,7 +86,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -106,7 +106,7 @@ describe("autocomplete", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, false, false],
           [false, null, false],
@@ -115,7 +115,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, false, false],
           [false, null, false],
@@ -124,7 +124,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, false, false],
           [false, null, false],
@@ -142,7 +142,7 @@ describe("autocomplete", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [true, null, null],
           [null, null, null],
@@ -151,7 +151,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, true],
           [null, true, null],
@@ -160,7 +160,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -178,7 +178,7 @@ describe("autocomplete", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [true, null, null],
           [null, null, true],
@@ -187,7 +187,7 @@ describe("autocomplete", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, true],
           [null, true, null],
@@ -196,7 +196,7 @@ describe("autocomplete", () => {
       },
       ColorVsNumber: {
         rowLabels: ["red", "blue", "green"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, false, null],
           [null, null, null],

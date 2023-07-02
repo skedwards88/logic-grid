@@ -1,4 +1,4 @@
-import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
+import { validQNumericComparisonClue } from "./validQNumericComparisonClue";
 
 describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {
@@ -10,7 +10,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -43,7 +43,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: [0, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -76,7 +76,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -108,7 +108,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -140,7 +140,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -172,7 +172,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -204,7 +204,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -236,7 +236,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, null, null],
           [null, null, null, null],
@@ -268,7 +268,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: numericLabels,
+        columnLabels: numericLabels,
         grid: [
           [true, null, null, null],
           [null, null, false, null],
@@ -301,7 +301,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -333,7 +333,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -365,7 +365,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -397,7 +397,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -429,7 +429,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -461,7 +461,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -493,7 +493,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -525,7 +525,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -559,7 +559,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -593,7 +593,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -627,7 +627,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -660,7 +660,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -693,7 +693,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -726,7 +726,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -759,7 +759,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -792,7 +792,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -825,7 +825,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: numericLabels,
+        columnLabels: numericLabels,
         grid: [
           [true, null, null, null],
           [null, null, false, null],
@@ -859,7 +859,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -892,7 +892,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -925,7 +925,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -958,7 +958,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -986,7 +986,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const matrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        columnLabels: [1, 2, 3, 4],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -996,7 +996,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1006,7 +1006,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
       },
       NumberVsColor: {
         rowLabels: [1, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1046,7 +1046,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1079,7 +1079,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1112,7 +1112,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1144,7 +1144,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1176,7 +1176,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1208,7 +1208,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1240,7 +1240,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -1272,7 +1272,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -1304,7 +1304,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -1336,7 +1336,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1368,7 +1368,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -1400,7 +1400,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1432,7 +1432,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -1464,7 +1464,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -1496,7 +1496,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -1528,7 +1528,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -1560,7 +1560,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1594,7 +1594,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1628,7 +1628,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1662,7 +1662,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1695,7 +1695,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1728,7 +1728,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1761,7 +1761,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1794,7 +1794,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -1827,7 +1827,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -1860,7 +1860,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -1893,7 +1893,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1926,7 +1926,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -1959,7 +1959,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1992,7 +1992,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -2027,7 +2027,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2060,7 +2060,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2093,7 +2093,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2125,7 +2125,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2157,7 +2157,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -2189,7 +2189,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -2221,7 +2221,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -2253,7 +2253,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2285,7 +2285,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2317,7 +2317,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -2349,7 +2349,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -2381,7 +2381,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2413,7 +2413,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -2445,7 +2445,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -2476,7 +2476,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2510,7 +2510,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2544,7 +2544,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2578,7 +2578,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2611,7 +2611,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2644,7 +2644,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -2677,7 +2677,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -2710,7 +2710,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -2743,7 +2743,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2776,7 +2776,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2809,7 +2809,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -2842,7 +2842,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const matrix = {
       NumberVsColor: {
         rowLabels: numericLabels,
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],

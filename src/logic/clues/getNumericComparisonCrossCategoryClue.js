@@ -1,7 +1,7 @@
-import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
-import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
-import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
+import { pickRandoms, pickRandom } from "../helpers/pickRandom.js";
+import { shuffleArray } from "../helpers/shuffleArray.js";
+import { findFirstTrueIntersection } from "../helpers/findFirstTrueIntersection.js";
+import { arraysEqualQ } from "../helpers/arraysEqualQ.js";
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
@@ -23,21 +23,21 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
         numericLabels = solutionMatrix[key].rowLabels;
         numericDescriptionTemplates =
           solutionMatrix[key].rowDescriptionTemplates;
-        itemALabels = solutionMatrix[key].colLabels;
-        itemATemplates = solutionMatrix[key].colDescriptionTemplates;
-      } else if (typeof solutionMatrix[key].colLabels[0] === "number") {
-        numericLabels = solutionMatrix[key].colLabels;
+        itemALabels = solutionMatrix[key].columnLabels;
+        itemATemplates = solutionMatrix[key].columnDescriptionTemplates;
+      } else if (typeof solutionMatrix[key].columnLabels[0] === "number") {
+        numericLabels = solutionMatrix[key].columnLabels;
         numericDescriptionTemplates =
-          solutionMatrix[key].colDescriptionTemplates;
+          solutionMatrix[key].columnDescriptionTemplates;
         itemALabels = solutionMatrix[key].rowLabels;
         itemATemplates = solutionMatrix[key].rowDescriptionTemplates;
       }
     } else {
       // in case there are multiple numeric labels, make sure we find one that matches the one we already found
       if (arraysEqualQ(solutionMatrix[key].rowLabels, numericLabels)) {
-        itemBLabels = solutionMatrix[key].colLabels;
-        itemBTemplates = solutionMatrix[key].colDescriptionTemplates;
-      } else if (arraysEqualQ(solutionMatrix[key].colLabels, numericLabels)) {
+        itemBLabels = solutionMatrix[key].columnLabels;
+        itemBTemplates = solutionMatrix[key].columnDescriptionTemplates;
+      } else if (arraysEqualQ(solutionMatrix[key].columnLabels, numericLabels)) {
         itemBLabels = solutionMatrix[key].rowLabels;
         itemBTemplates = solutionMatrix[key].rowDescriptionTemplates;
       }

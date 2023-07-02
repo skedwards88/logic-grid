@@ -22,7 +22,10 @@ export function gameInit({
     savedState.easyTrue != undefined &&
     savedState.showViolations != undefined
   ) {
-    return savedState;
+    // Only use the saved state if it is compatible with the most recent breaking change
+    if (savedState.lastBreakingChange === "20230702") {
+      return savedState;
+    }
   }
 
   // Make sure the numCategories is 2-4
@@ -45,5 +48,6 @@ export function gameInit({
     matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
     showViolations: showViolations,
+    lastBreakingChange: "20230702",
   };
 }

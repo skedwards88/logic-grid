@@ -1,9 +1,9 @@
-import {findMatrixValue} from "./findMatrixValue.js";
+import { findMatrixValue } from "./findMatrixValue.js";
 
 const matrix = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -13,7 +13,7 @@ const matrix = {
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["fly", "back", "breast", "free"],
+    columnLabels: ["fly", "back", "breast", "free"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -23,7 +23,7 @@ const matrix = {
   },
   "0v3": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, false, null],
@@ -33,7 +33,7 @@ const matrix = {
   },
   "1v2": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["fly", "back", "breast", "free"],
+    columnLabels: ["fly", "back", "breast", "free"],
     grid: [
       [true, null, null, null],
       [null, null, null, null],
@@ -43,7 +43,7 @@ const matrix = {
   },
   "1v3": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -53,7 +53,7 @@ const matrix = {
   },
   "2v3": {
     rowLabels: ["fly", "back", "breast", "free"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],

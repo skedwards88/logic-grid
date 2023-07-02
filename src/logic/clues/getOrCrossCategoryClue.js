@@ -1,6 +1,6 @@
-import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
-import {pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import { findFirstTrueIntersection } from "../helpers/findFirstTrueIntersection.js";
+import { pickRandom } from "../helpers/pickRandom.js";
+import { shuffleArray } from "../helpers/shuffleArray.js";
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
@@ -18,45 +18,45 @@ export function getOrCrossCategoryClue(solutionMatrix) {
     if (!keyAB) {
       keyAB = key;
     } else if (
-      solutionMatrix[keyAB].colLabels[0] === solutionMatrix[key].colLabels[0]
+      solutionMatrix[keyAB].columnLabels[0] === solutionMatrix[key].columnLabels[0]
     ) {
       keyAC = key;
-      labelsA = solutionMatrix[key].colLabels;
+      labelsA = solutionMatrix[key].columnLabels;
       labelsB = solutionMatrix[keyAB].rowLabels;
       labelsC = solutionMatrix[key].rowLabels;
-      descriptionTemplateA = solutionMatrix[key].colDescriptionTemplates;
+      descriptionTemplateA = solutionMatrix[key].columnDescriptionTemplates;
       descriptionTemplateB = solutionMatrix[keyAB].rowDescriptionTemplates;
       descriptionTemplateC = solutionMatrix[key].rowDescriptionTemplates;
     } else if (
-      solutionMatrix[keyAB].rowLabels[0] === solutionMatrix[key].colLabels[0]
+      solutionMatrix[keyAB].rowLabels[0] === solutionMatrix[key].columnLabels[0]
     ) {
       keyAC = key;
-      labelsA = solutionMatrix[key].colLabels;
-      labelsB = solutionMatrix[keyAB].colLabels;
+      labelsA = solutionMatrix[key].columnLabels;
+      labelsB = solutionMatrix[keyAB].columnLabels;
       labelsC = solutionMatrix[key].rowLabels;
-      descriptionTemplateA = solutionMatrix[key].colDescriptionTemplates;
-      descriptionTemplateB = solutionMatrix[keyAB].colDescriptionTemplates;
+      descriptionTemplateA = solutionMatrix[key].columnDescriptionTemplates;
+      descriptionTemplateB = solutionMatrix[keyAB].columnDescriptionTemplates;
       descriptionTemplateC = solutionMatrix[key].rowDescriptionTemplates;
     } else if (
       solutionMatrix[keyAB].rowLabels[0] === solutionMatrix[key].rowLabels[0]
     ) {
       keyAC = key;
       labelsA = solutionMatrix[key].rowLabels;
-      labelsB = solutionMatrix[keyAB].colLabels;
-      labelsC = solutionMatrix[key].colLabels;
+      labelsB = solutionMatrix[keyAB].columnLabels;
+      labelsC = solutionMatrix[key].columnLabels;
       descriptionTemplateA = solutionMatrix[key].rowDescriptionTemplates;
-      descriptionTemplateB = solutionMatrix[keyAB].colDescriptionTemplates;
-      descriptionTemplateC = solutionMatrix[key].colDescriptionTemplates;
+      descriptionTemplateB = solutionMatrix[keyAB].columnDescriptionTemplates;
+      descriptionTemplateC = solutionMatrix[key].columnDescriptionTemplates;
     } else if (
-      solutionMatrix[keyAB].colLabels[0] === solutionMatrix[key].rowLabels[0]
+      solutionMatrix[keyAB].columnLabels[0] === solutionMatrix[key].rowLabels[0]
     ) {
       keyAC = key;
       labelsA = solutionMatrix[key].rowLabels;
       labelsB = solutionMatrix[keyAB].rowLabels;
-      labelsC = solutionMatrix[key].colLabels;
+      labelsC = solutionMatrix[key].columnLabels;
       descriptionTemplateA = solutionMatrix[key].rowDescriptionTemplates;
       descriptionTemplateB = solutionMatrix[keyAB].rowDescriptionTemplates;
-      descriptionTemplateC = solutionMatrix[key].colDescriptionTemplates;
+      descriptionTemplateC = solutionMatrix[key].columnDescriptionTemplates;
     }
     if (keyAC) {
       break;
@@ -88,6 +88,6 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   return {
     writtenClue: writtenClue,
     clueType: "orCrossCategory",
-    clueParameters: {itemA, orItems: [itemB, itemC]},
+    clueParameters: { itemA, orItems: [itemB, itemC] },
   };
 }

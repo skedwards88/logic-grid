@@ -1,7 +1,7 @@
-import {getNumericComparisonClue} from "./getNumericComparisonClue";
+import { getNumericComparisonClue } from "./getNumericComparisonClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {applyClueLogic} from "./applyClueLogic";
+import { applyClueLogic } from "./applyClueLogic";
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   afterEach(() => {
@@ -12,7 +12,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -22,7 +22,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -30,7 +30,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -40,20 +40,20 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
@@ -519,7 +519,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -529,7 +529,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -537,7 +537,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -547,20 +547,20 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
@@ -1026,7 +1026,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -1036,7 +1036,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -1044,7 +1044,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -1054,20 +1054,20 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     NumberVsColor: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {

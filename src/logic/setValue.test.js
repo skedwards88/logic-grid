@@ -8,7 +8,7 @@ import {
 const emptyInputMatrix = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe"],
-    colLabels: [1, 2, 3],
+    columnLabels: [1, 2, 3],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -17,7 +17,7 @@ const emptyInputMatrix = {
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe"],
-    colLabels: ["fly", "back", "breast"],
+    columnLabels: ["fly", "back", "breast"],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -26,7 +26,7 @@ const emptyInputMatrix = {
   },
   "0v3": {
     rowLabels: ["Colin", "Sarah", "Fefe"],
-    colLabels: ["red", "blue", "green"],
+    columnLabels: ["red", "blue", "green"],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -35,7 +35,7 @@ const emptyInputMatrix = {
   },
   "1v2": {
     rowLabels: [1, 2, 3],
-    colLabels: ["fly", "back", "breast"],
+    columnLabels: ["fly", "back", "breast"],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -44,7 +44,7 @@ const emptyInputMatrix = {
   },
   "1v3": {
     rowLabels: [1, 2, 3],
-    colLabels: ["red", "blue", "green"],
+    columnLabels: ["red", "blue", "green"],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -53,7 +53,7 @@ const emptyInputMatrix = {
   },
   "2v3": {
     rowLabels: ["fly", "back", "breast"],
-    colLabels: ["red", "blue", "green"],
+    columnLabels: ["red", "blue", "green"],
     grid: [
       [null, null, null],
       [null, null, null],
@@ -120,7 +120,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [null, null, null],
           [null, null, false],
@@ -129,7 +129,7 @@ describe("setToFalse", () => {
       },
       "0v2": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["fly", "back", "breast"],
+        columnLabels: ["fly", "back", "breast"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -147,7 +147,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -156,7 +156,7 @@ describe("setToFalse", () => {
       },
       "0v2": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["fly", "back", "breast"],
+        columnLabels: ["fly", "back", "breast"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -180,7 +180,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -203,7 +203,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        columnLabels: [1, 2, 3, 4],
         grid: [
           [true, false, null, null],
           [false, null, null, null],
@@ -228,7 +228,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        columnLabels: [1, 2, 3, 4],
         grid: [
           [true, false, false, false],
           [false, null, null, null],
@@ -254,7 +254,7 @@ describe("setToFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -263,7 +263,7 @@ describe("setToFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -272,7 +272,7 @@ describe("setToFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -354,7 +354,7 @@ describe("setToTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [true, null, null],
           [null, null, null],
@@ -363,7 +363,7 @@ describe("setToTrue", () => {
       },
       "0v2": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["fly", "back", "breast"],
+        columnLabels: ["fly", "back", "breast"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -376,11 +376,11 @@ describe("setToTrue", () => {
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
-  test("all other items in that row/col are set to false", () => {
+  test("all other items in that row/column are set to false", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: [1, 2, 3],
+        columnLabels: [1, 2, 3],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -389,7 +389,7 @@ describe("setToTrue", () => {
       },
       "0v2": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["fly", "back", "breast"],
+        columnLabels: ["fly", "back", "breast"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -413,7 +413,7 @@ describe("setToTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -422,7 +422,7 @@ describe("setToTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -431,7 +431,7 @@ describe("setToTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -460,7 +460,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [false, null, null],
@@ -469,7 +469,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -478,7 +478,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -504,7 +504,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [false, null, null],
@@ -513,7 +513,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -522,7 +522,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -548,7 +548,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -557,7 +557,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -566,7 +566,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, false, null],
           [null, null, null],
@@ -592,7 +592,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -601,7 +601,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -610,7 +610,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, false, null],
           [null, null, null],
@@ -636,7 +636,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -645,7 +645,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -654,7 +654,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -671,7 +671,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -680,7 +680,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -689,7 +689,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -706,7 +706,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [false, null, null],
           [true, false, false],
@@ -715,7 +715,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -724,7 +724,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -750,7 +750,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [false, null, null],
           [true, false, false],
@@ -759,7 +759,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -768,7 +768,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -794,7 +794,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -803,7 +803,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -812,7 +812,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [false, true, false],
           [null, false, null],
@@ -838,7 +838,7 @@ describe("deduceSecondOrderFromTrue", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -847,7 +847,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -856,7 +856,7 @@ describe("deduceSecondOrderFromTrue", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [false, true, false],
           [null, false, null],
@@ -884,7 +884,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -893,7 +893,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -902,7 +902,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -932,7 +932,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -941,7 +941,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -950,7 +950,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -980,7 +980,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -989,7 +989,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -998,7 +998,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1024,7 +1024,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1033,7 +1033,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [false, null, null],
           [null, null, null],
@@ -1042,7 +1042,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1068,7 +1068,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1077,7 +1077,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1086,7 +1086,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1107,7 +1107,7 @@ describe("deduceSecondOrderFromFalse", () => {
     const inputMatrix = {
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["dog", "cat", "mouse"],
+        columnLabels: ["dog", "cat", "mouse"],
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1116,7 +1116,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v2": {
         rowLabels: ["dog", "cat", "mouse"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1125,7 +1125,7 @@ describe("deduceSecondOrderFromFalse", () => {
       },
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
-        colLabels: ["red", "blue", "green"],
+        columnLabels: ["red", "blue", "green"],
         grid: [
           [null, null, null],
           [null, null, null],

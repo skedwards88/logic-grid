@@ -7,7 +7,7 @@ import {
 const matrix = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [null, null, null, null], // all null
@@ -17,7 +17,7 @@ const matrix = {
   },
   "0v3": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, true, false, null], // true before null
       [false, true, false, false], // true, no null
@@ -27,7 +27,7 @@ const matrix = {
   },
   "1v3": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, false, null, false], // null, no true
       [false, true, null, false],
@@ -72,7 +72,7 @@ describe("findFirstPossibleIndex", () => {
     ).toEqual(1);
   });
 
-  test("returns the index of the first true or null (swap col and row input)", () => {
+  test("returns the index of the first true or null (swap column and row input)", () => {
     expect(findFirstPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
   });
 
@@ -107,7 +107,7 @@ describe("findLastPossibleIndex", () => {
     ).toEqual(3);
   });
 
-  test("returns the index of the last true or null (swap col and row input)", () => {
+  test("returns the index of the last true or null (swap column and row input)", () => {
     expect(findLastPossibleIndex(matrix, "blue", [1, 2, 3, 4])).toEqual(1);
   });
 

@@ -1,10 +1,10 @@
-import {validQOrClue} from "./validQOrClue";
-import {findMatrixValue} from "../helpers/findMatrixValue";
+import { validQOrClue } from "./validQOrClue";
+import { findMatrixValue } from "../helpers/findMatrixValue";
 
 const completeMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, true, true, false],
@@ -14,7 +14,7 @@ const completeMatrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, true, false, false],
       [true, false, false, false],
@@ -24,7 +24,7 @@ const completeMatrix = {
   },
   NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, true, false, false],
       [false, false, false, true],

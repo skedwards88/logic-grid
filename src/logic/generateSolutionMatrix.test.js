@@ -1,4 +1,4 @@
-import {generateSolutionMatrix} from "./generateSolutionMatrix";
+import { generateSolutionMatrix } from "./generateSolutionMatrix";
 
 describe("generateSolutionMatrix", () => {
   test("given a list of category labels, generates a solution matrix (same number of categories and items per category)", () => {
@@ -40,14 +40,14 @@ describe("generateSolutionMatrix", () => {
       ]);
       expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
-      // cols are one of the label lists
-      const expectedCols = expect.arrayContaining([
-        expect.objectContaining(solutionMatrix[key].colLabels),
+      // columns are one of the label lists
+      const expectedColumns = expect.arrayContaining([
+        expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
 
-      // rows and cols are different
-      expect(solutionMatrix[key].colLabels).not.toEqual(
+      // rows and columns are different
+      expect(solutionMatrix[key].columnLabels).not.toEqual(
         solutionMatrix[key].rowLabels,
       );
 
@@ -58,7 +58,7 @@ describe("generateSolutionMatrix", () => {
 
       // grid rows have expected number of columns
       for (const row of solutionMatrix[key].grid) {
-        expect(row.length).toBe(solutionMatrix[key].colLabels.length);
+        expect(row.length).toBe(solutionMatrix[key].columnLabels.length);
       }
 
       // every item in the grid is true or false
@@ -76,12 +76,12 @@ describe("generateSolutionMatrix", () => {
 
       // there is only one true per column
       for (
-        let colIndex = 0;
-        colIndex < solutionMatrix[key].grid[0].length;
-        colIndex++
+        let columnIndex = 0;
+        columnIndex < solutionMatrix[key].grid[0].length;
+        columnIndex++
       ) {
-        const col = solutionMatrix[key].grid.map((row) => row[colIndex]);
-        const trues = col.filter((i) => i);
+        const column = solutionMatrix[key].grid.map((row) => row[columnIndex]);
+        const trues = column.filter((i) => i);
         expect(trues.length).toBe(1);
       }
     }
@@ -132,14 +132,14 @@ describe("generateSolutionMatrix", () => {
       ]);
       expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
-      // cols are one of the label lists
-      const expectedCols = expect.arrayContaining([
-        expect.objectContaining(solutionMatrix[key].colLabels),
+      // columns are one of the label lists
+      const expectedColumns = expect.arrayContaining([
+        expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
 
-      // rows and cols are different
-      expect(solutionMatrix[key].colLabels).not.toEqual(
+      // rows and columns are different
+      expect(solutionMatrix[key].columnLabels).not.toEqual(
         solutionMatrix[key].rowLabels,
       );
 
@@ -150,7 +150,7 @@ describe("generateSolutionMatrix", () => {
 
       // grid rows have expected number of columns
       for (const row of solutionMatrix[key].grid) {
-        expect(row.length).toBe(solutionMatrix[key].colLabels.length);
+        expect(row.length).toBe(solutionMatrix[key].columnLabels.length);
       }
 
       // every item in the grid is true or false
@@ -168,12 +168,12 @@ describe("generateSolutionMatrix", () => {
 
       // there is only one true per column
       for (
-        let colIndex = 0;
-        colIndex < solutionMatrix[key].grid[0].length;
-        colIndex++
+        let columnIndex = 0;
+        columnIndex < solutionMatrix[key].grid[0].length;
+        columnIndex++
       ) {
-        const col = solutionMatrix[key].grid.map((row) => row[colIndex]);
-        const trues = col.filter((i) => i);
+        const column = solutionMatrix[key].grid.map((row) => row[columnIndex]);
+        const trues = column.filter((i) => i);
         expect(trues.length).toBe(1);
       }
     }
@@ -224,14 +224,14 @@ describe("generateSolutionMatrix", () => {
       ]);
       expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
 
-      // cols are one of the label lists
-      const expectedCols = expect.arrayContaining([
-        expect.objectContaining(solutionMatrix[key].colLabels),
+      // columns are one of the label lists
+      const expectedColumns = expect.arrayContaining([
+        expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedCols);
+      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
 
-      // rows and cols are different
-      expect(solutionMatrix[key].colLabels).not.toEqual(
+      // rows and columns are different
+      expect(solutionMatrix[key].columnLabels).not.toEqual(
         solutionMatrix[key].rowLabels,
       );
 
@@ -242,7 +242,7 @@ describe("generateSolutionMatrix", () => {
 
       // grid rows have expected number of columns
       for (const row of solutionMatrix[key].grid) {
-        expect(row.length).toBe(solutionMatrix[key].colLabels.length);
+        expect(row.length).toBe(solutionMatrix[key].columnLabels.length);
       }
 
       // every item in the grid is true or false
@@ -260,12 +260,12 @@ describe("generateSolutionMatrix", () => {
 
       // there is only one true per column
       for (
-        let colIndex = 0;
-        colIndex < solutionMatrix[key].grid[0].length;
-        colIndex++
+        let columnIndex = 0;
+        columnIndex < solutionMatrix[key].grid[0].length;
+        columnIndex++
       ) {
-        const col = solutionMatrix[key].grid.map((row) => row[colIndex]);
-        const trues = col.filter((i) => i);
+        const column = solutionMatrix[key].grid.map((row) => row[columnIndex]);
+        const trues = column.filter((i) => i);
         expect(trues.length).toBe(1);
       }
     }

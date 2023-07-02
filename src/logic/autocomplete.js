@@ -19,7 +19,7 @@ export function autocomplete(matrix) {
   for (const key in matrix) {
     const grid = matrix[key].grid;
     const rowLabels = matrix[key].rowLabels;
-    const colLabels = matrix[key].colLabels;
+    const columnLabels = matrix[key].columnLabels;
 
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       for (
@@ -32,7 +32,7 @@ export function autocomplete(matrix) {
           autofilledMatrix = setToTrue(
             autofilledMatrix,
             rowLabels[rowIndex],
-            colLabels[columnIndex],
+            columnLabels[columnIndex],
           );
         }
       }

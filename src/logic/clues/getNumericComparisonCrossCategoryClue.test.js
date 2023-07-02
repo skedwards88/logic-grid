@@ -1,7 +1,7 @@
-import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
+import { getNumericComparisonCrossCategoryClue } from "./getNumericComparisonCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import {applyClueLogic} from "./applyClueLogic";
+import { applyClueLogic } from "./applyClueLogic";
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   afterEach(() => {
@@ -11,7 +11,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -21,7 +21,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -29,7 +29,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -39,20 +39,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
@@ -289,7 +289,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -299,7 +299,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -307,7 +307,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -317,20 +317,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
@@ -576,7 +576,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   const solutionMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: numericLabels,
+      columnLabels: numericLabels,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -586,7 +586,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
@@ -594,7 +594,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     },
     NameVsColor: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -604,20 +604,20 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       rowDescriptionTemplates: {
         description: (value) => `${value}'s car`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
     },
     ColorVsNumber: {
       rowLabels: numericLabels,
-      colLabels: ["red", "blue", "green", "yellow"],
+      columnLabels: ["red", "blue", "green", "yellow"],
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} car`,
       },
       rowDescriptionTemplates: {
@@ -884,7 +884,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   const solutionMatrix = {
     YearsVsMiles: {
       rowLabels: numericLabelsYears,
-      colLabels: numericLabelsMiles,
+      columnLabels: numericLabelsMiles,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -896,7 +896,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the car with ${value} miles`,
         diffGreaterDescription: (value) => `${value} more moles`,
         diffLesserDescription: (value) => `${value} less miles`,
@@ -905,7 +905,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     },
     MilesVsDollars: {
       rowLabels: numericLabelsMiles,
-      colLabels: numericLabelsDollars,
+      columnLabels: numericLabelsDollars,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -918,7 +918,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         diffLesserDescription: (value) => `${value} less miles`,
         verb: "has",
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `the ${value} dollar car`,
         diffGreaterDescription: (value) => `${value} dollars more`,
         diffLesserDescription: (value) => `${value} dollars less`,
@@ -926,7 +926,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     },
     DollarsVsYears: {
       rowLabels: numericLabelsDollars,
-      colLabels: numericLabelsYears,
+      columnLabels: numericLabelsYears,
       grid: [
         [true, false, false, false],
         [false, true, false, false],
@@ -938,7 +938,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
         diffGreaterDescription: (value) => `${value} dollars more`,
         diffLesserDescription: (value) => `${value} dollars less`,
       },
-      colDescriptionTemplates: {
+      columnDescriptionTemplates: {
         description: (value) => `${value} years old`,
         diffGreaterDescription: (value) => `${value} years older`,
         diffLesserDescription: (value) => `${value} years younger`,

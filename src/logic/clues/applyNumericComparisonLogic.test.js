@@ -3,7 +3,7 @@ import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 const emptyMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -13,7 +13,7 @@ const emptyMatrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -23,7 +23,7 @@ const emptyMatrix = {
   },
   ColorVsNumber: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -117,7 +117,7 @@ describe("applyNumericComparisonLogic", () => {
       ...emptyMatrix,
       ColorVsNumber: {
         rowLabels: [1, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -156,7 +156,7 @@ describe("applyNumericComparisonLogic", () => {
       ...emptyMatrix,
       ColorVsNumber: {
         rowLabels: [1, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [true, false, false, false],
           [false, null, null, null],

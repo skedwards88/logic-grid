@@ -1,5 +1,5 @@
-import {pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import { pickRandom } from "../helpers/pickRandom.js";
+import { shuffleArray } from "../helpers/shuffleArray.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
@@ -17,7 +17,7 @@ export function getNumericComparisonClue(solutionMatrix) {
       numericIsRows = true;
       break;
     }
-    if (typeof solutionMatrix[key].colLabels[0] === "number") {
+    if (typeof solutionMatrix[key].columnLabels[0] === "number") {
       selectedKey = key;
       numericIsRows = false;
       break;
@@ -27,11 +27,11 @@ export function getNumericComparisonClue(solutionMatrix) {
   // figure out the numeric labels
   const numericLabels = numericIsRows
     ? solutionMatrix[selectedKey].rowLabels
-    : solutionMatrix[selectedKey].colLabels;
+    : solutionMatrix[selectedKey].columnLabels;
 
   // choose two random items in the other label set
   const otherLabels = numericIsRows
-    ? solutionMatrix[selectedKey].colLabels
+    ? solutionMatrix[selectedKey].columnLabels
     : solutionMatrix[selectedKey].rowLabels;
   const otherLabelIndexes = otherLabels.map((label, index) => index);
   const itemAIndex = pickRandom(otherLabelIndexes);
@@ -45,14 +45,14 @@ export function getNumericComparisonClue(solutionMatrix) {
   // Figure out the corresponding numeric value of those items
   const itemANumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
-        .map((row) => row.indexOf(true))
-        .indexOf(itemAIndex)
+      .map((row) => row.indexOf(true))
+      .indexOf(itemAIndex)
     : solutionMatrix[selectedKey].grid[itemAIndex].indexOf(true);
   const itemANumericValue = numericLabels[itemANumericIndex];
   const itemBNumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
-        .map((row) => row.indexOf(true))
-        .indexOf(itemBIndex)
+      .map((row) => row.indexOf(true))
+      .indexOf(itemBIndex)
     : solutionMatrix[selectedKey].grid[itemBIndex].indexOf(true);
   const itemBNumericValue = numericLabels[itemBNumericIndex];
 
@@ -77,13 +77,13 @@ export function getNumericComparisonClue(solutionMatrix) {
   const [numericDescriptionTemplates, nonNumericDescriptionTemplates] =
     numericIsRows
       ? [
-          solutionMatrix[selectedKey].rowDescriptionTemplates,
-          solutionMatrix[selectedKey].colDescriptionTemplates,
-        ]
+        solutionMatrix[selectedKey].rowDescriptionTemplates,
+        solutionMatrix[selectedKey].columnDescriptionTemplates,
+      ]
       : [
-          solutionMatrix[selectedKey].colDescriptionTemplates,
-          solutionMatrix[selectedKey].rowDescriptionTemplates,
-        ];
+        solutionMatrix[selectedKey].columnDescriptionTemplates,
+        solutionMatrix[selectedKey].rowDescriptionTemplates,
+      ];
 
   const leadingDescription = nonNumericDescriptionTemplates.description(itemA);
 
@@ -106,7 +106,7 @@ export function getNumericComparisonClue(solutionMatrix) {
     : numericDescriptionTemplate(`at least ${minimumNumericDiff}`);
 
   const trailingDescription = numericIsRows
-    ? solutionMatrix[selectedKey].colDescriptionTemplates.description(itemB)
+    ? solutionMatrix[selectedKey].columnDescriptionTemplates.description(itemB)
     : solutionMatrix[selectedKey].rowDescriptionTemplates.description(itemB);
 
   let relationWord = "";

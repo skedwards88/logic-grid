@@ -38,7 +38,7 @@ export function gameReducer(currentGameState, payload) {
   } else if (payload.action === "utilizeEasyTrue") {
     // regardless of the current cell value,
     //  change the value to true
-    //  and make everything else in the row/col false
+    //  and make everything else in the row/column false
     const currentDerivedMatrix =
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1

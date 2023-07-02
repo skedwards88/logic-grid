@@ -3,19 +3,19 @@ export function findMatrixValue(matrix, itemA, itemB) {
   for (const key in matrix) {
     if (
       matrix[key].rowLabels.includes(itemA) &&
-      matrix[key].colLabels.includes(itemB)
+      matrix[key].columnLabels.includes(itemB)
     ) {
       const rowIndex = matrix[key].rowLabels.indexOf(itemA);
-      const colIndex = matrix[key].colLabels.indexOf(itemB);
-      return matrix[key].grid[rowIndex][colIndex];
+      const columnIndex = matrix[key].columnLabels.indexOf(itemB);
+      return matrix[key].grid[rowIndex][columnIndex];
     }
     if (
       matrix[key].rowLabels.includes(itemB) &&
-      matrix[key].colLabels.includes(itemA)
+      matrix[key].columnLabels.includes(itemA)
     ) {
       const rowIndex = matrix[key].rowLabels.indexOf(itemB);
-      const colIndex = matrix[key].colLabels.indexOf(itemA);
-      return matrix[key].grid[rowIndex][colIndex];
+      const columnIndex = matrix[key].columnLabels.indexOf(itemA);
+      return matrix[key].grid[rowIndex][columnIndex];
     }
   }
   throw new Error(
