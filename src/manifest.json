@@ -20,7 +20,8 @@
     {
       "src": "favicon.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
     },
     {
       "src": "icon_192.png",
@@ -34,5 +35,76 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots": []
+  "screenshots": [
+    {
+      "src": "screenshot_720_1280_1.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "New puzzle"
+    },
+    {
+      "src": "screenshot_720_1280_2.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "New puzzle with fewer categories"
+    },
+    {
+      "src": "screenshot_720_1280_3.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Partially completed puzzle"
+    },
+    {
+      "src": "screenshot_720_1280_4.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Autocomplete option"
+    },
+    {
+      "src": "screenshot_720_1280_5.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "Settings"
+    },
+    {
+      "src": "screenshot_1080_1080_1.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "New puzzle"
+    },
+    {
+      "src": "screenshot_1080_1080_2.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "New puzzle with fewer categories"
+    },
+    {
+      "src": "screenshot_1080_1080_3.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Partially completed puzzle"
+    },
+    {
+      "src": "screenshot_1080_1080_4.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Autocomplete option"
+    },
+    {
+      "src": "screenshot_1080_1080_5.png",
+      "sizes": "1080x1080",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Settings"
+    }
+  ]
 }

@@ -22,7 +22,6 @@ Wine name, winery, region, grape variety.
   Commuter . Mode of transport. Minutes. Job. 
   bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
   animal - age - pet name - owner name
-  sport watched - mascot -
   musical instrument - composer - style
   job - salary - hours
   tv genre - emotion - episodes
@@ -36,7 +35,6 @@ Wine name, winery, region, grape variety.
   potluck dish
   tree species - years old
   send a probe to planet - space agency
-  dance style [tango, swing, salsa, cha-cha, waltz, rumba, polka] - place - country of competition
   bird species - number sighted
   job - starts work at -
   preferred candy - number easter eggs -dyed color
