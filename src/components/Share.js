@@ -1,5 +1,5 @@
 import React from "react";
-import sendAnalytics from "../logic/sendAnalytics"
+import sendAnalytics from "../logic/sendAnalytics";
 
 function handleShare(text) {
   navigator

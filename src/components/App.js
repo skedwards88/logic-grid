@@ -4,7 +4,10 @@ import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
 import Settings from "./Settings";
 import Heart from "./Heart";
-import { handleAppInstalled, handleBeforeInstallPrompt } from "../logic/handleInstall";
+import {
+  handleAppInstalled,
+  handleBeforeInstallPrompt,
+} from "../logic/handleInstall";
 
 export default function App() {
   const [display, setDisplay] = React.useState("game");
@@ -22,22 +25,22 @@ export default function App() {
       handleBeforeInstallPrompt(
         event,
         setInstallPromptEvent,
-        setShowInstallButton
-      )
+        setShowInstallButton,
+      ),
     );
     return () =>
       window.removeEventListener("beforeinstallprompt", (event) =>
         handleBeforeInstallPrompt(
           event,
           setInstallPromptEvent,
-          setShowInstallButton
-        )
+          setShowInstallButton,
+        ),
       );
   }, []);
 
   React.useEffect(() => {
     window.addEventListener("appinstalled", () =>
-      handleAppInstalled(setInstallPromptEvent, setShowInstallButton)
+      handleAppInstalled(setInstallPromptEvent, setShowInstallButton),
     );
     return () => window.removeEventListener("appinstalled", handleAppInstalled);
   }, []);

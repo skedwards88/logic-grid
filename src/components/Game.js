@@ -5,10 +5,14 @@ import Clues from "./Clues";
 import ControlBar from "./ControlBar";
 import Result from "./Result";
 
-export default function Game({gameState, dispatchGameState, setDisplay,
+export default function Game({
+  gameState,
+  dispatchGameState,
+  setDisplay,
   setInstallPromptEvent,
   showInstallButton,
-  installPromptEvent,}) {
+  installPromptEvent,
+}) {
   const numSquaresWide =
     (gameState.numCategories - 1) * gameState.numItemsPerCategory;
 

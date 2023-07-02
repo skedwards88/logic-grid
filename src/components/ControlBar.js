@@ -1,5 +1,5 @@
 import React from "react";
-import { handleInstall } from "../logic/handleInstall";
+import {handleInstall} from "../logic/handleInstall";
 
 export default function ControlBar({
   dispatchGameState,
