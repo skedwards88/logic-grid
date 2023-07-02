@@ -5,7 +5,10 @@ import Clues from "./Clues";
 import ControlBar from "./ControlBar";
 import Result from "./Result";
 
-export default function Game({gameState, dispatchGameState, setDisplay}) {
+export default function Game({gameState, dispatchGameState, setDisplay,
+  setInstallPromptEvent,
+  showInstallButton,
+  installPromptEvent,}) {
   const numSquaresWide =
     (gameState.numCategories - 1) * gameState.numItemsPerCategory;
 
@@ -64,6 +67,9 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         undoDisabled={gameState.derivedMatrixHistory.length <= 1}
         dispatchGameState={dispatchGameState}
         setDisplay={setDisplay}
+        setInstallPromptEvent={setInstallPromptEvent}
+        showInstallButton={showInstallButton}
+        installPromptEvent={installPromptEvent}
       ></ControlBar>
       <div className={`matrix size${gameState.numCategories}`}>
         {grids}
