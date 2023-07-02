@@ -1,4 +1,4 @@
-import { matrixesEqualQ } from "./matrixesEqualQ";
+import {matrixesEqualQ} from "./matrixesEqualQ";
 
 const matrixA = {
   "0v1": {

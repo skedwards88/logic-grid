@@ -1,4 +1,4 @@
-import { findFirstTrueIntersection } from "./findFirstTrueIntersection.js";
+import {findFirstTrueIntersection} from "./findFirstTrueIntersection.js";
 
 const matrix = {
   NameVsNumber: {
@@ -36,13 +36,23 @@ const matrix = {
 describe("findFirstTrueIntersection", () => {
   test("returns the item that forms a 'true' with the input item (row vs column)", () => {
     expect(
-      findFirstTrueIntersection(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
+      findFirstTrueIntersection(matrix, "Sarah", [
+        "red",
+        "blue",
+        "green",
+        "yellow",
+      ]),
     ).toEqual("blue");
   });
 
   test("returns the item that forms a 'true' with the input item (column vs row)", () => {
     expect(
-      findFirstTrueIntersection(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+      findFirstTrueIntersection(matrix, "blue", [
+        "Colin",
+        "Sarah",
+        "Fefe",
+        "Meme",
+      ]),
     ).toEqual("Sarah");
   });
 
@@ -87,7 +97,12 @@ describe("findFirstTrueIntersection", () => {
       },
     };
     expect(
-      findFirstTrueIntersection(emptyMatrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
+      findFirstTrueIntersection(emptyMatrix, "blue", [
+        "Colin",
+        "Sarah",
+        "Fefe",
+        "Meme",
+      ]),
     ).toEqual(undefined);
   });
 });

@@ -1,4 +1,4 @@
-import { generateSolution } from "./generateSolution.js";
+import {generateSolution} from "./generateSolution.js";
 
 export function generateSolutionMatrix(categoryLabelsAndTemplates) {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
@@ -36,7 +36,11 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
       let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
         let row = [];
-        for (let columnIndex = 0; columnIndex < columnLabels.length; columnIndex++) {
+        for (
+          let columnIndex = 0;
+          columnIndex < columnLabels.length;
+          columnIndex++
+        ) {
           if (
             solution.some(
               (solutionEntry) =>

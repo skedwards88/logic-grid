@@ -15,9 +15,7 @@ export default function Result({
   console.log(`matrixComplete ${matrixComplete}`);
 
   // Verify that no clues are actively violated
-  const allCluesValid = clues.every((clue) =>
-    validQ({clue, matrix}),
-  );
+  const allCluesValid = clues.every((clue) => validQ({clue, matrix}));
   console.log(`allCluesValid ${allCluesValid}`);
 
   let matrixAutofillable;
@@ -25,7 +23,7 @@ export default function Result({
     const autofilledMatrix = autocomplete(matrix);
     // Check if all clues are satisfied
     const autofilledValid = clues.every((clue) =>
-      validQ({clue, matrix:autofilledMatrix, strict: true}),
+      validQ({clue, matrix: autofilledMatrix, strict: true}),
     );
     matrixAutofillable = autofilledValid;
   } catch (error) {

@@ -7,10 +7,7 @@ export function chooseCategories(numCats, numItemsPerCat) {
 
   const categorySet = pickRandom(allCategories);
 
-  const categories = shuffleArray(categorySet).slice(
-    0,
-    numCats,
-  );
+  const categories = shuffleArray(categorySet).slice(0, numCats);
 
   let categoryLabelsAndTemplates = [];
   for (const category of categories) {

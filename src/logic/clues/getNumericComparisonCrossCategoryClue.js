@@ -1,7 +1,7 @@
-import { pickRandoms, pickRandom } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js";
-import { findFirstTrueIntersection } from "../helpers/findFirstTrueIntersection.js";
-import { arraysEqualQ } from "../helpers/arraysEqualQ.js";
+import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
+import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
+import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
@@ -37,7 +37,9 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       if (arraysEqualQ(solutionMatrix[key].rowLabels, numericLabels)) {
         itemBLabels = solutionMatrix[key].columnLabels;
         itemBTemplates = solutionMatrix[key].columnDescriptionTemplates;
-      } else if (arraysEqualQ(solutionMatrix[key].columnLabels, numericLabels)) {
+      } else if (
+        arraysEqualQ(solutionMatrix[key].columnLabels, numericLabels)
+      ) {
         itemBLabels = solutionMatrix[key].rowLabels;
         itemBTemplates = solutionMatrix[key].rowDescriptionTemplates;
       }

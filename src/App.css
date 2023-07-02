@@ -225,7 +225,6 @@ button {
   grid-area: columnLabel3;
 }
 
-
 .rowLabel.label3 {
   grid-area: rowLabel3;
 }
@@ -431,7 +430,6 @@ input[type="checkbox" i]:checked {
 /* wider screens */
 @media (orientation: landscape) {
   #app {
-    grid-template:
-      "matrix controls" auto "matrix result" auto "matrix clues" 1fr / auto 1fr;
+    grid-template: "matrix controls" auto "matrix result" auto "matrix clues" 1fr / auto 1fr;
   }
 }

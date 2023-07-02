@@ -1,6 +1,6 @@
-import { findFirstTrueIntersection } from "../helpers/findFirstTrueIntersection.js";
-import { pickRandom } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js";
+import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
+import {pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
@@ -18,7 +18,8 @@ export function getOrCrossCategoryClue(solutionMatrix) {
     if (!keyAB) {
       keyAB = key;
     } else if (
-      solutionMatrix[keyAB].columnLabels[0] === solutionMatrix[key].columnLabels[0]
+      solutionMatrix[keyAB].columnLabels[0] ===
+      solutionMatrix[key].columnLabels[0]
     ) {
       keyAC = key;
       labelsA = solutionMatrix[key].columnLabels;
@@ -88,6 +89,6 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   return {
     writtenClue: writtenClue,
     clueType: "orCrossCategory",
-    clueParameters: { itemA, orItems: [itemB, itemC] },
+    clueParameters: {itemA, orItems: [itemB, itemC]},
   };
 }

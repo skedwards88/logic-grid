@@ -1,5 +1,5 @@
-import { validQNotClue } from "./validQNotClue";
-import { findMatrixValue } from "../helpers/findMatrixValue";
+import {validQNotClue} from "./validQNotClue";
+import {findMatrixValue} from "../helpers/findMatrixValue";
 
 const completeMatrix = {
   NameVsNumber: {

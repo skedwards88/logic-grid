@@ -1,7 +1,7 @@
-import { getNumericComparisonClue } from "./getNumericComparisonClue";
+import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import { applyClueLogic } from "./applyClueLogic";
+import {applyClueLogic} from "./applyClueLogic";
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   afterEach(() => {

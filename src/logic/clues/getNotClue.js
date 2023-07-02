@@ -1,5 +1,5 @@
-import { pickRandom, pickRandomIndex } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js";
+import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
@@ -25,7 +25,9 @@ export function getNotClue(solutionMatrix) {
   const rowDescription =
     solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
   const columnDescription =
-    solutionMatrix[solutionKey].columnDescriptionTemplates.description(columnItem);
+    solutionMatrix[solutionKey].columnDescriptionTemplates.description(
+      columnItem,
+    );
   const [leadingDescription, trailingDescription] = shuffleArray([
     rowDescription,
     columnDescription,

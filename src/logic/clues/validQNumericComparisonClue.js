@@ -13,8 +13,16 @@ export function validQNumericComparisonClue({
   },
   strict = false,
 }) {
-  const greaterValue = findFirstTrueIntersection(matrix, greaterItem, numericLabels);
-  const lesserValue = findFirstTrueIntersection(matrix, lesserItem, numericLabels);
+  const greaterValue = findFirstTrueIntersection(
+    matrix,
+    greaterItem,
+    numericLabels,
+  );
+  const lesserValue = findFirstTrueIntersection(
+    matrix,
+    lesserItem,
+    numericLabels,
+  );
 
   // if strict mode, both items must be known
   if (strict && (greaterValue === undefined || lesserValue === undefined)) {

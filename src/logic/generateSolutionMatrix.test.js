@@ -1,4 +1,4 @@
-import { generateSolutionMatrix } from "./generateSolutionMatrix";
+import {generateSolutionMatrix} from "./generateSolutionMatrix";
 
 describe("generateSolutionMatrix", () => {
   test("given a list of category labels, generates a solution matrix (same number of categories and items per category)", () => {

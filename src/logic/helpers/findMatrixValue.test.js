@@ -1,4 +1,4 @@
-import { findMatrixValue } from "./findMatrixValue.js";
+import {findMatrixValue} from "./findMatrixValue.js";
 
 const matrix = {
   "0v1": {

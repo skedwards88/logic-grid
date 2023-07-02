@@ -1,6 +1,6 @@
-import { getNotClue } from "./getNotClue";
+import {getNotClue} from "./getNotClue";
 import * as pickRandomModule from "../helpers/pickRandom";
-import { applyClueLogic } from "./applyClueLogic";
+import {applyClueLogic} from "./applyClueLogic";
 
 const solutionMatrix = {
   NameVsNumber: {
@@ -129,7 +129,10 @@ describe("getNotClue", () => {
       .mockReturnValueOnce(1); // columnIndex (corresponds to 'blue')
     jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
-    const expectedClue = ["The Ford is not the blue car.", "The blue car is not the Ford."];
+    const expectedClue = [
+      "The Ford is not the blue car.",
+      "The blue car is not the Ford.",
+    ];
     const clue = getNotClue(solutionMatrix);
     expect(expectedClue).toContain(clue.writtenClue);
 

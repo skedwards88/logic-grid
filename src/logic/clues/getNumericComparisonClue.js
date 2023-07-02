@@ -1,5 +1,5 @@
-import { pickRandom } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js";
+import {pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
@@ -45,14 +45,14 @@ export function getNumericComparisonClue(solutionMatrix) {
   // Figure out the corresponding numeric value of those items
   const itemANumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
-      .map((row) => row.indexOf(true))
-      .indexOf(itemAIndex)
+        .map((row) => row.indexOf(true))
+        .indexOf(itemAIndex)
     : solutionMatrix[selectedKey].grid[itemAIndex].indexOf(true);
   const itemANumericValue = numericLabels[itemANumericIndex];
   const itemBNumericIndex = numericIsRows
     ? solutionMatrix[selectedKey].grid
-      .map((row) => row.indexOf(true))
-      .indexOf(itemBIndex)
+        .map((row) => row.indexOf(true))
+        .indexOf(itemBIndex)
     : solutionMatrix[selectedKey].grid[itemBIndex].indexOf(true);
   const itemBNumericValue = numericLabels[itemBNumericIndex];
 
@@ -77,13 +77,13 @@ export function getNumericComparisonClue(solutionMatrix) {
   const [numericDescriptionTemplates, nonNumericDescriptionTemplates] =
     numericIsRows
       ? [
-        solutionMatrix[selectedKey].rowDescriptionTemplates,
-        solutionMatrix[selectedKey].columnDescriptionTemplates,
-      ]
+          solutionMatrix[selectedKey].rowDescriptionTemplates,
+          solutionMatrix[selectedKey].columnDescriptionTemplates,
+        ]
       : [
-        solutionMatrix[selectedKey].columnDescriptionTemplates,
-        solutionMatrix[selectedKey].rowDescriptionTemplates,
-      ];
+          solutionMatrix[selectedKey].columnDescriptionTemplates,
+          solutionMatrix[selectedKey].rowDescriptionTemplates,
+        ];
 
   const leadingDescription = nonNumericDescriptionTemplates.description(itemA);
 

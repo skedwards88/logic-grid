@@ -1,7 +1,7 @@
-import { getNumericComparisonCrossCategoryClue } from "./getNumericComparisonCrossCategoryClue";
+import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
-import { applyClueLogic } from "./applyClueLogic";
+import {applyClueLogic} from "./applyClueLogic";
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   afterEach(() => {

@@ -1,5 +1,5 @@
-import { validQOrCrossCategoryClue } from "./validQOrCrossCategoryClue";
-import { findMatrixValue } from "../helpers/findMatrixValue";
+import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
+import {findMatrixValue} from "../helpers/findMatrixValue";
 
 const completeMatrix = {
   NameVsNumber: {

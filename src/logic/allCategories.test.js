@@ -106,14 +106,9 @@ describe("allCategories example text", () => {
           let minimumNumericDiff = Math.abs(
             categoryB.values[0] - categoryB.values[1],
           );
-          for (
-            let index = 1;
-            index < categoryB.values.length - 1;
-            index++
-          ) {
+          for (let index = 1; index < categoryB.values.length - 1; index++) {
             const diff = Math.abs(
-              categoryB.values[index] -
-              categoryB.values[index + 1],
+              categoryB.values[index] - categoryB.values[index + 1],
             );
             if (diff < minimumNumericDiff) {
               minimumNumericDiff = diff;
@@ -135,8 +130,8 @@ describe("allCategories example text", () => {
             ...descriptions,
             `${leadingDescription} ${numericComparisonVerb} ${numericSomeDescription} than ${trailingDescription}.`,
           ];
-        })
-      })
+        });
+      });
     });
     expect(descriptions).toMatchInlineSnapshot(`
       [

@@ -1,4 +1,4 @@
-import { validQNumericComparisonClue } from "./validQNumericComparisonClue";
+import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 
 describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {

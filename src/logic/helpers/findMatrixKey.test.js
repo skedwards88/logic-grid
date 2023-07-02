@@ -1,4 +1,4 @@
-import { findMatrixKey } from "./findMatrixKey.js";
+import {findMatrixKey} from "./findMatrixKey.js";
 
 const matrix = {
   "0v1": {
@@ -87,7 +87,8 @@ expect.extend({
 
     return {
       message: () =>
-        `expected array to include only one of ${item1} or ${item2}, but found ${item1Found ? item1 : ""
+        `expected array to include only one of ${item1} or ${item2}, but found ${
+          item1Found ? item1 : ""
         } ${item2Found ? item2 : ""}`,
       pass: false,
     };

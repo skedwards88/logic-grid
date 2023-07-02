@@ -17,17 +17,17 @@ module.exports = (env, argv) => {
 
   const copyPlugin = new CopyPlugin({
     patterns: [
-      { from: "./src/images/favicon.svg", to: "./assets/favicon.svg" },
-      { from: "./src/images/favicon.png", to: "./assets/favicon.png" },
-      { from: "./src/images/icon_192.png", to: "./assets/icon_192.png" },
-      { from: "./src/images/maskable_192.png", to: "./assets/maskable_192.png" },
-      { from: "./src/manifest.json", to: "./assets/manifest.json" },
-      { from: "./src/privacy.html", to: "./privacy.html" },
+      {from: "./src/images/favicon.svg", to: "./assets/favicon.svg"},
+      {from: "./src/images/favicon.png", to: "./assets/favicon.png"},
+      {from: "./src/images/icon_192.png", to: "./assets/icon_192.png"},
+      {from: "./src/images/maskable_192.png", to: "./assets/maskable_192.png"},
+      {from: "./src/manifest.json", to: "./assets/manifest.json"},
+      {from: "./src/privacy.html", to: "./privacy.html"},
     ],
     options: {
       concurrency: 100,
     },
-  })
+  });
 
   const serviceWorkerPlugin = new WorkboxPlugin.GenerateSW({
     // these options encourage the ServiceWorkers to get in there fast
@@ -71,7 +71,7 @@ module.exports = (env, argv) => {
     },
     performance: {
       maxEntrypointSize: 400000, // bytes
-      maxAssetSize: 400000 // bytes
+      maxAssetSize: 400000, // bytes
     },
     devServer: {
       static: "./dist",

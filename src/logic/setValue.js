@@ -1,4 +1,4 @@
-import { findMatrixKey } from "./helpers/findMatrixKey.js";
+import {findMatrixKey} from "./helpers/findMatrixKey.js";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
@@ -288,7 +288,9 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   // If this leaves only one null in the column, the last null is true if there are no trues, otherwise false
   const nullIndexesInColumn = newDerivedMatrix[solutionKey].grid.reduce(
     (indexes, currentRow, currentRowIndex) =>
-      currentRow[columnIndex] === null ? [...indexes, currentRowIndex] : indexes,
+      currentRow[columnIndex] === null
+        ? [...indexes, currentRowIndex]
+        : indexes,
     [],
   );
   if (nullIndexesInColumn.length === 1) {

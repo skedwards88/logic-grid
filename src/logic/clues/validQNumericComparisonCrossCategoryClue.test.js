@@ -1,4 +1,4 @@
-import { validQNumericComparisonCrossCategoryClue } from "./validQNumericComparisonCrossCategoryClue";
+import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
 
 describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {

@@ -1,5 +1,5 @@
-import { pickRandom, pickRandomIndex } from "../helpers/pickRandom.js";
-import { shuffleArray } from "../helpers/shuffleArray.js"
+import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
 
 // Generates an "or" clue
 // e.g. "Colin is red or blue"

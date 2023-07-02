@@ -1,4 +1,4 @@
-import { applyCluesAdNauseam } from "./applyCluesAdNauseam";
+import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 
 const solutionMatrix = {
   NameVsNumber: {
@@ -331,7 +331,7 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "orCrossCategory",
-        clueParameters: { itemA: "vampire", orItems: [25, "twix"] },
+        clueParameters: {itemA: "vampire", orItems: [25, "twix"]},
       },
       {
         clueType: "numericComparison",
