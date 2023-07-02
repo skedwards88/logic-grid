@@ -1770,14 +1770,7 @@ export const allCategories = [
   ],
   [
     {
-      values: [
-        "Yoshi",
-        "Mario",
-        "Luigi",
-        "Toad",
-        "Bowser",
-        "Wario",
-      ],
+      values: ["Yoshi", "Mario", "Luigi", "Toad", "Bowser", "Wario"],
       descriptionTemplates: {
         description: (value) => value,
       },
@@ -1870,6 +1863,37 @@ export const allCategories = [
         diffGreaterDescription: (value) => `${value} places worse`,
         diffLesserDescription: (value) => `${value} places better`,
         verb: "finished",
+      },
+    },
+  ],
+  [
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => value,
+      },
+    },
+    {
+      values: colors,
+      descriptionTemplates: {
+        description: (value) => `the patient with the ${value} cast`,
+      },
+    },
+    {
+      values: ["foot", "ankle", "leg", "hand", "arm", "wrist"],
+      descriptionTemplates: {
+        description: (value) => `the patient with the broken ${value}`,
+      },
+    },
+    {
+      values: [4, 5, 6, 7, 8, 9, 10],
+      display: (value) => `${value} weeks`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the patient who wore their cast for ${value} weeks`,
+        diffGreaterDescription: (value) => `${value} more weeks`,
+        diffLesserDescription: (value) => `${value} less weeks`,
+        verb: "wore their cast for",
       },
     },
   ],
