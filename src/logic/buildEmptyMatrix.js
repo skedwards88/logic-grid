@@ -3,7 +3,7 @@ export function buildEmptyMatrix(solutionMatrix) {
 
   for (const key in matrixCopy) {
     matrixCopy[key].grid = matrixCopy[key].grid.map((row) =>
-      row.map((item) => null),
+      row.map(() => null),
     );
     delete matrixCopy[key].rowDescriptionTemplates;
     delete matrixCopy[key].columnDescriptionTemplates;

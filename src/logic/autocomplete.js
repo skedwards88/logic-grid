@@ -5,7 +5,7 @@ function makeEmptyCopyOfMatrix(matrix) {
 
   for (const key in matrixCopy) {
     matrixCopy[key].grid = matrixCopy[key].grid.map((row) =>
-      row.map((item) => null),
+      row.map(() => null),
     );
   }
 
