@@ -28,11 +28,9 @@ Wine name, winery, region, grape variety.
   tv genre - emotion - episodes
   clothing item - cost - accessory
   holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
-  borrowed tool (hammer, wrench, saw, ratchet)- build (fence, swing, chair) - time borrowed
   cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
   fish species - length - method (net, line, fly, harpoon)
   tattoo of - body part- cm wide
-  broken bone - cast color - weeks
   spelling bee word, place
   boat (sailboat, canoe, kayak,rowboat)
   potluck dish

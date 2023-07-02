@@ -1897,4 +1897,35 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => value,
+      },
+    },
+    {
+      values: ["saw", "drill", "hammer", "screwdriver", "wrench"],
+      descriptionTemplates: {
+        description: (value) => `the person who borrowed a ${value}`,
+      },
+    },
+    {
+      values: ["swing", "fence", "gate", "tree house", "chair", "cabinet"],
+      descriptionTemplates: {
+        description: (value) => `the person who built a ${value}`,
+      },
+    },
+    {
+      values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} hr`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the person who borrowed the tool for ${value} hours`,
+        diffGreaterDescription: (value) => `${value} more hours`,
+        diffLesserDescription: (value) => `${value} less hours`,
+        verb: "borrowed the tool for",
+      },
+    },
+  ],
 ];
