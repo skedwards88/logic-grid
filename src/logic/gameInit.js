@@ -1,4 +1,5 @@
 import {generatePuzzle} from "./generatePuzzle";
+import sendAnalytics from "./sendAnalytics";
 
 export function gameInit({
   numCategories = 3,
@@ -38,6 +39,8 @@ export function gameInit({
 
   // Every clue is not crossed off to start
   clues = clues.map((clue) => ({...clue, crossedOff: false}));
+
+  sendAnalytics("new_game")
 
   return {
     clues: clues,

@@ -1,4 +1,5 @@
 import React from "react";
+import sendAnalytics from "../logic/sendAnalytics"
 
 function handleShare(text) {
   navigator
@@ -13,6 +14,7 @@ function handleShare(text) {
       handleCopy(text);
       console.log("Error sharing", error);
     });
+  sendAnalytics("share");
 }
 
 function handleCopy(text) {

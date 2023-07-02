@@ -1,7 +1,6 @@
 # Future work
 
 - Add install function
-- when URL bar is showing, can't scroll to bottom?
 - Add to Sect games site
 - Add more scenarios
 - Complete applyCluesAdNauseam tests
@@ -13,7 +12,8 @@
 - should autocomplete verify that there is exactly one true per row/column?
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
-- set up eslint
+
+## Maybe later
 
 - Could add more clues?
   - the red house has an even number of trees (this is a glorified "or")
