@@ -6,7 +6,7 @@ export function buildEmptyMatrix(solutionMatrix) {
       row.map((item) => null),
     );
     delete matrixCopy[key].rowDescriptionTemplates;
-    delete matrixCopy[key].colDescriptionTemplates;
+    delete matrixCopy[key].columnDescriptionTemplates;
   }
   return matrixCopy;
 }

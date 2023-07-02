@@ -1,4 +1,4 @@
-import {generateSolution} from "./generateSolution.js";
+import { generateSolution } from "./generateSolution.js";
 
 export function generateSolutionMatrix(categoryLabelsAndTemplates) {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
@@ -22,26 +22,26 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
 
   for (let rowIndex = 0; rowIndex < matrixRowInfo.length; rowIndex++) {
     for (
-      let colIndex = 0;
-      colIndex < matrixColumnInfo.length - rowIndex;
-      colIndex++
+      let columnIndex = 0;
+      columnIndex < matrixColumnInfo.length - rowIndex;
+      columnIndex++
     ) {
       const rowLabels = matrixRowInfo[rowIndex].labels;
       const rowDescriptionTemplates =
         matrixRowInfo[rowIndex].descriptionTemplates;
-      const colLabels = matrixColumnInfo[colIndex].labels;
-      const colDescriptionTemplates =
-        matrixColumnInfo[colIndex].descriptionTemplates;
+      const columnLabels = matrixColumnInfo[columnIndex].labels;
+      const columnDescriptionTemplates =
+        matrixColumnInfo[columnIndex].descriptionTemplates;
 
       let grid = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
         let row = [];
-        for (let colIndex = 0; colIndex < colLabels.length; colIndex++) {
+        for (let columnIndex = 0; columnIndex < columnLabels.length; columnIndex++) {
           if (
             solution.some(
               (solutionEntry) =>
                 solutionEntry.includes(rowLabels[rowIndex]) &&
-                solutionEntry.includes(colLabels[colIndex]),
+                solutionEntry.includes(columnLabels[columnIndex]),
             )
           ) {
             row = [...row, true];
@@ -52,11 +52,11 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
         grid = [...grid, row];
       }
 
-      solutionMatrix[`rowSet${rowIndex}_columnSet${colIndex}`] = {
+      solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
         rowLabels: rowLabels,
-        colLabels: colLabels,
+        columnLabels: columnLabels,
         rowDescriptionTemplates: rowDescriptionTemplates,
-        colDescriptionTemplates: colDescriptionTemplates,
+        columnDescriptionTemplates: columnDescriptionTemplates,
         grid: grid,
       };
     }

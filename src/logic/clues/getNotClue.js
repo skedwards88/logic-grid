@@ -1,12 +1,12 @@
-import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import { pickRandom, pickRandomIndex } from "../helpers/pickRandom.js";
+import { shuffleArray } from "../helpers/shuffleArray.js";
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
 export function getNotClue(solutionMatrix) {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandom(Object.keys(solutionMatrix));
-  const colLabels = solutionMatrix[solutionKey].colLabels;
+  const columnLabels = solutionMatrix[solutionKey].columnLabels;
   const rowLabels = solutionMatrix[solutionKey].rowLabels;
   const grid = solutionMatrix[solutionKey].grid;
 
@@ -18,17 +18,17 @@ export function getNotClue(solutionMatrix) {
   const falseIndexes = grid[rowIndex]
     .map((value, index) => (value ? null : index))
     .filter((index) => index !== null);
-  const colIndex = pickRandom(falseIndexes);
+  const columnIndex = pickRandom(falseIndexes);
 
-  const colItem = colLabels[colIndex];
+  const columnItem = columnLabels[columnIndex];
 
   const rowDescription =
     solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
-  const colDescription =
-    solutionMatrix[solutionKey].colDescriptionTemplates.description(colItem);
+  const columnDescription =
+    solutionMatrix[solutionKey].columnDescriptionTemplates.description(columnItem);
   const [leadingDescription, trailingDescription] = shuffleArray([
     rowDescription,
-    colDescription,
+    columnDescription,
   ]);
   let writtenClue = `${leadingDescription} is not ${trailingDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
@@ -38,7 +38,7 @@ export function getNotClue(solutionMatrix) {
     clueType: "not",
     clueParameters: {
       itemA: rowItem,
-      itemB: colItem,
+      itemB: columnItem,
     },
   };
 }

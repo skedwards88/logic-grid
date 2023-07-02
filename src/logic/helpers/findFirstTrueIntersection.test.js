@@ -1,9 +1,9 @@
-import {findFirstTrueIntersection} from "./findFirstTrueIntersection.js";
+import { findFirstTrueIntersection } from "./findFirstTrueIntersection.js";
 
 const matrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -13,7 +13,7 @@ const matrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, false, false, true],
       [false, true, false, false],
@@ -23,7 +23,7 @@ const matrix = {
   },
   NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [false, false, true, false],
       [false, true, false, false],
@@ -34,13 +34,13 @@ const matrix = {
 };
 
 describe("findFirstTrueIntersection", () => {
-  test("returns the item that forms a 'true' with the input item (row vs col)", () => {
+  test("returns the item that forms a 'true' with the input item (row vs column)", () => {
     expect(
       findFirstTrueIntersection(matrix, "Sarah", ["red", "blue", "green", "yellow"]),
     ).toEqual("blue");
   });
 
-  test("returns the item that forms a 'true' with the input item (col vs row)", () => {
+  test("returns the item that forms a 'true' with the input item (column vs row)", () => {
     expect(
       findFirstTrueIntersection(matrix, "blue", ["Colin", "Sarah", "Fefe", "Meme"]),
     ).toEqual("Sarah");
@@ -57,7 +57,7 @@ describe("findFirstTrueIntersection", () => {
     const emptyMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: [1, 2, 3, 4],
+        columnLabels: [1, 2, 3, 4],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -67,7 +67,7 @@ describe("findFirstTrueIntersection", () => {
       },
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -77,7 +77,7 @@ describe("findFirstTrueIntersection", () => {
       },
       NumberVsColor: {
         rowLabels: [1, 2, 3, 4],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
           [null, null, null, null],

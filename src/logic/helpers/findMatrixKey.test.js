@@ -1,9 +1,9 @@
-import {findMatrixKey} from "./findMatrixKey.js";
+import { findMatrixKey } from "./findMatrixKey.js";
 
 const matrix = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -13,7 +13,7 @@ const matrix = {
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["fly", "back", "breast", "free"],
+    columnLabels: ["fly", "back", "breast", "free"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -23,7 +23,7 @@ const matrix = {
   },
   "0v3": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -33,7 +33,7 @@ const matrix = {
   },
   "1v2": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["fly", "back", "breast", "free"],
+    columnLabels: ["fly", "back", "breast", "free"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -43,7 +43,7 @@ const matrix = {
   },
   "1v3": {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -53,7 +53,7 @@ const matrix = {
   },
   "2v3": {
     rowLabels: ["fly", "back", "breast", "free"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -87,8 +87,7 @@ expect.extend({
 
     return {
       message: () =>
-        `expected array to include only one of ${item1} or ${item2}, but found ${
-          item1Found ? item1 : ""
+        `expected array to include only one of ${item1} or ${item2}, but found ${item1Found ? item1 : ""
         } ${item2Found ? item2 : ""}`,
       pass: false,
     };
@@ -100,14 +99,14 @@ describe("findMatrixKey", () => {
     const foundKey = findMatrixKey(matrix, "Sarah", "green");
     expect(foundKey).toEqual("0v3");
     expect(matrix[foundKey].rowLabels).toIncludeOneOf("Sarah", "green");
-    expect(matrix[foundKey].colLabels).toIncludeOneOf("Sarah", "green");
+    expect(matrix[foundKey].columnLabels).toIncludeOneOf("Sarah", "green");
   });
 
   test("finds the matrix entry that corresponds to the intersection of two items (opposite order)", () => {
     const foundKey = findMatrixKey(matrix, "green", "Sarah");
     expect(foundKey).toEqual("0v3");
     expect(matrix[foundKey].rowLabels).toIncludeOneOf("green", "Sarah");
-    expect(matrix[foundKey].colLabels).toIncludeOneOf("green", "Sarah");
+    expect(matrix[foundKey].columnLabels).toIncludeOneOf("green", "Sarah");
   });
 
   test("throws an error if the key is not found", () => {

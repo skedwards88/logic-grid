@@ -3,7 +3,7 @@ import {applyNotLogic} from "./applyNotLogic";
 const emptyMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -13,7 +13,7 @@ const emptyMatrix = {
   },
   NameVsMake: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -23,7 +23,7 @@ const emptyMatrix = {
   },
   NameVsColor: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -33,7 +33,7 @@ const emptyMatrix = {
   },
   NumberVsMake: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -43,7 +43,7 @@ const emptyMatrix = {
   },
   NumberVsColor: {
     rowLabels: [1, 2, 3, 4],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -53,7 +53,7 @@ const emptyMatrix = {
   },
   MakeVsColor: {
     rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    colLabels: ["red", "blue", "green", "yellow"],
+    columnLabels: ["red", "blue", "green", "yellow"],
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -115,7 +115,7 @@ describe("applyNotLogic", () => {
       ...emptyMatrix,
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["red", "blue", "green", "yellow"],
+        columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, false, null, null],
           [null, null, null, null],

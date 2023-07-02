@@ -1,9 +1,9 @@
-import {matrixesEqualQ} from "./matrixesEqualQ";
+import { matrixesEqualQ } from "./matrixesEqualQ";
 
 const matrixA = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: [1, 2, 3, 4],
+    columnLabels: [1, 2, 3, 4],
     grid: [
       [true, false, false, false],
       [false, null, false, null],
@@ -13,7 +13,7 @@ const matrixA = {
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    colLabels: ["fly", "back", "breast", "free"],
+    columnLabels: ["fly", "back", "breast", "free"],
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -33,7 +33,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, null],
           [false, true, false, false],
@@ -46,7 +46,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "red", "green"],
+        columnLabels: ["fly", "back", "red", "green"],
         grid: [
           [true, false, false, null],
           [false, true, false, false],
@@ -63,7 +63,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, null],
           [false, true, false, false],
@@ -76,7 +76,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, null],
           [false, true, null, false],
@@ -101,7 +101,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -121,7 +121,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v3": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -134,7 +134,7 @@ describe("matrixesEqualQ", () => {
       ...matrixA,
       "0v4": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        colLabels: ["fly", "back", "breast", "free"],
+        columnLabels: ["fly", "back", "breast", "free"],
         grid: [
           [true, false, false, false],
           [false, true, false, false],
