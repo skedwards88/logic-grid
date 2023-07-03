@@ -2,6 +2,8 @@ import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
 import {shuffleArray} from "../helpers/shuffleArray.js";
 import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
 import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
+import {getNumericDiff} from "../helpers/getNumericDiff.js";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
@@ -72,24 +74,19 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   for (let index = 1; index < inclusiveNumericLabels.length; index++) {
     numericDiffOptions = [
       ...numericDiffOptions,
-      inclusiveNumericLabels[index] - inclusiveNumericLabels[0],
+      getNumericDiff(inclusiveNumericLabels[index], inclusiveNumericLabels[0]),
     ];
   }
   const numericDiffClue = pickRandom(numericDiffOptions);
-  const actualNumericDiff = Math.abs(itemANumericValue - itemBNumericValue);
+  const actualNumericDiff = Math.abs(
+    getNumericDiff(itemANumericValue, itemBNumericValue),
+  );
 
   const itemADescription = itemATemplates.description(itemA);
 
   const itemBDescription = itemBTemplates.description(itemB);
 
-  // figure out the minimum numeric diff
-  let minimumNumericDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-  for (let index = 1; index < numericLabels.length - 1; index++) {
-    const diff = Math.abs(numericLabels[index] - numericLabels[index + 1]);
-    if (diff < minimumNumericDiff) {
-      minimumNumericDiff = diff;
-    }
-  }
+  const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
@@ -98,14 +95,9 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
-    : numericDescriptionTemplate(`at least ${minimumNumericDiff}`);
+    : numericDescriptionTemplate(minimumNumericDiff);
 
-  let relationWord = "";
-  if (actualNumericDiff === numericDiffClue) {
-    relationWord = "exactly ";
-  } else if (numericDiffClue != undefined) {
-    relationWord = "at least ";
-  }
+  const relationWord = actualNumericDiff === numericDiffClue ? "exactly " : "at least ";
   let writtenClue = `${itemADescription} ${numericComparisonVerb} ${relationWord}${numericDescription} than ${itemBDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 

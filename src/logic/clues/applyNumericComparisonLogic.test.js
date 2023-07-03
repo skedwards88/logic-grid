@@ -190,6 +190,65 @@ describe("applyNumericComparisonLogic", () => {
     }
   });
 
+  
+  test('applies a "numeric comparison" clue (clue diff 0.2, actual diff 0.2)', () => {
+    const emptyMatrixWithDecimals = {
+      NameVsNumber: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        columnLabels: [3.5,3.6,3.7,3.8],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+      NameVsColor: {
+        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+        columnLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+      ColorVsNumber: {
+        rowLabels: [3.5,3.6,3.7,3.8],
+        columnLabels: ["red", "blue", "green", "yellow"],
+        grid: [
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+          [null, null, null, null],
+        ],
+      },
+    };
+    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrixWithDecimals, {
+      greaterItem: "blue",
+      lesserItem: "red",
+      numericLabels: [3.5,3.6,3.7,3.8],
+      actualNumericDiff: 0.2,
+      numericDiffClue: 0.2,
+    });
+
+    for (const key in newDerivedMatrix) {
+      if (key === "ColorVsNumber") {
+        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+          emptyMatrixWithDecimals[key]["grid"],
+        );
+        expect(newDerivedMatrix[key]["grid"]).toEqual([
+          [null, false, null, null],
+          [null, false, null, null],
+          [false, null, null, null],
+          [false, null, null, null],
+        ]);
+      } else {
+        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      }
+    }
+  });
+
   test("does not modify the input matrix when applying the clue", () => {
     const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
     const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
