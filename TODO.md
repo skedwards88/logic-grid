@@ -6,7 +6,6 @@
 - should autocomplete verify that there is exactly one true per row/column?
 
 - Put in app store
-  - add asset links to webpack config and also do like dragon game ("Since this app doesn't have a custom domain, asset links for the Google Play Store are stored at https://github.com/skedwards88/.well-known (https://skedwards88.github.io/.well-known/assetlinks.json).")
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
 
