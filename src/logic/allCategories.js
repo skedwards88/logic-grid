@@ -1210,12 +1210,12 @@ export const allCategories = [
       },
     },
     {
-      values: [7, 8, 9, 10, 11, 12, 13],
-      display: (value) => `$${value}`,
+      values: [8.00, 8.50, 9.00, 9.50, 10.00, 10.50],
+      display: (value) => `$${value.toFixed(2)}`,
       descriptionTemplates: {
-        description: (value) => `the sandwich that cost $${value}`,
-        diffGreaterDescription: (value) => `${value} dollars more`,
-        diffLesserDescription: (value) => `${value} dollars less`,
+        description: (value) => `the sandwich that cost $${value.toFixed(2)}`,
+        diffGreaterDescription: (value) => `$${value.toFixed(2)} more`,
+        diffLesserDescription: (value) => `$${value.toFixed(2)} less`,
         verb: "costs",
       },
     },
@@ -1925,6 +1925,39 @@ export const allCategories = [
         diffGreaterDescription: (value) => `${value} more hours`,
         diffLesserDescription: (value) => `${value} less hours`,
         verb: "borrowed the tool for",
+      },
+    },
+  ],
+  [
+    {
+      values: weekdays,
+      display: (value) => value.slice(0, 3),
+      descriptionTemplates: {
+        description: (value) =>
+          `the student who has an exam on ${value}`,
+      },
+    },
+    {
+      values: ["biology", "chemistry", "physics", "math", "engineering"],
+      descriptionTemplates: {
+        description: (value) => `the student majoring in ${value}`,
+      },
+    },
+    {
+      values: ["library", "dorm", "park", "cafeteria", "lab"],
+      descriptionTemplates: {
+        description: (value) => `the student who likes to study in the ${value}`,
+      },
+    },
+    {
+      values: [3.5, 3.6, 3.7, 3.8, 3.9, 4.0],
+      display: (value) => `${value.toFixed(1)} GPA`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the student with the ${value.toFixed(1)} GPA`,
+        diffGreaterDescription: (value) => `${value} points higher`,
+        diffLesserDescription: (value) => `${value} points lower`,
+        verb: "has a GPA",
       },
     },
   ],

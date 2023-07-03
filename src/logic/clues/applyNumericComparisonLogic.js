@@ -4,6 +4,9 @@ import {
 } from "../helpers/findPossibleIndex.js";
 import {setToFalse, setToTrue} from "../setValue.js";
 import {findMatrixValue} from "../helpers/findMatrixValue.js";
+import {getNumericDiff} from "../helpers/getNumericDiff.js";
+import {getNumericSum} from "../helpers/getNumericSum.js";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
 
 export function applyNumericComparisonLogic(
   derivedMatrix,
@@ -12,6 +15,8 @@ export function applyNumericComparisonLogic(
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   let newDerivedMatrix = derivedMatrix;
+
+  const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
   const lesserItemLowestPossibleIndex = findFirstPossibleIndex(
     derivedMatrix,
@@ -32,7 +37,7 @@ export function applyNumericComparisonLogic(
     newDerivedMatrix = setToTrue(
       newDerivedMatrix,
       greaterItem,
-      lesserItemLowestPossibleValue + numericDiffClue,
+      getNumericSum(lesserItemLowestPossibleValue, numericDiffClue),
     );
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
@@ -43,7 +48,9 @@ export function applyNumericComparisonLogic(
       numericIndex++
     ) {
       const matchingDiffs = numericLabels.filter(
-        (value) => numericLabels[numericIndex] - value === numericDiffClue,
+        (value) =>
+          getNumericDiff(numericLabels[numericIndex], value) ===
+          numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
         newDerivedMatrix = setToFalse(
@@ -54,10 +61,15 @@ export function applyNumericComparisonLogic(
       }
     }
   } else {
-    // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // Otherwise, we just know that the larger item is at least minimumNumericDiff (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
     const greaterItemLowestPossibleIndex = numericLabels.findIndex(
-      (i) => i >= lesserItemLowestPossibleValue + (numericDiffClue ?? 1),
+      (i) =>
+        i >=
+        getNumericSum(
+          lesserItemLowestPossibleValue,
+          numericDiffClue ?? minimumNumericDiff,
+        ),
     );
     for (
       let numericIndex = 0;
@@ -91,7 +103,7 @@ export function applyNumericComparisonLogic(
     newDerivedMatrix = setToTrue(
       newDerivedMatrix,
       lesserItem,
-      greaterItemHighestPossibleValue - numericDiffClue,
+      getNumericDiff(greaterItemHighestPossibleValue, numericDiffClue),
     );
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
@@ -102,7 +114,9 @@ export function applyNumericComparisonLogic(
       numericIndex++
     ) {
       const matchingDiffs = numericLabels.filter(
-        (value) => value - numericLabels[numericIndex] === numericDiffClue,
+        (value) =>
+          getNumericDiff(value, numericLabels[numericIndex]) ===
+          numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
         newDerivedMatrix = setToFalse(
@@ -113,10 +127,15 @@ export function applyNumericComparisonLogic(
       }
     }
   } else {
-    // Otherwise, we just know that the larger item is at least 1 (if diff is undefined) or n (if diff is defined) index higher
+    // Otherwise, we just know that the larger item is at least minimumNumericDiff (if diff is undefined) or n (if diff is defined) index higher
     // than the lowest index (or the lowest index that the smaller item can be)
     const lesserItemHighestPossibleIndex = numericLabels.findLastIndex(
-      (i) => i <= greaterItemHighestPossibleValue - (numericDiffClue ?? 1),
+      (i) =>
+        i <=
+        getNumericDiff(
+          greaterItemHighestPossibleValue,
+          numericDiffClue ?? minimumNumericDiff,
+        ),
     );
     for (
       let numericIndex = numericLabels.length - 1;

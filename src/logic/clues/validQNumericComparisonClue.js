@@ -1,6 +1,8 @@
 import {findMatrixValue} from "../helpers/findMatrixValue";
 import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection";
 import {findAllPossibleIndexes} from "../helpers/findPossibleIndex.js";
+import {getNumericDiff} from "../helpers/getNumericDiff";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 
 export function validQNumericComparisonClue({
   matrix,
@@ -50,12 +52,12 @@ export function validQNumericComparisonClue({
   if (greaterValue != undefined && lesserValue != undefined) {
     if (actualNumericDiff === numericDiffClue) {
       // exact diff and both known: diff between the known values needs to match exactly
-      if (greaterValue - lesserValue != numericDiffClue) {
+      if (getNumericDiff(greaterValue, lesserValue) != numericDiffClue) {
         return false;
       }
     } else if (numericDiffClue != undefined) {
       // non-exact diff and both known: diff between the known values needs to be at least non-exact diff
-      if (greaterValue - lesserValue < numericDiffClue) {
+      if (getNumericDiff(greaterValue, lesserValue) < numericDiffClue) {
         return false;
       }
     } else {
@@ -88,7 +90,10 @@ export function validQNumericComparisonClue({
 
     for (const lesserValue of lesserItemPossibleValues) {
       for (const greaterValue of greaterItemPossibleValues) {
-        possibleDiffs = [...possibleDiffs, greaterValue - lesserValue];
+        possibleDiffs = [
+          ...possibleDiffs,
+          getNumericDiff(greaterValue, lesserValue),
+        ];
       }
     }
 
@@ -97,7 +102,8 @@ export function validQNumericComparisonClue({
       let copaseticValues;
       for (const lesserValue of lesserItemPossibleValues) {
         const matchingDiffs = greaterItemPossibleValues.filter(
-          (greaterValue) => greaterValue - lesserValue === numericDiffClue,
+          (greaterValue) =>
+            getNumericDiff(greaterValue, lesserValue) === numericDiffClue,
         );
         if (matchingDiffs.length > 0) {
           copaseticValues = true;
@@ -110,11 +116,13 @@ export function validQNumericComparisonClue({
     } else {
       // non-exact diff and not both known: at least one of the remaining possibilities needs to be at least non-exact diff
       // unknown diff and not both known: at least one of the remaining possibilities needs to allow greater to be more than less
-      const diff = numericDiffClue ?? 1;
+      const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
+
+      const diff = numericDiffClue ?? minimumNumericDiff;
       let copaseticValues;
       for (const lesserValue of lesserItemPossibleValues) {
         const matchingDiffs = greaterItemPossibleValues.filter(
-          (greaterValue) => greaterValue - lesserValue >= diff,
+          (greaterValue) => getNumericDiff(greaterValue, lesserValue) >= diff,
         );
         if (matchingDiffs.length > 0) {
           copaseticValues = true;
