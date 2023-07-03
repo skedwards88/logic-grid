@@ -1,5 +1,7 @@
 # Future work
 
+- validate apply clues ad nauseum tests
+
 - Add to Sect games site
 - Add more scenarios
 - Complete applyCluesAdNauseam tests
