@@ -1977,4 +1977,41 @@ export const allCategories = [
       },
     },
   ],
+
+  [
+    {
+      values: ["Italian","Mexican","French","Japanese","Chinese","Thai","Indian","Greek","American","Korean",],
+      descriptionTemplates: {
+        description: (value) => `the restaurant serving ${value} cuisine`,
+      },
+    },
+    {
+      values: ["views", "food", "music", "ambiance", "decor"],
+      descriptionTemplates: {
+        description: (value) => `the restaurant known for its ${value}`,
+      },
+    },
+    {
+      values: [10,15,20,25,30],
+      display: (value) => `${value} min`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the restaurant that is a ${value} minute walk away`,
+        diffGreaterDescription: (value) => `${value} minutes further`,
+        diffLesserDescription: (value) => `${value} minutes closer`,
+        verb: "is",
+      },
+    },
+    {
+      values: [1,2,3,4,5],
+      display: (value) => `${value} star`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the restaurant rated ${value} star${value > 1 ? "s" : ""}`,
+        diffGreaterDescription: (value) => `${value} star${value > 1 ? "s" : ""} higher`,
+        diffLesserDescription: (value) => `${value} star${value > 1 ? "s" : ""} lower`,
+        verb: "is rated",
+      },
+    },
+  ],
 ];
