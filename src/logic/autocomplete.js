@@ -12,14 +12,14 @@ function makeEmptyCopyOfMatrix(matrix) {
   return matrixCopy;
 }
 
-export function autocomplete(matrix) {
-  let autofilledMatrix = makeEmptyCopyOfMatrix(matrix);
+export function autocomplete(inputMatrix) {
+  let autofilledMatrix = makeEmptyCopyOfMatrix(inputMatrix);
 
   // Propogate the trues in the matrix
-  for (const key in matrix) {
-    const grid = matrix[key].grid;
-    const rowLabels = matrix[key].rowLabels;
-    const columnLabels = matrix[key].columnLabels;
+  for (const key in inputMatrix) {
+    const grid = inputMatrix[key].grid;
+    const rowLabels = inputMatrix[key].rowLabels;
+    const columnLabels = inputMatrix[key].columnLabels;
 
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       for (
@@ -39,17 +39,43 @@ export function autocomplete(matrix) {
     }
   }
 
-  for (const key in matrix) {
-    const grid = matrix[key].grid;
+  // Check the validity of the autocompleted matrix
+  for (const key in inputMatrix) {
+    const grid = inputMatrix[key].grid;
+    const autofilledGrid = autofilledMatrix[key].grid;
 
+    let columnTrueIndexes = [];
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
+      const trueIndexesInRow = [...autofilledGrid[rowIndex].keys()].filter(
+        (i) => autofilledGrid[rowIndex][i],
+      );
+      // I'm fairly sure that the two checks for exactly one true per row/column
+      // are redundant with the other checks,
+      // but I'm not confident that I considered all cases,
+      // so I'm including the checks even though it may add inefficiency
+
+      // if not exactly one true in the row
+      if (trueIndexesInRow.length != 1) {
+        throw new Error(
+          "Propogating the trues did not result in exactly one true/row",
+        );
+      }
+
+      // if more than one true in the columns
+      if (columnTrueIndexes.includes(trueIndexesInRow[0])) {
+        throw new Error(
+          "Propogating the trues resulted in multiple trues per column",
+        );
+      }
+      columnTrueIndexes = [...columnTrueIndexes, ...trueIndexesInRow];
+
       for (
         let columnIndex = 0;
         columnIndex < grid[rowIndex].length;
         columnIndex++
       ) {
         // Verify that the autofilled matrix has no nulls
-        if (autofilledMatrix[key].grid[rowIndex][columnIndex] === null) {
+        if (autofilledGrid[rowIndex][columnIndex] === null) {
           console.log(`incomplete`);
           throw new Error(
             "Propogating the trues did not fully complete the puzzle",
@@ -58,9 +84,9 @@ export function autocomplete(matrix) {
         // Verify that there are no disagreements between the original and autofilled matrix
         // for cases where the original is not null
         if (
-          matrix[key].grid[rowIndex][columnIndex] != null &&
-          matrix[key].grid[rowIndex][columnIndex] !=
-            autofilledMatrix[key].grid[rowIndex][columnIndex]
+          inputMatrix[key].grid[rowIndex][columnIndex] != null &&
+          inputMatrix[key].grid[rowIndex][columnIndex] !=
+            autofilledGrid[rowIndex][columnIndex]
         ) {
           console.log(`disagreement`);
           throw new Error(

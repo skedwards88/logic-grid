@@ -102,7 +102,7 @@ describe("autocomplete", () => {
     expect(matrixCopy).not.toEqual(outputMatrix);
   });
 
-  test("it relies on trues, not falses", () => {
+  test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {
     const inputMatrix = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
@@ -134,7 +134,7 @@ describe("autocomplete", () => {
     };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not fully complete the puzzle",
+      "Propogating the trues did not result in exactly one true/row",
     );
   });
 
@@ -170,7 +170,79 @@ describe("autocomplete", () => {
     };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not fully complete the puzzle",
+      "Propogating the trues did not result in exactly one true/row",
+    );
+  });
+
+  test("it throws an error if it results in multiple trues per column", () => {
+    const inputMatrix = {
+      NameVsNumber: {
+        rowLabels: ["Colin", "Sarah", "Fefe"],
+        columnLabels: [1, 2, 3],
+        grid: [
+          [true, null, null],
+          [null, null, true],
+          [true, null, null],
+        ],
+      },
+      NameVsColor: {
+        rowLabels: ["Colin", "Sarah", "Fefe"],
+        columnLabels: ["red", "blue", "green"],
+        grid: [
+          [null, null, true],
+          [null, true, null],
+          [true, null, null],
+        ],
+      },
+      ColorVsNumber: {
+        rowLabels: ["red", "blue", "green"],
+        columnLabels: [1, 2, 3],
+        grid: [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ],
+      },
+    };
+
+    expect(() => autocomplete(inputMatrix)).toThrow(
+      "Propogating the trues did not result in exactly one true/row",
+    );
+  });
+
+  test("it throws an error if it results in multiple trues per row", () => {
+    const inputMatrix = {
+      NameVsNumber: {
+        rowLabels: ["Colin", "Sarah", "Fefe"],
+        columnLabels: [1, 2, 3],
+        grid: [
+          [true, null, true],
+          [null, null, null],
+          [false, null, null],
+        ],
+      },
+      NameVsColor: {
+        rowLabels: ["Colin", "Sarah", "Fefe"],
+        columnLabels: ["red", "blue", "green"],
+        grid: [
+          [null, null, true],
+          [null, true, null],
+          [true, null, null],
+        ],
+      },
+      ColorVsNumber: {
+        rowLabels: ["red", "blue", "green"],
+        columnLabels: [1, 2, 3],
+        grid: [
+          [null, null, null],
+          [null, null, null],
+          [null, null, null],
+        ],
+      },
+    };
+
+    expect(() => autocomplete(inputMatrix)).toThrow(
+      "Propogating the trues did not result in exactly one true/row",
     );
   });
 
