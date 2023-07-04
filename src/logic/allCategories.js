@@ -496,43 +496,6 @@ const colors = [
   "black",
   "brown",
 ];
-const space = [
-  "Mars",
-  "Venus",
-  "Earth",
-  "Saturn",
-  "Uranus",
-  "Pluto",
-  "Moon",
-  "Sun",
-  "Stars",
-];
-const farmAnimals = [
-  "cow",
-  "horse",
-  "donkey",
-  "duck",
-  "pig",
-  "mule",
-  "sheep",
-  "lamb",
-  "colt",
-  "calf",
-  "chicken",
-  "goat",
-];
-const petAnimals = [
-  "dog",
-  "cat",
-  "fish",
-  "snake",
-  "lizard",
-  "turtle",
-  "parrot",
-  "mouse",
-  "rat",
-  "toad",
-];
 
 const unitedStates = [
   "Alabama",
