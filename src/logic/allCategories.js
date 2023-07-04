@@ -1173,7 +1173,7 @@ export const allCategories = [
       },
     },
     {
-      values: [8.00, 8.50, 9.00, 9.50, 10.00, 10.50],
+      values: [8.0, 8.5, 9.0, 9.5, 10.0, 10.5],
       display: (value) => `$${value.toFixed(2)}`,
       descriptionTemplates: {
         description: (value) => `the sandwich that cost $${value.toFixed(2)}`,
@@ -1896,8 +1896,7 @@ export const allCategories = [
       values: weekdays,
       display: (value) => value.slice(0, 3),
       descriptionTemplates: {
-        description: (value) =>
-          `the student who has an exam on ${value}`,
+        description: (value) => `the student who has an exam on ${value}`,
       },
     },
     {
@@ -1909,15 +1908,15 @@ export const allCategories = [
     {
       values: ["library", "dorm", "park", "cafeteria", "lab"],
       descriptionTemplates: {
-        description: (value) => `the student who likes to study in the ${value}`,
+        description: (value) =>
+          `the student who likes to study in the ${value}`,
       },
     },
     {
       values: [3.5, 3.6, 3.7, 3.8, 3.9, 4.0],
       display: (value) => `${value.toFixed(1)} GPA`,
       descriptionTemplates: {
-        description: (value) =>
-          `the student with the ${value.toFixed(1)} GPA`,
+        description: (value) => `the student with the ${value.toFixed(1)} GPA`,
         diffGreaterDescription: (value) => `${value} points higher`,
         diffLesserDescription: (value) => `${value} points lower`,
         verb: "has a GPA",
@@ -1932,13 +1931,37 @@ export const allCategories = [
       },
     },
     {
-      values: ["lake", "ballerina", "bird", "boat", "feast", "map", "rocket", "concert", "bouquet", "truck", "microscope"],
+      values: [
+        "lake",
+        "ballerina",
+        "bird",
+        "boat",
+        "feast",
+        "map",
+        "rocket",
+        "concert",
+        "bouquet",
+        "truck",
+        "microscope",
+      ],
       descriptionTemplates: {
         description: (value) => `the painting of the ${value}`,
       },
     },
     {
-      values: ["Depths", "Balance", "Yin", "Float", "Expectations", "Vast", "Boundaries", "Flow", "Composition", "Movement", "Revelations"],
+      values: [
+        "Depths",
+        "Balance",
+        "Yin",
+        "Float",
+        "Expectations",
+        "Vast",
+        "Boundaries",
+        "Flow",
+        "Composition",
+        "Movement",
+        "Revelations",
+      ],
       descriptionTemplates: {
         description: (value) => `the painting titled "${value}"`,
       },
@@ -1947,40 +1970,102 @@ export const allCategories = [
       values: months,
       display: (value) => value.slice(0, 3),
       descriptionTemplates: {
-        description: (value) => `the painting that the gallery featured in ${value}`,
+        description: (value) =>
+          `the painting that the gallery featured in ${value}`,
       },
     },
   ],
   [
     {
-      values: ["Harry", "Ron", "Hermione", "Luna", "Neville","Fred","George","Ginny","Hagrid","Dumbledore","Snape","Sirius","Malfoy","McGonagal","Mr. Weasley","Lupin","Dobby"],
+      values: [
+        "Harry",
+        "Ron",
+        "Hermione",
+        "Luna",
+        "Neville",
+        "Fred",
+        "George",
+        "Ginny",
+        "Hagrid",
+        "Dumbledore",
+        "Snape",
+        "Sirius",
+        "Malfoy",
+        "McGonagal",
+        "Mr. Weasley",
+        "Lupin",
+        "Dobby",
+      ],
       descriptionTemplates: {
-        description: (value) => `the person whose favorite character is ${value}`,
+        description: (value) =>
+          `the person whose favorite character is ${value}`,
       },
     },
     {
-      values: ["Hippogriff", "Thestral", "Dragon", "Niffler", "Unicorn", "Phoenix", "Grindylow", "Acromantula"],
+      values: [
+        "Hippogriff",
+        "Thestral",
+        "Dragon",
+        "Niffler",
+        "Unicorn",
+        "Phoenix",
+        "Grindylow",
+        "Acromantula",
+      ],
       descriptionTemplates: {
-        description: (value) => `the person whose favorite Harry Potter creature is a ${value}`,
+        description: (value) =>
+          `the person whose favorite Harry Potter creature is a ${value}`,
       },
     },
     {
-      values: ["Expelliarmus", "Alohomora", "Lumos", "Nox", "Wingardium Leviosa", "Petrificus Totalus", "Reparo", "Protego", "Stupify", "Accio"],
+      values: [
+        "Expelliarmus",
+        "Alohomora",
+        "Lumos",
+        "Nox",
+        "Wingardium Leviosa",
+        "Petrificus Totalus",
+        "Reparo",
+        "Protego",
+        "Stupify",
+        "Accio",
+      ],
       descriptionTemplates: {
-        description: (value) => `the person whose favorite Harry Potter spell is "${value}"`,
+        description: (value) =>
+          `the person whose favorite Harry Potter spell is "${value}"`,
       },
     },
     {
-      values: ["Hogwarts", "The Burrow", "Godric's Hollow", "12 Grimmauld Place", "Diagon Alley", "Gringotts", "Hogsmeade"],
+      values: [
+        "Hogwarts",
+        "The Burrow",
+        "Godric's Hollow",
+        "12 Grimmauld Place",
+        "Diagon Alley",
+        "Gringotts",
+        "Hogsmeade",
+      ],
       descriptionTemplates: {
-        description: (value) => `the person whose Harry Potter setting is ${value}`,
+        description: (value) =>
+          `the person whose Harry Potter setting is ${value}`,
       },
     },
   ],
 
   [
     {
-      values: ["Italian","Mexican","French","Japanese","Chinese","Thai","Indian","Greek","American","Korean",],
+      values: [
+        "Italian",
+        "Mexican",
+        "French",
+        "Japanese",
+        "Chinese",
+        "Thai",
+        "Indian",
+        "Greek",
+        "American",
+        "Korean",
+      ],
       descriptionTemplates: {
         description: (value) => `the restaurant serving ${value} cuisine`,
       },
@@ -1992,7 +2077,7 @@ export const allCategories = [
       },
     },
     {
-      values: [10,15,20,25,30],
+      values: [10, 15, 20, 25, 30],
       display: (value) => `${value} min`,
       descriptionTemplates: {
         description: (value) =>
@@ -2003,13 +2088,15 @@ export const allCategories = [
       },
     },
     {
-      values: [1,2,3,4,5],
+      values: [1, 2, 3, 4, 5],
       display: (value) => `${value} star`,
       descriptionTemplates: {
         description: (value) =>
           `the restaurant rated ${value} star${value > 1 ? "s" : ""}`,
-        diffGreaterDescription: (value) => `${value} star${value > 1 ? "s" : ""} higher`,
-        diffLesserDescription: (value) => `${value} star${value > 1 ? "s" : ""} lower`,
+        diffGreaterDescription: (value) =>
+          `${value} star${value > 1 ? "s" : ""} higher`,
+        diffLesserDescription: (value) =>
+          `${value} star${value > 1 ? "s" : ""} lower`,
         verb: "is rated",
       },
     },
