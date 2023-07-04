@@ -2101,4 +2101,48 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "Mom's Special",
+        "Grandma's Treat",
+        "Dad's Specialty",
+        "Grandpa's Favorite",
+        "Mystery Mush",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the dish titled "${value}"`,
+      },
+    },
+    {
+      values: ["potatoes", "okra", "spinach", "jalapenos", "tofu", "mushrooms", "tofu", "tofu", "tofu", "tofu", "tofu"],
+      descriptionTemplates: {
+        description: (value) => `the dish whose key ingredient is ${value}`,
+      },
+    },
+    {
+      values: [20, 30, 40, 50, 60],
+      display: (value) => `${value} min`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the dish that takes ${value} minutes to prepare`,
+        diffGreaterDescription: (value) => `${value} more minutes`,
+        diffLesserDescription: (value) => `${value} less minutes`,
+        verb: "takes",
+      },
+    },
+    {
+      values: [1,2,3,4,5,6,7,8],
+      display: (value) => `${value} servings`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the dish that serves ${value} ${value > 1 ? "people" : "person"}`,
+        diffGreaterDescription: (value) =>
+          `${value} more ${value > 1 ? "people" : "person"}`,
+        diffLesserDescription: (value) =>
+        `${value} less ${value > 1 ? "people" : "person"}`,
+        verb: "serves",
+      },
+    },
+  ],
 ];

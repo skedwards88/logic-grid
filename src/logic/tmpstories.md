@@ -1,12 +1,9 @@
 Car model, car manufacturer, year of production, fuel type.
-Country name, capital city, official language, currency.
 Movie title, director, lead actor, genre.
 Music band, genre, hit song, year formed.
 University name, location, number of students, notable alumni.
-Recipe name, cuisine type, main ingredients, cooking time.
 Athlete's name, sport, team, position.
 Plant species, native region, growth season, light requirements.
-Painting title, artist, year of creation, art movement.
 Video game title, platform, developer, genre.
 Scientist name, field of study, notable discovery, nationality.
 Software name, developer, release date, platform.
