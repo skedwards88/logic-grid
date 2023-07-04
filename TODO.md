@@ -4,7 +4,6 @@
 
 - Add to Sect games site
 - Add more scenarios
-- Complete applyCluesAdNauseam tests
 - should autocomplete verify that there is exactly one true per row/column?
 
 - Put in app store

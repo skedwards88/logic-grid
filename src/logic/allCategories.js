@@ -1961,4 +1961,57 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: ["impressionist", "cubist", "realist", "minimalist", "baroque"],
+      descriptionTemplates: {
+        description: (value) => `the ${value} painting`,
+      },
+    },
+    {
+      values: ["lake", "ballerina", "bird", "boat", "feast", "map", "rocket", "concert", "bouquet", "truck", "microscope"],
+      descriptionTemplates: {
+        description: (value) => `the painting of the ${value}`,
+      },
+    },
+    {
+      values: ["Depths", "Balance", "Yin", "Float", "Expectations", "Vast", "Boundaries", "Flow", "Composition", "Movement", "Revelations"],
+      descriptionTemplates: {
+        description: (value) => `the painting titled "${value}"`,
+      },
+    },
+    {
+      values: months,
+      display: (value) => value.slice(0, 3),
+      descriptionTemplates: {
+        description: (value) => `the painting that the gallery featured in ${value}`,
+      },
+    },
+  ],
+  [
+    {
+      values: ["Harry", "Ron", "Hermione", "Luna", "Neville","Fred","George","Ginny","Hagrid","Dumbledore","Snape","Sirius","Malfoy","McGonagal","Mr. Weasley","Lupin","Dobby"],
+      descriptionTemplates: {
+        description: (value) => `the person whose favorite character is ${value}`,
+      },
+    },
+    {
+      values: ["Hippogriff", "Thestral", "Dragon", "Niffler", "Unicorn", "Phoenix", "Grindylow", "Acromantula"],
+      descriptionTemplates: {
+        description: (value) => `the person whose favorite Harry Potter creature is a ${value}`,
+      },
+    },
+    {
+      values: ["Expelliarmus", "Alohomora", "Lumos", "Nox", "Wingardium Leviosa", "Petrificus Totalus", "Reparo", "Protego", "Stupify", "Accio"],
+      descriptionTemplates: {
+        description: (value) => `the person whose favorite Harry Potter spell is "${value}"`,
+      },
+    },
+    {
+      values: ["Hogwarts", "The Burrow", "Godric's Hollow", "12 Grimmauld Place", "Diagon Alley", "Gringotts", "Hogsmeade"],
+      descriptionTemplates: {
+        description: (value) => `the person whose Harry Potter setting is ${value}`,
+      },
+    },
+  ],
 ];
