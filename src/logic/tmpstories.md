@@ -8,7 +8,6 @@ Video game title, platform, developer, genre.
 Scientist name, field of study, notable discovery, nationality.
 Software name, developer, release date, platform.
 Historical event, year it occurred, location, key figures.
-Clothing brand, product type, material, target audience.
 Skyscraper name, city, height, year of completion.
 Wine name, winery, region, grape variety.
 
@@ -21,7 +20,6 @@ Wine name, winery, region, grape variety.
   musical instrument - composer - style
   job - salary - hours
   tv genre - emotion - episodes
-  clothing item - cost - accessory
   holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
   cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
   fish species - length - method (net, line, fly, harpoon)
@@ -44,7 +42,6 @@ Languages
 Sports
 Musical instruments
 Famous people
-Clothing items
 Emotions
 Professions
 Foods
@@ -95,7 +92,6 @@ Types of fabric
 Types of seafood
 Types of mushrooms
 Types of tea
-Types of clouds
 Types of bread
 Types of beer
 

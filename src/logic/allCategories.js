@@ -2115,7 +2115,7 @@ export const allCategories = [
       },
     },
     {
-      values: ["potatoes", "okra", "spinach", "jalapenos", "tofu", "mushrooms", "tofu", "tofu", "tofu", "tofu", "tofu"],
+      values: ["potatoes", "okra", "spinach", "jalapenos", "tofu", "mushrooms", "nuts", "basil", "broccoli", "cabbage", "peas", "beans", "kale", "tempeh", "carrots", "eggplant", "tomatoes", "onion", "ginger"],
       descriptionTemplates: {
         description: (value) => `the dish whose key ingredient is ${value}`,
       },
@@ -2142,6 +2142,62 @@ export const allCategories = [
         diffLesserDescription: (value) =>
         `${value} less ${value > 1 ? "people" : "person"}`,
         verb: "serves",
+      },
+    },
+  ],  
+  [
+    {
+      values: [
+        "pair of pants",
+        "skirt",
+        "dress",
+        "pair of socks",
+        "jacket",
+        "sweater",
+        "hat",
+        "pair of leggings",
+        "pair of shorts",
+        "shirt",
+        "scarf",
+      ],
+      display: (value) => value.replace("pair of ", ""),
+      descriptionTemplates: {
+        description: (value) => `the ${value}`,
+      },
+    },{
+      values: [
+        "nylon",
+        "spandex",
+        "cotton",
+        "linen",
+        "denim",
+        "velvet",
+        "silk",
+        "flannel",
+        "polyester",
+        "wool",
+        "fleece",
+        "satin",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the ${value} item`,
+      },
+    },
+    {
+      values: colors,
+      descriptionTemplates: {
+        description: (value) => `the ${value} item`,
+      },
+    },
+    {
+      values: [20, 30, 40, 50, 60],
+      display: (value) => `$${value}`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the item that cost $${value}`,
+        diffGreaterDescription: (value) => `$${value} more`,
+        diffLesserDescription: (value) => `$${value} less`,
+        verb: "costs",
       },
     },
   ],
