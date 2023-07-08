@@ -430,6 +430,10 @@ input[type="checkbox" i]:checked {
 /* wider screens */
 @media (orientation: landscape) {
   #app {
-    grid-template: "matrix controls" auto "matrix result" auto "matrix clues" 1fr / auto 1fr;
+    grid-template: ". controls" auto "matrix result" auto "matrix clues" 1fr / auto 1fr;
+  }
+
+  .matrix {
+    align-self: self-start;
   }
 }

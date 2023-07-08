@@ -2,10 +2,8 @@
 
 - validate apply clues ad nauseum tests
 
-- Add to Sect games site
 - Add more scenarios
 
-- Put in app store
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
 
