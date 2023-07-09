@@ -1,5 +1,7 @@
 # Future work
 
+- fewer vs less
+
 - validate apply clues ad nauseum tests
 
 - Add more scenarios

@@ -1721,8 +1721,8 @@ export const allCategories = [
       values: [2020, 2015, 2010, 2005, 2000],
       descriptionTemplates: {
         description: (value) => `the novel published in ${value}`,
-        diffGreaterDescription: (value) => `${value} years earlier`,
-        diffLesserDescription: (value) => `${value} fewer pages`,
+        diffGreaterDescription: (value) => `${value} years later`,
+        diffLesserDescription: (value) => `${value} years earlier`,
         verb: "was published",
       },
     },
