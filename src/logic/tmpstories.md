@@ -11,9 +11,6 @@ Historical event, year it occurred, location, key figures.
 Skyscraper name, city, height, year of completion.
 Wine name, winery, region, grape variety.
 
-- FIRST_NAME, GPA (4.0,3.8,3.6,3.4,3.2), MAJOR, MINOR
-- FIRST_NAME, YEARS old pet (1,2,3,4,5), PET TYPE AND/OR PET NUMBER OF LEGS, PET NAME
-  Road trip. States. Number states. Miles. Car models.
   Commuter . Mode of transport. Minutes. Job. 
   bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
   animal - age - pet name - owner name

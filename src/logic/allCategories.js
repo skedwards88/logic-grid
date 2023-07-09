@@ -497,7 +497,7 @@ const colors = [
   "brown",
 ];
 
-const unitedStates = [
+const continentalUnitedStates = [
   "Alabama",
   "Alaska",
   "Arizona",
@@ -549,6 +549,8 @@ const unitedStates = [
   "Wisconsin",
   "Wyoming",
 ];
+
+const carModels = ["Ford", "BMW", "Honda", "Mercedes", "Kia"];
 
 const months = [
   "January",
@@ -648,7 +650,7 @@ export const allCategories = [
       },
     },
     {
-      values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
+      values: carModels,
       descriptionTemplates: {
         description: (value) => `the ${value}`,
       },
@@ -1360,7 +1362,7 @@ export const allCategories = [
       },
     },
     {
-      values: unitedStates,
+      values: continentalUnitedStates,
       descriptionTemplates: {
         description: (value) => `the tree in ${value}`,
       },
@@ -1412,7 +1414,7 @@ export const allCategories = [
     {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        description: (value) => `the person vacationed for ${value} days`,
+        description: (value) => `the person who vacationed for ${value} days`,
         diffGreaterDescription: (value) => `${value} more days`,
         diffLesserDescription: (value) => `${value} less days`,
         verb: "vacationed",
@@ -2248,4 +2250,40 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [1, 2, 3, 4, 5],
+      descriptionTemplates: {
+        description: (value) => `the person who traveled through ${value} states`,
+        diffGreaterDescription: (value) => `${value} more states`,
+        diffLesserDescription: (value) => `${value} fewer states`,
+        verb: "traveled through",
+      },
+    },
+    {
+      values: continentalUnitedStates,
+      descriptionTemplates: {
+        description: (value) => `the person who ended their road trip in ${value}`,
+      },
+    },
+    {
+      values: [
+        "hotel",
+        "motel",
+        "Air B&B",
+        "hostel",
+        "campground",
+        "VRBO"
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who stayed in ${value}s`,
+      },
+    },
+    {
+      values: carModels,
+      descriptionTemplates: {
+        description: (value) => `the person who drove a ${value}`,
+      },
+    },
+  ]
 ];
