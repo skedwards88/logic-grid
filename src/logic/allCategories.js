@@ -2201,4 +2201,51 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "cane",
+        "hat",
+        "glasses",
+        "camera",
+        "mug",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the page where Waldo lost his ${value}`,
+      },
+    },{
+      values: [
+        "fire breathers",
+        "acrobats",
+        "body builders",
+        "clowns",
+        "bears",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the page where Waldo stopped to watch ${value}`,
+      },
+    },
+    {
+      values: [
+        "volcano",
+        "desert",
+        "beach",
+        "jungle",
+        "zoo",
+        "arctic",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the page where Waldo was at the ${value}`,
+      },
+    },
+    {
+      values: [2, 3, 4, 5, 6],
+      descriptionTemplates: {
+        description: (value) =>
+          `page ${value}`,
+        diffGreaterDescription: (value) => `${value} pages later`,
+        diffLesserDescription: (value) => `${value} pages earlier`,
+      },
+    },
+  ],
 ];
