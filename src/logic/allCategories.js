@@ -616,6 +616,13 @@ function convertWheelCountToVehicle(number) {
   }
 }
 
+function basicPluralize(value, word) {
+  // adds an "s" if the value is > 1
+  // Does not do more complex pluralization
+
+  return `${word}${value > 1 ? "s" : ""}`
+}
+
 export const allCategories = [
   [
     {
@@ -623,8 +630,8 @@ export const allCategories = [
       display: (value) => `${value} yr`,
       descriptionTemplates: {
         description: (value) => `the ${value} year old car`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
+        diffGreaterDescription: (value) => `${value} ${basicPluralize(value, "year")} older`,
+        diffLesserDescription: (value) => `${value} ${basicPluralize(value, "year")} younger`,
       },
     },
     {
@@ -662,8 +669,8 @@ export const allCategories = [
       display: (value) => `lane ${value}`,
       descriptionTemplates: {
         description: (value) => `the person who swam in lane ${value}`,
-        diffGreaterDescription: (value) => `${value} lane numbers higher`,
-        diffLesserDescription: (value) => `${value} lane numbers lower`,
+        diffGreaterDescription: (value) => `${value} lane ${basicPluralize(value, "number")} higher`,
+        diffLesserDescription: (value) => `${value} lane ${basicPluralize(value, "number")} lower`,
         verb: "was",
       },
     },
@@ -744,11 +751,11 @@ export const allCategories = [
   [
     {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      display: (value) => `${value} s'mores`,
+      display: (value) => `${value} ${basicPluralize(value, "s'more")}`,
       descriptionTemplates: {
-        description: (value) => `the person who ate ${value} s'mores`,
-        diffGreaterDescription: (value) => `${value} more s'mores`,
-        diffLesserDescription: (value) => `${value} less s'mores`,
+        description: (value) => `the person who ate ${value} ${basicPluralize(value, "s'more")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "s'more")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "s'more")}`,
         verb: "ate",
       },
     },
@@ -787,9 +794,9 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} mi`,
       descriptionTemplates: {
-        description: (value) => `the person who hiked ${value} miles`,
-        diffGreaterDescription: (value) => `${value} more miles`,
-        diffLesserDescription: (value) => `${value} less miles`,
+        description: (value) => `the person who hiked ${value} ${basicPluralize(value, "mile")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "mile")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "mile")}`,
         verb: "hiked",
       },
     },
@@ -840,9 +847,9 @@ export const allCategories = [
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       display: (value) => `${value} hr`,
       descriptionTemplates: {
-        description: (value) => `the person who finished in ${value} hours`,
-        diffGreaterDescription: (value) => `${value} more hours`,
-        diffLesserDescription: (value) => `${value} less hours`,
+        description: (value) => `the person who finished in ${value} ${basicPluralize(value, "hour")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "hour")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "hour")}`,
         verb: "took",
       },
     },
@@ -894,11 +901,11 @@ export const allCategories = [
   [
     {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      display: (value) => `${value} trees`,
+      display: (value) => `${value} ${basicPluralize(value, "tree")}`,
       descriptionTemplates: {
-        description: (value) => `the house with ${value} trees`,
-        diffGreaterDescription: (value) => `${value} more trees`,
-        diffLesserDescription: (value) => `${value} less trees`,
+        description: (value) => `the house with ${value} ${basicPluralize(value, "tree")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "tree")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "tree")}`,
         verb: "has",
       },
     },
@@ -938,8 +945,8 @@ export const allCategories = [
       display: (value) => `${value} PM`,
       descriptionTemplates: {
         description: (value) => `the person who snacks at ${value} o'clock`,
-        diffGreaterDescription: (value) => `${value} hours later`,
-        diffLesserDescription: (value) => `${value} hours earlier`,
+        diffGreaterDescription: (value) => `${value} ${basicPluralize(value, "hour")} later`,
+        diffLesserDescription: (value) => `${value} ${basicPluralize(value, "hour")} earlier`,
         verb: "snacks",
       },
     },
@@ -991,11 +998,11 @@ export const allCategories = [
     },
     {
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      display: (value) => `${value} stones`,
+      display: (value) => `${value} ${basicPluralize(value, "stone")}`,
       descriptionTemplates: {
-        description: (value) => `the jewelry with ${value} stones`,
-        diffGreaterDescription: (value) => `${value} more stones`,
-        diffLesserDescription: (value) => `${value} less stones`,
+        description: (value) => `the jewelry with ${value} ${basicPluralize(value, "stone")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "stone")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "stone")}`,
         verb: "has",
       },
     },
@@ -1111,8 +1118,8 @@ export const allCategories = [
       display: (value) => `${value} yr`,
       descriptionTemplates: {
         description: (value) => `the ${value} year old dog`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
+        diffGreaterDescription: (value) => `${value} ${basicPluralize(value, "year")} older`,
+        diffLesserDescription: (value) => `${value} ${basicPluralize(value, "year")} younger`,
       },
     },
     {
@@ -1270,11 +1277,11 @@ export const allCategories = [
     },
     {
       values: [1, 2, 3, 4, 5],
-      display: (value) => `${value} gifts`,
+      display: (value) => `${value} ${basicPluralize(value, "gift")}`,
       descriptionTemplates: {
-        description: (value) => `the person who received ${value} gifts`,
-        diffGreaterDescription: (value) => `${value} more gifts`,
-        diffLesserDescription: (value) => `${value} fewer gifts`,
+        description: (value) => `the person who received ${value} ${basicPluralize(value, "gift")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "gift")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "gift")}`,
         verb: "received",
       },
     },
@@ -1383,8 +1390,8 @@ export const allCategories = [
       display: (value) => appendNth(value),
       descriptionTemplates: {
         description: (value) => `the person who came in ${appendNth(value)}`,
-        diffGreaterDescription: (value) => `${value} places worse`,
-        diffLesserDescription: (value) => `${value} places better`,
+        diffGreaterDescription: (value) => `${value} ${basicPluralize(value, "place")} worse`,
+        diffLesserDescription: (value) => `${value} ${basicPluralize(value, "place")} better`,
         verb: "placed",
       },
     },
@@ -1414,9 +1421,9 @@ export const allCategories = [
     {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        description: (value) => `the person who vacationed for ${value} days`,
-        diffGreaterDescription: (value) => `${value} more days`,
-        diffLesserDescription: (value) => `${value} less days`,
+        description: (value) => `the person who vacationed for ${value} ${basicPluralize(value, "day")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "day")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "day")}`,
         verb: "vacationed",
       },
     },
@@ -1552,9 +1559,9 @@ export const allCategories = [
       values: [0, 1, 2, 3, 4],
       display: (value) => convertWheelCountToVehicle(value),
       descriptionTemplates: {
-        description: (value) => `the clown on ${value} wheels`,
-        diffGreaterDescription: (value) => `${value} more wheels`,
-        diffLesserDescription: (value) => `${value} fewer wheels`,
+        description: (value) => `the clown on ${value} ${basicPluralize(value, "wheel")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "wheel")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "wheel")}`,
         verb: "rides on",
       },
     },
@@ -1580,11 +1587,11 @@ export const allCategories = [
     },
     {
       values: [1, 2, 3, 4, 5],
-      display: (value) => `${value} songs`,
+      display: (value) => `${value} ${basicPluralize(value, "song")}`,
       descriptionTemplates: {
-        description: (value) => `the dancer that performed ${value} songs`,
-        diffGreaterDescription: (value) => `${value} more songs`,
-        diffLesserDescription: (value) => `${value} fewer songs`,
+        description: (value) => `the dancer that performed ${value} ${basicPluralize(value, "song")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "song")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "song")}`,
         verb: "performed",
       },
     },
@@ -1673,9 +1680,9 @@ export const allCategories = [
     {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        description: (value) => `the person who ate ${value} slices`,
-        diffGreaterDescription: (value) => `${value} more slices`,
-        diffLesserDescription: (value) => `${value} fewer slices`,
+        description: (value) => `the person who ate ${value} ${basicPluralize(value, "slice")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "slice")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "slice")}`,
         verb: "ate",
       },
     },
@@ -1825,8 +1832,8 @@ export const allCategories = [
       display: (value) => appendNth(value),
       descriptionTemplates: {
         description: (value) => `the person who finished ${appendNth(value)}`,
-        diffGreaterDescription: (value) => `${value} places worse`,
-        diffLesserDescription: (value) => `${value} places better`,
+        diffGreaterDescription: (value) => `${value} ${basicPluralize(value, "place")} worse`,
+        diffLesserDescription: (value) => `${value} ${basicPluralize(value, "place")} better`,
         verb: "finished",
       },
     },
@@ -1886,9 +1893,9 @@ export const allCategories = [
       display: (value) => `${value} hr`,
       descriptionTemplates: {
         description: (value) =>
-          `the person who borrowed the tool for ${value} hours`,
-        diffGreaterDescription: (value) => `${value} more hours`,
-        diffLesserDescription: (value) => `${value} less hours`,
+          `the person who borrowed the tool for ${value} ${basicPluralize(value, "hour")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "hour")}`,
+        diffLesserDescription: (value) => `${value} less ${basicPluralize(value, "hour")}`,
         verb: "borrowed the tool for",
       },
     },
@@ -2094,11 +2101,11 @@ export const allCategories = [
       display: (value) => `${value} star`,
       descriptionTemplates: {
         description: (value) =>
-          `the restaurant rated ${value} star${value > 1 ? "s" : ""}`,
+          `the restaurant rated ${value} ${basicPluralize(value, "star")}`,
         diffGreaterDescription: (value) =>
-          `${value} star${value > 1 ? "s" : ""} higher`,
+          `${value} ${basicPluralize(value, "star")} higher`,
         diffLesserDescription: (value) =>
-          `${value} star${value > 1 ? "s" : ""} lower`,
+          `${value} ${basicPluralize(value, "star")} lower`,
         verb: "is rated",
       },
     },
@@ -2254,9 +2261,9 @@ export const allCategories = [
     {
       values: [1, 2, 3, 4, 5],
       descriptionTemplates: {
-        description: (value) => `the person who traveled through ${value} states`,
-        diffGreaterDescription: (value) => `${value} more states`,
-        diffLesserDescription: (value) => `${value} fewer states`,
+        description: (value) => `the person who traveled through ${value} ${basicPluralize(value, "state")}`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "state")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "state")}`,
         verb: "traveled through",
       },
     },
@@ -2299,9 +2306,9 @@ export const allCategories = [
         {
       values: [1,2,3,4,5],
       descriptionTemplates: {
-        description: (value) => `the person who commutes ${value} days a week`,
-        diffGreaterDescription: (value) => `${value} more days`,
-        diffLesserDescription: (value) => `${value} fewer days`,
+        description: (value) => `the person who commutes ${value} ${basicPluralize(value, "day")} a week`,
+        diffGreaterDescription: (value) => `${value} more ${basicPluralize(value, "day")}`,
+        diffLesserDescription: (value) => `${value} fewer ${basicPluralize(value, "day")}`,
         verb: "commutes",
       },
     },
