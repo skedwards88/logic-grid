@@ -11,7 +11,6 @@ Historical event, year it occurred, location, key figures.
 Skyscraper name, city, height, year of completion.
 Wine name, winery, region, grape variety.
 
-  Commuter . Mode of transport. Minutes. Job. 
   bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
   animal - age - pet name - owner name
   musical instrument - composer - style

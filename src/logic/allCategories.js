@@ -2285,5 +2285,46 @@ export const allCategories = [
         description: (value) => `the person who drove a ${value}`,
       },
     },
+  ],
+  [
+    {
+      values: [15, 20, 30, 45, 60],
+      descriptionTemplates: {
+        description: (value) => `the person whose commute takes ${value} minutes`,
+        diffGreaterDescription: (value) => `${value} more minutes`,
+        diffLesserDescription: (value) => `${value} fewer minutes`,
+        verb: "commutes for",
+      },
+    },
+        {
+      values: [1,2,3,4,5],
+      descriptionTemplates: {
+        description: (value) => `the person who commutes ${value} days a week`,
+        diffGreaterDescription: (value) => `${value} more days`,
+        diffLesserDescription: (value) => `${value} fewer days`,
+        verb: "commutes",
+      },
+    },
+    {
+      values: [6,7,8,9,10],
+      descriptionTemplates: {
+        description: (value) => `the person whose commute starts at ${value} AM`,
+        diffGreaterDescription: (value) => `${value} hours later`,
+        diffLesserDescription: (value) => `${value} hours earlier`,
+        verb: "starts",
+      },
+    },
+    {
+      values: [
+        "bike",
+        "car",
+        "train",
+        "foot",
+        "bus",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who commutes by ${value}`,
+      },
+    },
   ]
 ];
