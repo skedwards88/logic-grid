@@ -5,9 +5,7 @@ University name, location, number of students, notable alumni.
 Athlete's name, sport, team, position.
 Plant species, native region, growth season, light requirements.
 Video game title, platform, developer, genre.
-Scientist name, field of study, notable discovery, nationality.
 Software name, developer, release date, platform.
-Historical event, year it occurred, location, key figures.
 Skyscraper name, city, height, year of completion.
 Wine name, winery, region, grape variety.
 
@@ -23,8 +21,7 @@ Wine name, winery, region, grape variety.
   spelling bee word, place
   boat (sailboat, canoe, kayak,rowboat)
   potluck dish
-  tree species - years old
-  send a probe to planet - space agency
+  send a probe to planet - space agency - cost - goal - launch yrs from now
   bird species - number sighted
   job - starts work at -
   preferred candy - number easter eggs -dyed color
