@@ -2313,6 +2313,50 @@ export const allCategories = [
   ],
   [
     {
+      values: [5,10,15,20,25],
+      descriptionTemplates: {
+        description: (value) => `the person who cleaned for ${value} minutes`,
+        diffGreaterDescription: (value) => `${value} more minutes`,
+        diffLesserDescription: (value) => `${value} less minutes`,
+        verb: "cleaned for",
+      },
+    },
+    {
+      values: [
+        "broom",
+        "vacuum",
+        "mop",
+        "sponge",
+        "rag",
+        "duster",
+    ],
+      descriptionTemplates: {
+        description: (value) => `the person who cleaned with a ${value}`,
+      },
+    },
+    {
+      values: [
+        "kitchen",
+        "bathroom",
+        "bedroom",
+        "dining room",
+        "living room",
+        "basement",
+        "attic",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who cleaned the ${value}`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    }
+  ],
+  [
+    {
       values: [15, 20, 30, 45, 60],
       descriptionTemplates: {
         description: (value) => `the person whose commute takes ${value} minutes`,
