@@ -12,11 +12,9 @@ export default function Result({
   const matrixComplete = Object.values(matrix).every(
     (entry) => !entry.grid.flat().includes(null),
   );
-  console.log(`matrixComplete ${matrixComplete}`);
 
   // Verify that no clues are actively violated
   const allCluesValid = clues.every((clue) => validQ({clue, matrix}));
-  console.log(`allCluesValid ${allCluesValid}`);
 
   let matrixAutofillable;
   try {
@@ -29,7 +27,6 @@ export default function Result({
   } catch (error) {
     matrixAutofillable = false;
   }
-  console.log(`matrixValid ${matrixAutofillable}`);
 
   // If all clues are valid and autofillabled but the matrix is incomplete, offer to autofill
   if (allCluesValid && matrixAutofillable && !matrixComplete) {

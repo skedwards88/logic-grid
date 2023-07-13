@@ -76,7 +76,6 @@ export function autocomplete(inputMatrix) {
       ) {
         // Verify that the autofilled matrix has no nulls
         if (autofilledGrid[rowIndex][columnIndex] === null) {
-          console.log(`incomplete`);
           throw new Error(
             "Propogating the trues did not fully complete the puzzle",
           );
@@ -88,7 +87,6 @@ export function autocomplete(inputMatrix) {
           inputMatrix[key].grid[rowIndex][columnIndex] !=
             autofilledGrid[rowIndex][columnIndex]
         ) {
-          console.log(`disagreement`);
           throw new Error(
             "Popoagating the trues leads to a disagreement with the original array",
           );
