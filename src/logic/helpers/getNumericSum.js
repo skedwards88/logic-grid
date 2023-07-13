@@ -11,7 +11,9 @@ export function getNumericSum(numberA, numberB) {
   // Otherwise, multiply by powers of 10 to get rid of the decimals,
   // add, then divide by the same power of 10
   const maxDecimals = Math.max(decimalsA, decimalsB);
-  return (Math.round(Math.pow(10, maxDecimals) * numberA) +
+  return (
+    (Math.round(Math.pow(10, maxDecimals) * numberA) +
       Math.round(Math.pow(10, maxDecimals) * numberB)) /
-      Math.pow(10, maxDecimals);
+    Math.pow(10, maxDecimals)
+  );
 }

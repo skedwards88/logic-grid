@@ -2,15 +2,15 @@ import {
   findFirstPossibleIndex,
   findLastPossibleIndex,
 } from "../matrixSearching/findPossibleIndex";
-import { setToFalse, setToTrue } from "../puzzleGeneration/setValue.js";
-import { findMatrixValue } from "../matrixSearching/findMatrixValue.js";
-import { getNumericDiff } from "../helpers/getNumericDiff.js";
-import { getNumericSum } from "../helpers/getNumericSum.js";
-import { getMinimumNumericDiff } from "../helpers/getMinimumNumericDiff.js";
+import {setToFalse, setToTrue} from "../puzzleGeneration/setValue.js";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue.js";
+import {getNumericDiff} from "../helpers/getNumericDiff.js";
+import {getNumericSum} from "../helpers/getNumericSum.js";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
 
 export function applyNumericComparisonLogic(
   derivedMatrix,
-  { greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue },
+  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
 ) {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 

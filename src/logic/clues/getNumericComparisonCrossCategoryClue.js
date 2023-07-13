@@ -97,7 +97,8 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     ? numericDescriptionTemplate(numericDiffClue)
     : numericDescriptionTemplate(minimumNumericDiff);
 
-  const relationWord = actualNumericDiff === numericDiffClue ? "exactly " : "at least ";
+  const relationWord =
+    actualNumericDiff === numericDiffClue ? "exactly " : "at least ";
   let writtenClue = `${itemADescription} ${numericComparisonVerb} ${relationWord}${numericDescription} than ${itemBDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 

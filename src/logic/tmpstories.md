@@ -9,22 +9,22 @@ Software name, developer, release date, platform.
 Skyscraper name, city, height, year of completion.
 Wine name, winery, region, grape variety.
 
-  bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
-  animal - age - pet name - owner name
-  musical instrument - composer - style
-  job - salary - hours
-  tv genre - emotion - episodes
-  holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
-  cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
-  fish species - length - method (net, line, fly, harpoon)
-  tattoo of - body part- cm wide
-  spelling bee word, place
-  boat (sailboat, canoe, kayak,rowboat)
-  potluck dish
-  send a probe to planet - space agency - cost - goal - launch yrs from now
-  bird species - number sighted
-  job - starts work at -
-  preferred candy - number easter eggs -dyed color
+bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
+animal - age - pet name - owner name
+musical instrument - composer - style
+job - salary - hours
+tv genre - emotion - episodes
+holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
+cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
+fish species - length - method (net, line, fly, harpoon)
+tattoo of - body part- cm wide
+spelling bee word, place
+boat (sailboat, canoe, kayak,rowboat)
+potluck dish
+send a probe to planet - space agency - cost - goal - launch yrs from now
+bird species - number sighted
+job - starts work at -
+preferred candy - number easter eggs -dyed color
 
 Animals
 Fruits

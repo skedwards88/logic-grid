@@ -1,11 +1,11 @@
-import { getOrClue } from "../clues/getOrClue.js";
-import { getNotClue } from "../clues/getNotClue.js";
-import { getNumericComparisonClue } from "../clues/getNumericComparisonClue.js";
-import { getNumericComparisonCrossCategoryClue } from "../clues/getNumericComparisonCrossCategoryClue.js";
-import { getOrCrossCategoryClue } from "../clues/getOrCrossCategoryClue.js";
-import { pickRandom } from "../helpers/pickRandom.js";
-import { matrixesEqualQ } from "../equalQ/matrixesEqualQ.js";
-import { applyClueLogic } from "../clues/applyClueLogic.js";
+import {getOrClue} from "../clues/getOrClue.js";
+import {getNotClue} from "../clues/getNotClue.js";
+import {getNumericComparisonClue} from "../clues/getNumericComparisonClue.js";
+import {getNumericComparisonCrossCategoryClue} from "../clues/getNumericComparisonCrossCategoryClue.js";
+import {getOrCrossCategoryClue} from "../clues/getOrCrossCategoryClue.js";
+import {pickRandom} from "../helpers/pickRandom.js";
+import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
+import {applyClueLogic} from "../clues/applyClueLogic.js";
 
 export function getUsefulClue(
   solutionMatrix,

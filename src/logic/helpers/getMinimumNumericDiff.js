@@ -26,5 +26,5 @@ export function getMinimumNumericDiff(numericLabels) {
     }
   }
 
-  return minimumNumericDiff
+  return minimumNumericDiff;
 }

@@ -1,10 +1,10 @@
-import { puzzleSolvedQ } from "../puzzleSolvedQ";
-import { getUsefulClue } from "./getUsefulClue.js";
-import { applyCluesAdNauseam } from "./applyCluesAdNauseam.js";
-import { chooseCategories } from "./chooseCategories.js";
-import { generateSolutionMatrix } from "./generateSolutionMatrix.js";
-import { buildEmptyMatrix } from "./buildEmptyMatrix.js";
-import { removeRedundantClues } from "./removeRedundantClues.js";
+import {puzzleSolvedQ} from "../puzzleSolvedQ";
+import {getUsefulClue} from "./getUsefulClue.js";
+import {applyCluesAdNauseam} from "./applyCluesAdNauseam.js";
+import {chooseCategories} from "./chooseCategories.js";
+import {generateSolutionMatrix} from "./generateSolutionMatrix.js";
+import {buildEmptyMatrix} from "./buildEmptyMatrix.js";
+import {removeRedundantClues} from "./removeRedundantClues.js";
 
 export function generatePuzzle(numCats, numItemsPerCat) {
   const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
@@ -38,7 +38,7 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   let newDerivedMatrix = JSON.parse(JSON.stringify(emptyMatrix));
 
   while (!puzzleIsSolved) {
-    ({ clue, newDerivedMatrix } = getUsefulClue(
+    ({clue, newDerivedMatrix} = getUsefulClue(
       solutionMatrix,
       newDerivedMatrix,
       includeCrossCategoryClues,

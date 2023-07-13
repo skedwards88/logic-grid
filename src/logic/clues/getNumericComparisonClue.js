@@ -106,7 +106,8 @@ export function getNumericComparisonClue(solutionMatrix) {
     ? solutionMatrix[selectedKey].columnDescriptionTemplates.description(itemB)
     : solutionMatrix[selectedKey].rowDescriptionTemplates.description(itemB);
 
-  const relationWord = actualNumericDiff === numericDiffClue ? "exactly " : "at least ";
+  const relationWord =
+    actualNumericDiff === numericDiffClue ? "exactly " : "at least ";
 
   let writtenClue = `${leadingDescription} ${numericComparisonVerb} ${relationWord}${numericDescription} than ${trailingDescription}.`;
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);

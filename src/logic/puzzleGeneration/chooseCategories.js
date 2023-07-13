@@ -28,4 +28,3 @@ export function chooseCategories(numCats, numItemsPerCat) {
   }
   return categoryLabelsAndTemplates;
 }
-

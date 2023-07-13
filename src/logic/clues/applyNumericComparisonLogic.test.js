@@ -190,12 +190,11 @@ describe("applyNumericComparisonLogic", () => {
     }
   });
 
-  
   test('applies a "numeric comparison" clue (clue diff 0.2, actual diff 0.2)', () => {
     const emptyMatrixWithDecimals = {
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: [3.5,3.6,3.7,3.8],
+        columnLabels: [3.5, 3.6, 3.7, 3.8],
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -214,7 +213,7 @@ describe("applyNumericComparisonLogic", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: [3.5,3.6,3.7,3.8],
+        rowLabels: [3.5, 3.6, 3.7, 3.8],
         columnLabels: ["red", "blue", "green", "yellow"],
         grid: [
           [null, null, null, null],
@@ -224,13 +223,16 @@ describe("applyNumericComparisonLogic", () => {
         ],
       },
     };
-    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrixWithDecimals, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [3.5,3.6,3.7,3.8],
-      actualNumericDiff: 0.2,
-      numericDiffClue: 0.2,
-    });
+    const newDerivedMatrix = applyNumericComparisonLogic(
+      emptyMatrixWithDecimals,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [3.5, 3.6, 3.7, 3.8],
+        actualNumericDiff: 0.2,
+        numericDiffClue: 0.2,
+      },
+    );
 
     for (const key in newDerivedMatrix) {
       if (key === "ColorVsNumber") {
