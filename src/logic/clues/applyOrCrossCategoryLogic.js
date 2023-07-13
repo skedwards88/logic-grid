@@ -1,9 +1,9 @@
-import {findMatrixValue} from "../helpers/findMatrixValue.js";
-import {setToFalse, setToTrue} from "../setValue.js";
+import { findMatrixValue } from "../matrixSearching/findMatrixValue";
+import { setToFalse, setToTrue } from "../puzzleGeneration/setValue.js";
 
 export function applyOrCrossCategoryLogic(
   derivedMatrix,
-  {itemA, orItems: [itemB, itemC]},
+  { itemA, orItems: [itemB, itemC] },
 ) {
   let newDerivedMatrix = derivedMatrix;
 

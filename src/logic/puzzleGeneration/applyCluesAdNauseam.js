@@ -1,4 +1,4 @@
-import {matrixesEqualQ} from "./matrixesEqualQ.js";
+import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
 import {applyClueLogic} from "../clues/applyClueLogic.js";
 
 export function applyCluesAdNauseam(clues, derivedMatrix) {

@@ -1,8 +1,8 @@
-import {setToFalse} from "../setValue.js";
-import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js";
+import { setToFalse } from "../puzzleGeneration/setValue.js";
+import { applyNumericComparisonLogic } from "./applyNumericComparisonLogic.js";
 export function applyNumericComparisonCrossCategoryLogic(
   derivedMatrix,
-  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
+  { greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue },
 ) {
   let newDerivedMatrix = derivedMatrix;
 

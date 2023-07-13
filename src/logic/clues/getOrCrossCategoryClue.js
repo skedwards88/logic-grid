@@ -1,4 +1,4 @@
-import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
 import {pickRandom} from "../helpers/pickRandom.js";
 import {shuffleArray} from "../helpers/shuffleArray.js";
 

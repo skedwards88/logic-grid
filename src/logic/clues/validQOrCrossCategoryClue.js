@@ -1,4 +1,4 @@
-import {findMatrixValue} from "../helpers/findMatrixValue";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 
 export function validQOrCrossCategoryClue({
   matrix,

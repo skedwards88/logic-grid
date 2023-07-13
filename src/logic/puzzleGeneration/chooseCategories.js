@@ -1,7 +1,7 @@
 import {allCategories} from "./allCategories.js";
-import {pickRandom} from "./helpers/pickRandom.js";
-import {shuffleArray} from "./helpers/shuffleArray.js";
-import {sortLabels} from "./helpers/sortLabels.js";
+import {pickRandom} from "../helpers/pickRandom.js";
+import {shuffleArray} from "../helpers/shuffleArray.js";
+import {sortLabels} from "../helpers/sortLabels.js";
 
 export function chooseCategories(numCats, numItemsPerCat) {
   // returns a list of category labels and description templates

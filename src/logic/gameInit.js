@@ -1,4 +1,4 @@
-import {generatePuzzle} from "./generatePuzzle";
+import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
 import sendAnalytics from "./sendAnalytics";
 
 export function gameInit({

@@ -1,4 +1,4 @@
-import {setToTrue} from "./setValue.js";
+import {setToTrue} from "../logic/puzzleGeneration/setValue";
 
 function makeEmptyCopyOfMatrix(matrix) {
   let matrixCopy = JSON.parse(JSON.stringify(matrix));

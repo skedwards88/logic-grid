@@ -1,5 +1,5 @@
-import {applyCluesAdNauseam} from "./helpers/applyCluesAdNauseam.js";
-import {matrixesEqualQ} from "./helpers/matrixesEqualQ.js";
+import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
+import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
 
 export function removeRedundantClues(clues, emptyMatrix) {
   // Remove redundant clues by seeing if each clue makes any difference

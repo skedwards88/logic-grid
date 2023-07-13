@@ -1,6 +1,6 @@
 import {allCategories} from "./allCategories";
-import {getNumericDiff} from "./helpers/getNumericDiff";
-import {sortLabels} from "./helpers/sortLabels";
+import {getNumericDiff} from "../helpers/getNumericDiff";
+import {sortLabels} from "../helpers/sortLabels";
 
 function arrayValuesAreUniqueQ(array) {
   const uniqueArray = Array.from(new Set(array));

@@ -1,7 +1,7 @@
 import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
 import {shuffleArray} from "../helpers/shuffleArray.js";
-import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection.js";
-import {arraysEqualQ} from "../helpers/arraysEqualQ.js";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
+import {arraysEqualQ} from "../equalQ/arraysEqualQ.js";
 import {getNumericDiff} from "../helpers/getNumericDiff.js";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
 

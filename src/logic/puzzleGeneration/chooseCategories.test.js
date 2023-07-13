@@ -1,5 +1,5 @@
 import {chooseCategories} from "./chooseCategories";
-import * as pickRandomModule from "./helpers/pickRandom.js";
+import * as pickRandomModule from "../helpers/pickRandom";
 
 const mockedCategories = [
   {

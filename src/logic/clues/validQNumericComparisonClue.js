@@ -1,6 +1,6 @@
-import {findMatrixValue} from "../helpers/findMatrixValue";
-import {findFirstTrueIntersection} from "../helpers/findFirstTrueIntersection";
-import {findAllPossibleIndexes} from "../helpers/findPossibleIndex.js";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
+import {findAllPossibleIndexes} from "../matrixSearching/findPossibleIndex";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 

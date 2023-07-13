@@ -1,5 +1,5 @@
 import {validQOrClue} from "./validQOrClue";
-import {findMatrixValue} from "../helpers/findMatrixValue";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 
 const completeMatrix = {
   NameVsNumber: {

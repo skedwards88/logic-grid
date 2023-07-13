@@ -1,4 +1,4 @@
-import {findMatrixKey} from "./helpers/findMatrixKey.js";
+import {findMatrixKey} from "../matrixSearching/findMatrixKey";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);

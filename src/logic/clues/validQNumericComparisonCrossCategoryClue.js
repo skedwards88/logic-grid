@@ -1,4 +1,4 @@
-import {findMatrixValue} from "../helpers/findMatrixValue";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue.js";
 
 export function validQNumericComparisonCrossCategoryClue({
