@@ -10,7 +10,7 @@ body:
     id: scenario
     attributes:
       label: Scenario details
-      List at least 4 categories with at least 5 items per category.
+      description: List at least 4 categories with at least 5 items per category.
       value: |-
         Category 1 values (include at least 5 items):
           -
