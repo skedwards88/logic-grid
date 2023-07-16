@@ -17,7 +17,7 @@ body:
     id: platform
     attributes:
       label: Platform
-      description: What device are you using (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)?
+      description: What device are you using? Please tell us the device, operating system, and browser. (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)
       placeholder: Please tell us the device, operating system, and browser.
     validations:
       required: true
@@ -26,5 +26,6 @@ body:
     attributes:
       label: What is wrong?
       description: Tell us about the bug that you encountered. Please inlude screenshots.
+      placeholder: Please include as much info as possible to help us understand the bug. Screenshots are helpful.
     validations:
       required: true
