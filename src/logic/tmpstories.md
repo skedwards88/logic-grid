@@ -1,9 +1,7 @@
-Car model, car manufacturer, year of production, fuel type.
 Movie title, director, lead actor, genre.
 Music band, genre, hit song, year formed.
 University name, location, number of students, notable alumni.
 Athlete's name, sport, team, position.
-Plant species, native region, growth season, light requirements.
 Video game title, platform, developer, genre.
 Software name, developer, release date, platform.
 Skyscraper name, city, height, year of completion.
@@ -14,17 +12,13 @@ animal - age - pet name - owner name
 musical instrument - composer - style
 job - salary - hours
 tv genre - emotion - episodes
-holiday (too long?) - enjoys the holiday with (theirself, parents, partner, friends, cousins) - tradition
-cleaning tool (vacuum, broom, rag, sponge) - room cleaned (kitchen, bedroom) -minutes took
 fish species - length - method (net, line, fly, harpoon)
-tattoo of - body part- cm wide
 spelling bee word, place
 boat (sailboat, canoe, kayak,rowboat)
 potluck dish
 send a probe to planet - space agency - cost - goal - launch yrs from now
 bird species - number sighted
 job - starts work at -
-preferred candy - number easter eggs -dyed color
 
 Animals
 Fruits
@@ -49,8 +43,6 @@ Mythical creatures
 Famous landmarks
 Forms of transportation
 Types of trees
-Art movements
-Dance styles
 Currencies
 Beverages
 Historical events
@@ -74,11 +66,9 @@ Fictional places
 Parts of a computer
 Types of shoes
 Art materials
-Types of candy bars
 Types of hats
 Types of sea creatures
 Parts of a plant
-Types of gems
 Types of soup
 Types of spirits
 Types of fabric

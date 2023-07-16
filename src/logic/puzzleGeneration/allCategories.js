@@ -859,7 +859,7 @@ export const allCategories = [
       },
     },
     {
-      values: ["hat", "bottle", "poles", "glasses", "visor", "bandana"],
+      values: ["hat", "bottle", "poles", "sunglasses", "visor", "bandana"],
       descriptionTemplates: {
         description: (value) => `the person with the ${value}`,
       },
@@ -2472,6 +2472,116 @@ export const allCategories = [
       values: ["bike", "car", "train", "foot", "bus"],
       descriptionTemplates: {
         description: (value) => `the person who commutes by ${value}`,
+      },
+    },
+  ],
+  [
+    {
+      values: [2, 4, 6, 8, 10],
+      descriptionTemplates: {
+        display: (value) => `${value} eggs`,
+        description: (value) => `the person who found ${value} Easter eggs`,
+        diffGreaterDescription: (value) => `${value} more eggs`,
+        diffLesserDescription: (value) => `${value} fewer eggs`,
+        verb: "found",
+      },
+    },
+    {
+      values: ["M&Ms", "Robin eggs", "Jelly beans", "Hershey kisses", "Reeses"],
+      descriptionTemplates: {
+        description: (value) => `the person who prefers ${value}`,
+      },
+    },
+    {
+      values: ["pink", "yellow", "green", "blue", "orange", "purple"],
+      descriptionTemplates: {
+        description: (value) =>
+          `the person who dyed their Easter eggs ${value}`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+  ],
+  [
+    {
+      values: [2, 4, 6, 8, 10],
+      descriptionTemplates: {
+        display: (value) => `${value} cm,`,
+        description: (value) =>
+          `the person with the ${value} centimeter wide tattoo`,
+        diffGreaterDescription: (value) => `${value} centimeters larger`,
+        diffLesserDescription: (value) => `${value} centimeters smaller`,
+        verb: "has a tattoo that is",
+      },
+    },
+    {
+      values: [
+        "firefly",
+        "tiger",
+        "butterfly",
+        "tree",
+        "globe",
+        "sun",
+        "moon",
+        "snake",
+        "bee",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person with the tattoo of the ${value}`,
+      },
+    },
+    {
+      values: ["wrist", "calf", "thigh", "shoulder", "back", "chest"],
+      descriptionTemplates: {
+        description: (value) => `the person with the tattoo on their ${value}`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+  ],
+  [
+    {
+      values: [
+        "Christmas",
+        "Thanksgiving",
+        "Easter",
+        "New Years",
+        "Valentines Day",
+        "St. Patrick's Day",
+        "Halloween",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who celebrates ${value}`,
+      },
+    },
+    {
+      values: ["food", "drink", "music", "dance", "nature"],
+      descriptionTemplates: {
+        description: (value) =>
+          `the person who has a tradition involving ${value}`,
+      },
+    },
+    {
+      values: ["alone", "friends", "partner", "parents", "cousins"],
+      descriptionTemplates: {
+        description: (value) =>
+          `the person who likes to spend the holiday ${
+            value === "alone" ? "alone" : `with their ${value}`
+          }`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
       },
     },
   ],
