@@ -11,7 +11,7 @@ body:
     attributes:
       label: Platform
       description: What device are you using? Please tell us the device, operating system, and browser. (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)
-      placeholder: |-
+      value: |-
         Category 1 values (include at least 5 items):
           -
           -
