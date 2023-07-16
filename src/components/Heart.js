@@ -3,7 +3,7 @@ import Share from "./Share";
 import packageJson from "../../package.json";
 
 export default function Heart({setDisplay}) {
-  const feedbackLink = `https://github.com/skedwards88/logic-grid/issues/new?body=Logic+grid+version+${packageJson.version}`;
+  const feedbackLink = 'https://github.com/skedwards88/logic-grid/issues/new/choose';
 
   return (
     <div className="App heart">
@@ -20,9 +20,9 @@ export default function Heart({setDisplay}) {
         {`\n\n`}
         {<hr></hr>}
         {`\n`}
-        {"Feedback? "}
+        {"Feedback or ideas? "}
         <a href={feedbackLink}>Open an issue</a>
-        {" on GitHub."}
+        {` on GitHub or email SECTgames@gmail.com.`}
         {`\n\n`}
         {<hr></hr>}
         {`\n`}
