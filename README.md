@@ -12,7 +12,7 @@ A classic logic grid puzzle.
 
 Did you find an error when playing the game? Please open an issue, and include screenshots to illustrate the error.
 
-Do you want to add a new scenario? Open an issue describing the scenario. Or, open a pull request to modify `src/logic/allCategories.js`. Run `npm t -- src/logic/allCategories.test.js -u` and commit the changes along with your pull request.
+Do you want to add a new scenario? Open an issue describing the scenario. Or, open a pull request to modify `src/logic/puzzleGeneration/allCategories.js`. Run `npm t -- src/logic/allCategories.test.js -u` and commit the changes along with your pull request.
 
 ## Development
 
