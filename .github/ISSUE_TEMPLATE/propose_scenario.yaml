@@ -7,10 +7,10 @@ body:
       value: |
         Do you have an idea for a new scenario? Let us know! Each scenario requires at least 4 categories with at least 5 items per category.
   - type: textarea
-    id: platform
+    id: scenario
     attributes:
-      label: Platform
-      description: What device are you using? Please tell us the device, operating system, and browser. (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)
+      label: Scenario details
+      List at least 4 categories with at least 5 items per category.
       value: |-
         Category 1 values (include at least 5 items):
           -
