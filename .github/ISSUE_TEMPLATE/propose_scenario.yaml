@@ -1,0 +1,41 @@
+name: Propose a scenario
+description: Propose a new puzzle scenario
+title: "[New Scenario]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do you have an idea for a new scenario? Let us know! Each scenario requires at least 4 categories with at least 5 items per category.
+  - type: textarea
+    id: platform
+    attributes:
+      label: Platform
+      description: What device are you using? Please tell us the device, operating system, and browser. (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)
+      placeholder: |-
+        Category 1 values (include at least 5 items):
+          -
+          -
+          -
+          -
+          -
+        Category 3 values (include at least 5 items):
+          -
+          -
+          -
+          -
+          -
+        Category 3 values (include at least 5 items):
+          -
+          -
+          -
+          -
+          -
+        Category 4 values (include at least 5 items):
+          -
+          -
+          -
+          -
+          -
+        You can include more categories if desired.
+    validations:
+      required: true
