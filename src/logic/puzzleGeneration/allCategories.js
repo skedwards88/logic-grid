@@ -666,12 +666,6 @@ export const allCategories = [
       },
     },
     {
-      values: firstNames,
-      descriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-    },
-    {
       values: carModels,
       descriptionTemplates: {
         description: (value) => `the ${value}`,
@@ -853,12 +847,6 @@ export const allCategories = [
       },
     },
     {
-      values: firstNames,
-      descriptionTemplates: {
-        description: (value) => `${value}`,
-      },
-    },
-    {
       values: ["hat", "bottle", "poles", "sunglasses", "visor", "bandana"],
       descriptionTemplates: {
         description: (value) => `the person with the ${value}`,
@@ -995,12 +983,6 @@ export const allCategories = [
       },
     },
     {
-      values: firstNames,
-      descriptionTemplates: {
-        description: (value) => `${value}`,
-      },
-    },
-    {
       values: colors,
       descriptionTemplates: {
         description: (value) => `the person with the ${value} cup`,
@@ -1041,12 +1023,6 @@ export const allCategories = [
         diffLesserDescription: (value) =>
           `${value} less ${basicPluralize(value, "stone")}`,
         verb: "has",
-      },
-    },
-    {
-      values: firstNames,
-      descriptionTemplates: {
-        description: (value) => `${value}'s jewelry`,
       },
     },
     {

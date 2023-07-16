@@ -4,8 +4,6 @@
 
 - Add more scenarios
 
-- make issue template for bug and for new scenario proposal. also invite new scenarios on heart screen.
-
 - Add error boundaries? handle error for unknown action in reducer
 - consider consolidating duplicate code around `matrixColumnInfo,matrixRowInfo` in `generatePuzzle` and `generateSolutionMatrix`
 

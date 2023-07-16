@@ -6,7 +6,14 @@ import {sortLabels} from "../helpers/sortLabels.js";
 export function chooseCategories(numCats, numItemsPerCat) {
   // returns a list of category labels and description templates
 
-  const categorySet = pickRandom(allCategories);
+  let categorySet = pickRandom(allCategories);
+
+  // If we have more categories than we need,
+  // omit the "first name" category
+  // to prevent this common category from feeling overused
+  if (categorySet.length > numCats) {
+    categorySet = categorySet.filter(category => !category.values.includes("Aaron"));
+  }
 
   const categories = shuffleArray(categorySet).slice(0, numCats);
 
