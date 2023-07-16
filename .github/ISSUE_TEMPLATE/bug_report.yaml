@@ -17,9 +17,8 @@ body:
     id: platform
     attributes:
       label: Platform
-      description: What device are you using (e.g. Google Pixel 6 Pro running Android version 13)?
-      placeholder: Please tell us the device and operating system.
-      value: todo?
+      description: What device are you using (e.g. Google Pixel 6 Pro running Android version 13 and Google Chrome)?
+      placeholder: Please tell us the device, operating system, and browser.
     validations:
       required: true
   - type: textarea
@@ -27,3 +26,5 @@ body:
     attributes:
       label: What is wrong?
       description: Tell us about the bug that you encountered. Please inlude screenshots.
+    validations:
+      required: true
