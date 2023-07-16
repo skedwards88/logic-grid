@@ -13,29 +13,33 @@ body:
       description: List at least 4 categories with at least 5 items per category.
       value: |-
         Category 1 values (include at least 5 items):
-          -
-          -
-          -
-          -
-          -
+          - 
+          - 
+          - 
+          - 
+          - 
+
         Category 3 values (include at least 5 items):
-          -
-          -
-          -
-          -
-          -
+          - 
+          - 
+          - 
+          - 
+          - 
+
         Category 3 values (include at least 5 items):
-          -
-          -
-          -
-          -
-          -
+          - 
+          - 
+          - 
+          - 
+          - 
+
         Category 4 values (include at least 5 items):
-          -
-          -
-          -
-          -
-          -
+          - 
+          - 
+          - 
+          - 
+          - 
+
         You can include more categories if desired.
     validations:
       required: true
