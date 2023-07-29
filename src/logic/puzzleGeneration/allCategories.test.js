@@ -1486,6 +1486,36 @@ describe("allCategories example text", () => {
         "Aaron is the person who has a tradition involving food or the person who has a tradition involving drink.",
         "Aaron is not the person who likes to spend the holiday alone.",
         "Aaron is the person who likes to spend the holiday alone or the person who likes to spend the holiday with their friends.",
+        "the person who contributed the bean salad to the potluck is not the person who organized the location for the potluck.",
+        "the person who contributed the bean salad to the potluck is the person who organized the location for the potluck or the person who organized the time for the potluck.",
+        "the person who contributed the bean salad to the potluck is not the person who arrived to the potluck 5 minutes after 3 PM.",
+        "the person who contributed the bean salad to the potluck is the person who arrived to the potluck 5 minutes after 3 PM or the person who arrived to the potluck 10 minutes after 3 PM.",
+        "the person who contributed the bean salad to the potluck arrived at least 5 minutes later than the person who arrived to the potluck 15 minutes after 3 PM.",
+        "the person who contributed the bean salad to the potluck arrived at least 5 minutes earlier than the person who arrived to the potluck 20 minutes after 3 PM.",
+        "the person who contributed the bean salad to the potluck is not Aaron.",
+        "the person who contributed the bean salad to the potluck is Aaron or Abby.",
+        "the person who organized the location for the potluck is not the person who contributed the bean salad to the potluck.",
+        "the person who organized the location for the potluck is the person who contributed the bean salad to the potluck or the person who contributed the brownies to the potluck.",
+        "the person who organized the location for the potluck is not the person who arrived to the potluck 5 minutes after 3 PM.",
+        "the person who organized the location for the potluck is the person who arrived to the potluck 5 minutes after 3 PM or the person who arrived to the potluck 10 minutes after 3 PM.",
+        "the person who organized the location for the potluck arrived at least 5 minutes later than the person who arrived to the potluck 15 minutes after 3 PM.",
+        "the person who organized the location for the potluck arrived at least 5 minutes earlier than the person who arrived to the potluck 20 minutes after 3 PM.",
+        "the person who organized the location for the potluck is not Aaron.",
+        "the person who organized the location for the potluck is Aaron or Abby.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is not the person who contributed the bean salad to the potluck.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is the person who contributed the bean salad to the potluck or the person who contributed the brownies to the potluck.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is not the person who organized the location for the potluck.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is the person who organized the location for the potluck or the person who organized the time for the potluck.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is not Aaron.",
+        "the person who arrived to the potluck 5 minutes after 3 PM is Aaron or Abby.",
+        "Aaron is not the person who contributed the bean salad to the potluck.",
+        "Aaron is the person who contributed the bean salad to the potluck or the person who contributed the brownies to the potluck.",
+        "Aaron is not the person who organized the location for the potluck.",
+        "Aaron is the person who organized the location for the potluck or the person who organized the time for the potluck.",
+        "Aaron is not the person who arrived to the potluck 5 minutes after 3 PM.",
+        "Aaron is the person who arrived to the potluck 5 minutes after 3 PM or the person who arrived to the potluck 10 minutes after 3 PM.",
+        "Aaron arrived at least 5 minutes later than the person who arrived to the potluck 15 minutes after 3 PM.",
+        "Aaron arrived at least 5 minutes earlier than the person who arrived to the potluck 20 minutes after 3 PM.",
       ]
     `);
     expect(greaterDescriptions).toMatchInlineSnapshot(`
@@ -1535,6 +1565,7 @@ describe("allCategories example text", () => {
         "45 is 15 more minutes than 30.",
         "8 is 2 more eggs than 6.",
         "8 is 2 centimeters larger than 6.",
+        "20 is 5 minutes later than 15.",
       ]
     `);
     expect(lesserDescriptions).toMatchInlineSnapshot(`
@@ -1584,6 +1615,7 @@ describe("allCategories example text", () => {
         "30 is 15 fewer minutes than 45.",
         "6 is 2 fewer eggs than 8.",
         "6 is 2 centimeters smaller than 8.",
+        "15 is 5 minutes earlier than 20.",
       ]
     `);
   });

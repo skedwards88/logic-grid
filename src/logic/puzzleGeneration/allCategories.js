@@ -2561,4 +2561,47 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "bean salad",
+        "brownies",
+        "fruit platter",
+        "sliders",
+        "tacos",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who contributed the ${value} to the potluck`,
+      },
+    },
+    {
+      values: [
+        "location",
+        "time",
+        "guest list",
+        "activities",
+        "transportation",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who organized the ${value} for the potluck`,
+      },
+    },
+    {
+      values: [5, 10, 15, 20, 25],
+      display: (value) => `${value} min`,
+      descriptionTemplates: {
+        description: (value) =>
+          `the person who arrived to the potluck ${value} minutes after 3 PM`,
+        diffGreaterDescription: (value) => `${value} minutes later`,
+        diffLesserDescription: (value) => `${value} minutes earlier`,
+        verb: "arrived",
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+  ],
 ];
