@@ -2655,4 +2655,51 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "guitar",
+        "piano",
+        "violin",
+        "cello",
+        "oboe",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who plays the the ${value}`,
+      },
+    },
+    {
+      values: [
+        "Bach",
+        "Mozart",
+        "Chopin",
+        "Beethoven",
+        "Tchaikovsky",
+        "Handel",
+        "Verdi",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who plays music inspired by ${value}`,
+      },
+    },
+    {
+      values: [
+        "folk",
+        "rock",
+        "jazz",
+        "country",
+        "electronic",
+        "blues",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who plays ${value}-style music`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+  ],
 ];
