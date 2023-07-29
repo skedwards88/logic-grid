@@ -1429,6 +1429,7 @@ export const allCategories = [
     },
     {
       values: [50, 100, 200, 400, 1600],
+      display: (value) => `${value} m`,
       descriptionTemplates: {
         description: (value) => `the person who ran the ${value} meter race`,
         diffGreaterDescription: (value) => `${value} meters more`,
@@ -1440,6 +1441,7 @@ export const allCategories = [
   [
     {
       values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} ${basicPluralize(value, "day")}`,
       descriptionTemplates: {
         description: (value) =>
           `the person who vacationed for ${value} ${basicPluralize(
@@ -1713,6 +1715,7 @@ export const allCategories = [
     },
     {
       values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} ${basicPluralize(value, "slice")}`,
       descriptionTemplates: {
         description: (value) =>
           `the person who ate ${value} ${basicPluralize(value, "slice")}`,
@@ -2328,6 +2331,7 @@ export const allCategories = [
     },
     {
       values: [2, 3, 4, 5, 6],
+      display: (value) => `page ${value}`,
       descriptionTemplates: {
         description: (value) => `page ${value}`,
         diffGreaterDescription: (value) => `${value} pages later`,
@@ -2338,6 +2342,7 @@ export const allCategories = [
   [
     {
       values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} ${basicPluralize(value, "state")}`,
       descriptionTemplates: {
         description: (value) =>
           `the person who traveled through ${value} ${basicPluralize(
@@ -2374,6 +2379,7 @@ export const allCategories = [
   [
     {
       values: [5, 10, 15, 20, 25],
+      display: (value) => `${value} min`,
       descriptionTemplates: {
         description: (value) => `the person who cleaned for ${value} minutes`,
         diffGreaterDescription: (value) => `${value} more minutes`,
@@ -2411,6 +2417,7 @@ export const allCategories = [
   [
     {
       values: [15, 20, 30, 45, 60],
+      display: (value) => `${value} min`,
       descriptionTemplates: {
         description: (value) =>
           `the person whose commute takes ${value} minutes`,
@@ -2421,6 +2428,7 @@ export const allCategories = [
     },
     {
       values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} ${basicPluralize(value, "day")}`,
       descriptionTemplates: {
         description: (value) =>
           `the person who commutes ${value} ${basicPluralize(
@@ -2436,6 +2444,7 @@ export const allCategories = [
     },
     {
       values: [6, 7, 8, 9, 10],
+      display: (value) => `${value} AM`,
       descriptionTemplates: {
         description: (value) =>
           `the person whose commute starts at ${value} AM`,
@@ -2454,8 +2463,8 @@ export const allCategories = [
   [
     {
       values: [2, 4, 6, 8, 10],
+      display: (value) => `${value} eggs`,
       descriptionTemplates: {
-        display: (value) => `${value} eggs`,
         description: (value) => `the person who found ${value} Easter eggs`,
         diffGreaterDescription: (value) => `${value} more eggs`,
         diffLesserDescription: (value) => `${value} fewer eggs`,
@@ -2485,8 +2494,8 @@ export const allCategories = [
   [
     {
       values: [2, 4, 6, 8, 10],
+      display: (value) => `${value} cm`,
       descriptionTemplates: {
-        display: (value) => `${value} cm,`,
         description: (value) =>
           `the person with the ${value} centimeter wide tattoo`,
         diffGreaterDescription: (value) => `${value} centimeters larger`,

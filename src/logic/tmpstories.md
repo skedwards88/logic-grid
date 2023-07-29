@@ -9,7 +9,6 @@ Wine name, winery, region, grape variety.
 
 bike type (road, mountain, hybrid, tandem, recumbement) - brand (bianci, huffy, etc)
 animal - age - pet name - owner name
-musical instrument - composer - style
 job - salary - hours
 tv genre - emotion - episodes
 fish species - length - method (net, line, fly, harpoon)
