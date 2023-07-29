@@ -2604,4 +2604,55 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "RV",
+        "tent",
+        "campervan",
+        "yurt",
+        "hammock",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who camped in the ${value}`,
+      },
+    },
+    {
+      values: [
+        "beach",
+        "lake",
+        "mountains",
+        "forest",
+        "creek",
+        "desert",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who camped by the ${value}`,
+      },
+    },
+    {
+      values: [
+        "stars",
+        "solitude",
+        "clean air",
+        "flowers",
+        "wildlife",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who appreciated the ${value}`,
+      },
+    },
+    {
+      values: [
+        "bugs",
+        "generator",
+        "music",
+        "smoke",
+        "kids",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who was annoyed by the neighboring ${value}`,
+      },
+    },
+  ],
 ];

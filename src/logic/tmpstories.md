@@ -15,7 +15,6 @@ tv genre - emotion - episodes
 fish species - length - method (net, line, fly, harpoon)
 spelling bee word, place
 boat (sailboat, canoe, kayak,rowboat)
-potluck dish
 send a probe to planet - space agency - cost - goal - launch yrs from now
 bird species - number sighted
 job - starts work at -
