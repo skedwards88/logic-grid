@@ -2600,7 +2600,7 @@ export const allCategories = [
       display: (value) => `${value} min`,
       descriptionTemplates: {
         description: (value) =>
-          `the person who arrived to the potluck ${value} minutes after 3 PM`,
+          `the person who arrived to the potluck ${value} minutes late`,
         diffGreaterDescription: (value) => `${value} minutes later`,
         diffLesserDescription: (value) => `${value} minutes earlier`,
         verb: "arrived",
@@ -2702,6 +2702,55 @@ export const allCategories = [
       ],
       descriptionTemplates: {
         description: (value) => `the person who plays ${value}-style music`,
+      },
+    },
+    {
+      values: firstNames,
+      descriptionTemplates: {
+        description: (value) => `${value}`,
+      },
+    },
+  ],
+  [
+    {
+      values: [
+        "mystery",
+        "romance",
+        "fiction",
+        "fantasy",
+        "sci-fi",
+        "history",
+        "nonfiction",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who likes to read ${value} novels`,
+      },
+    },
+    {
+      values: [
+        "happy",
+        "sad",
+        "scared",
+        "relaxed",
+        "inspired",
+        "energized",
+        "contemplative",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the person who likes novels that make them feel ${value}`,
+      },
+    },
+    {
+      values: [1, 2, 3, 4, 5],
+      display: (value) => `${value} books`,
+      descriptionTemplates: {
+        description: (value) => `the person who reads ${value} ${basicPluralize(value, "book")} a month`,
+        diffGreaterDescription: (value) =>
+          `${value} more ${basicPluralize(value, "book")}`,
+        diffLesserDescription: (value) =>
+          `${value} less ${basicPluralize(value, "book")}`,
+        verb: "reads",
+
       },
     },
     {
