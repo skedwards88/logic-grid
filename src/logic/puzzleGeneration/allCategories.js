@@ -2760,4 +2760,56 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "arugula",
+        "spinach",
+        "kale",
+        "lettuce",
+        "bok choy",
+        "fennel",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the salad made on a base of ${value}`,
+      },
+    },
+    {
+      values: [
+        "walnuts",
+        "sunflower seeds",
+        "sesame seeds",
+        "pumpkin seeds",
+        "almonds",
+        "pecans",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the salad topped with ${value}`,
+      },
+    },
+    {
+      values: [
+        "pear",
+        "apple",
+        "fig",
+        "orange",
+        "strawberries",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the salad sweetened with ${value}`,
+      },
+    },
+    {
+      values: [
+        "tumeric",
+        "balsamic",
+        "pepper",
+        "salt",
+        "soy sauce",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the salad flavored with ${value}`,
+      },
+    },
+  ],
 ];
