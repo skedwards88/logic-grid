@@ -1642,6 +1642,36 @@ describe("allCategories example text", () => {
         "the vampire killed by sunlight is the vampire from Transylvania or the vampire from Vienna.",
         "the vampire killed by sunlight is not the vampire whose favorite color is scarlet.",
         "the vampire killed by sunlight is the vampire whose favorite color is scarlet or the vampire whose favorite color is maroon.",
+        "the bouquet of roses is not the bouquet tied with ribbon red.",
+        "the bouquet of roses is the bouquet tied with ribbon red or the bouquet tied with ribbon orange.",
+        "the bouquet of roses is not the bouquet of 4 flowers.",
+        "the bouquet of roses is the bouquet of 4 flowers or the bouquet of 5 flowers.",
+        "the bouquet of roses has at least 1 more flower than the bouquet of 6 flowers.",
+        "the bouquet of roses has at least 1 less flower than the bouquet of 7 flowers.",
+        "the bouquet of roses is not the bouquet for the birthday.",
+        "the bouquet of roses is the bouquet for the birthday or the bouquet for the anniversary.",
+        "the bouquet tied with ribbon red is not the bouquet of roses.",
+        "the bouquet tied with ribbon red is the bouquet of roses or the bouquet of daisies.",
+        "the bouquet tied with ribbon red is not the bouquet of 4 flowers.",
+        "the bouquet tied with ribbon red is the bouquet of 4 flowers or the bouquet of 5 flowers.",
+        "the bouquet tied with ribbon red has at least 1 more flower than the bouquet of 6 flowers.",
+        "the bouquet tied with ribbon red has at least 1 less flower than the bouquet of 7 flowers.",
+        "the bouquet tied with ribbon red is not the bouquet for the birthday.",
+        "the bouquet tied with ribbon red is the bouquet for the birthday or the bouquet for the anniversary.",
+        "the bouquet of 4 flowers is not the bouquet of roses.",
+        "the bouquet of 4 flowers is the bouquet of roses or the bouquet of daisies.",
+        "the bouquet of 4 flowers is not the bouquet tied with ribbon red.",
+        "the bouquet of 4 flowers is the bouquet tied with ribbon red or the bouquet tied with ribbon orange.",
+        "the bouquet of 4 flowers is not the bouquet for the birthday.",
+        "the bouquet of 4 flowers is the bouquet for the birthday or the bouquet for the anniversary.",
+        "the bouquet for the birthday is not the bouquet of roses.",
+        "the bouquet for the birthday is the bouquet of roses or the bouquet of daisies.",
+        "the bouquet for the birthday is not the bouquet tied with ribbon red.",
+        "the bouquet for the birthday is the bouquet tied with ribbon red or the bouquet tied with ribbon orange.",
+        "the bouquet for the birthday is not the bouquet of 4 flowers.",
+        "the bouquet for the birthday is the bouquet of 4 flowers or the bouquet of 5 flowers.",
+        "the bouquet for the birthday has at least 1 more flower than the bouquet of 6 flowers.",
+        "the bouquet for the birthday has at least 1 less flower than the bouquet of 7 flowers.",
       ]
     `);
     expect(greaterDescriptions).toMatchInlineSnapshot(`
@@ -1693,6 +1723,7 @@ describe("allCategories example text", () => {
         "8 is 2 centimeters larger than 6.",
         "20 is 5 minutes later than 15.",
         "4 is 1 more book than 3.",
+        "7 is 1 more flower than 6.",
       ]
     `);
     expect(lesserDescriptions).toMatchInlineSnapshot(`
@@ -1744,6 +1775,7 @@ describe("allCategories example text", () => {
         "6 is 2 centimeters smaller than 8.",
         "15 is 5 minutes earlier than 20.",
         "3 is 1 less book than 4.",
+        "6 is 1 less flower than 7.",
       ]
     `);
   });

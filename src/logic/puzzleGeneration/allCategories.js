@@ -2871,4 +2871,49 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "roses",
+        "daisies",
+        "carnations",
+        "lilies",
+        "tulips",
+        "dahlias",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the bouquet of ${value}`,
+      },
+    },
+    {
+      values: colors,
+      descriptionTemplates: {
+        description: (value) => `the bouquet tied with ribbon ${value}`,
+      },
+    },
+    {
+      values: [4,5,6,7,8],
+      display: (value) => `${value} flowers`,
+      descriptionTemplates: {
+        description: (value) => `the bouquet of ${value} flowers`,
+        diffGreaterDescription: (value) =>
+          `${value} more ${basicPluralize(value, "flower")}`,
+        diffLesserDescription: (value) =>
+          `${value} less ${basicPluralize(value, "flower")}`,
+        verb: "has",
+      },
+    },
+    {
+      values: [
+        "birthday",
+        "anniversary",
+        "wedding",
+        "graduation",
+        "recital",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the bouquet for the ${value}`,
+      },
+    },
+  ],
 ];
