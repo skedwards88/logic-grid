@@ -2812,4 +2812,63 @@ export const allCategories = [
       },
     },
   ],
+  [
+    {
+      values: [
+        "Dracula",
+        "Carmilla",
+        "Vladimir",
+        "Claudia",
+        "Guillermo",
+        "Drusilla",
+        "Lilath",
+        "Edward",
+        "Nandor",
+        "Laszlo",
+        "Nadja",
+        "Colin",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the vampire named ${value}`,
+      },
+    },
+    {
+      values: [
+        "Transylvania",
+        "Vienna",
+        "Budapest",
+        "Prague",
+        "Kyiv",
+        "St. Petersburg",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the vampire from ${value}`,
+      },
+    },
+    {
+      values: [
+        "scarlet",
+        "maroon",
+        "crimson",
+        "burgundy",
+        "vermilion",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the vampire whose favorite color is ${value}`,
+      },
+    },
+    {
+      values: [
+        "sunlight",
+        "garlic",
+        "stake",
+        "silver bullet",
+        "holy water",
+        "crucifix",
+      ],
+      descriptionTemplates: {
+        description: (value) => `the vampire killed by ${value}`,
+      },
+    },
+  ],
 ];
