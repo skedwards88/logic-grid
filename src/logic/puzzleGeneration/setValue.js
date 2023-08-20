@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {findMatrixKey} from "../matrixSearching/findMatrixKey";
 
 export function setToTrue(derivedMatrix, itemA, itemB) {
@@ -17,7 +18,7 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
     return derivedMatrix;
   }
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+  let newDerivedMatrix = cloneDeep(derivedMatrix);
 
   newDerivedMatrix[solutionKey].grid[rowIndex][columnIndex] = true;
 
@@ -69,7 +70,7 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
   // e.g. if you set 'dog vs red' to 'false' and you know 'dog vs Colin' is true,
   // then you know 'Colin vs red' is false as well
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+  let newDerivedMatrix = cloneDeep(derivedMatrix);
 
   for (const key in derivedMatrix) {
     if (derivedMatrix[key].rowLabels.includes(itemA)) {
@@ -162,7 +163,7 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
   // check for other things that you know about that row and column (e.g. fly is colin)
   // if 'red is fly' and 'colin is fly', then 'red is colin'
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+  let newDerivedMatrix = cloneDeep(derivedMatrix);
 
   // For every grid in the matrix
   // check if the grid row/column labels include one of the ones we just set to true
@@ -259,7 +260,7 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
     return derivedMatrix;
   }
 
-  let newDerivedMatrix = JSON.parse(JSON.stringify(derivedMatrix));
+  let newDerivedMatrix = cloneDeep(derivedMatrix);
 
   newDerivedMatrix[solutionKey].grid[rowIndex][columnIndex] = false;
 

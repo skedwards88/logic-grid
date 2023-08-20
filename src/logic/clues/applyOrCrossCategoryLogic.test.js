@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic";
 
 const emptyMatrix = {
@@ -218,7 +219,7 @@ describe("applyOrCrossCategoryLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const matrixCopy = cloneDeep(emptyMatrix);
     const newDerivedMatrix = applyOrCrossCategoryLogic(emptyMatrix, {
       itemA: "Colin",
       orItems: ["blue", 3],

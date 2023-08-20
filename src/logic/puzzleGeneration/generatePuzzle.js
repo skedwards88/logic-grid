@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {puzzleSolvedQ} from "../puzzleSolvedQ";
 import {getUsefulClue} from "./getUsefulClue.js";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam.js";
@@ -35,7 +36,7 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   let clues = [];
   let puzzleIsSolved = false;
   let clue;
-  let newDerivedMatrix = JSON.parse(JSON.stringify(emptyMatrix));
+  let newDerivedMatrix = cloneDeep(emptyMatrix);
 
   while (!puzzleIsSolved) {
     ({clue, newDerivedMatrix} = getUsefulClue(

@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyOrLogic} from "./applyOrLogic";
 
 const emptyMatrix = {
@@ -136,7 +137,7 @@ describe("applyOrLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const matrixCopy = cloneDeep(emptyMatrix);
     const newDerivedMatrix = applyOrLogic(emptyMatrix, {
       itemA: "blue",
       orItems: ["Meme", "Fefe"],

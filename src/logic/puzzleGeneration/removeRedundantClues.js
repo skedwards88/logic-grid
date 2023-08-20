@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
 
@@ -10,7 +11,7 @@ export function removeRedundantClues(clues, emptyMatrix) {
       ...nonRedundantClues, // the first part of the list is the clues we have screened for redundancy
       ...clues.slice(clueIndex + 1, clues.length), // the second part are the remaining clues, minus the current clue
     ];
-    const newDerivedMatrix = JSON.parse(JSON.stringify(emptyMatrix));
+    const newDerivedMatrix = cloneDeep(emptyMatrix);
     const matrixWithOtherCluesApplied = applyCluesAdNauseam(
       cluesSansClue,
       newDerivedMatrix,

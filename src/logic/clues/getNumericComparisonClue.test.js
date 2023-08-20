@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
@@ -63,7 +64,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -490,14 +491,14 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
     const newDerived = applyClueLogic(
       clue.clueType,
@@ -570,7 +571,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -997,14 +998,14 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
     const newDerived = applyClueLogic(
       clue.clueType,
@@ -1077,7 +1078,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -1503,14 +1504,14 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
     const newDerived = applyClueLogic(
       clue.clueType,

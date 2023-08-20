@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
 
 describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () => {
@@ -1809,7 +1810,7 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
     };
-    const matrixCopy = JSON.parse(JSON.stringify(matrix));
+    const matrixCopy = cloneDeep(matrix);
     const greaterItem = "yellow";
     const lesserItem = "dog";
     const numericLabels = [1, 2, 3, 4];

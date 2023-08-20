@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
 
@@ -449,7 +450,7 @@ describe("applyCluesAdNauseam", () => {
         },
       },
     ];
-    const inputMatrixCopy = JSON.parse(JSON.stringify(inputMatrix));
+    const inputMatrixCopy = cloneDeep(inputMatrix);
 
     const derivedMatrix = applyCluesAdNauseam(clues, inputMatrix);
     expect(inputMatrix).toEqual(inputMatrixCopy);

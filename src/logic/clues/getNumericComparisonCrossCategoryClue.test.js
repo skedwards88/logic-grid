@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import * as shuffleArrayModule from "../helpers/shuffleArray";
@@ -62,7 +63,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -262,14 +263,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonCrossCategoryClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -340,7 +341,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -549,14 +550,14 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonCrossCategoryClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -627,7 +628,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -855,14 +856,14 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonCrossCategoryClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -945,7 +946,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       },
     },
   };
-  let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+  let emptyMatrix = cloneDeep(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -1030,14 +1031,14 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getNumericComparisonCrossCategoryClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,

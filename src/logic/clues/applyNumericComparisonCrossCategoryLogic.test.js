@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyNumericComparisonCrossCategoryLogic} from "./applyNumericComparisonCrossCategoryLogic";
 
 const emptyMatrix = {
@@ -286,7 +287,7 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const matrixCopy = cloneDeep(emptyMatrix);
     const newDerivedMatrix = applyNumericComparisonCrossCategoryLogic(
       emptyMatrix,
       {

@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {autocomplete} from "./autocomplete.js";
 
 describe("autocomplete", () => {
@@ -95,7 +96,7 @@ describe("autocomplete", () => {
       },
     };
 
-    const matrixCopy = JSON.parse(JSON.stringify(inputMatrix));
+    const matrixCopy = cloneDeep(inputMatrix);
     const outputMatrix = autocomplete(inputMatrix);
 
     expect(matrixCopy).toEqual(inputMatrix);

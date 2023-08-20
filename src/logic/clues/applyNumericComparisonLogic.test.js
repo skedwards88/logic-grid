@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 
 const emptyMatrix = {
@@ -252,7 +253,7 @@ describe("applyNumericComparisonLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const matrixCopy = cloneDeep(emptyMatrix);
     const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
       greaterItem: "blue",
       lesserItem: "red",

@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {gameInit} from "./gameInit.js";
 
 import {autocomplete} from "./autocomplete.js";
@@ -8,7 +9,7 @@ export function gameReducer(currentGameState, payload) {
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1
       ];
-    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
+    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentCellValue =
       newDerivedMatrix[payload.gridID].grid[payload.rowIndex][
         payload.columnIndex
@@ -43,7 +44,7 @@ export function gameReducer(currentGameState, payload) {
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1
       ];
-    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
+    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentGrid = newDerivedMatrix[payload.gridID].grid;
     let newGrid = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
@@ -83,7 +84,7 @@ export function gameReducer(currentGameState, payload) {
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1
       ];
-    let newDerivedMatrix = JSON.parse(JSON.stringify(currentDerivedMatrix));
+    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     newDerivedMatrix = autocomplete(newDerivedMatrix);
     return {
       ...currentGameState,

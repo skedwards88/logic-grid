@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {applyNotLogic} from "./applyNotLogic";
 
 const emptyMatrix = {
@@ -135,7 +136,7 @@ describe("applyNotLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const matrixCopy = cloneDeep(emptyMatrix);
     const newDerivedMatrix = applyNotLogic(emptyMatrix, {
       itemA: "Sarah",
       itemB: "blue",

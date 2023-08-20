@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 
@@ -167,7 +168,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(completeMatrix));
+    const matrixCopy = cloneDeep(completeMatrix);
     validQOrCrossCategoryClue({
       matrix: matrixCopy,
       clueParameters: {
@@ -320,7 +321,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(completeMatrix));
+    const matrixCopy = cloneDeep(completeMatrix);
     validQOrCrossCategoryClue({
       matrix: matrixCopy,
       clueParameters: {

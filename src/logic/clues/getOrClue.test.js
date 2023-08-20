@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {getOrClue} from "./getOrClue";
 import * as pickRandomModule from "../helpers/pickRandom";
 import {applyClueLogic} from "./applyClueLogic";
@@ -107,7 +108,7 @@ const solutionMatrix = {
   },
 };
 
-let emptyMatrix = JSON.parse(JSON.stringify(solutionMatrix));
+let emptyMatrix = cloneDeep(solutionMatrix);
 for (const key in emptyMatrix) {
   emptyMatrix[key].grid = [
     [null, null, null, null],
@@ -177,14 +178,14 @@ describe("getOrClue", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(solutionMatrix));
+    const matrixCopy = cloneDeep(solutionMatrix);
     getOrClue(solutionMatrix);
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(JSON.parse(JSON.stringify(solutionMatrix)));
+    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = JSON.parse(JSON.stringify(emptyMatrix));
+    const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getOrClue(solutionMatrix);
     const newDerived = applyClueLogic(
       clue.clueType,

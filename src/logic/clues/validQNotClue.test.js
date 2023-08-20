@@ -1,3 +1,4 @@
+import cloneDeep from "lodash.clonedeep";
 import {validQNotClue} from "./validQNotClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 
@@ -117,7 +118,7 @@ describe("validQNotClue, strict", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(completeMatrix));
+    const matrixCopy = cloneDeep(completeMatrix);
     validQNotClue({
       matrix: matrixCopy,
       clueParameters: {
@@ -192,7 +193,7 @@ describe("validQNotClue, not strict", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = JSON.parse(JSON.stringify(completeMatrix));
+    const matrixCopy = cloneDeep(completeMatrix);
     validQNotClue({
       matrix: matrixCopy,
       clueParameters: {
