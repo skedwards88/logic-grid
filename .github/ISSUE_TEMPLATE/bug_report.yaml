@@ -25,7 +25,7 @@ body:
     id: bug
     attributes:
       label: What is wrong?
-      description: Tell us about the bug that you encountered. Please inlude screenshots.
+      description: Tell us about the bug that you encountered. Please include screenshots.
       placeholder: Please include as much info as possible to help us understand the bug. Screenshots are helpful.
     validations:
       required: true

@@ -1,7 +1,5 @@
 # Logic Grid
 
-:construction: This game is under development. You can play test it, but be sure to come back for the final version.
-
 A classic logic grid puzzle.
 
 [Play here](https://skedwards88.github.io/logic-grid/)!
