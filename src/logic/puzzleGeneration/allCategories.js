@@ -2572,15 +2572,10 @@ export const allCategories = [
   ],
   [
     {
-      values: [
-        "bean salad",
-        "brownies",
-        "fruit platter",
-        "sliders",
-        "tacos",
-      ],
+      values: ["bean salad", "brownies", "fruit platter", "sliders", "tacos"],
       descriptionTemplates: {
-        description: (value) => `the person who contributed the ${value} to the potluck`,
+        description: (value) =>
+          `the person who contributed the ${value} to the potluck`,
       },
     },
     {
@@ -2592,7 +2587,8 @@ export const allCategories = [
         "transportation",
       ],
       descriptionTemplates: {
-        description: (value) => `the person who organized the ${value} for the potluck`,
+        description: (value) =>
+          `the person who organized the ${value} for the potluck`,
       },
     },
     {
@@ -2615,64 +2611,34 @@ export const allCategories = [
   ],
   [
     {
-      values: [
-        "RV",
-        "tent",
-        "campervan",
-        "yurt",
-        "hammock",
-      ],
+      values: ["RV", "tent", "campervan", "yurt", "hammock"],
       descriptionTemplates: {
         description: (value) => `the person who camped in the ${value}`,
       },
     },
     {
-      values: [
-        "beach",
-        "lake",
-        "mountains",
-        "forest",
-        "creek",
-        "desert",
-      ],
+      values: ["beach", "lake", "mountains", "forest", "creek", "desert"],
       descriptionTemplates: {
         description: (value) => `the person who camped by the ${value}`,
       },
     },
     {
-      values: [
-        "stars",
-        "solitude",
-        "clean air",
-        "flowers",
-        "wildlife",
-      ],
+      values: ["stars", "solitude", "clean air", "flowers", "wildlife"],
       descriptionTemplates: {
         description: (value) => `the person who appreciated the ${value}`,
       },
     },
     {
-      values: [
-        "bugs",
-        "generator",
-        "music",
-        "smoke",
-        "kids",
-      ],
+      values: ["bugs", "generator", "music", "smoke", "kids"],
       descriptionTemplates: {
-        description: (value) => `the person who was annoyed by the neighboring ${value}`,
+        description: (value) =>
+          `the person who was annoyed by the neighboring ${value}`,
       },
     },
   ],
   [
     {
-      values: [
-        "guitar",
-        "piano",
-        "violin",
-        "cello",
-        "oboe",
-      ],
+      values: ["guitar", "piano", "violin", "cello", "oboe"],
       descriptionTemplates: {
         description: (value) => `the person who plays the the ${value}`,
       },
@@ -2688,18 +2654,12 @@ export const allCategories = [
         "Verdi",
       ],
       descriptionTemplates: {
-        description: (value) => `the person who plays music inspired by ${value}`,
+        description: (value) =>
+          `the person who plays music inspired by ${value}`,
       },
     },
     {
-      values: [
-        "folk",
-        "rock",
-        "jazz",
-        "country",
-        "electronic",
-        "blues",
-      ],
+      values: ["folk", "rock", "jazz", "country", "electronic", "blues"],
       descriptionTemplates: {
         description: (value) => `the person who plays ${value}-style music`,
       },
@@ -2737,20 +2697,24 @@ export const allCategories = [
         "contemplative",
       ],
       descriptionTemplates: {
-        description: (value) => `the person who likes novels that make them feel ${value}`,
+        description: (value) =>
+          `the person who likes novels that make them feel ${value}`,
       },
     },
     {
       values: [1, 2, 3, 4, 5],
       display: (value) => `${value} books`,
       descriptionTemplates: {
-        description: (value) => `the person who reads ${value} ${basicPluralize(value, "book")} a month`,
+        description: (value) =>
+          `the person who reads ${value} ${basicPluralize(
+            value,
+            "book",
+          )} a month`,
         diffGreaterDescription: (value) =>
           `${value} more ${basicPluralize(value, "book")}`,
         diffLesserDescription: (value) =>
           `${value} less ${basicPluralize(value, "book")}`,
         verb: "reads",
-
       },
     },
     {
@@ -2762,14 +2726,7 @@ export const allCategories = [
   ],
   [
     {
-      values: [
-        "arugula",
-        "spinach",
-        "kale",
-        "lettuce",
-        "bok choy",
-        "fennel",
-      ],
+      values: ["arugula", "spinach", "kale", "lettuce", "bok choy", "fennel"],
       descriptionTemplates: {
         description: (value) => `the salad made on a base of ${value}`,
       },
@@ -2788,25 +2745,13 @@ export const allCategories = [
       },
     },
     {
-      values: [
-        "pear",
-        "apple",
-        "fig",
-        "orange",
-        "strawberries",
-      ],
+      values: ["pear", "apple", "fig", "orange", "strawberries"],
       descriptionTemplates: {
         description: (value) => `the salad sweetened with ${value}`,
       },
     },
     {
-      values: [
-        "tumeric",
-        "balsamic",
-        "pepper",
-        "salt",
-        "soy sauce",
-      ],
+      values: ["tumeric", "balsamic", "pepper", "salt", "soy sauce"],
       descriptionTemplates: {
         description: (value) => `the salad flavored with ${value}`,
       },
@@ -2846,13 +2791,7 @@ export const allCategories = [
       },
     },
     {
-      values: [
-        "scarlet",
-        "maroon",
-        "crimson",
-        "burgundy",
-        "vermilion",
-      ],
+      values: ["scarlet", "maroon", "crimson", "burgundy", "vermilion"],
       descriptionTemplates: {
         description: (value) => `the vampire whose favorite color is ${value}`,
       },
@@ -2873,14 +2812,7 @@ export const allCategories = [
   ],
   [
     {
-      values: [
-        "roses",
-        "daisies",
-        "carnations",
-        "lilies",
-        "tulips",
-        "dahlias",
-      ],
+      values: ["roses", "daisies", "carnations", "lilies", "tulips", "dahlias"],
       descriptionTemplates: {
         description: (value) => `the bouquet of ${value}`,
       },
@@ -2892,7 +2824,7 @@ export const allCategories = [
       },
     },
     {
-      values: [4,5,6,7,8],
+      values: [4, 5, 6, 7, 8],
       display: (value) => `${value} flowers`,
       descriptionTemplates: {
         description: (value) => `the bouquet of ${value} flowers`,
@@ -2904,13 +2836,7 @@ export const allCategories = [
       },
     },
     {
-      values: [
-        "birthday",
-        "anniversary",
-        "wedding",
-        "graduation",
-        "recital",
-      ],
+      values: ["birthday", "anniversary", "wedding", "graduation", "recital"],
       descriptionTemplates: {
         description: (value) => `the bouquet for the ${value}`,
       },

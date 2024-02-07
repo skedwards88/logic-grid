@@ -12,7 +12,9 @@ export function chooseCategories(numCats, numItemsPerCat) {
   // omit the "first name" category
   // to prevent this common category from feeling overused
   if (categorySet.length > numCats) {
-    categorySet = categorySet.filter(category => !category.values.includes("Aaron"));
+    categorySet = categorySet.filter(
+      (category) => !category.values.includes("Aaron"),
+    );
   }
 
   const categories = shuffleArray(categorySet).slice(0, numCats);
