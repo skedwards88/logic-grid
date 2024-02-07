@@ -3,7 +3,8 @@ import Share from "./Share";
 import packageJson from "../../package.json";
 
 export default function Heart({setDisplay}) {
-  const feedbackLink = 'https://github.com/skedwards88/logic-grid/issues/new/choose';
+  const feedbackLink =
+    "https://github.com/skedwards88/logic-grid/issues/new/choose";
 
   return (
     <div className="App heart">
