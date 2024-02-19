@@ -7,10 +7,15 @@ on:
       - "README.md"
       - "TODO.md"
       - ".github/ISSUE_TEMPLATE/*"
+      - ".eslintrc.json"
+      - ".gitignore"
+      - ".prettierignore"
+      - ".prettierrc.json"
+      - ".stylelintrc.json"
   workflow_dispatch:
 
 permissions:
-  contents: write # write for bumping version (read-only required for deployment)
+  contents: write # Required for bumping version (read-only required for deployment)
   pages: write # Required for deployment
   id-token: write # Required for deployment
 
@@ -43,7 +48,7 @@ jobs:
       - name: Bump version
         run: npm version patch
 
-      - name: Push
+      - name: Push the version bump
         run: |
           git push origin main
 
