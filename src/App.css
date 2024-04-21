@@ -3,6 +3,7 @@ html {
 }
 
 body {
+  /* --cell-size is set during the game */
   --capped-cell-size: min(var(--cell-size), 0.8cm);
   --font-size: min(calc(var(--capped-cell-size) * 0.8), 0.5cm);
   --dark-color: rgb(55 54 71);
@@ -164,6 +165,8 @@ button {
   transform: rotate(180deg);
   min-height: 10vmin;
   overflow: scroll;
+  display: flex;
+  align-items: center;
 }
 
 .rowLabel > div {
@@ -171,6 +174,9 @@ button {
   padding-right: 4px;
   min-width: 10vmin;
   overflow: scroll;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 
 .columnLabel.size3 > div {
@@ -420,20 +426,23 @@ input[type="checkbox" i]:checked {
   color: rgb(0 162 255);
 }
 
-/* larger screens */
-@media (width >= 768px) {
+/* Large screen */
+@media (width >= 600px) {
   body {
-    --capped-cell-size: 3vmin;
-  }
-}
-
-/* wider screens */
-@media (orientation: landscape) {
-  #app {
-    grid-template: ". controls" auto "matrix result" auto "matrix clues" 1fr / auto 1fr;
+    --capped-cell-size: min(calc(var(--cell-size) * 0.8), 0.5cm);
+    --font-size: min(calc(var(--capped-cell-size) * 0.7), 0.5cm);
   }
 
-  .matrix {
-    align-self: self-start;
+  #controls {
+    width: 100%;
+  }
+
+  #controls > button {
+    width: var(--capped-cell-size);
+    height: var(--capped-cell-size);
+  }
+
+  .clues {
+    max-width: calc(var(--capped-cell-size) * 20);
   }
 }
