@@ -2,12 +2,16 @@
   "name": "logic-grid",
   "version": "1.0.33",
   "description": "",
-  "main": "code.js",
+  "main": "index.js",
   "scripts": {
-    "test": "jest --config=jest.config.cjs",
+    "test": "jest",
     "build": "webpack",
     "dev": "webpack-dev-server --mode development",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "eslint": "npx eslint --ignore-path .gitignore . --fix",
+    "prettier": "npx prettier --write .",
+    "style": "npx stylelint '**/*.css' --fix",
+    "lint": "npm run eslint && npm run prettier && npm run style"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,11 @@
     "url": "https://github.com/skedwards88/logic-grid/issues"
   },
   "homepage": "https://github.com/skedwards88/logic-grid#readme",
+  "dependencies": {
+    "lodash.clonedeep": "^4.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
@@ -30,6 +39,7 @@
     "css-loader": "^6.7.3",
     "eslint": "^8.44.0",
     "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "html-webpack-plugin": "^5.5.1",
     "jest": "^29.5.0",
     "prettier": "^2.8.7",
@@ -40,10 +50,5 @@
     "webpack-cli": "^5.0.2",
     "webpack-dev-server": "^4.13.3",
     "workbox-webpack-plugin": "^7.0.0"
-  },
-  "dependencies": {
-    "lodash.clonedeep": "^4.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
   }
 }

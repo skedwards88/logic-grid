@@ -2,6 +2,7 @@
   "name": "Logic Grid",
   "short_name": "Logic Grid",
   "description": "A logic grid puzzle game",
+  "id": "?logic_grid=202402221",
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
