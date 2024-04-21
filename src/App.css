@@ -174,9 +174,6 @@ button {
   padding-right: 4px;
   min-width: 10vmin;
   overflow: scroll;
-  display: flex;
-  align-items: center;
-  justify-content: right;
 }
 
 .columnLabel.size3 > div {
