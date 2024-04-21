@@ -12,7 +12,7 @@ export default function Heart({setDisplay}) {
       <div className="heartText">
         {"Like this game? Share it with your friends.\n\n"}
         {<Share text={"Check out this logic grid game!"}></Share>}
-        {`\n\n`}
+        {`\n`}
         {<hr></hr>}
         {`\n`}
         {`Want more games? Check `}
