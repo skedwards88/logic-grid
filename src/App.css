@@ -430,7 +430,6 @@ input[type="checkbox" i]:checked {
 @media (width >= 600px) {
   body {
     --capped-cell-size: min(calc(var(--cell-size) * 0.8), 0.5cm);
-    --font-size: min(calc(var(--capped-cell-size) * 0.7), 0.5cm);
   }
 
   #controls {
