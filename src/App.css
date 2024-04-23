@@ -423,8 +423,31 @@ input[type="checkbox" i]:checked {
   color: rgb(0 162 255);
 }
 
+/* Landscape, small screen */
+@media (orientation: landscape) and (max-width: 935px) {
+  body {
+    --capped-cell-size: 3vmin;
+  }
+
+  #app {
+    grid-template-areas:
+    ". controls"
+    "matrix result"
+    "matrix clues";
+    grid-template-rows: auto auto 1fr;
+    grid-template-columns: auto auto;
+  }
+
+  .matrix {
+    align-self: center;
+  }
+  .clues {
+    align-self: center;
+  }
+}
+
 /* Large screen */
-@media (width >= 600px) {
+@media (orientation: landscape) and (min-height: 600px) and (min-width: 936px), (orientation: portrait) and (min-height: 600px) and (min-width: 600px) {
   body {
     --capped-cell-size: min(calc(var(--cell-size) * 0.8), 0.5cm);
   }
@@ -440,5 +463,10 @@ input[type="checkbox" i]:checked {
 
   .clues {
     max-width: calc(var(--capped-cell-size) * 20);
+  }
+
+  #settings,
+  #setting-buttons {
+    width: fit-content;
   }
 }

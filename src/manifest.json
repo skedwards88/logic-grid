@@ -6,7 +6,6 @@
   "dir": "auto",
   "lang": "en-US",
   "display": "standalone",
-  "orientation": "portrait",
   "start_url": "https://skedwards88.github.io/logic-grid/",
   "scope": "/logic-grid/",
   "background_color": "#373647",
