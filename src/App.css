@@ -313,7 +313,7 @@ button {
 }
 
 #undoButton {
-  background-image: url("@skedwards88/shared-components/src/images/icons//undo_arrow.svg");
+  background-image: url("@skedwards88/shared-components/src/images/icons/undo_arrow.svg");
 }
 
 #undoButton:disabled {
@@ -403,7 +403,10 @@ input[type="checkbox" i]:checked {
   background-size: contain;
 }
 
-.heart {
+.info {
+  width: 100vw;
+  height: 90vh; /* fallback if svh isn't handled */
+  height: 100svh; /* use svh if supported to account for the url bar gracefully */
   white-space: pre-line;
   display: flex;
   flex-direction: column;
@@ -415,11 +418,12 @@ input[type="checkbox" i]:checked {
   font-size: calc(var(--default-font-size) * 0.75);
 }
 
-.heartText {
+.infoText {
   margin: 2vmax;
 }
 
-.heart a {
+.info a,
+.whatsNew a {
   color: rgb(0 162 255);
 }
 

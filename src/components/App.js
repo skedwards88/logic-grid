@@ -2,8 +2,8 @@ import React from "react";
 import {gameInit} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
+import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
 import Settings from "./Settings";
-import Heart from "./Heart";
 import {
   handleAppInstalled,
   handleBeforeInstallPrompt,
@@ -60,8 +60,18 @@ export default function App() {
       );
 
     case "heart":
-      return <Heart setDisplay={setDisplay}></Heart>;
-
+      return (
+        <MoreGames
+          setDisplay={setDisplay}
+          games={["crossjig", "lexlet", "blobble", "wordfall", "gribbles"]}
+          repoName={"logic-grid"}
+          includeExtraInfo={true}
+          includeWordAttribution={false}
+          googleLink={
+            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
+          }
+        ></MoreGames>
+      );
     default:
       return (
         <Game
