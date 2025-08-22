@@ -164,7 +164,7 @@ button {
   padding-top: 4px;
   transform: rotate(180deg);
   min-height: 10vmin;
-  overflow: scroll;
+  overflow: auto;
   display: flex;
   align-items: center;
 }
@@ -173,7 +173,7 @@ button {
   box-shadow: 1px -1px var(--light-color);
   padding-right: 4px;
   min-width: 10vmin;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .columnLabel.size3 > div {
@@ -251,7 +251,7 @@ button {
 }
 
 .clues {
-  overflow: scroll;
+  overflow: auto;
   grid-area: clues;
   padding: 5vmin;
   margin-bottom: 5vh;
@@ -324,7 +324,7 @@ button {
 
 .settings {
   text-align: center;
-  overflow: scroll;
+  overflow: auto;
   font-size: var(--font-size);
   justify-items: center;
   align-items: center;
@@ -408,7 +408,7 @@ input[type="checkbox" i]:checked {
   display: flex;
   flex-direction: column;
   text-align: center;
-  overflow: scroll;
+  overflow: auto;
   justify-items: center;
   justify-content: space-evenly;
   align-items: center;
@@ -424,7 +424,7 @@ input[type="checkbox" i]:checked {
 }
 
 /* Landscape, small screen */
-@media (orientation: landscape) and (max-width: 935px) {
+@media (orientation: landscape) and (width <= 935px) {
   body {
     --capped-cell-size: 3vmin;
   }
@@ -441,13 +441,14 @@ input[type="checkbox" i]:checked {
   .matrix {
     align-self: center;
   }
+
   .clues {
     align-self: center;
   }
 }
 
 /* Large screen */
-@media (orientation: landscape) and (min-height: 600px) and (min-width: 936px), (orientation: portrait) and (min-height: 600px) and (min-width: 600px) {
+@media (orientation: landscape) and (height >= 600px) and (width >= 936px), (orientation: portrait) and (height >= 600px) and (width >= 600px) {
   body {
     --capped-cell-size: min(calc(var(--cell-size) * 0.8), 0.5cm);
   }
