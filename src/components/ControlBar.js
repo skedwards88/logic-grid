@@ -1,5 +1,6 @@
 import React from "react";
 import {isRunningStandalone} from "@skedwards88/shared-components/src/logic/isRunningStandalone";
+import Share from "@skedwards88/shared-components/src/components/Share";
 
 export default function ControlBar({
   dispatchGameState,
@@ -30,6 +31,13 @@ export default function ControlBar({
         onClick={() => setDisplay("settings")}
       ></button>
       <button id="heartButton" onClick={() => setDisplay("heart")}></button>
+      <Share
+        appName="Logic grid"
+        text="Check out this classic logic grid game!"
+        url="https://skedwards88.github.io/logic-grid/"
+        origin="control bar"
+        id="shareButton"
+      ></Share>
       {!isRunningStandalone() ? (
         <button
           id="installButton"

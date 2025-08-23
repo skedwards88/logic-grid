@@ -312,6 +312,10 @@ button {
   background-image: url("@skedwards88/shared-components/src/images/icons/gear.svg");
 }
 
+#shareButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/share.svg");
+}
+
 #undoButton {
   background-image: url("@skedwards88/shared-components/src/images/icons/undo_arrow.svg");
 }
