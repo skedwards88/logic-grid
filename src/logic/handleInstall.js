@@ -1,4 +1,4 @@
-import sendAnalytics from "./sendAnalytics";
+import sendAnalytics from "@skedwards88/shared-components/src/logic/sendAnalytics";
 
 async function handleInstall(installPromptEvent, setInstallPromptEvent) {
   console.log("handling install");
