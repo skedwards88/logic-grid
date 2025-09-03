@@ -1,5 +1,5 @@
 import React from "react";
-import sendAnalytics from "@skedwards88/shared-components/src/logic/sendAnalytics";
+import {sendAnalytics} from "@skedwards88/shared-components/src/logic/sendAnalytics";
 function handleShare(text) {
   navigator
     .share({

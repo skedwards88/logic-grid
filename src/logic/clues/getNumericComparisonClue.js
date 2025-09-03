@@ -1,5 +1,5 @@
-import {pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import {pickRandomItemFromArray} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
 import {getNumericDiff} from "../helpers/getNumericDiff.js";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
 
@@ -36,9 +36,9 @@ export function getNumericComparisonClue(solutionMatrix) {
     ? solutionMatrix[selectedKey].columnLabels
     : solutionMatrix[selectedKey].rowLabels;
   const otherLabelIndexes = otherLabels.map((label, index) => index);
-  const itemAIndex = pickRandom(otherLabelIndexes);
+  const itemAIndex = pickRandomItemFromArray(otherLabelIndexes);
   const itemA = otherLabels[itemAIndex];
-  const itemBIndex = pickRandom([
+  const itemBIndex = pickRandomItemFromArray([
     ...otherLabelIndexes.slice(0, itemAIndex),
     ...otherLabelIndexes.slice(itemAIndex + 1, otherLabelIndexes.length),
   ]);
@@ -73,7 +73,7 @@ export function getNumericComparisonClue(solutionMatrix) {
       getNumericDiff(inclusiveNumericLabels[index], inclusiveNumericLabels[0]),
     ];
   }
-  const numericDiffClue = pickRandom(numericDiffOptions);
+  const numericDiffClue = pickRandomItemFromArray(numericDiffOptions);
   const actualNumericDiff = Math.abs(
     getNumericDiff(itemANumericValue, itemBNumericValue),
   );

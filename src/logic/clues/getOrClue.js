@@ -1,18 +1,21 @@
-import {pickRandom, pickRandomIndex} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import {
+  pickRandomItemFromArray,
+  pickRandomIndexFromArray,
+} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
 
 // Generates an "or" clue
 // e.g. "Colin is red or blue"
 // which equates to "Colin is not green or yellow"
 export function getOrClue(solutionMatrix) {
   // choose a random grid in the solution matrix
-  const solutionKey = pickRandom(Object.keys(solutionMatrix));
+  const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
   const columnLabels = solutionMatrix[solutionKey].columnLabels;
   const rowLabels = solutionMatrix[solutionKey].rowLabels;
   const grid = solutionMatrix[solutionKey].grid;
 
   // Choose a random row label (e.g. 'Colin')
-  const rowIndex = pickRandomIndex(rowLabels);
+  const rowIndex = pickRandomIndexFromArray(rowLabels);
   const rowItem = rowLabels[rowIndex];
 
   // get the 'true' from that row
@@ -23,7 +26,7 @@ export function getOrClue(solutionMatrix) {
   const falseIndexes = grid[rowIndex]
     .map((value, index) => (value ? null : index))
     .filter((index) => index !== null);
-  const columnIndexFalse = pickRandom(falseIndexes);
+  const columnIndexFalse = pickRandomItemFromArray(falseIndexes);
   const columnItemFalse = columnLabels[columnIndexFalse];
 
   const leadingDescription =

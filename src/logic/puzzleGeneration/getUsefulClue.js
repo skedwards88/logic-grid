@@ -3,7 +3,7 @@ import {getNotClue} from "../clues/getNotClue.js";
 import {getNumericComparisonClue} from "../clues/getNumericComparisonClue.js";
 import {getNumericComparisonCrossCategoryClue} from "../clues/getNumericComparisonCrossCategoryClue.js";
 import {getOrCrossCategoryClue} from "../clues/getOrCrossCategoryClue.js";
-import {pickRandom} from "../helpers/pickRandom.js";
+import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
 import {applyClueLogic} from "../clues/applyClueLogic.js";
 
@@ -30,7 +30,7 @@ export function getUsefulClue(
 
   while (!foundUsefulClue) {
     // get a clue
-    let clueFunction = pickRandom(clueFunctions);
+    let clueFunction = pickRandomItemFromArray(clueFunctions);
     clue = clueFunction(solutionMatrix);
 
     // see if it changes the derivedMatrix

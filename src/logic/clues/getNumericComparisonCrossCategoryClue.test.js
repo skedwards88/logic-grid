@@ -1,13 +1,37 @@
+jest.mock("@skedwards88/word_logic", () => {
+  const actual = jest.requireActual("@skedwards88/word_logic");
+  return {
+    ...actual,
+    // mockable fns that still behave like the real ones by default
+    pickRandomItemsFromArray: jest.fn(actual.pickRandomItemsFromArray),
+    pickRandomItemFromArray: jest.fn(actual.pickRandomItemFromArray),
+    shuffleArray: jest.fn(actual.shuffleArray),
+  };
+});
+
+import {
+  pickRandomItemsFromArray,
+  pickRandomItemFromArray,
+  shuffleArray,
+} from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
-import * as pickRandomModule from "../helpers/pickRandom";
-import * as shuffleArrayModule from "../helpers/shuffleArray";
 import {applyClueLogic} from "./applyClueLogic";
 
+afterEach(() => {
+  jest.clearAllMocks();
+  pickRandomItemsFromArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").pickRandomItemsFromArray,
+  );
+  pickRandomItemFromArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  );
+  shuffleArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").shuffleArray,
+  );
+});
+
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
   const numericLabels = [1, 2, 3, 4];
   const solutionMatrix = {
     NameVsNumber: {
@@ -73,18 +97,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     ];
   }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values to return clue "undefined")', () => {
-    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    pickRandomItemFromArray.mockReturnValueOnce(undefined);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -130,19 +152,17 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
-    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(2);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    pickRandomItemFromArray.mockReturnValueOnce(2);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 2 years younger than the green car."`,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,
@@ -187,18 +207,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
-    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(3);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    pickRandomItemFromArray.mockReturnValueOnce(3);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 3 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -283,9 +301,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
   const numericLabels = [10, 20, 30, 40];
   const solutionMatrix = {
     NameVsNumber: {
@@ -351,21 +366,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     ];
   }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(undefined);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than the green car."`,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,
@@ -411,21 +425,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(mockedDiff);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 20 years younger than the green car."`,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,
@@ -472,21 +485,20 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
 
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(mockedDiff);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 30 years younger than the green car."`,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,
@@ -570,9 +582,6 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
   const numericLabels = [10, 15, 30, 40];
   const solutionMatrix = {
     NameVsNumber: {
@@ -638,13 +647,12 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     ];
   }
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff undefined)', () => {
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(undefined);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(undefined);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const expectedGridNameVsNumber = [
       [null, null, null, false],
@@ -669,7 +677,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -698,20 +706,19 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       expectedGridColorVsNumber,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(mockedDiff);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const expectedGridNameVsNumber = [
       [true, false, false, false],
@@ -736,7 +743,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 20 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -765,20 +772,19 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       expectedGridColorVsNumber,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
 
-    jest
-      .spyOn(pickRandomModule, "pickRandoms")
-      .mockReturnValueOnce([numericLabels[0], numericLabels[2]]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(mockedDiff);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
+    pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const expectedGridNameVsNumber = [
       [true, false, false, false],
@@ -803,7 +809,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 30 years younger than the green car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
@@ -832,8 +838,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       expectedGridColorVsNumber,
     );
 
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
@@ -876,9 +882,6 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 });
 
 describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
   const numericLabelsYears = [1, 2, 3, 4];
   const numericLabelsMiles = [10, 20, 30, 40];
   const numericLabelsDollars = [100, 200, 300, 400];
@@ -956,18 +959,16 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     ];
   }
   test("works even if multiple numeric categories", () => {
-    jest.spyOn(pickRandomModule, "pickRandoms").mockReturnValueOnce([1, 3]);
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce(1);
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    pickRandomItemFromArray.mockReturnValueOnce(1);
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The car with 10 miles is at least 1 years younger than the 300 dollar car."`,
     );
-    expect(pickRandomModule.pickRandoms).toHaveBeenCalledTimes(1);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,

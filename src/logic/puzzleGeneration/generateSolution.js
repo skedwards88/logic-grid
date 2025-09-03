@@ -1,4 +1,4 @@
-import {shuffleArray} from "../helpers/shuffleArray";
+import {shuffleArray} from "@skedwards88/word_logic";
 
 export function generateSolution(categoryLabels) {
   // given the lists of labels (e.g. [[a,b,c,d],[1,2,3,4],[w, x,y,z]])

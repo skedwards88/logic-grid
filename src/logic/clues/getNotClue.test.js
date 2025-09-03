@@ -1,7 +1,30 @@
+jest.mock("@skedwards88/word_logic", () => {
+  const actual = jest.requireActual("@skedwards88/word_logic");
+  return {
+    ...actual,
+    // mockable fns that still behave like the real ones by default
+    pickRandomIndexFromArray: jest.fn(actual.pickRandomIndexFromArray),
+    pickRandomItemFromArray: jest.fn(actual.pickRandomItemFromArray),
+  };
+});
+
+import {
+  pickRandomIndexFromArray,
+  pickRandomItemFromArray,
+} from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getNotClue} from "./getNotClue";
-import * as pickRandomModule from "../helpers/pickRandom";
 import {applyClueLogic} from "./applyClueLogic";
+
+afterEach(() => {
+  jest.clearAllMocks();
+  pickRandomItemFromArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  );
+  pickRandomIndexFromArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").pickRandomIndexFromArray,
+  );
+});
 
 const solutionMatrix = {
   NameVsNumber: {
@@ -124,11 +147,10 @@ describe("getNotClue", () => {
   });
 
   test('returns a "not" clue for a given solution matrix (using mocked values)', () => {
-    jest
-      .spyOn(pickRandomModule, "pickRandom")
+    pickRandomItemFromArray
       .mockReturnValueOnce("MakeVsColor") // solutionKey
       .mockReturnValueOnce(1); // columnIndex (corresponds to 'blue')
-    jest.spyOn(pickRandomModule, "pickRandomIndex").mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
+    pickRandomIndexFromArray.mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
     const expectedClue = [
       "The Ford is not the blue car.",
@@ -137,8 +159,8 @@ describe("getNotClue", () => {
     const clue = getNotClue(solutionMatrix);
     expect(expectedClue).toContain(clue.writtenClue);
 
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(2);
-    expect(pickRandomModule.pickRandomIndex).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(2);
+    expect(pickRandomIndexFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,

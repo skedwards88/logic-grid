@@ -1,6 +1,6 @@
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
-import {pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import {pickRandomItemFromArray} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
@@ -66,7 +66,7 @@ export function getOrCrossCategoryClue(solutionMatrix) {
 
   // the shared label set will have our first item
   // e.g. "colin" in "colin is red or 1"
-  const itemA = pickRandom(labelsA);
+  const itemA = pickRandomItemFromArray(labelsA);
 
   // the opposing label sets will have our other two items, one true one false
   // e.g. "red" and "1" in "colin is red or 1"

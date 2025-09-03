@@ -1,8 +1,27 @@
+jest.mock("@skedwards88/word_logic", () => {
+  const actual = jest.requireActual("@skedwards88/word_logic");
+  return {
+    ...actual,
+    // mockable fns that still behave like the real ones by default
+    pickRandomItemFromArray: jest.fn(actual.pickRandomItemFromArray),
+    shuffleArray: jest.fn(actual.shuffleArray),
+  };
+});
+
+import {pickRandomItemFromArray, shuffleArray} from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
-import * as pickRandomModule from "../helpers/pickRandom";
-import * as shuffleArrayModule from "../helpers/shuffleArray";
 import {applyClueLogic} from "./applyClueLogic";
+
+afterEach(() => {
+  jest.clearAllMocks();
+  pickRandomItemFromArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  );
+  shuffleArray.mockImplementation(
+    jest.requireActual("@skedwards88/word_logic").shuffleArray,
+  );
+});
 
 describe("getOrCrossCategoryClue", () => {
   afterEach(() => {
@@ -75,10 +94,8 @@ describe("getOrCrossCategoryClue", () => {
   }
 
   test('returns a "cross category or" clue for a given solution matrix (using mocked random values)', () => {
-    jest.spyOn(pickRandomModule, "pickRandom").mockReturnValueOnce("Colin"); // itemA
-    jest
-      .spyOn(shuffleArrayModule, "shuffleArray")
-      .mockImplementation((arr) => arr);
+    pickRandomItemFromArray.mockReturnValueOnce("Colin"); // itemA
+    shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getOrCrossCategoryClue(solutionMatrix);
     const expectedClue = [
@@ -86,7 +103,7 @@ describe("getOrCrossCategoryClue", () => {
       "Colin's car is either the blue car or 1 years old.",
     ];
     expect(expectedClue).toContain(clue.writtenClue);
-    expect(pickRandomModule.pickRandom).toHaveBeenCalledTimes(1);
+    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(1);
     const newDerivedMatrix = applyClueLogic(
       clue.clueType,
       emptyMatrix,

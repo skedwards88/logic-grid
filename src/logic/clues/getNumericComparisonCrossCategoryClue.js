@@ -1,5 +1,8 @@
-import {pickRandoms, pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import {
+  pickRandomItemsFromArray,
+  pickRandomItemFromArray,
+} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
 import {arraysEqualQ} from "../equalQ/arraysEqualQ.js";
 import {getNumericDiff} from "../helpers/getNumericDiff.js";
@@ -50,7 +53,10 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
-  const [itemANumericValue, itemBNumericValue] = pickRandoms(numericLabels, 2);
+  const [itemANumericValue, itemBNumericValue] = pickRandomItemsFromArray(
+    numericLabels,
+    2,
+  );
   const itemA = findFirstTrueIntersection(
     solutionMatrix,
     itemANumericValue,
@@ -77,7 +83,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       getNumericDiff(inclusiveNumericLabels[index], inclusiveNumericLabels[0]),
     ];
   }
-  const numericDiffClue = pickRandom(numericDiffOptions);
+  const numericDiffClue = pickRandomItemFromArray(numericDiffOptions);
   const actualNumericDiff = Math.abs(
     getNumericDiff(itemANumericValue, itemBNumericValue),
   );

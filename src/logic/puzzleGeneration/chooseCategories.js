@@ -1,12 +1,12 @@
 import {allCategories} from "./allCategories.js";
-import {pickRandom} from "../helpers/pickRandom.js";
-import {shuffleArray} from "../helpers/shuffleArray.js";
+import {pickRandomItemFromArray} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
 import {sortLabels} from "../helpers/sortLabels.js";
 
 export function chooseCategories(numCats, numItemsPerCat) {
   // returns a list of category labels and description templates
 
-  let categorySet = pickRandom(allCategories);
+  let categorySet = pickRandomItemFromArray(allCategories);
 
   // If we have more categories than we need,
   // omit the "first name" category

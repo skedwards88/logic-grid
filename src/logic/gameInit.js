@@ -1,5 +1,5 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
-import sendAnalytics from "@skedwards88/shared-components/src/logic/sendAnalytics";
+import {sendAnalytics} from "@skedwards88/shared-components/src/logic/sendAnalytics";
 
 export function gameInit({
   numCategories = 3,
