@@ -280,8 +280,7 @@ button {
   grid-area: controls;
   width: 100%;
   height: 5vmax;
-
-  /* border-bottom: 2px solid var(--light-color); */
+  border-bottom: 2px solid var(--light-color);
   margin-bottom: 5px;
 }
 
@@ -290,8 +289,8 @@ button {
   background-repeat: no-repeat;
   background-size: contain;
   border: 0;
-  width: 4vmax;
-  height: 4vmax;
+  width: 7vmin;
+  aspect-ratio: 1/1;
   background-color: transparent;
   padding: 1px 6px;
 }
@@ -429,6 +428,10 @@ input[type="checkbox" i]:checked {
 .info a,
 .whatsNew a {
   color: rgb(0 162 255);
+}
+
+.close {
+  margin-bottom: 2vh;
 }
 
 /* Landscape, small screen */
