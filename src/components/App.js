@@ -2,6 +2,7 @@ import React from "react";
 import {gameInit} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
+import Rules from "./Rules";
 import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
 import Settings from "./Settings";
 import {
@@ -107,6 +108,9 @@ export default function App() {
           pwaLink={"https://skedwards88.github.io/logic-grid"}
         ></PWAInstall>
       );
+
+    case "rules":
+      return <Rules setDisplay={setDisplay}></Rules>;
 
     default:
       return (

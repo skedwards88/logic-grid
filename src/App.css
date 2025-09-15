@@ -315,6 +315,10 @@ button {
   background-image: url("@skedwards88/shared-components/src/images/icons/share.svg");
 }
 
+#infoButton {
+  background-image: url("@skedwards88/shared-components/src/images/icons/info.svg");
+}
+
 #undoButton {
   background-image: url("@skedwards88/shared-components/src/images/icons/undo_arrow.svg");
 }
@@ -418,7 +422,6 @@ input[type="checkbox" i]:checked {
   justify-items: center;
   justify-content: space-evenly;
   align-items: center;
-  font-size: calc(var(--default-font-size) * 0.75);
 }
 
 .infoText {
@@ -432,6 +435,51 @@ input[type="checkbox" i]:checked {
 
 .close {
   margin-bottom: 2vh;
+}
+
+/* Rules */
+
+.rules {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: auto;
+  height: 90vh; /* fallback if svh isn't handled */
+  height: 100svh; /* use svh if supported to account for the url bar gracefully */
+  justify-content: space-evenly;
+}
+
+.rulesIcon {
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: calc(var(--font-size) * 0.75);
+  height: calc(var(--font-size) * 0.75);
+}
+
+#rulesHeader {
+  font-size: calc(var(--font-size) * 1.5);
+  margin-bottom: 10px;
+}
+
+#rulesVersion {
+  margin: 0 0 1vmax;
+}
+
+#ruleTrue {
+  background-image: url("./images/true.svg");
+}
+
+#ruleFalse {
+  background-image: url("./images/false.svg");
+}
+
+#rulesPlay,
+#rulesInstall {
+  height: fit-content;
+  width: fit-content;
+  margin: 2vh;
 }
 
 /* Landscape, small screen */

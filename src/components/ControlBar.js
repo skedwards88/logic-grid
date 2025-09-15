@@ -18,6 +18,7 @@ export default function ControlBar({
           });
         }}
       ></button>
+      <button id="infoButton" onClick={() => setDisplay("rules")}></button>
       <button
         id="newGameButton"
         onClick={() => {
