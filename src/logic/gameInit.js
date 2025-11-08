@@ -1,5 +1,4 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
-import {sendAnalytics} from "@skedwards88/shared-components/src/logic/sendAnalytics";
 
 export function gameInit({
   numCategories = 3,
@@ -25,7 +24,7 @@ export function gameInit({
   ) {
     // Only use the saved state if it is compatible with the most recent breaking change
     if (savedState.lastBreakingChange === "20230702") {
-      return savedState;
+      return {...savedState, analyticsToLog: []};
     }
   }
 
@@ -40,8 +39,6 @@ export function gameInit({
   // Every clue is not crossed off to start
   clues = clues.map((clue) => ({...clue, crossedOff: false}));
 
-  sendAnalytics("new_game");
-
   return {
     clues: clues,
     derivedMatrixHistory: [derivedMatrix],
@@ -52,5 +49,16 @@ export function gameInit({
     easyTrue: easyTrue,
     showViolations: showViolations,
     lastBreakingChange: "20230702",
+    analyticsToLog: [
+      {
+        eventName: "new_game",
+        eventInfo: {
+          numCategories,
+          numItemsPerCategory,
+          easyTrue,
+          showViolations,
+        },
+      },
+    ],
   };
 }

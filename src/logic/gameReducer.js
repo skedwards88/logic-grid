@@ -121,6 +121,6 @@ export function gameReducer(currentGameState, payload) {
     };
   } else {
     console.error(`unhandled action: ${payload.action}`);
-    return {...currentGameState};
+    return currentGameState;
   }
 }
