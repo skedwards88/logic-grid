@@ -1,12 +1,15 @@
 import React from "react";
 import {isRunningStandalone} from "@skedwards88/shared-components/src/logic/isRunningStandalone";
 import Share from "@skedwards88/shared-components/src/components/Share";
+import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 
 export default function ControlBar({
   dispatchGameState,
   setDisplay,
   undoDisabled,
 }) {
+  const {userId, sessionId} = useMetadataContext();
+
   return (
     <div id="controls">
       <button
@@ -38,6 +41,8 @@ export default function ControlBar({
         url="https://skedwards88.github.io/logic-grid/"
         origin="control bar"
         id="shareButton"
+        userId={userId}
+        sessionId={sessionId}
       ></Share>
       {!isRunningStandalone() ? (
         <button

@@ -1,4 +1,5 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
+import {v4 as uuidv4} from "uuid";
 
 export function gameInit({
   numCategories = 3,
@@ -24,7 +25,7 @@ export function gameInit({
   ) {
     // Only use the saved state if it is compatible with the most recent breaking change
     if (savedState.lastBreakingChange === "20230702") {
-      return {...savedState, analyticsToLog: []};
+      return savedState;
     }
   }
 
@@ -40,6 +41,7 @@ export function gameInit({
   clues = clues.map((clue) => ({...clue, crossedOff: false}));
 
   return {
+    id: uuidv4(), // just a random ID to track when the user generates a new puzzle
     clues: clues,
     derivedMatrixHistory: [derivedMatrix],
     numCategories: numCategories,
@@ -49,16 +51,5 @@ export function gameInit({
     easyTrue: easyTrue,
     showViolations: showViolations,
     lastBreakingChange: "20230702",
-    analyticsToLog: [
-      {
-        eventName: "new_game",
-        eventInfo: {
-          numCategories,
-          numItemsPerCategory,
-          easyTrue,
-          showViolations,
-        },
-      },
-    ],
   };
 }

@@ -11,10 +11,9 @@ import {
 } from "@skedwards88/shared-components/src/logic/handleInstall";
 import InstallOverview from "@skedwards88/shared-components/src/components/InstallOverview";
 import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall";
-import {getUserId} from "@skedwards88/shared-components/src/logic/getUserId";
-import {v4 as uuidv4} from "uuid";
 import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnalyticsCF";
-import {isRunningStandalone} from "@skedwards88/shared-components/src/logic/isRunningStandalone";
+import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
+import {inferEventsToLog} from "../logic/inferEventsToLog";
 
 export default function App() {
   // *****
@@ -65,51 +64,23 @@ export default function App() {
     window.localStorage.setItem("logicGridState", JSON.stringify(gameState));
   }, [gameState]);
 
-  // ******
-  // Start analytics setup
-  // ******
+  const {userId, sessionId} = useMetadataContext();
 
-  // Store userID so I don't have to read local storage every time
-  const userId = getUserId("logic_grid_uid");
-
-  // Store sessionID as a ref so I have the same session ID until app refresh
-  const sessionIdRef = React.useRef(uuidv4());
-  const sessionId = sessionIdRef.current;
-
-  // Send analytics on load
-  React.useEffect(() => {
-    sendAnalyticsCF({
-      userId,
-      sessionId,
-      analyticsToLog: [
-        {
-          eventName: "app_load",
-          // os, browser, and isMobile are parsed on the server from the user agent headers
-          screenWidth: window.screen.width,
-          screenHeight: window.screen.height,
-          isStandalone: isRunningStandalone(),
-          devicePixelRatio: window.devicePixelRatio,
-        },
-      ],
-    });
-    // Just run once on app load
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Store the previous state so that we can infer which analytics events to send
+  const previousStateRef = React.useRef(gameState);
 
   // Send analytics following reducer updates, if needed
   React.useEffect(() => {
-    const analyticsToLog = gameState.analyticsToLog;
+    const previousState = previousStateRef.current;
 
-    if (!analyticsToLog || !analyticsToLog.length) {
-      return;
+    const analyticsToLog = inferEventsToLog(previousState, gameState);
+
+    if (analyticsToLog.length) {
+      sendAnalyticsCF({userId, sessionId, analyticsToLog});
     }
 
-    sendAnalyticsCF({userId, sessionId, analyticsToLog});
-  }, [gameState?.analyticsToLog, sessionId, userId]);
-
-  // ******
-  // End analytics setup
-  // ******
+    previousStateRef.current = gameState;
+  }, [gameState, sessionId, userId]);
 
   switch (display) {
     case "settings":
@@ -145,6 +116,8 @@ export default function App() {
           googleAppLink={
             "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
           }
+          userId={userId}
+          sessionId={sessionId}
         ></InstallOverview>
       );
 
