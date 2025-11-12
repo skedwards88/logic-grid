@@ -1,5 +1,6 @@
 {
   "name": "logic-grid",
+  "displayName": "Logic Grid",
   "version": "1.0.49",
   "description": "",
   "main": "index.js",

@@ -4,6 +4,15 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const packageJson = require("./package.json");
 
+const appName = packageJson.displayName;
+const issues = packageJson.bugs.url;
+
+if (!appName || !issues) {
+  throw new Error(
+    "displayName and bugs.url must be populated in package.json for use in the privacy policy.",
+  );
+}
+
 module.exports = (env, argv) => {
   if (argv.mode === "development") {
     console.log("RUNNING IN DEV MODE. Service worker will not generate.");
@@ -16,6 +25,18 @@ module.exports = (env, argv) => {
     template: "./src/index.html",
   });
 
+  const privacyHtmlPlugin = new HtmlWebpackPlugin({
+    filename: "privacy.html",
+    template: require.resolve(
+      "@skedwards88/shared-components/src/components/privacy.template.html",
+    ),
+    inject: false,
+    templateParameters: {
+      appName,
+      issues,
+    },
+  });
+
   const copyPlugin = new CopyPlugin({
     patterns: [
       {from: "./src/images/favicon.svg", to: "./assets/favicon.svg"},
@@ -23,7 +44,6 @@ module.exports = (env, argv) => {
       {from: "./src/images/icon_192.png", to: "./assets/icon_192.png"},
       {from: "./src/images/maskable_192.png", to: "./assets/maskable_192.png"},
       {from: "./src/manifest.json", to: "./assets/manifest.json"},
-      {from: "./src/privacy.html", to: "./privacy.html"},
       {
         from: "./src/images/screenshots/screenshot_720_1280_1.png",
         to: "./assets/screenshot_720_1280_1.png",
@@ -80,8 +100,8 @@ module.exports = (env, argv) => {
 
   const plugins =
     argv.mode === "development"
-      ? [htmlPlugin, copyPlugin]
-      : [htmlPlugin, copyPlugin, serviceWorkerPlugin];
+      ? [htmlPlugin, privacyHtmlPlugin, copyPlugin]
+      : [htmlPlugin, privacyHtmlPlugin, copyPlugin, serviceWorkerPlugin];
 
   return {
     entry: "./src/index.js",
