@@ -45,6 +45,7 @@ module.exports = (env, argv) => {
 
   const copyPlugin = new CopyPlugin({
     patterns: [
+      {from: "./src/assetlinks.json", to: "./.well-known/assetlinks.json"},
       {from: "./src/images/favicon.svg", to: "./assets/favicon.svg"},
       {from: "./src/images/favicon.png", to: "./assets/favicon.png"},
       {from: "./src/images/icon_192.png", to: "./assets/icon_192.png"},

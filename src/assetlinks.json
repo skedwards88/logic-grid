@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "logicgrid.io.github.skedwards88.twa",
+      "sha256_cert_fingerprints": [
+        "F8:BC:5D:73:4C:90:50:F9:39:69:C1:A3:DA:75:0D:45:58:9B:8E:CF:78:9D:5C:D8:B5:A7:75:11:96:D8:4E:FF"
+      ]
+    }
+  }
+]
