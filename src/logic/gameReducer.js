@@ -119,6 +119,11 @@ export function gameReducer(currentGameState, payload) {
         Math.max(1, currentGameState.derivedMatrixHistory.length - 1),
       ),
     };
+  } else if (payload.action === "reset") {
+    return {
+      ...currentGameState,
+      derivedMatrixHistory: currentGameState.derivedMatrixHistory.slice(0, 1),
+    };
   } else {
     console.error(`unhandled action: ${payload.action}`);
     return currentGameState;

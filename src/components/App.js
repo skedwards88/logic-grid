@@ -4,6 +4,7 @@ import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
 import Rules from "./Rules";
 import MoreGames from "@skedwards88/shared-components/src/components/MoreGames";
+import ResetOrNewPuzzle from "./ResetOrNewPuzzle";
 import Settings from "./Settings";
 import {
   handleAppInstalled,
@@ -83,6 +84,13 @@ export default function App() {
   }, [gameState, sessionId, userId]);
 
   switch (display) {
+    case "resetOrNewPuzzle":
+      return (
+        <ResetOrNewPuzzle
+          setDisplay={setDisplay}
+          dispatchGameState={dispatchGameState}
+        />
+      );
     case "settings":
       return (
         <Settings

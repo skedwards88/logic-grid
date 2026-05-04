@@ -21,15 +21,13 @@ export default function ControlBar({
           });
         }}
       ></button>
-      <button id="infoButton" onClick={() => setDisplay("rules")}></button>
       <button
         id="newGameButton"
         onClick={() => {
-          dispatchGameState({
-            action: "newGame",
-          });
+          setDisplay("resetOrNewPuzzle");
         }}
       ></button>
+      <button id="infoButton" onClick={() => setDisplay("rules")}></button>
       <button
         id="settingsButton"
         onClick={() => setDisplay("settings")}

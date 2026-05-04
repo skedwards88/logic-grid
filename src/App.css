@@ -271,6 +271,20 @@ button {
   font-weight: bolder;
 }
 
+/* Reset or new */
+
+.resetOrNewPuzzle {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+}
+
+.resetOrNewPuzzle > button {
+  margin: 10px;
+}
+
 /* Controls */
 
 #controls {
