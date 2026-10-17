@@ -2820,7 +2820,7 @@ export const allCategories = [
     {
       values: colors,
       descriptionTemplates: {
-        description: (value) => `the bouquet tied with ribbon ${value}`,
+        description: (value) => `the bouquet tied with ${value} ribbon`,
       },
     },
     {
