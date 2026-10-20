@@ -1,5 +1,5 @@
 export function inferEventsToLog(oldState, newState) {
-  let analyticsToLog = [];
+  const analyticsToLog = [];
 
   // If a new game was generated
   if (oldState.id !== newState.id) {

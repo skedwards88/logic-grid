@@ -1,5 +1,5 @@
 import cloneDeep from "lodash.clonedeep";
-import {autocomplete} from "./autocomplete.js";
+import {autocomplete} from "./autocomplete";
 
 describe("autocomplete", () => {
   test("it autocompletes a puzzle if enough trues are known to do so", () => {

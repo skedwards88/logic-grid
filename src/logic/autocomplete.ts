@@ -2,7 +2,7 @@ import cloneDeep from "lodash.clonedeep";
 import {setToTrue} from "../logic/puzzleGeneration/setValue";
 
 function makeEmptyCopyOfMatrix(matrix) {
-  let matrixCopy = cloneDeep(matrix);
+  const matrixCopy = cloneDeep(matrix);
 
   for (const key in matrixCopy) {
     matrixCopy[key].grid = matrixCopy[key].grid.map((row) =>

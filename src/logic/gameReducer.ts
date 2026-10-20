@@ -1,7 +1,7 @@
 import cloneDeep from "lodash.clonedeep";
-import {gameInit} from "./gameInit.js";
+import {gameInit} from "./gameInit";
 
-import {autocomplete} from "./autocomplete.js";
+import {autocomplete} from "./autocomplete";
 
 export function gameReducer(currentGameState, payload) {
   if (payload.action === "changeCellState") {
@@ -9,7 +9,7 @@ export function gameReducer(currentGameState, payload) {
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1
       ];
-    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
+    const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentCellValue =
       newDerivedMatrix[payload.gridID].grid[payload.rowIndex][
         payload.columnIndex
@@ -44,7 +44,7 @@ export function gameReducer(currentGameState, payload) {
       currentGameState.derivedMatrixHistory[
         currentGameState.derivedMatrixHistory.length - 1
       ];
-    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
+    const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentGrid = newDerivedMatrix[payload.gridID].grid;
     let newGrid = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
@@ -100,7 +100,7 @@ export function gameReducer(currentGameState, payload) {
       useSaved: false,
     });
   } else if (payload.action === "setClueCrossedOff") {
-    let newGameState = {...currentGameState};
+    const newGameState = {...currentGameState};
     newGameState.clues[payload.index].crossedOff =
       !newGameState.clues[payload.index].crossedOff;
     return newGameState;

@@ -1,5 +1,4 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
-import {v4 as uuidv4} from "uuid";
 
 export function gameInit({
   numCategories = 3,
@@ -13,8 +12,7 @@ export function gameInit({
     : undefined;
 
   if (
-    savedState &&
-    savedState.clues &&
+    savedState?.clues &&
     savedState.derivedMatrixHistory &&
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
@@ -41,7 +39,7 @@ export function gameInit({
   clues = clues.map((clue) => ({...clue, crossedOff: false}));
 
   return {
-    id: uuidv4(), // just a random ID to track when the user generates a new puzzle
+    id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
     clues: clues,
     derivedMatrixHistory: [derivedMatrix],
     numCategories: numCategories,
