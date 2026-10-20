@@ -1,6 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
-import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
+import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 
 export function removeRedundantClues(clues, emptyMatrix) {
   // Remove redundant clues by seeing if each clue makes any difference

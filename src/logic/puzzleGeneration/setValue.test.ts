@@ -3,7 +3,7 @@ import {
   setToTrue,
   deduceSecondOrderFromTrue,
   deduceSecondOrderFromFalse,
-} from "./setValue.js";
+} from "./setValue";
 
 const emptyInputMatrix = {
   "0v1": {
