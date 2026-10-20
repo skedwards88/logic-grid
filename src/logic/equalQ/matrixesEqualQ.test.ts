@@ -1,6 +1,7 @@
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 import {matrixesEqualQ} from "./matrixesEqualQ";
 
-const matrixA = {
+const matrixA: PuzzleMatrix = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -10,6 +11,12 @@ const matrixA = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      description: (test: string | number): string => `${test}`,
+    },
+    columnDescriptionTemplates: {
+      description: (test: string | number): string => `${test}`,
+    },
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -20,6 +27,12 @@ const matrixA = {
       [false, false, true, false],
       [false, false, false, true],
     ],
+    rowDescriptionTemplates: {
+      description: (test: string | number): string => `${test}`,
+    },
+    columnDescriptionTemplates: {
+      description: (test: string | number): string => `${test}`,
+    },
   },
 };
 
@@ -40,6 +53,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
     const matrixC = {
@@ -53,6 +72,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
     expect(matrixesEqualQ(matrixC, matrixB)).toBe(true);
@@ -70,6 +95,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
     const matrixC = {
@@ -83,6 +114,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
     expect(matrixesEqualQ(matrixC, matrixB)).toBe(false);
@@ -91,6 +128,7 @@ describe("matrixesEqualQ", () => {
   test("throws an error if a inputs are not objects", () => {
     const gridB = true;
 
+    // @ts-expect-error intentionally testing invalid input
     expect(() => matrixesEqualQ(matrixA, gridB)).toThrow(
       "matrixesEqualQ: Inputs are not objects",
     );
@@ -108,6 +146,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
 
@@ -116,7 +160,7 @@ describe("matrixesEqualQ", () => {
     );
   });
 
-  test("throws an error if a inputs have different number of keys", () => {
+  test("throws an error if a inputs have different keys", () => {
     const matrixB = {
       ...matrixA,
       "0v3": {
@@ -128,6 +172,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
     const matrixC = {
@@ -141,6 +191,12 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
+        rowDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
+        columnDescriptionTemplates: {
+          description: (test: string | number): string => `${test}`,
+        },
       },
     };
 

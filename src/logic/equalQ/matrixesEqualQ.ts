@@ -1,6 +1,10 @@
-import {gridsEqualQ} from "./gridsEqualQ.js";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {gridsEqualQ} from "./gridsEqualQ";
 
-export function matrixesEqualQ(matrixA, matrixB) {
+export function matrixesEqualQ(
+  matrixA: PuzzleMatrix,
+  matrixB: PuzzleMatrix,
+): boolean {
   // exit early if we got the exact same object
   if (matrixA === matrixB) return true;
 
@@ -20,7 +24,7 @@ export function matrixesEqualQ(matrixA, matrixB) {
       "matrixesEqualQ: Inputs do not have the same number of keys",
     );
 
-  for (let key of matrixAKeys) {
+  for (const key of matrixAKeys) {
     if (!matrixBKeys.includes(key))
       throw new Error("matrixesEqualQ: Inputs have different keys");
 

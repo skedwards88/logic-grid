@@ -35,6 +35,7 @@ describe("arraysEqualQ", () => {
       ],
     };
 
+    // @ts-expect-error intentionally testing invalid input
     expect(() => arraysEqualQ(arrayA, arrayB)).toThrow(
       "arraysEqualQ: Inputs are not arrays",
     );

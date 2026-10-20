@@ -49,6 +49,7 @@ describe("gridsEqualQ", () => {
       ],
     };
 
+    // @ts-expect-error intentionally testing invalid input
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
       "gridsEqualQ: Inputs are not arrays",
     );
@@ -86,6 +87,7 @@ describe("gridsEqualQ", () => {
       [true, true, false],
     ];
 
+    // @ts-expect-error intentionally testing invalid input
     expect(() => gridsEqualQ(gridA, gridB)).toThrow(
       "arraysEqualQ: Inputs are not arrays",
     );

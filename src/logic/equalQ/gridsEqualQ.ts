@@ -1,6 +1,6 @@
-import {arraysEqualQ} from "./arraysEqualQ.js";
+import {arraysEqualQ} from "./arraysEqualQ";
 
-export function gridsEqualQ(gridA, gridB) {
+export function gridsEqualQ<T>(gridA: T[][], gridB: T[][]): boolean {
   if (!Array.isArray(gridA) || !Array.isArray(gridB) || !gridA || !gridB)
     throw new Error("gridsEqualQ: Inputs are not arrays");
 

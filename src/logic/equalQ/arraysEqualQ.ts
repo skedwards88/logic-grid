@@ -1,4 +1,4 @@
-export function arraysEqualQ(arrayA, arrayB) {
+export function arraysEqualQ<T>(arrayA: T[], arrayB: T[]): boolean {
   if (!Array.isArray(arrayA) || !Array.isArray(arrayB)) {
     throw new Error("arraysEqualQ: Inputs are not arrays");
   }
