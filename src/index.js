@@ -24,7 +24,9 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <MetadataContextProvider>
-    <App />
-  </MetadataContextProvider>,
+  <React.StrictMode>
+    <MetadataContextProvider>
+      <App />
+    </MetadataContextProvider>
+  </React.StrictMode>,
 );
