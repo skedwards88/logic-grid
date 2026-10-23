@@ -1,13 +1,20 @@
-import React from "react";
 import {validQ} from "../logic/clues/validQ";
 import {autocomplete} from "../logic/autocomplete";
+import {type Clue} from "../logic/puzzleGeneration/getUsefulClue";
+import {type PuzzleMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {type ReducerPayload} from "../logic/gameReducer";
 
 export default function Result({
   clues,
   matrix,
   showViolations,
   dispatchGameState,
-}) {
+}: {
+  clues: Clue[];
+  matrix: PuzzleMatrix;
+  showViolations: boolean;
+  dispatchGameState: React.Dispatch<ReducerPayload>;
+}): React.JSX.Element {
   // check if every square is filled
   const matrixComplete = Object.values(matrix).every(
     (entry) => !entry.grid.flat().includes(null),
@@ -24,7 +31,7 @@ export default function Result({
       validQ({clue, matrix: autofilledMatrix, strict: true}),
     );
     matrixAutofillable = autofilledValid;
-  } catch (error) {
+  } catch {
     matrixAutofillable = false;
   }
 

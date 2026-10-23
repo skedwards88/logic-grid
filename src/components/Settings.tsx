@@ -1,13 +1,32 @@
-import React from "react";
+import {type ReducerPayload} from "../logic/gameReducer";
+import {type DisplayState} from "./App";
+import {type GameState} from "../logic/gameInit";
 
-export default function Settings({setDisplay, dispatchGameState, gameState}) {
-  function handleNewGame(event) {
+interface NewGameFormElements extends HTMLFormControlsCollection {
+  numItemsPerCategory: HTMLInputElement;
+  numCategories: HTMLInputElement;
+}
+
+interface NewGameFormElement extends HTMLFormElement {
+  readonly elements: NewGameFormElements;
+}
+
+export default function Settings({
+  setDisplay,
+  dispatchGameState,
+  gameState,
+}: {
+  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+  dispatchGameState: React.Dispatch<ReducerPayload>;
+  gameState: GameState;
+}): React.JSX.Element {
+  function handleNewGame(event: React.SubmitEvent<NewGameFormElement>): void {
     event.preventDefault();
     const newNumItemsPerCategory = parseInt(
-      event.target.elements.numItemsPerCategory.value,
+      event.currentTarget.elements.numItemsPerCategory.value,
     );
     const newNumCategories = parseInt(
-      event.target.elements.numCategories.value,
+      event.currentTarget.elements.numCategories.value,
     );
 
     dispatchGameState({
@@ -19,7 +38,7 @@ export default function Settings({setDisplay, dispatchGameState, gameState}) {
   }
 
   return (
-    <form className="App settings" onSubmit={(e) => handleNewGame(e)}>
+    <form className="App settings" onSubmit={handleNewGame}>
       <div id="settings">
         <div className="setting">
           <div className="setting-description">

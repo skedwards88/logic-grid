@@ -14,11 +14,11 @@ import {type Clue} from "../puzzleGeneration/getUsefulClue";
 export function validQ({
   clue,
   matrix,
-  strict,
+  strict = false,
 }: {
   clue: Clue;
   matrix: PuzzleMatrix;
-  strict: boolean;
+  strict?: boolean;
 }): boolean {
   switch (clue.clueType) {
     case "not":

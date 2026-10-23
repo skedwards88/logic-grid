@@ -1,4 +1,5 @@
 import React from "react";
+import {type ReducerPayload} from "../logic/gameReducer";
 
 export default function Cell({
   rowIndex,
@@ -7,7 +8,14 @@ export default function Cell({
   value,
   easyTrue,
   dispatchGameState,
-}) {
+}: {
+  rowIndex: number;
+  columnIndex: number;
+  gridID: string;
+  value: boolean | null;
+  easyTrue: boolean;
+  dispatchGameState: React.Dispatch<ReducerPayload>;
+}): React.JSX.Element {
   let className = "cell";
   if (value === true) {
     className += " true";
@@ -15,10 +23,10 @@ export default function Cell({
     className += " false";
   }
 
-  const timerID = React.useRef();
-  const pressIsLong = React.useRef();
+  const timerID = React.useRef<NodeJS.Timeout>(null);
+  const pressIsLong = React.useRef(false);
 
-  function handleTouchStart() {
+  function handleTouchStart(): void {
     // When the press initiates, it isn't long (yet)
     pressIsLong.current = false;
     timerID.current = setTimeout(() => {
@@ -35,7 +43,7 @@ export default function Cell({
     }, 500);
   }
 
-  function handleTouchEnd(event) {
+  function handleTouchEnd(event: React.PointerEvent): void {
     event.preventDefault();
 
     if (timerID.current) {

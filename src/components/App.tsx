@@ -12,15 +12,26 @@ import PWAInstall from "@skedwards88/shared-components/src/components/PWAInstall
 import {sendAnalyticsCF} from "@skedwards88/shared-components/src/logic/sendAnalyticsCF";
 import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 import {inferEventsToLog} from "../logic/inferEventsToLog";
+import {saveToStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
+import packageJson from "../../package.json";
 
-export default function App() {
+export type DisplayState =
+  | "game"
+  | "resetOrNewPuzzle"
+  | "settings"
+  | "heart"
+  | "installOverview"
+  | "pwaInstall"
+  | "rules";
+
+export default function App(): React.JSX.Element {
   const {userId, sessionId} = useMetadataContext();
 
   // This must live at the top level component, not in InstallOverview where it is used, since the InstallOverview is not rendered initially and therefore misses its chance to attach the listeners
   const {installPromptEvent, showInstallButton, handleInstall} =
     useInstallPrompt({userId, sessionId});
 
-  const [display, setDisplay] = React.useState("game");
+  const [display, setDisplay] = React.useState<DisplayState>("game");
 
   const [gameState, dispatchGameState] = React.useReducer(
     gameReducer,
@@ -29,7 +40,7 @@ export default function App() {
   );
 
   React.useEffect(() => {
-    window.localStorage.setItem("logicGridState", JSON.stringify(gameState));
+    saveToStorage("logicGridState", gameState);
   }, [gameState]);
 
   // Store the previous state so that we can infer which analytics events to send
@@ -67,41 +78,41 @@ export default function App() {
 
     case "heart":
       return (
-        <MoreGames
+        <MoreGames<DisplayState>
           setDisplay={setDisplay}
           games={["crossjig", "lexlet", "blobble", "wordfall", "gribbles"]}
           repoName={"logic-grid"}
           includeExtraInfo={true}
           includeWordAttribution={false}
-          googleLink={
-            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
-          }
+          userId={userId}
+          sessionId={sessionId}
+          version={packageJson.version}
         ></MoreGames>
       );
 
     case "installOverview":
       return (
-        <InstallOverview
+        <InstallOverview<DisplayState>
           setDisplay={setDisplay}
-          setInstallPromptEvent={setInstallPromptEvent}
-          showInstallButton={showInstallButton}
-          installPromptEvent={installPromptEvent}
-          googleAppLink={
-            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
-          }
+
           userId={userId}
           sessionId={sessionId}
+          installPromptEvent={installPromptEvent}
+          showInstallButton={showInstallButton}
+          handleInstall={handleInstall}
         ></InstallOverview>
       );
 
     case "pwaInstall":
       return (
-        <PWAInstall
+        <PWAInstall<DisplayState>
           setDisplay={setDisplay}
           googleAppLink={
             "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
           }
           pwaLink={"https://skedwards88.github.io/logic-grid"}
+          userId={userId}
+          sessionId={sessionId}
         ></PWAInstall>
       );
 

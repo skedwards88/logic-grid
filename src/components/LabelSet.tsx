@@ -1,6 +1,12 @@
-import React from "react";
-
-export default function LabelSet({labels, id, type}) {
+export default function LabelSet({
+  labels,
+  id,
+  type,
+}: {
+  labels: (string | number)[];
+  id: number;
+  type: "column" | "row";
+}): React.JSX.Element {
   const labelDivs = labels.map((label, index) => (
     <div key={`${type}Label${id}_${index}`}>{label}</div>
   ));

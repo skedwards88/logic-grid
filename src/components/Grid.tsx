@@ -1,17 +1,27 @@
-import React from "react";
+import {type ReducerPayload} from "../logic/gameReducer";
+import {type TempBroadUnsolvedMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
 import Cell from "./Cell";
 
-export default function Grid({solutionEntry, id, easyTrue, dispatchGameState}) {
+export default function Grid({
+  solutionEntry,
+  id,
+  easyTrue,
+  dispatchGameState,
+}: {
+  solutionEntry: TempBroadUnsolvedMatrix;
+  id: string;
+  easyTrue: boolean;
+  dispatchGameState: React.Dispatch<ReducerPayload>;
+}): React.JSX.Element {
   const numRows = solutionEntry.grid.length;
-  let cells = [];
+  const cells = [];
   for (let rowIndex = 0; rowIndex < solutionEntry.grid.length; rowIndex++) {
     for (
       let columnIndex = 0;
       columnIndex < solutionEntry.grid[0].length;
       columnIndex++
     ) {
-      cells = [
-        ...cells,
+      cells.push(
         <Cell
           rowIndex={rowIndex}
           columnIndex={columnIndex}
@@ -21,7 +31,7 @@ export default function Grid({solutionEntry, id, easyTrue, dispatchGameState}) {
           dispatchGameState={dispatchGameState}
           easyTrue={easyTrue}
         ></Cell>,
-      ];
+      );
     }
   }
   return (

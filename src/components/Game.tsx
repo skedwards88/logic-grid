@@ -4,8 +4,19 @@ import Grid from "./Grid";
 import Clues from "./Clues";
 import ControlBar from "./ControlBar";
 import Result from "./Result";
+import {type GameState} from "../logic/gameInit";
+import {type ReducerPayload} from "../logic/gameReducer";
+import {type DisplayState} from "./App";
 
-export default function Game({gameState, dispatchGameState, setDisplay}) {
+export default function Game({
+  gameState,
+  dispatchGameState,
+  setDisplay,
+}: {
+  gameState: GameState;
+  dispatchGameState: React.Dispatch<ReducerPayload>;
+  setDisplay: React.Dispatch<React.SetStateAction<DisplayState>>;
+}): React.JSX.Element {
   const numSquaresWide =
     (gameState.numCategories - 1) * gameState.numItemsPerCategory;
 
@@ -15,15 +26,14 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
       "--cell-size",
       `${74 / numSquaresWide}vmin`,
     );
-  }, [gameState.numCategories, gameState.numItemsPerCategory]);
+  }, [gameState.numCategories, gameState.numItemsPerCategory, numSquaresWide]);
 
   const derivedMatrix =
     gameState.derivedMatrixHistory[gameState.derivedMatrixHistory.length - 1];
 
-  let grids = [];
+  const grids = [];
   for (const key in derivedMatrix) {
-    grids = [
-      ...grids,
+    grids.push(
       <Grid
         solutionEntry={derivedMatrix[key]}
         key={key}
@@ -31,31 +41,29 @@ export default function Game({gameState, dispatchGameState, setDisplay}) {
         easyTrue={gameState.easyTrue}
         dispatchGameState={dispatchGameState}
       ></Grid>,
-    ];
+    );
   }
 
-  let labels = [];
+  const labels = [];
   for (let index = 0; index < gameState.matrixColumnLabels.length; index++) {
-    labels = [
-      ...labels,
+    labels.push(
       <LabelSet
         key={`column${index}`}
         id={index}
         type="column"
         labels={gameState.matrixColumnLabels[index]}
       ></LabelSet>,
-    ];
+    );
   }
   for (let index = 0; index < gameState.matrixRowLabels.length; index++) {
-    labels = [
-      ...labels,
+    labels.push(
       <LabelSet
         key={`row${index}`}
         id={index}
         type="row"
         labels={gameState.matrixRowLabels[index]}
       ></LabelSet>,
-    ];
+    );
   }
 
   return (
