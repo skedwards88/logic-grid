@@ -3,10 +3,21 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export type NotClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "not";
+  clueParameters: {
+    itemA: string | number;
+    itemB: string | number;
+  };
+};
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
-export function getNotClue(solutionMatrix) {
+export function getNotClue(solutionMatrix: PuzzleMatrix): NotClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
   const columnLabels = solutionMatrix[solutionKey].columnLabels;
@@ -39,7 +50,8 @@ export function getNotClue(solutionMatrix) {
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {
-    writtenClue: writtenClue,
+    writtenClue,
+    crossedOff: false,
     clueType: "not",
     clueParameters: {
       itemA: rowItem,

@@ -1,23 +1,42 @@
-import {getOrClue} from "../clues/getOrClue.js";
-import {getNotClue} from "../clues/getNotClue.js";
-import {getNumericComparisonClue} from "../clues/getNumericComparisonClue.js";
-import {getNumericComparisonCrossCategoryClue} from "../clues/getNumericComparisonCrossCategoryClue.js";
-import {getOrCrossCategoryClue} from "../clues/getOrCrossCategoryClue.js";
+import {getOrClue, type OrClue} from "../clues/getOrClue";
+import {getNotClue, type NotClue} from "../clues/getNotClue";
+import {
+  getNumericComparisonClue,
+  type NumericComparisonClue,
+} from "../clues/getNumericComparisonClue";
+import {
+  getNumericComparisonCrossCategoryClue,
+  type NumericComparisonCrossCategoryClue,
+} from "../clues/getNumericComparisonCrossCategoryClue";
+import {
+  getOrCrossCategoryClue,
+  type OrCrossCategoryClue,
+} from "../clues/getOrCrossCategoryClue";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
-import {matrixesEqualQ} from "../equalQ/matrixesEqualQ.js";
-import {applyClueLogic} from "../clues/applyClueLogic.js";
+import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
+import {applyClueLogic} from "../clues/applyClueLogic";
+import {type PuzzleMatrix, type SolvedPuzzleMatrix} from "./buildEmptyMatrix";
+
+export type Clue =
+  | OrClue
+  | NotClue
+  | NumericComparisonClue
+  | NumericComparisonCrossCategoryClue
+  | OrCrossCategoryClue;
 
 export function getUsefulClue(
-  solutionMatrix,
-  derivedMatrix,
-  includeCrossCategoryClues,
-  includeNumericClues,
-) {
-  let foundUsefulClue = false;
-  let clue;
-  let newDerivedMatrix;
+  solutionMatrix: SolvedPuzzleMatrix,
+  derivedMatrix: PuzzleMatrix,
+  includeCrossCategoryClues: boolean,
+  includeNumericClues: boolean,
+): {clue: Clue; newDerivedMatrix: PuzzleMatrix} {
+  let clue: Clue;
+  let newDerivedMatrix: PuzzleMatrix;
 
-  let clueFunctions = [getNotClue, getOrClue];
+  let clueFunctions: ((solutionMatrix: SolvedPuzzleMatrix) => Clue)[] = [
+    getNotClue,
+    getOrClue,
+  ];
   if (includeCrossCategoryClues) {
     clueFunctions = [...clueFunctions, getOrCrossCategoryClue];
   }
@@ -28,22 +47,19 @@ export function getUsefulClue(
     clueFunctions = [...clueFunctions, getNumericComparisonCrossCategoryClue];
   }
 
-  while (!foundUsefulClue) {
+  while (true) {
     // get a clue
-    let clueFunction = pickRandomItemFromArray(clueFunctions);
+    const clueFunction = pickRandomItemFromArray(clueFunctions);
     clue = clueFunction(solutionMatrix);
 
     // see if it changes the derivedMatrix
-    newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      derivedMatrix,
-      clue.clueParameters,
-    );
-    foundUsefulClue = !matrixesEqualQ(newDerivedMatrix, derivedMatrix);
-  }
+    newDerivedMatrix = applyClueLogic(clue, derivedMatrix);
 
-  return {
-    clue: clue,
-    newDerivedMatrix: newDerivedMatrix,
-  };
+    if (!matrixesEqualQ(newDerivedMatrix, derivedMatrix)) {
+      return {
+        clue,
+        newDerivedMatrix,
+      };
+    }
+  }
 }

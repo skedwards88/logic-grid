@@ -1,3 +1,4 @@
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 import {
   setToFalse,
   setToTrue,
@@ -5,7 +6,7 @@ import {
   deduceSecondOrderFromFalse,
 } from "./setValue";
 
-const emptyInputMatrix = {
+const emptyInputMatrix = addTemplatesForTestMatrix({
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe"],
     columnLabels: [1, 2, 3],
@@ -60,7 +61,7 @@ const emptyInputMatrix = {
       [null, null, null],
     ],
   },
-};
+});
 
 describe("setToFalse", () => {
   test("It should set the specified position to false", () => {
@@ -117,7 +118,7 @@ describe("setToFalse", () => {
   });
 
   test("It should return the original grid if the specified position is already false", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -136,7 +137,7 @@ describe("setToFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = setToFalse(inputMatrix, "Sarah", 3);
 
@@ -144,7 +145,7 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the row and there are no trues in the row, it should set the last null to true", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -163,7 +164,7 @@ describe("setToFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, false, true],
@@ -177,7 +178,7 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the column and there are no trues in the column, it should set the last null to true", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -187,7 +188,7 @@ describe("setToFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -200,7 +201,7 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the row and there is a true in the row, it should set the last null to false", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: [1, 2, 3, 4],
@@ -211,7 +212,7 @@ describe("setToFalse", () => {
           [false, null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [true, false, false, false],
@@ -225,7 +226,7 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the column and there is a true in the column, it should set the last null to false", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: [1, 2, 3, 4],
@@ -236,7 +237,7 @@ describe("setToFalse", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [true, false, false, false],
@@ -251,7 +252,7 @@ describe("setToFalse", () => {
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -279,7 +280,7 @@ describe("setToFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = setToFalse(inputMatrix, "Colin", "dog");
     expect(outputMatrix["0v1"].grid).toEqual([
@@ -351,7 +352,7 @@ describe("setToTrue", () => {
   });
 
   test("It should return the original grid if the specified position is already true", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -370,14 +371,14 @@ describe("setToTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = setToTrue(inputMatrix, "Colin", 1);
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("all other items in that row/column are set to false", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -396,7 +397,7 @@ describe("setToTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, true, false],
@@ -410,7 +411,7 @@ describe("setToTrue", () => {
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -438,7 +439,7 @@ describe("setToTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = setToTrue(inputMatrix, "Colin", "red");
     expect(outputMatrix["0v1"].grid).toEqual([
@@ -457,7 +458,7 @@ describe("setToTrue", () => {
 
 describe("deduceSecondOrderFromTrue", () => {
   test("deduces a false value (itemA in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -485,7 +486,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [null, null, null],
@@ -501,7 +502,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (itemB in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -529,7 +530,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [null, null, null],
@@ -545,7 +546,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (item A in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -573,7 +574,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [null, false, null],
@@ -589,7 +590,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (item B in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -617,7 +618,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [null, false, null],
@@ -633,7 +634,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("no changes if no additional info is known", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -661,14 +662,14 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("no changes if no additional info is known (swapped input order)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -696,14 +697,14 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("deduces a true value (itemA in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -731,7 +732,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -747,7 +748,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (itemB in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -775,7 +776,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -791,7 +792,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (item A in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -819,7 +820,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, false, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, true, false],
@@ -835,7 +836,7 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (item B in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -863,7 +864,7 @@ describe("deduceSecondOrderFromTrue", () => {
           [null, false, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, true, false],
@@ -881,7 +882,7 @@ describe("deduceSecondOrderFromTrue", () => {
 
 describe("deduceSecondOrderFromFalse", () => {
   test("deduces a false value (itemA in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -909,7 +910,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -929,7 +930,7 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (itemB in row)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -957,7 +958,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -977,7 +978,7 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (item A in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -1005,7 +1006,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -1021,7 +1022,7 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (item B in column)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -1049,7 +1050,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const expectedGrid = [
       [false, null, null],
@@ -1065,7 +1066,7 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("no changes if no trues about inputs are known", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -1093,7 +1094,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,
@@ -1104,7 +1105,7 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("no changes if no trues about inputs are known (swapped input order)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       "0v1": {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: ["dog", "cat", "mouse"],
@@ -1132,7 +1133,7 @@ describe("deduceSecondOrderFromFalse", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,

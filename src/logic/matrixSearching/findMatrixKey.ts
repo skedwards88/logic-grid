@@ -1,4 +1,10 @@
-export function findMatrixKey(matrix, itemA, itemB) {
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export function findMatrixKey(
+  matrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): string {
   // Given two items, finds the corresponding matrix key
   //  for the grid that contains the two items
   for (const key in matrix) {

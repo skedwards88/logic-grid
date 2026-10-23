@@ -1,6 +1,8 @@
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {type Clue} from "./getUsefulClue";
 import {removeRedundantClues} from "./removeRedundantClues";
 
-const emptyMatrix = {
+const emptyMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -31,13 +33,15 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("removeRedundantClues", () => {
   test("removes a redundant clue that appears last", () => {
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           orItems: ["red", "yellow"],
@@ -46,6 +50,8 @@ describe("removeRedundantClues", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           itemB: "green",
@@ -58,9 +64,11 @@ describe("removeRedundantClues", () => {
   });
 
   test("removes a redundant clue that appears first", () => {
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           itemB: "green",
@@ -68,6 +76,8 @@ describe("removeRedundantClues", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           orItems: ["red", "yellow"],
@@ -81,9 +91,11 @@ describe("removeRedundantClues", () => {
   });
 
   test("does not doubly remove redundant clues", () => {
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           itemB: "green",
@@ -91,6 +103,8 @@ describe("removeRedundantClues", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "green",
           itemB: "Colin",
@@ -103,9 +117,11 @@ describe("removeRedundantClues", () => {
   });
 
   test("will doubly remove redundant clues if the clues are truly redundant with another clue", () => {
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           itemB: "green",
@@ -113,6 +129,8 @@ describe("removeRedundantClues", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "green",
           itemB: "Colin",
@@ -120,6 +138,8 @@ describe("removeRedundantClues", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Colin",
           orItems: ["red", "yellow"],

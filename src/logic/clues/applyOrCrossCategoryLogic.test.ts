@@ -1,7 +1,8 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const emptyMatrix = {
+const emptyMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -32,7 +33,7 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("applyOrCrossCategoryLogic", () => {
   test('applies a cross category "or" clue when you know nothing about the matrix', () => {
@@ -41,26 +42,29 @@ describe("applyOrCrossCategoryLogic", () => {
       orItems: ["blue", 3],
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "ColorVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const changedKey = "ColorVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, false, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('applies a cross category "or" clue when know that itemA is itemB', () => {
-    let partiallySolvedMatrix = {...emptyMatrix};
-    partiallySolvedMatrix.NameVsColor.grid = [
+    const partiallySolvedMatrix = {...emptyMatrix};
+    partiallySolvedMatrix["NameVsColor"].grid = [
       [false, true, false, false],
       [null, false, null, null],
       [null, false, null, null],
@@ -71,36 +75,42 @@ describe("applyOrCrossCategoryLogic", () => {
       orItems: ["blue", 3],
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "ColorVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      ColorVsNumber: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NameVsNumber: [
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+        emptyMatrix[key]["grid"],
+      );
+    }
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('applies a cross category "or" clue when know that itemA is itemC', () => {
-    let partiallySolvedMatrix = {...emptyMatrix};
-    partiallySolvedMatrix.NameVsColor.grid = [
+    const partiallySolvedMatrix = {...emptyMatrix};
+    partiallySolvedMatrix["NameVsColor"].grid = [
       [false, true, false, false],
       [null, false, null, null],
       [null, false, null, null],
@@ -111,36 +121,42 @@ describe("applyOrCrossCategoryLogic", () => {
       orItems: ["blue", 3],
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "ColorVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      ColorVsNumber: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NameVsNumber: [
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+        emptyMatrix[key]["grid"],
+      );
+    }
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('applies a cross category "or" clue when know that itemA is not itemB', () => {
-    let partiallySolvedMatrix = {...emptyMatrix};
-    partiallySolvedMatrix.NameVsColor.grid = [
+    const partiallySolvedMatrix = {...emptyMatrix};
+    partiallySolvedMatrix["NameVsColor"].grid = [
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -151,36 +167,42 @@ describe("applyOrCrossCategoryLogic", () => {
       orItems: ["blue", 3],
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "ColorVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [false, false, true, false],
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, false, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      ColorVsNumber: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NameVsNumber: [
+        [false, false, true, false],
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, false, null],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+        emptyMatrix[key]["grid"],
+      );
+    }
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('applies a cross category "or" clue when know that itemA is not itemC', () => {
-    let partiallySolvedMatrix = {...emptyMatrix};
-    partiallySolvedMatrix.NameVsColor.grid = [
+    const partiallySolvedMatrix = {...emptyMatrix};
+    partiallySolvedMatrix["NameVsColor"].grid = [
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -191,30 +213,36 @@ describe("applyOrCrossCategoryLogic", () => {
       orItems: ["blue", 3],
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "ColorVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [false, false, true, false],
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, false, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      ColorVsNumber: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NameVsNumber: [
+        [false, false, true, false],
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, false, null],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
+        emptyMatrix[key]["grid"],
+      );
+    }
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 

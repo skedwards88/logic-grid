@@ -3,6 +3,8 @@ import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueInterse
 import {findAllPossibleIndexes} from "../matrixSearching/findPossibleIndex";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function validQNumericComparisonClue({
   matrix,
@@ -14,7 +16,11 @@ export function validQNumericComparisonClue({
     numericDiffClue,
   },
   strict = false,
-}) {
+}: {
+  matrix: PuzzleMatrix;
+  clueParameters: NumericComparisonClue["clueParameters"];
+  strict?: boolean;
+}): boolean {
   const greaterValue = findFirstTrueIntersection(
     matrix,
     greaterItem,
@@ -32,16 +38,24 @@ export function validQNumericComparisonClue({
   }
 
   // if either item has more than two trues, return false
-  let lesserTrues = [];
-  let greaterTrues = [];
+  const lesserTrues: boolean[] = [];
+  const greaterTrues: boolean[] = [];
   for (const numericValue of numericLabels) {
-    const lesserValue = findMatrixValue(matrix, lesserItem, numericValue);
-    if (lesserValue) {
-      lesserTrues.push(lesserValue);
+    const lesserIntersectionValue = findMatrixValue(
+      matrix,
+      lesserItem,
+      numericValue,
+    );
+    if (lesserIntersectionValue) {
+      lesserTrues.push(lesserIntersectionValue);
     }
-    const greaterValue = findMatrixValue(matrix, greaterItem, numericValue);
-    if (greaterValue) {
-      greaterTrues.push(greaterValue);
+    const greaterIntersectionValue = findMatrixValue(
+      matrix,
+      greaterItem,
+      numericValue,
+    );
+    if (greaterIntersectionValue) {
+      greaterTrues.push(greaterIntersectionValue);
     }
   }
 
@@ -86,7 +100,7 @@ export function validQNumericComparisonClue({
       (index) => numericLabels[index],
     );
 
-    let possibleDiffs = [];
+    let possibleDiffs: number[] = [];
 
     for (const lesserValue of lesserItemPossibleValues) {
       for (const greaterValue of greaterItemPossibleValues) {

@@ -1,4 +1,4 @@
-import {getNumericDiff} from "./getNumericDiff.js";
+import {getNumericDiff} from "./getNumericDiff";
 
 describe("getNumericDiff", () => {
   test("does normal subtraction on integers", () => {

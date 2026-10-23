@@ -1,10 +1,23 @@
-import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export type OrCrossCategoryClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "orCrossCategory";
+  clueParameters: {
+    itemA: string | number;
+    orItems: [string | number, string | number];
+  };
+};
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
-export function getOrCrossCategoryClue(solutionMatrix) {
+export function getOrCrossCategoryClue(
+  solutionMatrix: PuzzleMatrix,
+): OrCrossCategoryClue {
   // choose two grids in the solution matrix that share one set of labels
   let keyAB;
   let keyAC;
@@ -64,6 +77,17 @@ export function getOrCrossCategoryClue(solutionMatrix) {
     }
   }
 
+  if (
+    !labelsA ||
+    !labelsB ||
+    !labelsC ||
+    !descriptionTemplateA ||
+    !descriptionTemplateB ||
+    !descriptionTemplateC
+  ) {
+    throw new Error("Unable to set labels and descriptions");
+  }
+
   // the shared label set will have our first item
   // e.g. "colin" in "colin is red or 1"
   const itemA = pickRandomItemFromArray(labelsA);
@@ -76,6 +100,10 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   const itemCNot = findFirstTrueIntersection(solutionMatrix, itemA, labelsC);
   const itemC = shuffleArray(labelsC).find((i) => i != itemCNot);
 
+  if (itemB === undefined || itemC === undefined) {
+    throw new Error("Unable to find items");
+  }
+
   const descriptionA = descriptionTemplateA.description(itemA);
   const descriptionB = descriptionTemplateB.description(itemB);
   const descriptionC = descriptionTemplateC.description(itemC);
@@ -87,7 +115,8 @@ export function getOrCrossCategoryClue(solutionMatrix) {
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {
-    writtenClue: writtenClue,
+    writtenClue,
+    crossedOff: false,
     clueType: "orCrossCategory",
     clueParameters: {itemA, orItems: [itemB, itemC]},
   };

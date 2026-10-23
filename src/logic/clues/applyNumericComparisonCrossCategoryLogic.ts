@@ -1,9 +1,18 @@
-import {setToFalse} from "../puzzleGeneration/setValue.js";
-import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic.js";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {setToFalse} from "../puzzleGeneration/setValue";
+import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
+import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
+
 export function applyNumericComparisonCrossCategoryLogic(
-  derivedMatrix,
-  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
-) {
+  derivedMatrix: PuzzleMatrix,
+  {
+    greaterItem,
+    lesserItem,
+    numericLabels,
+    actualNumericDiff,
+    numericDiffClue,
+  }: NumericComparisonCrossCategoryClue["clueParameters"],
+): PuzzleMatrix {
   let newDerivedMatrix = derivedMatrix;
 
   // Know that greaterItem is not lesserItem

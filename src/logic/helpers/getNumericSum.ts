@@ -1,4 +1,4 @@
-export function getNumericSum(numberA, numberB) {
+export function getNumericSum(numberA: number, numberB: number): number {
   // Addition that handles floating point numbers
   const decimalsA = (numberA.toString().split(".")[1] || "").length;
   const decimalsB = (numberB.toString().split(".")[1] || "").length;

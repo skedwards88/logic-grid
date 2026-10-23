@@ -35,16 +35,20 @@ describe("generateSolutionMatrix", () => {
 
     for (const key in solutionMatrix) {
       // rows are one of the label lists
-      const expectedRows = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].rowLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].rowLabels,
+      );
 
       // columns are one of the label lists
-      const expectedColumns = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].columnLabels,
+      );
 
       // rows and columns are different
       expect(solutionMatrix[key].columnLabels).not.toEqual(
@@ -127,16 +131,20 @@ describe("generateSolutionMatrix", () => {
 
     for (const key in solutionMatrix) {
       // rows are one of the label lists
-      const expectedRows = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].rowLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].rowLabels,
+      );
 
       // columns are one of the label lists
-      const expectedColumns = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].columnLabels,
+      );
 
       // rows and columns are different
       expect(solutionMatrix[key].columnLabels).not.toEqual(
@@ -219,16 +227,20 @@ describe("generateSolutionMatrix", () => {
 
     for (const key in solutionMatrix) {
       // rows are one of the label lists
-      const expectedRows = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].rowLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedRows);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].rowLabels,
+      );
 
       // columns are one of the label lists
-      const expectedColumns = expect.arrayContaining([
+      expect.arrayContaining([
         expect.objectContaining(solutionMatrix[key].columnLabels),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toEqual(expectedColumns);
+      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
+        solutionMatrix[key].columnLabels,
+      );
 
       // rows and columns are different
       expect(solutionMatrix[key].columnLabels).not.toEqual(

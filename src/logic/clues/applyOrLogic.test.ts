@@ -1,7 +1,8 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyOrLogic} from "./applyOrLogic";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const emptyMatrix = {
+const emptyMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -62,7 +63,7 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("applyOrLogic", () => {
   test('applies an "or" clue (when all items are strings)', () => {
@@ -71,20 +72,24 @@ describe("applyOrLogic", () => {
       orItems: ["Meme", "Fefe"],
       allItems: ["Colin", "Sarah", "Fefe", "Meme"],
     });
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+
+    const changedKey = "NameVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -94,25 +99,29 @@ describe("applyOrLogic", () => {
       orItems: [2, 3],
       allItems: [1, 2, 3, 4],
     });
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test("works even if the clue has no effect", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       ...emptyMatrix,
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -124,7 +133,7 @@ describe("applyOrLogic", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const newDerivedMatrix = applyOrLogic(inputMatrix, {
       itemA: "blue",
       orItems: ["Meme", "Fefe"],

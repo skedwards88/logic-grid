@@ -1,7 +1,11 @@
 import cloneDeep from "lodash.clonedeep";
 import {setToTrue} from "../logic/puzzleGeneration/setValue";
+import {
+  type SolvedPuzzleMatrix,
+  type PuzzleMatrix,
+} from "./puzzleGeneration/buildEmptyMatrix";
 
-function makeEmptyCopyOfMatrix(matrix) {
+function makeEmptyCopyOfMatrix(matrix: PuzzleMatrix): PuzzleMatrix {
   const matrixCopy = cloneDeep(matrix);
 
   for (const key in matrixCopy) {
@@ -13,10 +17,10 @@ function makeEmptyCopyOfMatrix(matrix) {
   return matrixCopy;
 }
 
-export function autocomplete(inputMatrix) {
+export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
   let autofilledMatrix = makeEmptyCopyOfMatrix(inputMatrix);
 
-  // Propogate the trues in the matrix
+  // Propagate the trues in the matrix
   for (const key in inputMatrix) {
     const grid = inputMatrix[key].grid;
     const rowLabels = inputMatrix[key].rowLabels;
@@ -45,7 +49,7 @@ export function autocomplete(inputMatrix) {
     const grid = inputMatrix[key].grid;
     const autofilledGrid = autofilledMatrix[key].grid;
 
-    let columnTrueIndexes = [];
+    let columnTrueIndexes: number[] = [];
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       const trueIndexesInRow = [...autofilledGrid[rowIndex].keys()].filter(
         (i) => autofilledGrid[rowIndex][i],
@@ -58,14 +62,14 @@ export function autocomplete(inputMatrix) {
       // if not exactly one true in the row
       if (trueIndexesInRow.length != 1) {
         throw new Error(
-          "Propogating the trues did not result in exactly one true/row",
+          "Propagating the trues did not result in exactly one true/row",
         );
       }
 
       // if more than one true in the columns
       if (columnTrueIndexes.includes(trueIndexesInRow[0])) {
         throw new Error(
-          "Propogating the trues resulted in multiple trues per column",
+          "Propagating the trues resulted in multiple trues per column",
         );
       }
       columnTrueIndexes = [...columnTrueIndexes, ...trueIndexesInRow];
@@ -78,7 +82,7 @@ export function autocomplete(inputMatrix) {
         // Verify that the autofilled matrix has no nulls
         if (autofilledGrid[rowIndex][columnIndex] === null) {
           throw new Error(
-            "Propogating the trues did not fully complete the puzzle",
+            "Propagating the trues did not fully complete the puzzle",
           );
         }
         // Verify that there are no disagreements between the original and autofilled matrix
@@ -89,12 +93,12 @@ export function autocomplete(inputMatrix) {
             autofilledGrid[rowIndex][columnIndex]
         ) {
           throw new Error(
-            "Popoagating the trues leads to a disagreement with the original array",
+            "Propagating the trues leads to a disagreement with the original array",
           );
         }
       }
     }
   }
 
-  return autofilledMatrix;
+  return autofilledMatrix as SolvedPuzzleMatrix;
 }

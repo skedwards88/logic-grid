@@ -1,8 +1,9 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const completeMatrix = {
+const completeMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -33,12 +34,12 @@ const completeMatrix = {
       [true, false, false, false],
     ],
   },
-};
+});
 
 describe("validQOrCrossCategoryClue, non-strict", () => {
   test("returns false if both 'or' values are false", () => {
     const itemA = "Colin";
-    const orItems = ["red", 4];
+    const orItems: [string | number, string | number] = ["red", 4];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -54,7 +55,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns false if both 'or' values are true", () => {
     const itemA = "Colin";
-    const orItems = ["blue", 1];
+    const orItems: [string | number, string | number] = ["blue", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -70,7 +71,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if both 'or's are null", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 1];
+    const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -87,7 +88,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if one 'or' is null and one is false", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 2];
+    const orItems: [string | number, string | number] = ["red", 2];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -104,7 +105,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if the first 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = [1, "red"];
+    const orItems: [string | number, string | number] = [1, "red"];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -121,7 +122,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if the first 'or' is true and the other is null", () => {
     const itemA = "Sarah";
-    const orItems = [3, "red"];
+    const orItems: [string | number, string | number] = [3, "red"];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -137,7 +138,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if the second 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = ["red", 1];
+    const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -153,7 +154,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 
   test("returns true if the second 'or' is true and the other is null", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 3];
+    const orItems: [string | number, string | number] = ["red", 3];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -183,7 +184,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
 describe("validQOrCrossCategoryClue, strict", () => {
   test("returns false if both 'or' values are false", () => {
     const itemA = "Colin";
-    const orItems = ["red", 4];
+    const orItems: [string | number, string | number] = ["red", 4];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -200,7 +201,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns false if both 'or' values are true", () => {
     const itemA = "Colin";
-    const orItems = ["blue", 1];
+    const orItems: [string | number, string | number] = ["blue", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -217,7 +218,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns false if both 'or's are null", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 1];
+    const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -235,7 +236,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns false if one 'or' is null and one is false", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 2];
+    const orItems: [string | number, string | number] = ["red", 2];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -253,7 +254,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns true if the first 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = [1, "red"];
+    const orItems: [string | number, string | number] = [1, "red"];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -271,7 +272,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns true if the second 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = ["red", 1];
+    const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -288,7 +289,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns true if the first 'or' is true and the other is null", () => {
     const itemA = "Sarah";
-    const orItems = [3, "red"];
+    const orItems: [string | number, string | number] = [3, "red"];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {
@@ -305,7 +306,7 @@ describe("validQOrCrossCategoryClue, strict", () => {
 
   test("returns true if the second 'or' is true and the other is null", () => {
     const itemA = "Sarah";
-    const orItems = ["red", 3];
+    const orItems: [string | number, string | number] = ["red", 3];
     const validQ = validQOrCrossCategoryClue({
       matrix: completeMatrix,
       clueParameters: {

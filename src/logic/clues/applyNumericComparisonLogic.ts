@@ -2,16 +2,24 @@ import {
   findFirstPossibleIndex,
   findLastPossibleIndex,
 } from "../matrixSearching/findPossibleIndex";
-import {setToFalse, setToTrue} from "../puzzleGeneration/setValue.js";
-import {findMatrixValue} from "../matrixSearching/findMatrixValue.js";
-import {getNumericDiff} from "../helpers/getNumericDiff.js";
-import {getNumericSum} from "../helpers/getNumericSum.js";
-import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
+import {setToFalse, setToTrue} from "../puzzleGeneration/setValue";
+import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {getNumericDiff} from "../helpers/getNumericDiff";
+import {getNumericSum} from "../helpers/getNumericSum";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function applyNumericComparisonLogic(
-  derivedMatrix,
-  {greaterItem, lesserItem, numericLabels, actualNumericDiff, numericDiffClue},
-) {
+  derivedMatrix: PuzzleMatrix,
+  {
+    greaterItem,
+    lesserItem,
+    numericLabels,
+    actualNumericDiff,
+    numericDiffClue,
+  }: NumericComparisonClue["clueParameters"],
+): PuzzleMatrix {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   let newDerivedMatrix = derivedMatrix;
@@ -23,6 +31,10 @@ export function applyNumericComparisonLogic(
     lesserItem,
     numericLabels,
   );
+
+  if (lesserItemLowestPossibleIndex === undefined) {
+    throw new Error("No possible index");
+  }
 
   const lesserItemLowestPossibleValue =
     numericLabels[lesserItemLowestPossibleIndex];
@@ -89,6 +101,10 @@ export function applyNumericComparisonLogic(
     greaterItem,
     numericLabels,
   );
+
+  if (greaterItemHighestPossibleIndex === undefined) {
+    throw new Error("No possible index");
+  }
 
   const greaterItemHighestPossibleValue =
     numericLabels[greaterItemHighestPossibleIndex];

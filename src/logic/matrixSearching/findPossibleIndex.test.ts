@@ -1,10 +1,11 @@
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 import {
   findFirstPossibleIndex,
   findLastPossibleIndex,
   findAllPossibleIndexes,
-} from "./findPossibleIndex.js";
+} from "./findPossibleIndex";
 
-const matrix = {
+const matrix = addTemplatesForTestMatrix({
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -35,7 +36,7 @@ const matrix = {
       [false, false, null, true],
     ],
   },
-};
+});
 
 describe("findFirstPossibleIndex", () => {
   test("returns the index of the first true or null (case where there is a true and no null)", () => {
@@ -85,6 +86,12 @@ describe("findFirstPossibleIndex", () => {
     expect(findFirstPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(0);
     expect(findFirstPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(0);
   });
+
+  test("returns undefined when there are no trues or nulls", () => {
+    expect(
+      findFirstPossibleIndex(matrix, "red", ["Colin", "Sarah", "Fefe", "Meme"]),
+    ).toEqual(undefined);
+  });
 });
 
 describe("findLastPossibleIndex", () => {
@@ -129,6 +136,12 @@ describe("findLastPossibleIndex", () => {
   test("returns the index of the first true or null (case with multiple nulls)", () => {
     expect(findLastPossibleIndex(matrix, "Sarah", [1, 2, 3, 4])).toEqual(3);
     expect(findLastPossibleIndex(matrix, "green", [1, 2, 3, 4])).toEqual(3);
+  });
+
+  test("returns undefined when there are no trues or nulls", () => {
+    expect(
+      findLastPossibleIndex(matrix, "red", ["Colin", "Sarah", "Fefe", "Meme"]),
+    ).toEqual(undefined);
   });
 });
 

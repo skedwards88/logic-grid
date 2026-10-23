@@ -3,14 +3,30 @@ import {
   pickRandomItemFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection.js";
-import {arraysEqualQ} from "../equalQ/arraysEqualQ.js";
-import {getNumericDiff} from "../helpers/getNumericDiff.js";
-import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
+import {arraysEqualQ} from "../equalQ/arraysEqualQ";
+import {getNumericDiff} from "../helpers/getNumericDiff";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export type NumericComparisonCrossCategoryClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "numericComparisonCrossCategory";
+  clueParameters: {
+    greaterItem: string | number;
+    lesserItem: string | number;
+    numericLabels: number[];
+    actualNumericDiff: number;
+    numericDiffClue: number | undefined;
+  };
+};
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
-export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
+export function getNumericComparisonCrossCategoryClue(
+  solutionMatrix: PuzzleMatrix,
+): NumericComparisonCrossCategoryClue {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // find two grids in the solution matrix that uses a numeric category
@@ -22,33 +38,54 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
   let itemBLabels;
   let itemBTemplates;
   for (const key of shuffleArray(Object.keys(solutionMatrix))) {
+    const rowLabels = solutionMatrix[key].rowLabels;
+    const columnLabels = solutionMatrix[key].columnLabels;
     if (!itemALabels) {
       // If we haven't found a numeric entry, choose the first that we find
-      if (typeof solutionMatrix[key].rowLabels[0] === "number") {
-        numericLabels = solutionMatrix[key].rowLabels;
+      if (
+        rowLabels.every((label): label is number => typeof label === "number")
+      ) {
+        numericLabels = rowLabels;
         numericDescriptionTemplates =
           solutionMatrix[key].rowDescriptionTemplates;
-        itemALabels = solutionMatrix[key].columnLabels;
+        itemALabels = columnLabels;
         itemATemplates = solutionMatrix[key].columnDescriptionTemplates;
-      } else if (typeof solutionMatrix[key].columnLabels[0] === "number") {
-        numericLabels = solutionMatrix[key].columnLabels;
+      } else if (
+        columnLabels.every(
+          (label): label is number => typeof label === "number",
+        )
+      ) {
+        numericLabels = columnLabels;
         numericDescriptionTemplates =
           solutionMatrix[key].columnDescriptionTemplates;
-        itemALabels = solutionMatrix[key].rowLabels;
+        itemALabels = rowLabels;
         itemATemplates = solutionMatrix[key].rowDescriptionTemplates;
       }
     } else {
+      if (!numericLabels) {
+        throw new Error("numericLabels not set as expected");
+      }
+
       // in case there are multiple numeric labels, make sure we find one that matches the one we already found
-      if (arraysEqualQ(solutionMatrix[key].rowLabels, numericLabels)) {
-        itemBLabels = solutionMatrix[key].columnLabels;
+      if (arraysEqualQ(rowLabels, numericLabels)) {
+        itemBLabels = columnLabels;
         itemBTemplates = solutionMatrix[key].columnDescriptionTemplates;
-      } else if (
-        arraysEqualQ(solutionMatrix[key].columnLabels, numericLabels)
-      ) {
-        itemBLabels = solutionMatrix[key].rowLabels;
+      } else if (arraysEqualQ(columnLabels, numericLabels)) {
+        itemBLabels = rowLabels;
         itemBTemplates = solutionMatrix[key].rowDescriptionTemplates;
       }
     }
+  }
+
+  if (
+    !numericLabels ||
+    !itemALabels ||
+    !itemBLabels ||
+    !itemATemplates ||
+    !itemBTemplates ||
+    !numericDescriptionTemplates
+  ) {
+    throw new Error("Labels and templates not set as expected");
   }
 
   // choose two random items in two separate non-numeric label sets
@@ -68,6 +105,10 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     itemBLabels,
   );
 
+  if (itemA === undefined || itemB === undefined) {
+    throw new Error("Unable to find items");
+  }
+
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
   // possible diffs are 5, 15, 25, as well as undefined
@@ -76,7 +117,7 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
       i >= Math.min(itemANumericValue, itemBNumericValue) &&
       i <= Math.max(itemANumericValue, itemBNumericValue),
   );
-  let numericDiffOptions = [undefined];
+  let numericDiffOptions: (number | undefined)[] = [undefined];
   for (let index = 1; index < inclusiveNumericLabels.length; index++) {
     numericDiffOptions = [
       ...numericDiffOptions,
@@ -112,7 +153,8 @@ export function getNumericComparisonCrossCategoryClue(solutionMatrix) {
     itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
   return {
-    writtenClue: writtenClue,
+    writtenClue,
+    crossedOff: false,
     clueType: "numericComparisonCrossCategory",
     clueParameters: {
       greaterItem,

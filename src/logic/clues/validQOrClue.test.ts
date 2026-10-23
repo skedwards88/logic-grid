@@ -1,8 +1,9 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQOrClue} from "./validQOrClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const completeMatrix = {
+const completeMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -33,12 +34,12 @@ const completeMatrix = {
       [false, false, true, false],
     ],
   },
-};
+});
 
 describe("validQOrClue, strict", () => {
   test("returns false if the item is any of the non-'or' items", () => {
     const itemA = "Colin";
-    const orItems = [2, 4];
+    const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -58,7 +59,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns false if both 'or' values are false", () => {
     const itemA = "Colin";
-    const orItems = [2, 4];
+    const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -77,7 +78,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns false if both 'or' values are true", () => {
     const itemA = "Sarah";
-    const orItems = [2, 3];
+    const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -96,7 +97,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns false if both 'or's are null", () => {
     const itemA = "Meme";
-    const orItems = ["blue", "green"];
+    const orItems: [string | number, string | number] = ["blue", "green"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -116,7 +117,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns false if one 'or' is null and one is false", () => {
     const itemA = "Meme";
-    const orItems = ["blue", "yellow"];
+    const orItems: [string | number, string | number] = ["blue", "yellow"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -136,7 +137,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns true if the first 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = [1, 2];
+    const orItems: [string | number, string | number] = [1, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -156,7 +157,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns true if the first 'or' is true and the other is null", () => {
     const itemA = "Fefe";
-    const orItems = [2, 3];
+    const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -175,7 +176,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns true if the second 'or' is true and the other is false", () => {
     const itemA = "red";
-    const orItems = [4, 3];
+    const orItems: [string | number, string | number] = [4, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -194,7 +195,7 @@ describe("validQOrClue, strict", () => {
 
   test("returns true if the second 'or' is true and the other is null", () => {
     const itemA = "Fefe";
-    const orItems = [3, 2];
+    const orItems: [string | number, string | number] = [3, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -217,7 +218,7 @@ describe("validQOrClue, strict", () => {
       matrix: matrixCopy,
       clueParameters: {
         itemA: "Colin",
-        orItems: ["red", "blue", "green", "yellow"],
+        orItems: ["red", "blue"],
         allItems: [],
       },
       strict: true,
@@ -229,7 +230,7 @@ describe("validQOrClue, strict", () => {
 describe("validQOrClue, non-strict", () => {
   test("returns false if the item is any of the non-'or' items", () => {
     const itemA = "Colin";
-    const orItems = [2, 4];
+    const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -248,7 +249,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns false if both 'or' values are false", () => {
     const itemA = "Colin";
-    const orItems = [2, 4];
+    const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -266,7 +267,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns false if both 'or' values are true", () => {
     const itemA = "Sarah";
-    const orItems = [2, 3];
+    const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -284,7 +285,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if both 'or's are null", () => {
     const itemA = "Meme";
-    const orItems = ["blue", "green"];
+    const orItems: [string | number, string | number] = ["blue", "green"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -303,7 +304,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if one 'or' is null and one is false", () => {
     const itemA = "Meme";
-    const orItems = ["blue", "yellow"];
+    const orItems: [string | number, string | number] = ["blue", "yellow"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -322,7 +323,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if the first 'or' is true and the other is false", () => {
     const itemA = "Colin";
-    const orItems = [1, 2];
+    const orItems: [string | number, string | number] = [1, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -341,7 +342,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if the first 'or' is true and the other is null", () => {
     const itemA = "Fefe";
-    const orItems = [2, 3];
+    const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -359,7 +360,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if the second 'or' is true and the other is false", () => {
     const itemA = "red";
-    const orItems = [4, 3];
+    const orItems: [string | number, string | number] = [4, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -377,7 +378,7 @@ describe("validQOrClue, non-strict", () => {
 
   test("returns true if the second 'or' is true and the other is null", () => {
     const itemA = "Fefe";
-    const orItems = [3, 2];
+    const orItems: [string | number, string | number] = [3, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
       matrix: completeMatrix,
@@ -399,7 +400,7 @@ describe("validQOrClue, non-strict", () => {
       matrix: matrixCopy,
       clueParameters: {
         itemA: "Colin",
-        orItems: ["red", "blue", "green", "yellow"],
+        orItems: ["red", "blue"],
         allItems: [],
       },
     });

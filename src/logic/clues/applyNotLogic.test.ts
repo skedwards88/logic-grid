@@ -1,7 +1,8 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyNotLogic} from "./applyNotLogic";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const emptyMatrix = {
+const emptyMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -62,7 +63,7 @@ const emptyMatrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("applyNotLogic", () => {
   test("sets an intersection to false (when both items are strings)", () => {
@@ -71,20 +72,23 @@ describe("applyNotLogic", () => {
       itemB: "blue",
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const changedKey = "NameVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -94,25 +98,28 @@ describe("applyNotLogic", () => {
       itemB: "blue",
     });
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, false, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test("works even if the intersection is already false", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       ...emptyMatrix,
       NameVsColor: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -124,7 +131,7 @@ describe("applyNotLogic", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const newDerivedMatrix = applyNotLogic(inputMatrix, {
       itemA: "Colin",
       itemB: "blue",

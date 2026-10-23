@@ -1,10 +1,16 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type OrClue} from "./getOrClue";
 
 export function validQOrClue({
   matrix,
   clueParameters: {itemA, orItems, allItems},
   strict = false,
-}) {
+}: {
+  matrix: PuzzleMatrix;
+  clueParameters: OrClue["clueParameters"];
+  strict?: boolean;
+}): boolean {
   const [itemB, itemC] = orItems;
   const aVsB = findMatrixValue(matrix, itemA, itemB);
   const aVsC = findMatrixValue(matrix, itemA, itemC);

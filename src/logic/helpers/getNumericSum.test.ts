@@ -1,4 +1,4 @@
-import {getNumericSum} from "./getNumericSum.js";
+import {getNumericSum} from "./getNumericSum";
 
 describe("getNumericSum", () => {
   test("does normal addition on integers", () => {

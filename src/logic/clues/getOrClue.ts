@@ -3,11 +3,23 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
+import {type SolvedPuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export type OrClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "or";
+  clueParameters: {
+    itemA: string | number;
+    orItems: [string | number, string | number];
+    allItems: (string | number)[];
+  };
+};
 
 // Generates an "or" clue
 // e.g. "Colin is red or blue"
 // which equates to "Colin is not green or yellow"
-export function getOrClue(solutionMatrix) {
+export function getOrClue(solutionMatrix: SolvedPuzzleMatrix): OrClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
   const columnLabels = solutionMatrix[solutionKey].columnLabels;
@@ -22,7 +34,7 @@ export function getOrClue(solutionMatrix) {
   const columnIndexTrue = grid[rowIndex].indexOf(true);
   const columnItemTrue = columnLabels[columnIndexTrue];
 
-  // choose any of the falses from that row
+  // choose any of the 'false's from that row
   const falseIndexes = grid[rowIndex]
     .map((value, index) => (value ? null : index))
     .filter((index) => index !== null);
@@ -47,7 +59,8 @@ export function getOrClue(solutionMatrix) {
   writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
 
   return {
-    writtenClue: writtenClue,
+    writtenClue,
+    crossedOff: false,
     clueType: "or",
     clueParameters: {
       itemA: rowItem,

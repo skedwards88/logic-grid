@@ -1,8 +1,9 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQNotClue} from "./validQNotClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
-const completeMatrix = {
+const completeMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -33,9 +34,9 @@ const completeMatrix = {
       [false, false, true, false],
     ],
   },
-};
+});
 
-const sparseMatrix = {
+const sparseMatrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -66,7 +67,7 @@ const sparseMatrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("validQNotClue, strict", () => {
   test("returns false if the intersection is true", () => {

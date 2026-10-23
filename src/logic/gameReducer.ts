@@ -1,9 +1,38 @@
 import cloneDeep from "lodash.clonedeep";
-import {gameInit} from "./gameInit";
-
+import {gameInit, type GameState} from "./gameInit";
 import {autocomplete} from "./autocomplete";
 
-export function gameReducer(currentGameState, payload) {
+export type ReducerPayload =
+  | {
+      action: "changeCellState";
+      gridID: string;
+      rowIndex: number;
+      columnIndex: number;
+    }
+  | {
+      action: "utilizeEasyTrue";
+      gridID: string;
+      rowIndex: number;
+      columnIndex: number;
+    }
+  | {action: "autofill"}
+  | {action: "setClueCrossedOff"; index: number}
+  | {action: "changeEasyTrue"}
+  | {action: "changeShowViolations"}
+  | {action: "undo"}
+  | {action: "reset"}
+  | {
+      action: "newGame";
+      numCategories?: number;
+      numItemsPerCategory?: number;
+      easyTrue?: boolean;
+      showViolations?: boolean;
+    };
+
+export function gameReducer(
+  currentGameState: GameState,
+  payload: ReducerPayload,
+): GameState {
   if (payload.action === "changeCellState") {
     const currentDerivedMatrix =
       currentGameState.derivedMatrixHistory[
@@ -46,9 +75,9 @@ export function gameReducer(currentGameState, payload) {
       ];
     const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentGrid = newDerivedMatrix[payload.gridID].grid;
-    let newGrid = [];
+    let newGrid: (boolean | null)[][] = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
-      let newRow = [];
+      let newRow: (boolean | null)[] = [];
       for (
         let columnIndex = 0;
         columnIndex < currentGrid[rowIndex].length;
@@ -95,8 +124,11 @@ export function gameReducer(currentGameState, payload) {
     };
   } else if (payload.action === "newGame") {
     return gameInit({
-      ...currentGameState,
-      ...payload,
+      numCategories: payload.numCategories ?? currentGameState.numCategories,
+      numItemsPerCategory:
+        payload.numItemsPerCategory ?? currentGameState.numItemsPerCategory,
+      easyTrue: payload.easyTrue ?? currentGameState.easyTrue,
+      showViolations: payload.showViolations ?? currentGameState.showViolations,
       useSaved: false,
     });
   } else if (payload.action === "setClueCrossedOff") {
@@ -125,7 +157,9 @@ export function gameReducer(currentGameState, payload) {
       derivedMatrixHistory: currentGameState.derivedMatrixHistory.slice(0, 1),
     };
   } else {
-    console.error(`unhandled action: ${payload.action}`);
+    console.log(
+      `unknown action: ${(payload as unknown as {action: string}).action}`,
+    );
     return currentGameState;
   }
 }

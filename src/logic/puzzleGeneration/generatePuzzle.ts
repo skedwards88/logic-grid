@@ -1,14 +1,25 @@
 import cloneDeep from "lodash.clonedeep";
 import {puzzleSolvedQ} from "../puzzleSolvedQ";
-import {getUsefulClue} from "./getUsefulClue.js";
-import {applyCluesAdNauseam} from "./applyCluesAdNauseam.js";
-import {chooseCategories} from "./chooseCategories.js";
-import {generateSolutionMatrix} from "./generateSolutionMatrix.js";
-import {buildEmptyMatrix} from "./buildEmptyMatrix.js";
-import {removeRedundantClues} from "./removeRedundantClues.js";
+import {type Clue, getUsefulClue} from "./getUsefulClue";
+import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
+import {chooseCategories} from "./chooseCategories";
+import {generateSolutionMatrix} from "./generateSolutionMatrix";
+import {buildEmptyMatrix, type PuzzleMatrix} from "./buildEmptyMatrix";
+import {removeRedundantClues} from "./removeRedundantClues";
 
-export function generatePuzzle(numCats, numItemsPerCat) {
-  const categoryLabelsAndTemplates = chooseCategories(numCats, numItemsPerCat);
+export function generatePuzzle(
+  numCategories: number,
+  numItemsPerCategory: number,
+): {
+  clues: Clue[];
+  derivedMatrix: PuzzleMatrix;
+  matrixRowLabels: (string | number)[][];
+  matrixColumnLabels: (string | number)[][];
+} {
+  const categoryLabelsAndTemplates = chooseCategories(
+    numCategories,
+    numItemsPerCategory,
+  );
   const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
   const emptyMatrix = buildEmptyMatrix(solutionMatrix);
 
@@ -28,12 +39,12 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   const matrixColumnLabels = matrixColumnInfo.map((i) => i.displayLabels);
   const matrixRowLabels = matrixRowInfo.map((i) => i.displayLabels);
 
-  const includeCrossCategoryClues = numCats > 2;
+  const includeCrossCategoryClues = numCategories > 2;
   const includeNumericClues = categoryLabelsAndTemplates
     .map((i) => i.labels)
     .some((i) => typeof i[0] === "number");
 
-  let clues = [];
+  let clues: Clue[] = [];
   let puzzleIsSolved = false;
   let clue;
   let newDerivedMatrix = cloneDeep(emptyMatrix);
@@ -56,7 +67,7 @@ export function generatePuzzle(numCats, numItemsPerCat) {
   return {
     clues: nonRedundantClues,
     derivedMatrix: emptyMatrix,
-    matrixRowLabels: matrixRowLabels,
-    matrixColumnLabels: matrixColumnLabels,
+    matrixRowLabels,
+    matrixColumnLabels,
   };
 }

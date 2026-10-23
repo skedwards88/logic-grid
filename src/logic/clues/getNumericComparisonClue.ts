@@ -1,11 +1,27 @@
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {getNumericDiff} from "../helpers/getNumericDiff.js";
-import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff.js";
+import {getNumericDiff} from "../helpers/getNumericDiff";
+import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export type NumericComparisonClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "numericComparison";
+  clueParameters: {
+    greaterItem: string | number;
+    lesserItem: string | number;
+    numericLabels: number[];
+    actualNumericDiff: number;
+    numericDiffClue: number | undefined;
+  };
+};
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
-export function getNumericComparisonClue(solutionMatrix) {
+export function getNumericComparisonClue(
+  solutionMatrix: PuzzleMatrix,
+): NumericComparisonClue {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // choose a grid in the solution matrix that uses a numeric category
@@ -26,16 +42,22 @@ export function getNumericComparisonClue(solutionMatrix) {
     }
   }
 
+  if (numericIsRows === undefined || selectedKey === undefined) {
+    throw new Error(
+      `getNumericComparisonClue called without a numeric category`,
+    );
+  }
+
   // figure out the numeric labels
   const numericLabels = numericIsRows
-    ? solutionMatrix[selectedKey].rowLabels
-    : solutionMatrix[selectedKey].columnLabels;
+    ? (solutionMatrix[selectedKey].rowLabels as number[])
+    : (solutionMatrix[selectedKey].columnLabels as number[]);
 
   // choose two random items in the other label set
   const otherLabels = numericIsRows
     ? solutionMatrix[selectedKey].columnLabels
     : solutionMatrix[selectedKey].rowLabels;
-  const otherLabelIndexes = otherLabels.map((label, index) => index);
+  const otherLabelIndexes = otherLabels.map((_, index) => index);
   const itemAIndex = pickRandomItemFromArray(otherLabelIndexes);
   const itemA = otherLabels[itemAIndex];
   const itemBIndex = pickRandomItemFromArray([
@@ -61,12 +83,13 @@ export function getNumericComparisonClue(solutionMatrix) {
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
   // possible diffs are 5, 15, 25, as well as undefined
+  // (in the case of undefined, "at least" and the minimum diff is used)
   const inclusiveNumericLabels = numericLabels.filter(
     (i) =>
       i >= Math.min(itemANumericValue, itemBNumericValue) &&
       i <= Math.max(itemANumericValue, itemBNumericValue),
   );
-  let numericDiffOptions = [undefined];
+  let numericDiffOptions: (number | undefined)[] = [undefined];
   for (let index = 1; index < inclusiveNumericLabels.length; index++) {
     numericDiffOptions = [
       ...numericDiffOptions,
@@ -116,7 +139,8 @@ export function getNumericComparisonClue(solutionMatrix) {
     itemANumericValue < itemBNumericValue ? [itemB, itemA] : [itemA, itemB];
 
   return {
-    writtenClue: writtenClue,
+    writtenClue,
+    crossedOff: false,
     clueType: "numericComparison",
     clueParameters: {
       greaterItem,

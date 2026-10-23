@@ -1,40 +1,45 @@
-export function sortLabels(labels) {
-  labels = [...labels];
+export const daysInOrder: string[] = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
-  const dayOrder = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+export const monthsInOrder = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
-  const monthOrder = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+export function sortLabels<T>(labels: T[]): T[] {
+  const copy = [...labels];
 
-  if (typeof labels[0] === "number") {
-    return labels.sort((a, b) => a - b);
+  if (copy.every((x) => typeof x === "number")) {
+    return copy.sort((a, b) => a - b);
   }
-  if (dayOrder.includes(labels[0])) {
-    return labels.sort((a, b) => dayOrder.indexOf(a) - dayOrder.indexOf(b));
+
+  for (const orderedList of [daysInOrder, monthsInOrder]) {
+    if (copy.every((x) => typeof x === "string" && orderedList.includes(x))) {
+      return copy.sort(
+        (a, b) =>
+          orderedList.indexOf(a as string) - orderedList.indexOf(b as string),
+      );
+    }
   }
-  if (monthOrder.includes(labels[0])) {
-    return labels.sort((a, b) => monthOrder.indexOf(a) - monthOrder.indexOf(b));
-  } else {
-    return labels.sort();
-  }
+
+  return copy.sort((a, b) =>
+    String(a).localeCompare(String(b), undefined, {numeric: true}),
+  );
 }

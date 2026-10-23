@@ -1,6 +1,8 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
+import {type Clue} from "./getUsefulClue";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
 // function visualizeOutput(derivedMatrix) {
 //   for (const key in derivedMatrix) {
@@ -19,7 +21,7 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("solves an empty puzzle to completion (2)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       box1: {
         rowLabels: [80, 85, 90, 95],
         columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
@@ -50,11 +52,13 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Connor",
           itemB: "teal",
@@ -62,6 +66,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: 95,
           orItems: ["Connor", "Megan"],
@@ -70,6 +76,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: 80,
           itemB: "blue",
@@ -77,18 +85,26 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: 85, orItems: ["Alonzo", "blue"]},
       },
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: "blue", orItems: [90, "Megan"]},
       },
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: "Wayne", orItems: [90, "teal"]},
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "lime",
           lesserItem: "blue",
@@ -99,6 +115,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: 95,
           itemB: "teal",
@@ -106,6 +124,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "Connor",
           lesserItem: "Wayne",
@@ -116,6 +136,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: 85,
           itemB: "blue",
@@ -123,6 +145,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "Wayne",
           orItems: ["teal", "yellow"],
@@ -137,45 +161,45 @@ describe("applyCluesAdNauseam", () => {
       3 * clues.length,
     );
 
-    for (const key in derivedMatrix) {
-      if (key === "box1") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ]);
-      } else if (key === "box2") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ]);
-      } else if (key === "box3") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ]);
-      } else {
-        expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      box1: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      box2: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      box3: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(derivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(derivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(derivedMatrix[key]["grid"]).not.toEqual(inputMatrix[key]["grid"]);
+    }
+
+    for (const key of unchangedKeys) {
+      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
     }
   });
 
   test("solves an empty puzzle to completion", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       box1: {
         rowLabels: ["ghoul", "mummy", "troll", "vampire"],
         columnLabels: [10, 15, 20, 25],
@@ -206,11 +230,13 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "mummy",
           orItems: ["twix", "m&ms"],
@@ -219,10 +245,14 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: "vampire", orItems: [25, "twix"]},
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "resses",
           lesserItem: "twix",
@@ -233,6 +263,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "ghoul",
           lesserItem: "mummy",
@@ -243,6 +275,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "twix",
           orItems: [10, 25],
@@ -251,6 +285,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "ghoul",
           itemB: "m&ms",
@@ -264,47 +300,47 @@ describe("applyCluesAdNauseam", () => {
       4 * clues.length,
     );
 
-    for (const key in derivedMatrix) {
-      if (key === "box1") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [false, false, true, false],
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, false, true],
-        ]);
-      } else if (key === "box2") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [false, false, false, true],
-          [false, false, true, false],
-          [false, true, false, false],
-          [true, false, false, false],
-        ]);
-      } else if (key === "box3") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [false, false, false, true],
-          [false, true, false, false],
-          [true, false, false, false],
-          [false, false, true, false],
-        ]);
-      } else {
-        expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
-      }
+    const expectedChanges: Record<string, (boolean | null)[][]> = {
+      box1: [
+        [false, false, true, false],
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, false, true],
+      ],
+      box2: [
+        [false, false, false, true],
+        [false, false, true, false],
+        [false, true, false, false],
+        [true, false, false, false],
+      ],
+      box3: [
+        [false, false, false, true],
+        [false, true, false, false],
+        [true, false, false, false],
+        [false, false, true, false],
+      ],
+    };
+
+    const changedKeys = Object.keys(expectedChanges);
+    const unchangedKeys = Object.keys(derivedMatrix).filter(
+      (key) => !changedKeys.includes(key),
+    );
+
+    for (const key of changedKeys) {
+      expect(derivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+
+      expect(derivedMatrix[key]["grid"]).not.toEqual(inputMatrix[key]["grid"]);
+    }
+
+    for (const key of unchangedKeys) {
+      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
     }
 
     // todo count number of times called
   });
 
   test("expands the solution to a partial puzzle", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       box1: {
         rowLabels: [80, 85, 90, 95],
         columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
@@ -335,11 +371,13 @@ describe("applyCluesAdNauseam", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: 85, orItems: ["Alonzo", "blue"]},
       },
     ];
@@ -350,25 +388,28 @@ describe("applyCluesAdNauseam", () => {
       2 * clues.length,
     );
 
-    for (const key in derivedMatrix) {
-      if (key === "box1") {
-        expect(derivedMatrix[key]["grid"]).not.toEqual(
-          inputMatrix[key]["grid"],
-        );
-        expect(derivedMatrix[key]["grid"]).toEqual([
-          [null, false, false, null],
-          [false, true, false, false],
-          [null, false, null, false],
-          [false, false, null, null],
-        ]);
-      } else {
-        expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
-      }
+    const changedKey = "box1";
+    const unchangedKeys = Object.keys(derivedMatrix).filter(
+      (key) => key != changedKey,
+    );
+
+    expect(derivedMatrix[changedKey]["grid"]).not.toEqual(
+      inputMatrix[changedKey]["grid"],
+    );
+    expect(derivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, false, null],
+      [false, true, false, false],
+      [null, false, null, false],
+      [false, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
     }
   });
 
   test("does not change the input matrix", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       box1: {
         rowLabels: ["ghoul", "mummy", "troll", "vampire"],
         columnLabels: [10, 15, 20, 25],
@@ -399,11 +440,13 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
-    const clues = [
+    const clues: Clue[] = [
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "mummy",
           orItems: ["twix", "m&ms"],
@@ -412,10 +455,14 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "orCrossCategory",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {itemA: "vampire", orItems: [25, "twix"]},
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "resses",
           lesserItem: "twix",
@@ -426,6 +473,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "numericComparison",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           greaterItem: "ghoul",
           lesserItem: "mummy",
@@ -436,6 +485,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "or",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "twix",
           orItems: [10, 25],
@@ -444,6 +495,8 @@ describe("applyCluesAdNauseam", () => {
       },
       {
         clueType: "not",
+        crossedOff: false,
+        writtenClue: "test",
         clueParameters: {
           itemA: "ghoul",
           itemB: "m&ms",

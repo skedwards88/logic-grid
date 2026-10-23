@@ -1,5 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 
 describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {
@@ -8,7 +9,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -19,7 +20,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -41,7 +42,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: [0, 2, 3, 4],
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -52,7 +53,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -74,7 +75,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -85,7 +86,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -106,7 +107,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -117,7 +118,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -138,7 +139,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -149,7 +150,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -170,7 +171,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -181,7 +182,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -202,7 +203,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -213,7 +214,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -234,7 +235,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -245,7 +246,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -266,7 +267,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: numericLabels,
@@ -277,7 +278,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -299,7 +300,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -310,7 +311,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -331,7 +332,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -342,7 +343,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -363,7 +364,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -374,7 +375,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -395,7 +396,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -406,7 +407,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -427,7 +428,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -438,7 +439,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, false, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -459,7 +460,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -470,7 +471,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -491,7 +492,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -502,7 +503,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -517,13 +518,13 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     expect(validQ).toBe(false);
   });
 
-  test("returns false if the greater item has more than one true", () => {
+  test("returns false if the greater item has more than one true (case 1)", () => {
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -534,7 +535,7 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -557,7 +558,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -568,7 +569,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -591,7 +592,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -602,7 +603,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -625,7 +626,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -636,7 +637,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -658,7 +659,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -669,7 +670,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -691,7 +692,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -702,7 +703,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -724,7 +725,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -735,7 +736,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -757,7 +758,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -768,7 +769,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -790,7 +791,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -801,7 +802,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -823,7 +824,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: numericLabels,
@@ -834,7 +835,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -857,7 +858,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -868,7 +869,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -890,7 +891,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -901,7 +902,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -923,7 +924,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -934,7 +935,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -956,7 +957,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -967,7 +968,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -984,7 +985,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: [1, 2, 3, 4],
@@ -1015,7 +1016,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const matrixCopy = cloneDeep(matrix);
     const greaterItem = "yellow";
     const lesserItem = "red";
@@ -1044,7 +1045,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1055,7 +1056,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -1077,7 +1078,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1088,7 +1089,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -1110,7 +1111,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1121,7 +1122,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1142,7 +1143,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1153,7 +1154,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1174,7 +1175,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1185,7 +1186,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1206,7 +1207,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1217,7 +1218,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1238,7 +1239,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1249,7 +1250,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1270,7 +1271,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1281,7 +1282,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1302,7 +1303,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1313,7 +1314,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1334,7 +1335,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1345,7 +1346,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1366,7 +1367,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1377,7 +1378,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1398,7 +1399,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1409,7 +1410,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1430,7 +1431,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1441,7 +1442,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1462,7 +1463,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1473,7 +1474,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, false, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1494,7 +1495,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1505,7 +1506,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1520,13 +1521,13 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     expect(validQ).toBe(false);
   });
 
-  test("returns false if the greater item has more than one true", () => {
+  test("returns false if the greater item has more than one true (case 2)", () => {
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1537,7 +1538,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1552,13 +1553,13 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     expect(validQ).toBe(false);
   });
 
-  test("returns false if the greater item has more than one true", () => {
+  test("returns false if the greater item has more than one true (case 3)", () => {
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1569,7 +1570,7 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1592,7 +1593,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1603,7 +1604,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -1626,7 +1627,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1637,7 +1638,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -1660,7 +1661,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1671,7 +1672,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1693,7 +1694,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1704,7 +1705,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1726,7 +1727,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1737,7 +1738,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1759,7 +1760,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1770,7 +1771,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1792,7 +1793,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1803,7 +1804,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1825,7 +1826,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1836,7 +1837,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1858,7 +1859,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1869,7 +1870,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1891,7 +1892,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1902,7 +1903,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1924,7 +1925,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1935,7 +1936,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1957,7 +1958,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -1968,7 +1969,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -1990,7 +1991,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2001,7 +2002,7 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2025,7 +2026,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2036,7 +2037,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -2058,7 +2059,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2069,7 +2070,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -2091,7 +2092,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2102,7 +2103,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2123,7 +2124,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2134,7 +2135,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2155,7 +2156,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2166,7 +2167,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2187,7 +2188,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2198,7 +2199,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2219,7 +2220,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2230,7 +2231,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2251,7 +2252,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2262,7 +2263,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2283,7 +2284,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2294,7 +2295,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2315,7 +2316,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2326,7 +2327,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2347,7 +2348,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2358,7 +2359,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2379,7 +2380,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2390,7 +2391,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, false, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2411,7 +2412,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2422,7 +2423,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2443,7 +2444,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2454,7 +2455,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2468,13 +2469,13 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
 
     expect(validQ).toBe(false);
   });
-  test("returns false if the greater item has more than one true", () => {
+  test("returns false if the greater item has more than one true (case 4)", () => {
     const greaterItem = "yellow";
     const lesserItem = "blue";
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2485,7 +2486,7 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2508,7 +2509,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2519,7 +2520,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -2542,7 +2543,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2553,7 +2554,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
 
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
@@ -2576,7 +2577,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2587,7 +2588,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [false, false, false, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2609,7 +2610,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2620,7 +2621,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, true],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2642,7 +2643,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2653,7 +2654,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2675,7 +2676,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2686,7 +2687,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2708,7 +2709,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2719,7 +2720,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2741,7 +2742,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2752,7 +2753,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2774,7 +2775,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2785,7 +2786,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2807,7 +2808,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2818,7 +2819,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {
@@ -2840,7 +2841,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrix = addTemplatesForTestMatrix({
       NumberVsColor: {
         rowLabels: numericLabels,
         columnLabels: ["red", "blue", "green", "yellow"],
@@ -2851,7 +2852,7 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
           [null, null, null, false],
         ],
       },
-    };
+    });
     const validQ = validQNumericComparisonClue({
       matrix: matrix,
       clueParameters: {

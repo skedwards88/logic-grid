@@ -1,4 +1,4 @@
-export function getNumericDiff(numberA, numberB) {
+export function getNumericDiff(numberA: number, numberB: number): number {
   // Subtraction that handles floating point numbers
   const decimalsA = (numberA.toString().split(".")[1] || "").length;
   const decimalsB = (numberB.toString().split(".")[1] || "").length;

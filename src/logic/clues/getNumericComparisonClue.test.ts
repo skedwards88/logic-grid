@@ -1,5 +1,16 @@
+import * as wordLogic from "@skedwards88/word_logic";
+import cloneDeep from "lodash.clonedeep";
+import {getNumericComparisonClue} from "./getNumericComparisonClue";
+import {applyClueLogic} from "./applyClueLogic";
+import {
+  type PuzzleMatrix,
+  type SolvedPuzzleMatrix,
+} from "../puzzleGeneration/buildEmptyMatrix";
+
 jest.mock("@skedwards88/word_logic", () => {
-  const actual = jest.requireActual("@skedwards88/word_logic");
+  const actual = jest.requireActual<typeof wordLogic>(
+    "@skedwards88/word_logic",
+  );
   return {
     ...actual,
     // mockable fns that still behave like the real ones by default
@@ -8,24 +19,22 @@ jest.mock("@skedwards88/word_logic", () => {
   };
 });
 
-import {pickRandomItemFromArray, shuffleArray} from "@skedwards88/word_logic";
-import cloneDeep from "lodash.clonedeep";
-import {getNumericComparisonClue} from "./getNumericComparisonClue";
-import {applyClueLogic} from "./applyClueLogic";
+const mockedWordLogic = jest.mocked(wordLogic);
+const actualWordLogic = jest.requireActual<typeof wordLogic>(
+  "@skedwards88/word_logic",
+);
 
 afterEach(() => {
   jest.clearAllMocks();
-  pickRandomItemFromArray.mockImplementation(
-    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  mockedWordLogic.pickRandomItemFromArray.mockImplementation(
+    actualWordLogic.pickRandomItemFromArray,
   );
-  shuffleArray.mockImplementation(
-    jest.requireActual("@skedwards88/word_logic").shuffleArray,
-  );
+  mockedWordLogic.shuffleArray.mockImplementation(actualWordLogic.shuffleArray);
 });
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
-  const solutionMatrix = {
+  const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       columnLabels: numericLabels,
@@ -79,7 +88,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       },
     },
   };
-  let emptyMatrix = cloneDeep(solutionMatrix);
+  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -90,369 +99,359 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Sarah's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [false, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [false, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 1 years younger than the yellow car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 1 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 2 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, false, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, false, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, false, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 3 (exact))', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 3 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, null, null, false],
-          [false, null, null, false],
-          [false, false, false, true],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, null, null, false],
+      [false, null, null, false],
+      [false, false, false, true],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, exact diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 1 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 2 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, false, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, false, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 3 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, false, null, null],
-          [false, false, null, null],
-          [false, true, false, false],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, false, null, null],
+      [false, false, null, null],
+      [false, true, false, false],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -485,11 +484,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = applyClueLogic(
-      clue.clueType,
-      derivedCopy,
-      clue.clueParameters,
-    );
+    const newDerived = applyClueLogic(clue, derivedCopy);
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);
@@ -498,7 +493,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
 describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   const numericLabels = [10, 20, 30, 40];
-  const solutionMatrix = {
+  const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       columnLabels: numericLabels,
@@ -552,7 +547,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       },
     },
   };
-  let emptyMatrix = cloneDeep(solutionMatrix);
+  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -563,369 +558,359 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Sarah's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [false, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [false, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 10 years younger than the yellow car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 10 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 20 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, false, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, false, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, false, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 30 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, null, null, false],
-          [false, null, null, false],
-          [false, false, false, true],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, null, null, false],
+      [false, null, null, false],
+      [false, false, false, true],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 10 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 20 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, false, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, false, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 30 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, false, null, null],
-          [false, false, null, null],
-          [false, true, false, false],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, false, null, null],
+      [false, false, null, null],
+      [false, true, false, false],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -958,11 +943,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = applyClueLogic(
-      clue.clueType,
-      derivedCopy,
-      clue.clueParameters,
-    );
+    const newDerived = applyClueLogic(clue, derivedCopy);
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);
@@ -971,7 +952,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
 describe("getNumericComparisonClue, not evenly spaced", () => {
   const numericLabels = [10, 15, 30, 40];
-  const solutionMatrix = {
+  const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
       rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       columnLabels: numericLabels,
@@ -1025,7 +1006,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       },
     },
   };
-  let emptyMatrix = cloneDeep(solutionMatrix);
+  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
   for (const key in emptyMatrix) {
     emptyMatrix[key].grid = [
       [null, null, null, null],
@@ -1036,368 +1017,359 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Sarah's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [false, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [false, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 5 years younger than the yellow car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(undefined); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 5 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, null, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, null, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 20 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, null, false, false],
-          [null, null, null, null],
-          [null, null, null, null],
-          [false, false, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, null, false, false],
+      [null, null, null, null],
+      [null, null, null, null],
+      [false, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(3) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr);
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 30 years younger than Meme's car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NameVsNumber";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NameVsNumber") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, null, null, false],
-          [false, null, null, false],
-          [false, false, false, true],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, null, null, false],
+      [false, null, null, false],
+      [false, false, false, true],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 5 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, null, null],
-          [false, false, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, null, null],
+      [false, false, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 20 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, false, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, false, null, null],
+      [false, null, null, null],
+      [false, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce(0) // itemAIndex
       .mockReturnValueOnce(1) // itemBIndex
       .mockReturnValueOnce(mockedDiff); // diff
-    shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 30 years younger than the blue car."`,
     );
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "NumberVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "NumberVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [true, false, false, false],
-          [false, false, null, null],
-          [false, false, null, null],
-          [false, true, false, false],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [true, false, false, false],
+      [false, false, null, null],
+      [false, false, null, null],
+      [false, true, false, false],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -1430,11 +1402,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNumericComparisonClue(solutionMatrix);
-    const newDerived = applyClueLogic(
-      clue.clueType,
-      derivedCopy,
-      clue.clueParameters,
-    );
+    const newDerived = applyClueLogic(clue, derivedCopy);
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);

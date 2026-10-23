@@ -1,5 +1,16 @@
+import * as wordLogic from "@skedwards88/word_logic";
+import cloneDeep from "lodash.clonedeep";
+import {getNotClue} from "./getNotClue";
+import {applyClueLogic} from "./applyClueLogic";
+import {
+  type PuzzleMatrix,
+  type SolvedPuzzleMatrix,
+} from "../puzzleGeneration/buildEmptyMatrix";
+
 jest.mock("@skedwards88/word_logic", () => {
-  const actual = jest.requireActual("@skedwards88/word_logic");
+  const actual = jest.requireActual<typeof wordLogic>(
+    "@skedwards88/word_logic",
+  );
   return {
     ...actual,
     // mockable fns that still behave like the real ones by default
@@ -8,25 +19,22 @@ jest.mock("@skedwards88/word_logic", () => {
   };
 });
 
-import {
-  pickRandomIndexFromArray,
-  pickRandomItemFromArray,
-} from "@skedwards88/word_logic";
-import cloneDeep from "lodash.clonedeep";
-import {getNotClue} from "./getNotClue";
-import {applyClueLogic} from "./applyClueLogic";
+const mockedWordLogic = jest.mocked(wordLogic);
+const actualWordLogic = jest.requireActual<typeof wordLogic>(
+  "@skedwards88/word_logic",
+);
 
 afterEach(() => {
   jest.clearAllMocks();
-  pickRandomItemFromArray.mockImplementation(
-    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  mockedWordLogic.pickRandomItemFromArray.mockImplementation(
+    actualWordLogic.pickRandomItemFromArray,
   );
-  pickRandomIndexFromArray.mockImplementation(
-    jest.requireActual("@skedwards88/word_logic").pickRandomIndexFromArray,
+  mockedWordLogic.pickRandomIndexFromArray.mockImplementation(
+    actualWordLogic.pickRandomIndexFromArray,
   );
 });
 
-const solutionMatrix = {
+const solutionMatrix: SolvedPuzzleMatrix = {
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -131,7 +139,7 @@ const solutionMatrix = {
   },
 };
 
-let emptyMatrix = cloneDeep(solutionMatrix);
+const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
 for (const key in emptyMatrix) {
   emptyMatrix[key].grid = [
     [null, null, null, null],
@@ -147,10 +155,10 @@ describe("getNotClue", () => {
   });
 
   test('returns a "not" clue for a given solution matrix (using mocked values)', () => {
-    pickRandomItemFromArray
+    mockedWordLogic.pickRandomItemFromArray
       .mockReturnValueOnce("MakeVsColor") // solutionKey
       .mockReturnValueOnce(1); // columnIndex (corresponds to 'blue')
-    pickRandomIndexFromArray.mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
+    mockedWordLogic.pickRandomIndexFromArray.mockReturnValueOnce(0); // rowIndex (corresponds to 'Ford')
 
     const expectedClue = [
       "The Ford is not the blue car.",
@@ -159,29 +167,28 @@ describe("getNotClue", () => {
     const clue = getNotClue(solutionMatrix);
     expect(expectedClue).toContain(clue.writtenClue);
 
-    expect(pickRandomItemFromArray).toHaveBeenCalledTimes(2);
-    expect(pickRandomIndexFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(2);
+    expect(mockedWordLogic.pickRandomIndexFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(
-      clue.clueType,
-      emptyMatrix,
-      clue.clueParameters,
+    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const changedKey = "MakeVsColor";
+    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+      (key) => key != changedKey,
     );
 
-    for (const key in newDerivedMatrix) {
-      if (key === "MakeVsColor") {
-        expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-          emptyMatrix[key]["grid"],
-        );
-        expect(newDerivedMatrix[key]["grid"]).toEqual([
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ]);
-      } else {
-        expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
-      }
+    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
+      emptyMatrix[changedKey]["grid"],
+    );
+    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+      [null, false, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+    ]);
+
+    for (const key of unchangedKeys) {
+      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
     }
   });
 
@@ -208,11 +215,7 @@ describe("getNotClue", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedCopy = cloneDeep(emptyMatrix);
     const clue = getNotClue(solutionMatrix);
-    const newDerived = applyClueLogic(
-      clue.clueType,
-      derivedCopy,
-      clue.clueParameters,
-    );
+    const newDerived = applyClueLogic(clue, derivedCopy);
 
     expect(derivedCopy).toEqual(emptyMatrix);
     expect(newDerived).not.toEqual(emptyMatrix);

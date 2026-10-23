@@ -1,4 +1,10 @@
-export function findMatrixValue(matrix, itemA, itemB) {
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+
+export function findMatrixValue(
+  matrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): boolean | null {
   // Given two items, finds the value of their intersection
   for (const key in matrix) {
     if (

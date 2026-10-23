@@ -1,9 +1,10 @@
 import cloneDeep from "lodash.clonedeep";
 import {autocomplete} from "./autocomplete";
+import {addTemplatesForTestMatrix} from "./helpers/addTemplatesForTestMatrix";
 
 describe("autocomplete", () => {
   test("it autocompletes a puzzle if enough trues are known to do so", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -31,10 +32,9 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
-    const outputMatrix = autocomplete(inputMatrix);
-    expect(outputMatrix).toEqual({
+    const expectedMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -63,10 +63,13 @@ describe("autocomplete", () => {
         ],
       },
     });
+
+    const outputMatrix = autocomplete(inputMatrix);
+    expect(outputMatrix).toEqual(expectedMatrix);
   });
 
   test("It should not change the input matrix", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -94,7 +97,7 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     const matrixCopy = cloneDeep(inputMatrix);
     const outputMatrix = autocomplete(inputMatrix);
@@ -104,7 +107,7 @@ describe("autocomplete", () => {
   });
 
   test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -132,15 +135,15 @@ describe("autocomplete", () => {
           [false, false, null],
         ],
       },
-    };
+    });
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not result in exactly one true/row",
+      "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it can't complete the matrix", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -168,15 +171,15 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not result in exactly one true/row",
+      "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it results in multiple trues per column", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -204,15 +207,15 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not result in exactly one true/row",
+      "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it results in multiple trues per row", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -240,15 +243,15 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Propogating the trues did not result in exactly one true/row",
+      "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if the autocompleted solution conflicts with the input matrix", () => {
-    const inputMatrix = {
+    const inputMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe"],
         columnLabels: [1, 2, 3],
@@ -276,10 +279,10 @@ describe("autocomplete", () => {
           [null, null, null],
         ],
       },
-    };
+    });
 
     expect(() => autocomplete(inputMatrix)).toThrow(
-      "Popoagating the trues leads to a disagreement with the original array",
+      "Propagating the trues leads to a disagreement with the original array",
     );
   });
 });

@@ -1,4 +1,6 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function validQOrCrossCategoryClue({
   matrix,
@@ -7,7 +9,11 @@ export function validQOrCrossCategoryClue({
     orItems: [itemB, itemC],
   },
   strict = false,
-}) {
+}: {
+  matrix: PuzzleMatrix;
+  clueParameters: OrCrossCategoryClue["clueParameters"];
+  strict?: boolean;
+}): boolean {
   // itemB cannot be itemC
   if (findMatrixValue(matrix, itemB, itemC)) return false;
 

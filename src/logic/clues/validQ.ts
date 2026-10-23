@@ -3,30 +3,58 @@
 // neither of these cases checks for correctness:
 //  e.g. "red is 1 or 2" will be valid for "red is 1" and for "red is 2"
 
-import {validQNotClue} from "./validQNotClue.js";
-import {validQOrClue} from "./validQOrClue.js";
-import {validQNumericComparisonClue} from "./validQNumericComparisonClue.js";
-import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue.js";
-import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue.js";
+import {validQNotClue} from "./validQNotClue";
+import {validQOrClue} from "./validQOrClue";
+import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
+import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
+import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type Clue} from "../puzzleGeneration/getUsefulClue";
 
-export function validQ({clue, matrix, strict}) {
-  const clueParameters = clue.clueParameters;
+export function validQ({
+  clue,
+  matrix,
+  strict,
+}: {
+  clue: Clue;
+  matrix: PuzzleMatrix;
+  strict: boolean;
+}): boolean {
   switch (clue.clueType) {
     case "not":
-      return validQNotClue({matrix, clueParameters, strict});
+      return validQNotClue({
+        matrix,
+        clueParameters: clue.clueParameters,
+        strict,
+      });
     case "or":
-      return validQOrClue({matrix, clueParameters, strict});
+      return validQOrClue({
+        matrix,
+        clueParameters: clue.clueParameters,
+        strict,
+      });
     case "numericComparison":
-      return validQNumericComparisonClue({matrix, clueParameters, strict});
+      return validQNumericComparisonClue({
+        matrix,
+        clueParameters: clue.clueParameters,
+        strict,
+      });
     case "numericComparisonCrossCategory":
       return validQNumericComparisonCrossCategoryClue({
         matrix,
-        clueParameters,
+        clueParameters: clue.clueParameters,
         strict,
       });
     case "orCrossCategory":
-      return validQOrCrossCategoryClue({matrix, clueParameters, strict});
-    default:
-      throw new Error(`Invalid clue type: ${clue.clueType}`);
+      return validQOrCrossCategoryClue({
+        matrix,
+        clueParameters: clue.clueParameters,
+        strict,
+      });
+    default: {
+      const exhaustiveCheck: never = clue;
+
+      throw new Error(`Invalid clue type ${String(exhaustiveCheck)}`);
+    }
   }
 }

@@ -1,5 +1,7 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {validQNumericComparisonClue} from "./validQNumericComparisonClue.js";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
+import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 
 export function validQNumericComparisonCrossCategoryClue({
   matrix,
@@ -11,7 +13,11 @@ export function validQNumericComparisonCrossCategoryClue({
     numericDiffClue,
   },
   strict = false,
-}) {
+}: {
+  matrix: PuzzleMatrix;
+  clueParameters: NumericComparisonCrossCategoryClue["clueParameters"];
+  strict?: boolean;
+}): boolean {
   // in strict mode, the greaterItem cannot be the lesserItem
   if (strict && findMatrixValue(matrix, greaterItem, lesserItem)) {
     return false;

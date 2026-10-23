@@ -1,7 +1,7 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
 import {matrixesEqualQ} from "./matrixesEqualQ";
 
-const matrixA: PuzzleMatrix = {
+const matrixA = {
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -11,12 +11,6 @@ const matrixA: PuzzleMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
-    rowDescriptionTemplates: {
-      description: (test: string | number): string => `${test}`,
-    },
-    columnDescriptionTemplates: {
-      description: (test: string | number): string => `${test}`,
-    },
   },
   "0v2": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
@@ -27,18 +21,17 @@ const matrixA: PuzzleMatrix = {
       [false, false, true, false],
       [false, false, false, true],
     ],
-    rowDescriptionTemplates: {
-      description: (test: string | number): string => `${test}`,
-    },
-    columnDescriptionTemplates: {
-      description: (test: string | number): string => `${test}`,
-    },
   },
 };
 
 describe("matrixesEqualQ", () => {
   test("returns true if the inputs are the same object", () => {
-    expect(matrixesEqualQ(matrixA, matrixA)).toBe(true);
+    expect(
+      matrixesEqualQ(
+        addTemplatesForTestMatrix(matrixA),
+        addTemplatesForTestMatrix(matrixA),
+      ),
+    ).toBe(true);
   });
 
   test("returns true if the all the grids in the matrix are the same (does not check other row/column labels)", () => {
@@ -53,12 +46,6 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
     const matrixC = {
@@ -72,15 +59,14 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
-    expect(matrixesEqualQ(matrixC, matrixB)).toBe(true);
+    expect(
+      matrixesEqualQ(
+        addTemplatesForTestMatrix(matrixC),
+        addTemplatesForTestMatrix(matrixB),
+      ),
+    ).toBe(true);
   });
 
   test("returns false if the any grids in the matrix are not the same", () => {
@@ -95,12 +81,6 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
     const matrixC = {
@@ -114,15 +94,14 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
-    expect(matrixesEqualQ(matrixC, matrixB)).toBe(false);
+    expect(
+      matrixesEqualQ(
+        addTemplatesForTestMatrix(matrixC),
+        addTemplatesForTestMatrix(matrixB),
+      ),
+    ).toBe(false);
   });
 
   test("throws an error if a inputs are not objects", () => {
@@ -146,18 +125,15 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
 
-    expect(() => matrixesEqualQ(matrixA, matrixB)).toThrow(
-      "matrixesEqualQ: Inputs do not have the same number of keys",
-    );
+    expect(() =>
+      matrixesEqualQ(
+        addTemplatesForTestMatrix(matrixA),
+        addTemplatesForTestMatrix(matrixB),
+      ),
+    ).toThrow("matrixesEqualQ: Inputs do not have the same number of keys");
   });
 
   test("throws an error if a inputs have different keys", () => {
@@ -172,12 +148,6 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
     const matrixC = {
@@ -191,17 +161,14 @@ describe("matrixesEqualQ", () => {
           [false, false, true, false],
           [false, false, false, true],
         ],
-        rowDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
-        columnDescriptionTemplates: {
-          description: (test: string | number): string => `${test}`,
-        },
       },
     };
 
-    expect(() => matrixesEqualQ(matrixC, matrixB)).toThrow(
-      "matrixesEqualQ: Inputs have different keys",
-    );
+    expect(() =>
+      matrixesEqualQ(
+        addTemplatesForTestMatrix(matrixC),
+        addTemplatesForTestMatrix(matrixB),
+      ),
+    ).toThrow("matrixesEqualQ: Inputs have different keys");
   });
 });

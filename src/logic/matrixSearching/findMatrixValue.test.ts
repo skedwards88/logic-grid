@@ -1,6 +1,7 @@
-import {findMatrixValue} from "./findMatrixValue.js";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {findMatrixValue} from "./findMatrixValue";
 
-const matrix = {
+const matrix = addTemplatesForTestMatrix({
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -61,7 +62,7 @@ const matrix = {
       [null, null, null, null],
     ],
   },
-};
+});
 
 describe("findMatrixValue", () => {
   test("finds the value that corresponds to the intersection of two items", () => {

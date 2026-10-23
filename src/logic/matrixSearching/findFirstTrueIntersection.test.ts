@@ -1,6 +1,7 @@
-import {findFirstTrueIntersection} from "./findFirstTrueIntersection.js";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {findFirstTrueIntersection} from "./findFirstTrueIntersection";
 
-const matrix = {
+const matrix = addTemplatesForTestMatrix({
   NameVsNumber: {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -31,7 +32,7 @@ const matrix = {
       [false, false, false, true],
     ],
   },
-};
+});
 
 describe("findFirstTrueIntersection", () => {
   test("returns the item that forms a 'true' with the input item (row vs column)", () => {
@@ -64,7 +65,7 @@ describe("findFirstTrueIntersection", () => {
   });
 
   test("returns undefined if there is not a 'true' intersection", () => {
-    const emptyMatrix = {
+    const emptyMatrix = addTemplatesForTestMatrix({
       NameVsNumber: {
         rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         columnLabels: [1, 2, 3, 4],
@@ -95,7 +96,8 @@ describe("findFirstTrueIntersection", () => {
           [null, null, null, null],
         ],
       },
-    };
+    });
+
     expect(
       findFirstTrueIntersection(emptyMatrix, "blue", [
         "Colin",

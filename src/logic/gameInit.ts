@@ -1,4 +1,20 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
+import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
+import {type Clue} from "./puzzleGeneration/getUsefulClue";
+import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
+
+export type GameState = {
+  id: string;
+  clues: Clue[];
+  derivedMatrixHistory: PuzzleMatrix[];
+  numCategories: number;
+  numItemsPerCategory: number;
+  matrixRowLabels: (string | number)[][];
+  matrixColumnLabels: (string | number)[][];
+  easyTrue: boolean;
+  showViolations: boolean;
+  lastBreakingChange: string;
+};
 
 export function gameInit({
   numCategories = 3,
@@ -6,9 +22,15 @@ export function gameInit({
   easyTrue = false,
   showViolations = false,
   useSaved = true,
-}) {
+}: {
+  numCategories?: number;
+  numItemsPerCategory?: number;
+  easyTrue?: boolean;
+  showViolations?: boolean;
+  useSaved?: boolean;
+}): GameState {
   const savedState = useSaved
-    ? JSON.parse(localStorage.getItem("logicGridState"))
+    ? getFromStorage<GameState>("logicGridState")
     : undefined;
 
   if (
@@ -32,11 +54,8 @@ export function gameInit({
   // Make sure numItemsPerCategory is 3-5
   numItemsPerCategory = Math.min(5, Math.max(3, numItemsPerCategory));
 
-  let {clues, derivedMatrix, matrixRowLabels, matrixColumnLabels} =
+  const {clues, derivedMatrix, matrixRowLabels, matrixColumnLabels} =
     generatePuzzle(numCategories, numItemsPerCategory);
-
-  // Every clue is not crossed off to start
-  clues = clues.map((clue) => ({...clue, crossedOff: false}));
 
   return {
     id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle

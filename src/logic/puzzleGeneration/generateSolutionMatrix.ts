@@ -1,6 +1,16 @@
-import {generateSolution} from "./generateSolution.js";
+import {
+  type TempBroadUnsolvedMatrix,
+  type SolvedPuzzleMatrix,
+} from "./buildEmptyMatrix";
+import {generateSolution} from "./generateSolution";
 
-export function generateSolutionMatrix(categoryLabelsAndTemplates) {
+export function generateSolutionMatrix(
+  categoryLabelsAndTemplates: {
+    labels: (string | number)[];
+    displayLabels: (string | number)[];
+    descriptionTemplates: TempBroadUnsolvedMatrix["rowDescriptionTemplates"];
+  }[],
+): SolvedPuzzleMatrix {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
   const matrixColumnInfo = categoryLabelsAndTemplates.slice(
@@ -18,7 +28,7 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
     categoryLabelsAndTemplates.map((i) => i.labels),
   );
 
-  let solutionMatrix = {};
+  const solutionMatrix: SolvedPuzzleMatrix = {};
 
   for (let rowIndex = 0; rowIndex < matrixRowInfo.length; rowIndex++) {
     for (
@@ -33,9 +43,9 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
       const columnDescriptionTemplates =
         matrixColumnInfo[columnIndex].descriptionTemplates;
 
-      let grid = [];
+      let grid: boolean[][] = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
-        let row = [];
+        let row: boolean[] = [];
         for (
           let columnIndex = 0;
           columnIndex < columnLabels.length;
@@ -57,11 +67,11 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates) {
       }
 
       solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
-        rowLabels: rowLabels,
-        columnLabels: columnLabels,
-        rowDescriptionTemplates: rowDescriptionTemplates,
-        columnDescriptionTemplates: columnDescriptionTemplates,
-        grid: grid,
+        rowLabels,
+        columnLabels,
+        rowDescriptionTemplates,
+        columnDescriptionTemplates,
+        grid,
       };
     }
   }

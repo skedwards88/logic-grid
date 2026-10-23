@@ -1,6 +1,6 @@
-import {getNumericDiff} from "./getNumericDiff.js";
+import {getNumericDiff} from "./getNumericDiff";
 
-export function getMinimumNumericDiff(numericLabels) {
+export function getMinimumNumericDiff(numericLabels: number[]): number {
   if (!Array.isArray(numericLabels)) {
     throw new Error("getMinimumNumericDiff: Input is not array");
   }
@@ -8,7 +8,7 @@ export function getMinimumNumericDiff(numericLabels) {
   // If not enough numbers to compare, error
   if (numericLabels.length < 2) {
     throw new Error(
-      `Not enough values to determine minimum numeric diff in ${numericLabels}`,
+      `Not enough values to determine minimum numeric diff in ${String(numericLabels)}`,
     );
   }
 

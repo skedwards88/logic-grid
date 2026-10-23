@@ -1,10 +1,16 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type NotClue} from "./getNotClue";
 
 export function validQNotClue({
   matrix,
   clueParameters: {itemA, itemB},
   strict = false,
-}) {
+}: {
+  matrix: PuzzleMatrix;
+  clueParameters: NotClue["clueParameters"];
+  strict?: boolean;
+}): boolean {
   const value = findMatrixValue(matrix, itemA, itemB);
 
   if (value === true) {

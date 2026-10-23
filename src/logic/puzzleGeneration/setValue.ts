@@ -1,7 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {findMatrixKey} from "../matrixSearching/findMatrixKey";
+import {type PuzzleMatrix} from "./buildEmptyMatrix";
 
-export function setToTrue(derivedMatrix, itemA, itemB) {
+export function setToTrue(
+  derivedMatrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): PuzzleMatrix {
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
   const rowIndex =
@@ -51,7 +56,11 @@ export function setToTrue(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-export function propagateValue(matrix, items, value) {
+export function propagateValue(
+  matrix: PuzzleMatrix,
+  items: (string | number)[],
+  value: boolean | null,
+): PuzzleMatrix {
   const [itemA, itemB] = items;
 
   if (value === true) {
@@ -63,7 +72,11 @@ export function propagateValue(matrix, items, value) {
   }
 }
 
-export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
+export function deduceSecondOrderFromFalse(
+  derivedMatrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): PuzzleMatrix {
   // When you set an index to false
   // Check if you know a truth about either item
   // if so,
@@ -158,7 +171,11 @@ export function deduceSecondOrderFromFalse(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
+export function deduceSecondOrderFromTrue(
+  derivedMatrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): PuzzleMatrix {
   // When set an index to true (e.g. red fly)
   // check for other things that you know about that row and column (e.g. fly is colin)
   // if 'red is fly' and 'colin is fly', then 'red is colin'
@@ -243,7 +260,11 @@ export function deduceSecondOrderFromTrue(derivedMatrix, itemA, itemB) {
   return newDerivedMatrix;
 }
 
-export function setToFalse(derivedMatrix, itemA, itemB) {
+export function setToFalse(
+  derivedMatrix: PuzzleMatrix,
+  itemA: string | number,
+  itemB: string | number,
+): PuzzleMatrix {
   const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
 
   const rowIndex =
@@ -265,9 +286,11 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   newDerivedMatrix[solutionKey].grid[rowIndex][columnIndex] = false;
 
   // If this leaves only one null in the row, the last null is true if there are no trues, otherwise false
-  const nullIndexesInRow = newDerivedMatrix[solutionKey].grid[rowIndex].reduce(
-    (indexes, currentVal, currentIndex) =>
-      currentVal === null ? [...indexes, currentIndex] : indexes,
+  const nullIndexesInRow = newDerivedMatrix[solutionKey].grid[rowIndex].reduce<
+    number[]
+  >(
+    (indexes, currentValue, currentIndex) =>
+      currentValue === null ? [...indexes, currentIndex] : indexes,
     [],
   );
   if (nullIndexesInRow.length === 1) {
@@ -287,7 +310,9 @@ export function setToFalse(derivedMatrix, itemA, itemB) {
   }
 
   // If this leaves only one null in the column, the last null is true if there are no trues, otherwise false
-  const nullIndexesInColumn = newDerivedMatrix[solutionKey].grid.reduce(
+  const nullIndexesInColumn = newDerivedMatrix[solutionKey].grid.reduce<
+    number[]
+  >(
     (indexes, currentRow, currentRowIndex) =>
       currentRow[columnIndex] === null
         ? [...indexes, currentRowIndex]

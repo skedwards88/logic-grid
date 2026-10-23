@@ -1,6 +1,7 @@
-import {findMatrixKey} from "./findMatrixKey.js";
+import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {findMatrixKey} from "./findMatrixKey";
 
-const matrix = {
+const matrix = addTemplatesForTestMatrix({
   "0v1": {
     rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     columnLabels: [1, 2, 3, 4],
@@ -61,17 +62,21 @@ const matrix = {
       [false, false, false, true],
     ],
   },
-};
+});
 
 // Custom matcher to check if array includes one of the items, but not both
 expect.extend({
-  toIncludeOneOf(received, item1, item2) {
+  toIncludeOneOf(
+    received: (string | number)[],
+    item1: string | number,
+    item2: string | number,
+  ) {
     const item1Found = received.includes(item1);
     const item2Found = received.includes(item2);
 
     if (item1Found && !item2Found) {
       return {
-        message: () =>
+        message: (): string =>
           `expected array to include only one of ${item1} or ${item2}`,
         pass: true,
       };
@@ -79,14 +84,14 @@ expect.extend({
 
     if (!item1Found && item2Found) {
       return {
-        message: () =>
+        message: (): string =>
           `expected array to include only one of ${item1} or ${item2}`,
         pass: true,
       };
     }
 
     return {
-      message: () =>
+      message: (): string =>
         `expected array to include only one of ${item1} or ${item2}, but found ${
           item1Found ? item1 : ""
         } ${item2Found ? item2 : ""}`,

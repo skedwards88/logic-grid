@@ -1,11 +1,16 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
+import {type Clue} from "./getUsefulClue";
+import {type PuzzleMatrix} from "./buildEmptyMatrix";
 
-export function removeRedundantClues(clues, emptyMatrix) {
+export function removeRedundantClues(
+  clues: Clue[],
+  emptyMatrix: PuzzleMatrix,
+): Clue[] {
   // Remove redundant clues by seeing if each clue makes any difference
   //  if it is applied after all other clues are applied
-  let nonRedundantClues = [];
+  let nonRedundantClues: Clue[] = [];
   for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
     const cluesSansClue = [
       ...nonRedundantClues, // the first part of the list is the clues we have screened for redundancy

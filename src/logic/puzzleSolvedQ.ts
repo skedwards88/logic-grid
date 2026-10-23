@@ -1,4 +1,6 @@
-export function puzzleSolvedQ(derivedMatrix) {
+import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
+
+export function puzzleSolvedQ(derivedMatrix: PuzzleMatrix): boolean {
   for (const key in derivedMatrix) {
     const grid = derivedMatrix[key].grid;
     for (const row of grid) {

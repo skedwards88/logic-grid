@@ -1,10 +1,12 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {setToFalse, setToTrue} from "../puzzleGeneration/setValue.js";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {setToFalse, setToTrue} from "../puzzleGeneration/setValue";
+import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function applyOrCrossCategoryLogic(
-  derivedMatrix,
-  {itemA, orItems: [itemB, itemC]},
-) {
+  derivedMatrix: PuzzleMatrix,
+  {itemA, orItems: [itemB, itemC]}: OrCrossCategoryClue["clueParameters"],
+): PuzzleMatrix {
   let newDerivedMatrix = derivedMatrix;
 
   // Know that itemB is not itemC
