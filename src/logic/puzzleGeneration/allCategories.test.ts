@@ -36,7 +36,7 @@ describe("allCategories: tests per scenario", () => {
       // The purpose of this test it to avoid overusing the name category
 
       const includesNames = scenario.some((category) =>
-        // This test has the potential to silently give a false pass if I ever remove "Aaron" from the name list
+        // This test has the potential to silently give a false pass if I ever remove "Aaron" from the name list (there is a separate test to ensure Aaron is in first names list)
         (category.values as (string | number)[]).includes("Aaron"),
       );
 
