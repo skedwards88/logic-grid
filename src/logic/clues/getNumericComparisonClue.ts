@@ -1,8 +1,16 @@
-import {pickRandomItemFromArray} from "@skedwards88/word_logic";
+import {
+  pickRandomItemFromArray,
+  pickRandomItemsFromArray,
+} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type Axis,
+  type NumberAxis,
+  type PuzzleMatrix,
+} from "../puzzleGeneration/buildEmptyMatrix";
+import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 
 export type NumericComparisonClue = {
   writtenClue: string;
@@ -27,59 +35,52 @@ export function getNumericComparisonClue(
   // choose a grid in the solution matrix that uses a numeric category
   // (upstream logic ensures that this function is only called if there is a numeric category)
   const shuffledKeys = shuffleArray(Object.keys(solutionMatrix));
-  let selectedKey;
-  let numericIsRows;
+  let numericAxis: NumberAxis | undefined;
+  let otherAxis: Axis | undefined;
   for (const key of shuffledKeys) {
-    if (typeof solutionMatrix[key].rowLabels[0] === "number") {
-      selectedKey = key;
-      numericIsRows = true;
+    if (solutionMatrix[key].row.kind === "number") {
+      numericAxis = solutionMatrix[key].row;
+      otherAxis = solutionMatrix[key].column;
       break;
     }
-    if (typeof solutionMatrix[key].columnLabels[0] === "number") {
-      selectedKey = key;
-      numericIsRows = false;
+    if (solutionMatrix[key].column.kind === "number") {
+      numericAxis = solutionMatrix[key].column;
+      otherAxis = solutionMatrix[key].row;
       break;
     }
   }
 
-  if (numericIsRows === undefined || selectedKey === undefined) {
+  if (numericAxis === undefined || otherAxis === undefined) {
     throw new Error(
       `getNumericComparisonClue called without a numeric category`,
     );
   }
 
   // figure out the numeric labels
-  const numericLabels = numericIsRows
-    ? (solutionMatrix[selectedKey].rowLabels as number[])
-    : (solutionMatrix[selectedKey].columnLabels as number[]);
+  const numericLabels = numericAxis.labels;
 
   // choose two random items in the other label set
-  const otherLabels = numericIsRows
-    ? solutionMatrix[selectedKey].columnLabels
-    : solutionMatrix[selectedKey].rowLabels;
-  const otherLabelIndexes = otherLabels.map((_, index) => index);
-  const itemAIndex = pickRandomItemFromArray(otherLabelIndexes);
-  const itemA = otherLabels[itemAIndex];
-  const itemBIndex = pickRandomItemFromArray([
-    ...otherLabelIndexes.slice(0, itemAIndex),
-    ...otherLabelIndexes.slice(itemAIndex + 1, otherLabelIndexes.length),
-  ]);
-  const itemB = otherLabels[itemBIndex];
+  const otherLabels = otherAxis.labels;
+  const [itemA, itemB] = pickRandomItemsFromArray<string | number>(
+    otherLabels,
+    2,
+  );
 
   // Figure out the corresponding numeric value of those items
-  const itemANumericIndex = numericIsRows
-    ? solutionMatrix[selectedKey].grid
-        .map((row) => row.indexOf(true))
-        .indexOf(itemAIndex)
-    : solutionMatrix[selectedKey].grid[itemAIndex].indexOf(true);
-  const itemANumericValue = numericLabels[itemANumericIndex];
-  const itemBNumericIndex = numericIsRows
-    ? solutionMatrix[selectedKey].grid
-        .map((row) => row.indexOf(true))
-        .indexOf(itemBIndex)
-    : solutionMatrix[selectedKey].grid[itemBIndex].indexOf(true);
-  const itemBNumericValue = numericLabels[itemBNumericIndex];
+  const itemANumericValue = findFirstTrueIntersection(
+    solutionMatrix,
+    itemA,
+    numericLabels,
+  );
+  const itemBNumericValue = findFirstTrueIntersection(
+    solutionMatrix,
+    itemB,
+    numericLabels,
+  );
 
+  if (itemANumericValue === undefined || itemBNumericValue === undefined) {
+    throw new Error("Unable to find item intersections");
+  }
   // e.g. if numeric labels are [10,15,20,30,40]
   // and chose 15 and 40
   // possible diffs are 5, 15, 25, as well as undefined
@@ -101,33 +102,28 @@ export function getNumericComparisonClue(
     getNumericDiff(itemANumericValue, itemBNumericValue),
   );
 
-  const [numericDescriptionTemplates, nonNumericDescriptionTemplates] =
-    numericIsRows
-      ? [
-          solutionMatrix[selectedKey].rowDescriptionTemplates,
-          solutionMatrix[selectedKey].columnDescriptionTemplates,
-        ]
-      : [
-          solutionMatrix[selectedKey].columnDescriptionTemplates,
-          solutionMatrix[selectedKey].rowDescriptionTemplates,
-        ];
-
-  const leadingDescription = nonNumericDescriptionTemplates.description(itemA);
+  // Overkill but I didn't find a better way to satisfy TS
+  const leadingDescription =
+    otherAxis.kind === "number"
+      ? otherAxis.templates.generateDescription(itemA as number)
+      : otherAxis.templates.generateDescription(itemA as string);
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
-      ? numericDescriptionTemplates.diffLesserDescription
-      : numericDescriptionTemplates.diffGreaterDescription;
-  const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
+      ? numericAxis.templates.generateDiffLesserDescription
+      : numericAxis.templates.generateDiffGreaterDescription;
+  const numericComparisonVerb = numericAxis.templates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
     : numericDescriptionTemplate(minimumNumericDiff);
 
-  const trailingDescription = numericIsRows
-    ? solutionMatrix[selectedKey].columnDescriptionTemplates.description(itemB)
-    : solutionMatrix[selectedKey].rowDescriptionTemplates.description(itemB);
+  // Overkill but I didn't find a better way to satisfy TS
+  const trailingDescription =
+    otherAxis.kind === "number"
+      ? otherAxis.templates.generateDescription(itemB as number)
+      : otherAxis.templates.generateDescription(itemB as string);
 
   const relationWord =
     actualNumericDiff === numericDiffClue ? "exactly " : "at least ";

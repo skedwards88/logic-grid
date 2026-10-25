@@ -1,5 +1,11 @@
+import * as wordLogic from "@skedwards88/word_logic";
+import {chooseCategories} from "./chooseCategories";
+import type {NumberCategory, StringCategory} from "./allCategories";
+
 jest.mock("@skedwards88/word_logic", () => {
-  const actual = jest.requireActual("@skedwards88/word_logic");
+  const actual = jest.requireActual<typeof wordLogic>(
+    "@skedwards88/word_logic",
+  );
   return {
     ...actual,
     // mockable fns that still behave like the real ones by default
@@ -7,48 +13,56 @@ jest.mock("@skedwards88/word_logic", () => {
   };
 });
 
-import {pickRandomItemFromArray} from "@skedwards88/word_logic";
-import {chooseCategories} from "./chooseCategories";
+const mockedWordLogic = jest.mocked(wordLogic);
+const actualWordLogic = jest.requireActual<typeof wordLogic>(
+  "@skedwards88/word_logic",
+);
 
 afterEach(() => {
   jest.clearAllMocks();
-  pickRandomItemFromArray.mockImplementation(
-    jest.requireActual("@skedwards88/word_logic").pickRandomItemFromArray,
+  mockedWordLogic.pickRandomItemFromArray.mockImplementation(
+    actualWordLogic.pickRandomItemFromArray,
   );
 });
 
-const mockedCategories = [
+const mockedCategories: (NumberCategory | StringCategory)[] = [
   {
+    kind: "string",
     values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
-    descriptionTemplates: {
-      description: (value) => `${value}'s car`,
+    templates: {
+      generateDescription: (value) => `${value}'s car`,
     },
   },
   {
+    kind: "string",
     values: ["red", "orange", "blue", "green", "yellow"],
-    descriptionTemplates: {
-      description: (value) => `the ${value} car`,
+    templates: {
+      generateDescription: (value) => `the ${value} car`,
     },
   },
   {
+    kind: "string",
     values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
-    descriptionTemplates: {
-      description: (value) => `the ${value}`,
+    templates: {
+      generateDescription: (value) => `the ${value}`,
     },
   },
   {
+    kind: "number",
     values: [1, 2, 3, 4, 5],
-    descriptionTemplates: {
-      description: (value) => `${value} years old`,
-      diffGreaterDescription: (value) => `${value} years older`,
-      diffLesserDescription: (value) => `${value} years younger`,
+    templates: {
+      generateDescription: (value) => `${value} years old`,
+      generateDiffGreaterDescription: (value) => `${value} years older`,
+      generateDiffLesserDescription: (value) => `${value} years younger`,
     },
   },
 ];
 
 describe("chooseCategories", () => {
   test("gets the specified number of categories with the specified number of items per category, mocked values", () => {
-    pickRandomItemFromArray.mockReturnValueOnce(mockedCategories);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(
+      mockedCategories,
+    );
 
     const numCategories = 4;
     const numItems = 3;
@@ -56,17 +70,19 @@ describe("chooseCategories", () => {
     expect(categories.length).toBe(numCategories);
     for (const category of categories) {
       expect(category.labels.length).toBe(numItems);
-      expect(category.descriptionTemplates);
 
-      expect(category.descriptionTemplates).toHaveProperty("description");
-      if (typeof category.labels[0] === "number") {
-        expect(category.descriptionTemplates).toHaveProperty(
-          "diffGreaterDescription",
-        );
-        expect(category.descriptionTemplates).toHaveProperty(
-          "diffLesserDescription",
-        );
-      }
+      expect(category.templates).toHaveProperty("generateDescription");
+    }
+
+    for (const numericCategory of categories.filter(
+      (category) => category.kind === "number",
+    )) {
+      expect(numericCategory.templates).toHaveProperty(
+        "generateDiffGreaterDescription",
+      );
+      expect(numericCategory.templates).toHaveProperty(
+        "generateDiffLesserDescription",
+      );
     }
     jest.restoreAllMocks();
   });
@@ -78,15 +94,18 @@ describe("chooseCategories", () => {
     expect(categories.length).toBe(numCategories);
     for (const category of categories) {
       expect(category.labels.length).toBe(numItems);
-      expect(category.descriptionTemplates).toHaveProperty("description");
-      if (typeof category.labels[0] === "number") {
-        expect(category.descriptionTemplates).toHaveProperty(
-          "diffGreaterDescription",
-        );
-        expect(category.descriptionTemplates).toHaveProperty(
-          "diffLesserDescription",
-        );
-      }
+      expect(category.templates).toHaveProperty("generateDescription");
+    }
+
+    for (const numericCategory of categories.filter(
+      (category) => category.kind === "number",
+    )) {
+      expect(numericCategory.templates).toHaveProperty(
+        "generateDiffGreaterDescription",
+      );
+      expect(numericCategory.templates).toHaveProperty(
+        "generateDiffLesserDescription",
+      );
     }
   });
 });

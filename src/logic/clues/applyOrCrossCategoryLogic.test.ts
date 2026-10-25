@@ -1,11 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
-const emptyMatrix = addTemplatesForTestMatrix({
+const emptyMatrix: PuzzleMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -14,8 +15,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -24,8 +25,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   ColorVsNumber: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -33,7 +34,7 @@ const emptyMatrix = addTemplatesForTestMatrix({
       [null, null, null, null],
     ],
   },
-});
+};
 
 describe("applyOrCrossCategoryLogic", () => {
   test('applies a cross category "or" clue when you know nothing about the matrix', () => {

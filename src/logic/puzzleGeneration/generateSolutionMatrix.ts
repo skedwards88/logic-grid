@@ -1,15 +1,13 @@
 import {
-  type TempBroadUnsolvedMatrix,
   type SolvedPuzzleMatrix,
+  type Axis,
+  type StringAxis,
+  type NumberAxis,
 } from "./buildEmptyMatrix";
 import {generateSolution} from "./generateSolution";
 
 export function generateSolutionMatrix(
-  categoryLabelsAndTemplates: {
-    labels: (string | number)[];
-    displayLabels: (string | number)[];
-    descriptionTemplates: TempBroadUnsolvedMatrix["rowDescriptionTemplates"];
-  }[],
+  categoryLabelsAndTemplates: Axis[],
 ): SolvedPuzzleMatrix {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
@@ -37,11 +35,13 @@ export function generateSolutionMatrix(
       columnIndex++
     ) {
       const rowLabels = matrixRowInfo[rowIndex].labels;
-      const rowDescriptionTemplates =
-        matrixRowInfo[rowIndex].descriptionTemplates;
+
+      const rowDescriptionTemplates = matrixRowInfo[rowIndex].templates;
+
       const columnLabels = matrixColumnInfo[columnIndex].labels;
+
       const columnDescriptionTemplates =
-        matrixColumnInfo[columnIndex].descriptionTemplates;
+        matrixColumnInfo[columnIndex].templates;
 
       let grid: boolean[][] = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
@@ -67,13 +67,30 @@ export function generateSolutionMatrix(
       }
 
       solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
-        rowLabels,
-        columnLabels,
-        rowDescriptionTemplates,
-        columnDescriptionTemplates,
+        row: addTypeInfo(rowLabels, rowDescriptionTemplates),
+        column: addTypeInfo(columnLabels, columnDescriptionTemplates),
         grid,
       };
     }
   }
   return solutionMatrix;
+}
+
+function addTypeInfo(
+  labels: string[] | number[],
+  templates: Axis["templates"],
+): Axis {
+  if (labels.every((label) => typeof label === "number")) {
+    return {
+      labels,
+      kind: "number",
+      templates,
+    } as NumberAxis;
+  } else {
+    return {
+      labels,
+      kind: "string",
+      templates,
+    } as StringAxis;
+  }
 }

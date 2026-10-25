@@ -1,12 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 
-const completeMatrix = addTemplatesForTestMatrix({
+const completeMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [null, false, true, false],
@@ -15,8 +15,8 @@ const completeMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, true, false, false],
       [null, false, false, false],
@@ -25,8 +25,8 @@ const completeMatrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsColor: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, true, false, false],
       [false, false, false, true],
@@ -34,7 +34,7 @@ const completeMatrix = addTemplatesForTestMatrix({
       [true, false, false, false],
     ],
   },
-});
+};
 
 describe("validQOrCrossCategoryClue, non-strict", () => {
   test("returns false if both 'or' values are false", () => {

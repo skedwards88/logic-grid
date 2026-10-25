@@ -2,7 +2,8 @@ import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
 import {type Clue} from "./getUsefulClue";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {type PuzzleMatrix} from "./buildEmptyMatrix";
 
 // function visualizeOutput(derivedMatrix) {
 //   for (const key in derivedMatrix) {
@@ -21,10 +22,10 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("solves an empty puzzle to completion (2)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix: PuzzleMatrix = {
       box1: {
-        rowLabels: [80, 85, 90, 95],
-        columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+        row: populateSparseTestEntry([80, 85, 90, 95]),
+        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -33,8 +34,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box2: {
-        rowLabels: ["teal", "yellow", "blue", "lime"],
-        columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+        row: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
+        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -43,8 +44,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box3: {
-        rowLabels: [80, 85, 90, 95],
-        columnLabels: ["teal", "yellow", "blue", "lime"],
+        row: populateSparseTestEntry([80, 85, 90, 95]),
+        column: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -52,7 +53,7 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const clues: Clue[] = [
       {
@@ -199,10 +200,10 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("solves an empty puzzle to completion", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix: PuzzleMatrix = {
       box1: {
-        rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        columnLabels: [10, 15, 20, 25],
+        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
+        column: populateSparseTestEntry([10, 15, 20, 25]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -211,8 +212,13 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box2: {
-        rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        columnLabels: ["m&ms", "resses", "twix", "twizzlers"],
+        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
+        column: populateSparseTestEntry([
+          "m&ms",
+          "resses",
+          "twix",
+          "twizzlers",
+        ]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -221,8 +227,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box3: {
-        rowLabels: ["m&ms", "resses", "twix", "twizzlers"],
-        columnLabels: [10, 15, 20, 25],
+        row: populateSparseTestEntry(["m&ms", "resses", "twix", "twizzlers"]),
+        column: populateSparseTestEntry([10, 15, 20, 25]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -230,7 +236,7 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const clues: Clue[] = [
       {
@@ -340,10 +346,10 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("expands the solution to a partial puzzle", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix: PuzzleMatrix = {
       box1: {
-        rowLabels: [80, 85, 90, 95],
-        columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+        row: populateSparseTestEntry([80, 85, 90, 95]),
+        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
         grid: [
           [null, null, false, null],
           [null, null, null, null],
@@ -352,8 +358,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box2: {
-        rowLabels: ["teal", "yellow", "blue", "lime"],
-        columnLabels: ["Wayne", "Alonzo", "Connor", "Megan"],
+        row: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
+        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
         grid: [
           [null, null, false, null],
           [null, null, null, null],
@@ -362,8 +368,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box3: {
-        rowLabels: [80, 85, 90, 95],
-        columnLabels: ["teal", "yellow", "blue", "lime"],
+        row: populateSparseTestEntry([80, 85, 90, 95]),
+        column: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
         grid: [
           [null, null, false, false],
           [null, null, false, false],
@@ -371,7 +377,7 @@ describe("applyCluesAdNauseam", () => {
           [false, false, false, true],
         ],
       },
-    });
+    };
 
     const clues: Clue[] = [
       {
@@ -409,10 +415,10 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("does not change the input matrix", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       box1: {
-        rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        columnLabels: [10, 15, 20, 25],
+        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
+        column: populateSparseTestEntry([10, 15, 20, 25]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -421,8 +427,13 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box2: {
-        rowLabels: ["ghoul", "mummy", "troll", "vampire"],
-        columnLabels: ["m&ms", "resses", "twix", "twizzlers"],
+        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
+        column: populateSparseTestEntry([
+          "m&ms",
+          "resses",
+          "twix",
+          "twizzlers",
+        ]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -431,8 +442,8 @@ describe("applyCluesAdNauseam", () => {
         ],
       },
       box3: {
-        rowLabels: ["m&ms", "resses", "twix", "twizzlers"],
-        columnLabels: [10, 15, 20, 25],
+        row: populateSparseTestEntry(["m&ms", "resses", "twix", "twizzlers"]),
+        column: populateSparseTestEntry([10, 15, 20, 25]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -440,7 +451,7 @@ describe("applyCluesAdNauseam", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const clues: Clue[] = [
       {

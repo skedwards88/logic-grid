@@ -1,11 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyNotLogic} from "./applyNotLogic";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
-const emptyMatrix = addTemplatesForTestMatrix({
+const emptyMatrix: PuzzleMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -14,8 +15,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsMake: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -24,8 +25,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -34,8 +35,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsMake: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["Ford", "Honda", "Kia", "Subaru"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -44,8 +45,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsColor: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -54,8 +55,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   MakeVsColor: {
-    rowLabels: ["Ford", "Honda", "Kia", "Subaru"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -63,7 +64,7 @@ const emptyMatrix = addTemplatesForTestMatrix({
       [null, null, null, null],
     ],
   },
-});
+};
 
 describe("applyNotLogic", () => {
   test("sets an intersection to false (when both items are strings)", () => {
@@ -119,11 +120,11 @@ describe("applyNotLogic", () => {
   });
 
   test("works even if the intersection is already false", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix: PuzzleMatrix = {
       ...emptyMatrix,
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -131,7 +132,7 @@ describe("applyNotLogic", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const newDerivedMatrix = applyNotLogic(inputMatrix, {
       itemA: "Colin",
       itemB: "blue",

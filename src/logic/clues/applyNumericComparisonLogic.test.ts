@@ -1,11 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
-const emptyMatrix = addTemplatesForTestMatrix({
+const emptyMatrix: PuzzleMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -14,8 +15,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -24,8 +25,8 @@ const emptyMatrix = addTemplatesForTestMatrix({
     ],
   },
   ColorVsNumber: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -33,7 +34,7 @@ const emptyMatrix = addTemplatesForTestMatrix({
       [null, null, null, null],
     ],
   },
-});
+};
 
 describe("applyNumericComparisonLogic", () => {
   test('applies a "numeric comparison" clue (clue diff undefined, actual diff 2)', () => {
@@ -124,11 +125,11 @@ describe("applyNumericComparisonLogic", () => {
   });
 
   test('applies a "numeric comparison" clue (clue diff 2, actual diff 2, know greater value)', () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       ...emptyMatrix,
       ColorVsNumber: {
-        rowLabels: [1, 2, 3, 4],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([1, 2, 3, 4]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -136,7 +137,7 @@ describe("applyNumericComparisonLogic", () => {
           [null, false, null, null],
         ],
       },
-    });
+    };
     const newDerivedMatrix = applyNumericComparisonLogic(inputMatrix, {
       greaterItem: "blue",
       lesserItem: "red",
@@ -166,11 +167,11 @@ describe("applyNumericComparisonLogic", () => {
   });
 
   test('applies a "numeric comparison" clue (clue diff 2, actual diff 2, know lesser value)', () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       ...emptyMatrix,
       ColorVsNumber: {
-        rowLabels: [1, 2, 3, 4],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([1, 2, 3, 4]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, null, null, null],
@@ -178,7 +179,7 @@ describe("applyNumericComparisonLogic", () => {
           [false, null, null, null],
         ],
       },
-    });
+    };
     const newDerivedMatrix = applyNumericComparisonLogic(inputMatrix, {
       greaterItem: "blue",
       lesserItem: "red",
@@ -208,10 +209,10 @@ describe("applyNumericComparisonLogic", () => {
   });
 
   test('applies a "numeric comparison" clue (clue diff 0.2, actual diff 0.2)', () => {
-    const emptyMatrixWithDecimals = addTemplatesForTestMatrix({
+    const emptyMatrixWithDecimals = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: [3.5, 3.6, 3.7, 3.8],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry([3.5, 3.6, 3.7, 3.8]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -220,8 +221,8 @@ describe("applyNumericComparisonLogic", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -230,8 +231,8 @@ describe("applyNumericComparisonLogic", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: [3.5, 3.6, 3.7, 3.8],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([3.5, 3.6, 3.7, 3.8]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -239,7 +240,7 @@ describe("applyNumericComparisonLogic", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const newDerivedMatrix = applyNumericComparisonLogic(
       emptyMatrixWithDecimals,
       {

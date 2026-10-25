@@ -23,8 +23,8 @@ export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
   // Propagate the trues in the matrix
   for (const key in inputMatrix) {
     const grid = inputMatrix[key].grid;
-    const rowLabels = inputMatrix[key].rowLabels;
-    const columnLabels = inputMatrix[key].columnLabels;
+    const rowLabels = inputMatrix[key].row.labels;
+    const columnLabels = inputMatrix[key].column.labels;
 
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       for (

@@ -1,5 +1,5 @@
 import {type ReducerPayload} from "../logic/gameReducer";
-import {type TempBroadUnsolvedMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {type UnsolvedMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
 import Cell from "./Cell";
 
 export default function Grid({
@@ -8,7 +8,7 @@ export default function Grid({
   easyTrue,
   dispatchGameState,
 }: {
-  solutionEntry: TempBroadUnsolvedMatrix;
+  solutionEntry: UnsolvedMatrix;
   id: string;
   easyTrue: boolean;
   dispatchGameState: React.Dispatch<ReducerPayload>;

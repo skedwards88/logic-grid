@@ -1,10 +1,10 @@
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 import {findFirstTrueIntersection} from "./findFirstTrueIntersection";
 
-const matrix = addTemplatesForTestMatrix({
+const matrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -13,8 +13,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, false, false, true],
       [false, true, false, false],
@@ -23,8 +23,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsColor: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, false, true, false],
       [false, true, false, false],
@@ -32,7 +32,7 @@ const matrix = addTemplatesForTestMatrix({
       [false, false, false, true],
     ],
   },
-});
+};
 
 describe("findFirstTrueIntersection", () => {
   test("returns the item that forms a 'true' with the input item (row vs column)", () => {
@@ -65,10 +65,10 @@ describe("findFirstTrueIntersection", () => {
   });
 
   test("returns undefined if there is not a 'true' intersection", () => {
-    const emptyMatrix = addTemplatesForTestMatrix({
+    const emptyMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: [1, 2, 3, 4],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry([1, 2, 3, 4]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -77,8 +77,8 @@ describe("findFirstTrueIntersection", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -87,8 +87,8 @@ describe("findFirstTrueIntersection", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: [1, 2, 3, 4],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([1, 2, 3, 4]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -96,7 +96,7 @@ describe("findFirstTrueIntersection", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     expect(
       findFirstTrueIntersection(emptyMatrix, "blue", [

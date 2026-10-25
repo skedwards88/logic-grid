@@ -7,7 +7,11 @@ import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueInterse
 import {arraysEqualQ} from "../equalQ/arraysEqualQ";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type Axis,
+  type NumberAxis,
+  type PuzzleMatrix,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 export type NumericComparisonCrossCategoryClue = {
   writtenClue: string;
@@ -31,62 +35,43 @@ export function getNumericComparisonCrossCategoryClue(
 
   // find two grids in the solution matrix that uses a numeric category
   // (upstream logic ensures that this function is only called if there is a numeric category)
-  let numericLabels;
-  let numericDescriptionTemplates;
-  let itemALabels;
-  let itemATemplates;
-  let itemBLabels;
-  let itemBTemplates;
+  let numericAxis: NumberAxis | undefined;
+  let axisA: Axis | undefined;
+  let axisB: Axis | undefined;
+
   for (const key of shuffleArray(Object.keys(solutionMatrix))) {
-    const rowLabels = solutionMatrix[key].rowLabels;
-    const columnLabels = solutionMatrix[key].columnLabels;
-    if (!itemALabels) {
-      // If we haven't found a numeric entry, choose the first that we find
-      if (
-        rowLabels.every((label): label is number => typeof label === "number")
-      ) {
-        numericLabels = rowLabels;
-        numericDescriptionTemplates =
-          solutionMatrix[key].rowDescriptionTemplates;
-        itemALabels = columnLabels;
-        itemATemplates = solutionMatrix[key].columnDescriptionTemplates;
-      } else if (
-        columnLabels.every(
-          (label): label is number => typeof label === "number",
-        )
-      ) {
-        numericLabels = columnLabels;
-        numericDescriptionTemplates =
-          solutionMatrix[key].columnDescriptionTemplates;
-        itemALabels = rowLabels;
-        itemATemplates = solutionMatrix[key].rowDescriptionTemplates;
+    const {row, column} = solutionMatrix[key];
+
+    if (!numericAxis) {
+      // If we haven't found a numeric axis, choose the first that we find
+      if (row.kind === "number") {
+        numericAxis = row;
+        axisA = column;
+      } else if (column.kind === "number") {
+        numericAxis = column;
+        axisA = row;
       }
     } else {
-      if (!numericLabels) {
-        throw new Error("numericLabels not set as expected");
-      }
-
-      // in case there are multiple numeric labels, make sure we find one that matches the one we already found
-      if (arraysEqualQ(rowLabels, numericLabels)) {
-        itemBLabels = columnLabels;
-        itemBTemplates = solutionMatrix[key].columnDescriptionTemplates;
-      } else if (arraysEqualQ(columnLabels, numericLabels)) {
-        itemBLabels = rowLabels;
-        itemBTemplates = solutionMatrix[key].rowDescriptionTemplates;
+      // in case there are multiple numeric axes, make sure we find one that matches the one we already found
+      if (
+        row.kind === "number" &&
+        arraysEqualQ(row.labels, numericAxis.labels)
+      ) {
+        axisB = column;
+      } else if (
+        column.kind === "number" &&
+        arraysEqualQ(column.labels, numericAxis.labels)
+      ) {
+        axisB = row;
       }
     }
   }
 
-  if (
-    !numericLabels ||
-    !itemALabels ||
-    !itemBLabels ||
-    !itemATemplates ||
-    !itemBTemplates ||
-    !numericDescriptionTemplates
-  ) {
-    throw new Error("Labels and templates not set as expected");
+  if (!numericAxis || !axisA || !axisB) {
+    throw new Error("Axes not set as expected");
   }
+
+  const numericLabels = numericAxis.labels;
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
@@ -97,12 +82,12 @@ export function getNumericComparisonCrossCategoryClue(
   const itemA = findFirstTrueIntersection(
     solutionMatrix,
     itemANumericValue,
-    itemALabels,
+    axisA.labels,
   );
   const itemB = findFirstTrueIntersection(
     solutionMatrix,
     itemBNumericValue,
-    itemBLabels,
+    axisB.labels,
   );
 
   if (itemA === undefined || itemB === undefined) {
@@ -129,17 +114,24 @@ export function getNumericComparisonCrossCategoryClue(
     getNumericDiff(itemANumericValue, itemBNumericValue),
   );
 
-  const itemADescription = itemATemplates.description(itemA);
+  // Overkill but I didn't find a better way to satisfy TS
+  const itemADescription =
+    axisA.kind === "number"
+      ? axisA.templates.generateDescription(itemA as number)
+      : axisA.templates.generateDescription(itemA as string);
 
-  const itemBDescription = itemBTemplates.description(itemB);
+  const itemBDescription =
+    axisB.kind === "number"
+      ? axisB.templates.generateDescription(itemB as number)
+      : axisB.templates.generateDescription(itemB as string);
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
-      ? numericDescriptionTemplates.diffLesserDescription
-      : numericDescriptionTemplates.diffGreaterDescription;
-  const numericComparisonVerb = numericDescriptionTemplates.verb || "is";
+      ? numericAxis.templates.generateDiffLesserDescription
+      : numericAxis.templates.generateDiffGreaterDescription;
+  const numericComparisonVerb = numericAxis.templates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
     : numericDescriptionTemplate(minimumNumericDiff);

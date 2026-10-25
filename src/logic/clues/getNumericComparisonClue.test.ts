@@ -15,6 +15,7 @@ jest.mock("@skedwards88/word_logic", () => {
     ...actual,
     // mockable fns that still behave like the real ones by default
     pickRandomItemFromArray: jest.fn(actual.pickRandomItemFromArray),
+    pickRandomItemsFromArray: jest.fn(actual.pickRandomItemsFromArray),
     shuffleArray: jest.fn(actual.shuffleArray),
   };
 });
@@ -29,63 +30,85 @@ afterEach(() => {
   mockedWordLogic.pickRandomItemFromArray.mockImplementation(
     actualWordLogic.pickRandomItemFromArray,
   );
+  mockedWordLogic.pickRandomItemsFromArray.mockImplementation(
+    actualWordLogic.pickRandomItemsFromArray,
+  );
   mockedWordLogic.shuffleArray.mockImplementation(actualWordLogic.shuffleArray);
 });
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
+
   const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: numericLabels,
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
     NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
     },
     NumberVsColor: {
-      rowLabels: numericLabels,
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
-      rowDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
   };
   const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
@@ -99,17 +122,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -134,17 +159,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Sarah",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Sarah's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -169,17 +196,21 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "yellow",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 1 years younger than the yellow car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -204,17 +235,21 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 1 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -240,17 +275,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -276,17 +313,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 2 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -312,17 +351,19 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, diff 3 (exact))', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 3 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -348,17 +389,21 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, exact diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 1 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -385,17 +430,21 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 2 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -421,17 +470,21 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 3 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -495,56 +548,74 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   const numericLabels = [10, 20, 30, 40];
   const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: numericLabels,
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
     NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
     },
     NumberVsColor: {
-      rowLabels: numericLabels,
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
-      rowDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
   };
   const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
@@ -558,17 +629,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -593,17 +666,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Sarah",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Sarah's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -628,17 +703,21 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "yellow",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 10 years younger than the yellow car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -663,17 +742,21 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 10 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -699,17 +782,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -735,17 +820,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 20 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -771,17 +858,19 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 30 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -807,17 +896,21 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 10 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -844,17 +937,21 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 20 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -880,17 +977,21 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 30 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -954,56 +1055,74 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   const numericLabels = [10, 15, 30, 40];
   const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: numericLabels,
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
     NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
     },
     NumberVsColor: {
-      rowLabels: numericLabels,
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "number",
+        labels: numericLabels,
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
-      rowDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
   };
   const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
@@ -1017,17 +1136,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   }
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1052,17 +1173,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Sarah",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Sarah's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1087,17 +1210,21 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "yellow",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 5 years younger than the yellow car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1122,17 +1249,21 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column)', () => {
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(undefined); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 5 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1158,17 +1289,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1194,17 +1327,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 20 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1230,17 +1365,19 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(3) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "Colin",
+      "Meme",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 30 years younger than Meme's car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1266,17 +1403,21 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 1)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[1]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is exactly 5 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1303,17 +1444,21 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 2)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[2]);
 
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 20 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 
@@ -1339,17 +1484,21 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of adjacents, swapped row vs column, known diff 3)', () => {
     const mockedDiff = Math.abs(numericLabels[0] - numericLabels[3]);
-    mockedWordLogic.pickRandomItemFromArray
-      .mockReturnValueOnce(0) // itemAIndex
-      .mockReturnValueOnce(1) // itemBIndex
-      .mockReturnValueOnce(mockedDiff); // diff
-    mockedWordLogic.shuffleArray.mockImplementation((arr) => arr.reverse());
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      "red",
+      "blue",
+    ]);
+    mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff); // diff
+    mockedWordLogic.shuffleArray.mockImplementation((arr) =>
+      [...arr].reverse(),
+    );
 
     const clue = getNumericComparisonClue(solutionMatrix);
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The red car is at least 30 years younger than the blue car."`,
     );
-    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(3);
+    expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
+    expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
     const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
 

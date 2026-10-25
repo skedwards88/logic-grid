@@ -38,56 +38,74 @@ describe("getOrCrossCategoryClue", () => {
 
   const solutionMatrix: SolvedPuzzleMatrix = {
     NameVsNumber: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: [1, 2, 3, 4],
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "number",
+        labels: [1, 2, 3, 4],
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
     NameVsColor: {
-      rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "string",
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        templates: {
+          generateDescription: (value) => `${value}'s car`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      rowDescriptionTemplates: {
-        description: (value) => `${value}'s car`,
-      },
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
     },
     ColorVsNumber: {
-      rowLabels: [1, 2, 3, 4],
-      columnLabels: ["red", "blue", "green", "yellow"],
+      row: {
+        kind: "number",
+        labels: [1, 2, 3, 4],
+        templates: {
+          generateDescription: (value) => `${value} years old`,
+          generateDiffGreaterDescription: (value) => `${value} years older`,
+          generateDiffLesserDescription: (value) => `${value} years younger`,
+        },
+      },
+      column: {
+        kind: "string",
+        labels: ["red", "blue", "green", "yellow"],
+        templates: {
+          generateDescription: (value) => `the ${value} car`,
+        },
+      },
       grid: [
         [true, false, false, false],
         [false, true, false, false],
         [false, false, true, false],
         [false, false, false, true],
       ],
-      columnDescriptionTemplates: {
-        description: (value) => `the ${value} car`,
-      },
-      rowDescriptionTemplates: {
-        description: (value) => `${value} years old`,
-        diffGreaterDescription: (value) => `${value} years older`,
-        diffLesserDescription: (value) => `${value} years younger`,
-      },
     },
   };
 

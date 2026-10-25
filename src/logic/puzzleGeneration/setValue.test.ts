@@ -1,4 +1,4 @@
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 import {
   setToFalse,
   setToTrue,
@@ -6,10 +6,10 @@ import {
   deduceSecondOrderFromFalse,
 } from "./setValue";
 
-const emptyInputMatrix = addTemplatesForTestMatrix({
+const emptyInputMatrix = {
   "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe"],
-    columnLabels: [1, 2, 3],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntry([1, 2, 3]),
     grid: [
       [null, null, null],
       [null, null, null],
@@ -17,8 +17,8 @@ const emptyInputMatrix = addTemplatesForTestMatrix({
     ],
   },
   "0v2": {
-    rowLabels: ["Colin", "Sarah", "Fefe"],
-    columnLabels: ["fly", "back", "breast"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntry(["fly", "back", "breast"]),
     grid: [
       [null, null, null],
       [null, null, null],
@@ -26,8 +26,8 @@ const emptyInputMatrix = addTemplatesForTestMatrix({
     ],
   },
   "0v3": {
-    rowLabels: ["Colin", "Sarah", "Fefe"],
-    columnLabels: ["red", "blue", "green"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntry(["red", "blue", "green"]),
     grid: [
       [null, null, null],
       [null, null, null],
@@ -35,8 +35,8 @@ const emptyInputMatrix = addTemplatesForTestMatrix({
     ],
   },
   "1v2": {
-    rowLabels: [1, 2, 3],
-    columnLabels: ["fly", "back", "breast"],
+    row: populateSparseTestEntry([1, 2, 3]),
+    column: populateSparseTestEntry(["fly", "back", "breast"]),
     grid: [
       [null, null, null],
       [null, null, null],
@@ -44,8 +44,8 @@ const emptyInputMatrix = addTemplatesForTestMatrix({
     ],
   },
   "1v3": {
-    rowLabels: [1, 2, 3],
-    columnLabels: ["red", "blue", "green"],
+    row: populateSparseTestEntry([1, 2, 3]),
+    column: populateSparseTestEntry(["red", "blue", "green"]),
     grid: [
       [null, null, null],
       [null, null, null],
@@ -53,15 +53,15 @@ const emptyInputMatrix = addTemplatesForTestMatrix({
     ],
   },
   "2v3": {
-    rowLabels: ["fly", "back", "breast"],
-    columnLabels: ["red", "blue", "green"],
+    row: populateSparseTestEntry(["fly", "back", "breast"]),
+    column: populateSparseTestEntry(["red", "blue", "green"]),
     grid: [
       [null, null, null],
       [null, null, null],
       [null, null, null],
     ],
   },
-});
+};
 
 describe("setToFalse", () => {
   test("It should set the specified position to false", () => {
@@ -118,10 +118,10 @@ describe("setToFalse", () => {
   });
 
   test("It should return the original grid if the specified position is already false", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, false],
@@ -129,15 +129,15 @@ describe("setToFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["fly", "back", "breast"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["fly", "back", "breast"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = setToFalse(inputMatrix, "Sarah", 3);
 
@@ -145,10 +145,10 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the row and there are no trues in the row, it should set the last null to true", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -156,15 +156,15 @@ describe("setToFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["fly", "back", "breast"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["fly", "back", "breast"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, false, true],
@@ -178,17 +178,17 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the column and there are no trues in the column, it should set the last null to true", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [false, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -201,10 +201,10 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the row and there is a true in the row, it should set the last null to false", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: [1, 2, 3, 4],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry([1, 2, 3, 4]),
         grid: [
           [true, false, null, null],
           [false, null, null, null],
@@ -212,7 +212,7 @@ describe("setToFalse", () => {
           [false, null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [true, false, false, false],
@@ -226,10 +226,10 @@ describe("setToFalse", () => {
   });
 
   test("if it leaves only one null in the column and there is a true in the column, it should set the last null to false", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-        columnLabels: [1, 2, 3, 4],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntry([1, 2, 3, 4]),
         grid: [
           [true, false, false, false],
           [false, null, null, null],
@@ -237,7 +237,7 @@ describe("setToFalse", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [true, false, false, false],
@@ -252,10 +252,10 @@ describe("setToFalse", () => {
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -263,8 +263,8 @@ describe("setToFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -272,15 +272,15 @@ describe("setToFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = setToFalse(inputMatrix, "Colin", "dog");
     expect(outputMatrix["0v1"].grid).toEqual([
@@ -352,10 +352,10 @@ describe("setToTrue", () => {
   });
 
   test("It should return the original grid if the specified position is already true", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, null],
           [null, null, null],
@@ -363,25 +363,25 @@ describe("setToTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["fly", "back", "breast"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["fly", "back", "breast"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = setToTrue(inputMatrix, "Colin", 1);
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("all other items in that row/column are set to false", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -389,15 +389,15 @@ describe("setToTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["fly", "back", "breast"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["fly", "back", "breast"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, true, false],
@@ -411,10 +411,10 @@ describe("setToTrue", () => {
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -422,8 +422,8 @@ describe("setToTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -431,15 +431,15 @@ describe("setToTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = setToTrue(inputMatrix, "Colin", "red");
     expect(outputMatrix["0v1"].grid).toEqual([
@@ -458,10 +458,10 @@ describe("setToTrue", () => {
 
 describe("deduceSecondOrderFromTrue", () => {
   test("deduces a false value (itemA in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [false, null, null],
@@ -469,8 +469,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -478,15 +478,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [null, null, null],
@@ -502,10 +502,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (itemB in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [false, null, null],
@@ -513,8 +513,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -522,15 +522,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [null, null, null],
@@ -546,10 +546,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (item A in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -557,8 +557,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -566,15 +566,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, false, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [null, false, null],
@@ -590,10 +590,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a false value (item B in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -601,8 +601,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -610,15 +610,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, false, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [null, false, null],
@@ -634,10 +634,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("no changes if no additional info is known", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -645,8 +645,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -654,25 +654,25 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("no changes if no additional info is known (swapped input order)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -680,8 +680,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -689,25 +689,25 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
     expect(outputMatrix).toEqual(inputMatrix);
   });
 
   test("deduces a true value (itemA in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [false, null, null],
           [true, false, false],
@@ -715,8 +715,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -724,15 +724,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -748,10 +748,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (itemB in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [false, null, null],
           [true, false, false],
@@ -759,8 +759,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -768,15 +768,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -792,10 +792,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (item A in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -803,8 +803,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -812,15 +812,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [false, true, false],
           [null, false, null],
           [null, false, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, true, false],
@@ -836,10 +836,10 @@ describe("deduceSecondOrderFromTrue", () => {
   });
 
   test("deduces a true value (item B in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -847,8 +847,8 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -856,15 +856,15 @@ describe("deduceSecondOrderFromTrue", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [false, true, false],
           [null, false, null],
           [null, false, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, true, false],
@@ -882,10 +882,10 @@ describe("deduceSecondOrderFromTrue", () => {
 
 describe("deduceSecondOrderFromFalse", () => {
   test("deduces a false value (itemA in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -893,8 +893,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -902,15 +902,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -930,10 +930,10 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (itemB in row)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -941,8 +941,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -950,15 +950,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -978,10 +978,10 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (item A in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -989,8 +989,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -998,15 +998,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -1022,10 +1022,10 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("deduces a false value (item B in column)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1033,8 +1033,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [false, null, null],
           [null, null, null],
@@ -1042,15 +1042,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const expectedGrid = [
       [false, null, null],
@@ -1066,10 +1066,10 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("no changes if no trues about inputs are known", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1077,8 +1077,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1086,15 +1086,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,
@@ -1105,10 +1105,10 @@ describe("deduceSecondOrderFromFalse", () => {
   });
 
   test("no changes if no trues about inputs are known (swapped input order)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       "0v1": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["dog", "cat", "mouse"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
         grid: [
           [null, null, null],
           [null, null, null],
@@ -1116,8 +1116,8 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v2": {
-        rowLabels: ["dog", "cat", "mouse"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [true, false, false],
           [false, null, null],
@@ -1125,15 +1125,15 @@ describe("deduceSecondOrderFromFalse", () => {
         ],
       },
       "0v3": {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const outputMatrix = deduceSecondOrderFromTrue(
       inputMatrix,

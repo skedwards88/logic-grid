@@ -1,6 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 
 describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {
@@ -9,10 +9,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -21,8 +21,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -32,8 +32,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -41,10 +41,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -63,10 +63,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -75,8 +75,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -86,8 +86,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, true],
@@ -95,10 +95,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -117,10 +117,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: [0, 2, 3, 4],
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry([0, 2, 3, 4]),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -129,8 +129,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: [0, 2, 3, 4],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([0, 2, 3, 4]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -140,8 +140,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -149,10 +149,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -171,10 +171,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -183,8 +183,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -194,8 +194,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -203,9 +203,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -224,10 +224,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -236,8 +236,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -247,8 +247,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -256,9 +256,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -277,10 +277,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -289,8 +289,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -300,8 +300,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -309,9 +309,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -330,10 +330,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -342,8 +342,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -353,8 +353,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -362,9 +362,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -383,10 +383,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -395,8 +395,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -406,8 +406,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -415,9 +415,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -436,10 +436,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, null, null],
           [null, null, null, null],
@@ -448,8 +448,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, null, null],
           [null, null, null, null],
@@ -459,8 +459,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -468,9 +468,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -489,10 +489,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -501,8 +501,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, null, null],
           [null, null, null, null],
@@ -512,8 +512,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -521,10 +521,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -543,10 +543,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -555,8 +555,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -566,8 +566,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -575,9 +575,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -596,10 +596,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -608,8 +608,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -619,8 +619,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -628,9 +628,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -649,10 +649,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -661,8 +661,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -672,8 +672,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -681,9 +681,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -702,10 +702,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -714,8 +714,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -725,8 +725,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -734,9 +734,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -755,10 +755,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -767,8 +767,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -778,8 +778,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -787,9 +787,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -808,10 +808,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -820,8 +820,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -831,8 +831,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -840,9 +840,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -861,10 +861,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -873,8 +873,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -884,8 +884,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -893,9 +893,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -914,10 +914,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -926,8 +926,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -937,8 +937,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -946,9 +946,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -969,10 +969,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -981,8 +981,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -992,8 +992,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1001,10 +1001,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1024,10 +1024,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1036,8 +1036,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1047,8 +1047,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, true],
@@ -1056,10 +1056,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1079,10 +1079,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1091,8 +1091,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1102,8 +1102,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, true],
@@ -1111,10 +1111,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1134,10 +1134,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1146,8 +1146,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1157,8 +1157,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1166,10 +1166,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1189,10 +1189,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1201,8 +1201,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1212,8 +1212,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1221,9 +1221,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1243,10 +1243,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1255,8 +1255,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1266,8 +1266,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1275,9 +1275,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1297,10 +1297,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1309,8 +1309,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1320,8 +1320,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1329,9 +1329,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1351,10 +1351,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1363,8 +1363,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1374,8 +1374,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1383,9 +1383,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1405,10 +1405,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1417,8 +1417,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1428,8 +1428,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1437,9 +1437,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1459,10 +1459,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1471,8 +1471,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, false, null],
           [null, null, false, null],
@@ -1482,8 +1482,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1491,9 +1491,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1513,10 +1513,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1525,8 +1525,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, null, null, null],
           [null, null, null, null],
@@ -1536,8 +1536,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1545,10 +1545,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1568,10 +1568,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1580,8 +1580,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1591,8 +1591,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1600,9 +1600,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1622,10 +1622,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -1634,8 +1634,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -1645,8 +1645,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1654,9 +1654,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1676,10 +1676,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1688,8 +1688,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1699,8 +1699,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1708,9 +1708,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1730,10 +1730,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -1742,8 +1742,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -1753,8 +1753,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1762,9 +1762,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1779,10 +1779,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: [1, 2, 3, 4],
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry([1, 2, 3, 4]),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1791,8 +1791,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       NumberVsColor: {
-        rowLabels: [1, 2, 3, 4],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry([1, 2, 3, 4]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1801,8 +1801,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
         ],
       },
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1810,7 +1810,7 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
           [null, null, null, null],
         ],
       },
-    });
+    };
     const matrixCopy = cloneDeep(matrix);
     const greaterItem = "yellow";
     const lesserItem = "dog";
@@ -1818,7 +1818,7 @@ describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
     validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1839,10 +1839,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1851,8 +1851,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1862,8 +1862,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1871,10 +1871,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1893,10 +1893,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1905,8 +1905,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1916,8 +1916,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1925,10 +1925,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1947,10 +1947,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1959,8 +1959,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -1970,8 +1970,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -1979,10 +1979,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2001,10 +2001,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2013,8 +2013,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2024,8 +2024,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2033,9 +2033,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2054,10 +2054,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2066,8 +2066,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2077,8 +2077,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2086,9 +2086,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2107,10 +2107,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2119,8 +2119,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2130,8 +2130,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2139,9 +2139,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2160,10 +2160,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2172,8 +2172,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2183,8 +2183,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2192,9 +2192,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2213,10 +2213,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -2225,8 +2225,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -2236,8 +2236,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2245,9 +2245,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2266,10 +2266,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -2278,8 +2278,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -2289,8 +2289,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2298,9 +2298,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2319,10 +2319,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -2331,8 +2331,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -2342,8 +2342,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2351,9 +2351,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2372,10 +2372,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2384,8 +2384,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2395,8 +2395,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2404,9 +2404,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2425,10 +2425,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2437,8 +2437,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2448,8 +2448,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2457,9 +2457,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2478,10 +2478,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2490,8 +2490,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2501,8 +2501,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2510,9 +2510,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2531,10 +2531,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -2543,8 +2543,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -2554,8 +2554,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2563,9 +2563,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2584,10 +2584,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2596,8 +2596,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -2607,8 +2607,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2616,9 +2616,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2637,10 +2637,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -2649,8 +2649,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -2660,8 +2660,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2669,9 +2669,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2690,10 +2690,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -2702,8 +2702,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -2713,8 +2713,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2722,9 +2722,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2743,10 +2743,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2755,8 +2755,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2766,8 +2766,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2775,9 +2775,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff",
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2798,10 +2798,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2810,8 +2810,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2821,8 +2821,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2830,10 +2830,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2853,10 +2853,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2865,8 +2865,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2876,8 +2876,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2885,10 +2885,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2908,10 +2908,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2920,8 +2920,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2931,8 +2931,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2940,10 +2940,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2963,10 +2963,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2975,8 +2975,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -2986,8 +2986,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -2995,9 +2995,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3017,10 +3017,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3029,8 +3029,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3040,8 +3040,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3049,9 +3049,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3071,10 +3071,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3083,8 +3083,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3094,8 +3094,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3103,9 +3103,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3125,10 +3125,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3137,8 +3137,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3148,8 +3148,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3157,9 +3157,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3179,10 +3179,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -3191,8 +3191,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -3202,8 +3202,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3211,9 +3211,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3233,10 +3233,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -3245,8 +3245,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -3256,8 +3256,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3265,9 +3265,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3287,10 +3287,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -3299,8 +3299,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, null, null, null],
@@ -3310,8 +3310,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3319,9 +3319,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3341,10 +3341,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3353,8 +3353,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3364,8 +3364,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3373,9 +3373,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3395,10 +3395,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -3407,8 +3407,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -3418,8 +3418,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3427,9 +3427,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3449,10 +3449,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3461,8 +3461,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3472,8 +3472,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3481,9 +3481,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3503,10 +3503,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -3515,8 +3515,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -3526,8 +3526,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3535,9 +3535,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () 
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3559,10 +3559,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3571,8 +3571,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3582,8 +3582,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3591,10 +3591,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3613,10 +3613,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3625,8 +3625,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3636,8 +3636,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3645,10 +3645,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3667,10 +3667,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3679,8 +3679,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3690,8 +3690,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3699,10 +3699,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3721,10 +3721,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3733,8 +3733,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -3744,8 +3744,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3753,9 +3753,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3774,10 +3774,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3786,8 +3786,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3797,8 +3797,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3806,9 +3806,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3827,10 +3827,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -3839,8 +3839,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -3850,8 +3850,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3859,9 +3859,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3880,10 +3880,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -3892,8 +3892,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -3903,8 +3903,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3912,9 +3912,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3933,10 +3933,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -3945,8 +3945,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -3956,8 +3956,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3965,9 +3965,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -3986,10 +3986,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -3998,8 +3998,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4009,8 +4009,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4018,9 +4018,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4039,10 +4039,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4051,8 +4051,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4062,8 +4062,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4071,9 +4071,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4092,10 +4092,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -4104,8 +4104,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -4115,8 +4115,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4124,9 +4124,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4145,10 +4145,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -4157,8 +4157,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -4168,8 +4168,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4177,9 +4177,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4198,10 +4198,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4210,8 +4210,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4221,8 +4221,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4230,9 +4230,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4251,10 +4251,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -4263,8 +4263,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, false],
           [null, null, null, false],
@@ -4274,8 +4274,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4283,9 +4283,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4304,10 +4304,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -4316,8 +4316,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, true, null, null],
           [null, true, null, null],
@@ -4327,8 +4327,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4336,9 +4336,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4356,10 +4356,10 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4368,8 +4368,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4379,8 +4379,8 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4388,9 +4388,9 @@ describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", (
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4411,10 +4411,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4423,8 +4423,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4434,8 +4434,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4443,10 +4443,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4466,10 +4466,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4478,8 +4478,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4489,8 +4489,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4498,10 +4498,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4521,10 +4521,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4533,8 +4533,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4544,8 +4544,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4553,10 +4553,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
 
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4576,10 +4576,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4588,8 +4588,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [true, false, false, false],
           [false, true, false, false],
@@ -4599,8 +4599,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4608,9 +4608,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4630,10 +4630,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4642,8 +4642,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4653,8 +4653,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4662,9 +4662,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4684,10 +4684,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -4696,8 +4696,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, false, null],
           [null, null, false, null],
@@ -4707,8 +4707,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4716,9 +4716,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4738,10 +4738,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -4750,8 +4750,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -4761,8 +4761,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4770,9 +4770,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4792,10 +4792,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -4804,8 +4804,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, true, null, null],
@@ -4815,8 +4815,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4824,9 +4824,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4846,10 +4846,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4858,8 +4858,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4869,8 +4869,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4878,9 +4878,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4900,10 +4900,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4912,8 +4912,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, false, null, null],
@@ -4923,8 +4923,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4932,9 +4932,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -4954,10 +4954,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -4966,8 +4966,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, false],
@@ -4977,8 +4977,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -4986,9 +4986,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -5008,10 +5008,10 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = addTemplatesForTestMatrix({
+    const matrix = {
       NumberVsAnimal: {
-        rowLabels: numericLabels,
-        columnLabels: ["dog", "cat", "cow", "ape"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -5020,8 +5020,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
         ],
       },
       NumberVsColor: {
-        rowLabels: numericLabels,
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(numericLabels),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, false, null, null],
           [null, null, null, null],
@@ -5031,8 +5031,8 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
       },
 
       AnimalVsColor: {
-        rowLabels: ["dog", "cat", "cow", "ape"],
-        columnLabels: ["red", "blue", "green", "yellow"],
+        row: populateSparseTestEntry(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
         grid: [
           [null, null, null, null],
           [null, null, null, null],
@@ -5040,9 +5040,9 @@ describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () =>
           [null, null, null, null],
         ],
       },
-    });
+    };
     const validQ = validQNumericComparisonCrossCategoryClue({
-      matrix: addTemplatesForTestMatrix(matrix),
+      matrix: matrix,
       clueParameters: {
         greaterItem,
         lesserItem,

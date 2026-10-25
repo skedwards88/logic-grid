@@ -2,16 +2,16 @@ import {allCategories} from "./allCategories";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {sortLabels} from "../helpers/sortLabels";
 
-function arrayValuesAreUniqueQ(array) {
+function arrayValuesAreUniqueQ(array: readonly unknown[]): boolean {
   const uniqueArray = Array.from(new Set(array));
   return array.length === uniqueArray.length;
 }
 
-function arraysDoNotOverlapQ(...arrays) {
+function arraysDoNotOverlapQ(...arrays: readonly unknown[][]): boolean {
   // Get rid of unique values within each array before comparing
   const uniqueArrays = arrays.map((array) => Array.from(new Set(array)));
   // Combine all unique arrays
-  const combinedArray = [].concat(...uniqueArrays);
+  const combinedArray = uniqueArrays.flat(1);
 
   // Create a unique combined array
   const uniqueCombinedArray = Array.from(new Set(combinedArray));
@@ -22,32 +22,26 @@ function arraysDoNotOverlapQ(...arrays) {
 
 describe("allCategories: tests per scenario", () => {
   allCategories.forEach((scenario, scenarioIndex) => {
-    test(`Scenario ${scenarioIndex}, about '${scenario[0].descriptionTemplates.description(
-      "${value}",
-    )}' has values that are unique across categories`, () => {
+    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' has values that are unique across categories`, () => {
       const allValues = scenario.map((category) => category.values);
       const valuesAreUniqueAcrossCategories = arraysDoNotOverlapQ(...allValues);
       expect(valuesAreUniqueAcrossCategories).toBe(true);
     });
 
-    test(`Scenario ${scenarioIndex}, about '${scenario[0].descriptionTemplates.description(
-      "${value}",
-    )}' has at least 4 categories`, () => {
+    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' has at least 4 categories`, () => {
       expect(scenario.length).toBeGreaterThanOrEqual(4);
     });
 
-    test(`Scenario ${scenarioIndex}, about '${scenario[0].descriptionTemplates.description(
-      "${value}",
-    )}' doesn't use first names unless it is required to reach 4 categories`, () => {
+    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' doesn't use first names unless it is required to reach 4 categories`, () => {
       // The purpose of this test it to avoid overusing the name category
 
       const includesNames = scenario.some((category) =>
         // This test has the potential to silently give a false pass if I ever remove "Aaron" from the name list
-        category.values.includes("Aaron"),
+        (category.values as (string | number)[]).includes("Aaron"),
       );
-      if (includesNames) {
-        expect(scenario.length).toEqual(4);
-      }
+
+      // Using this syntax to avoid calling expect conditionally
+      expect(includesNames ? scenario.length : 4).toEqual(4);
     });
 
     scenario.forEach((category, categoryIndex) => {
@@ -60,25 +54,53 @@ describe("allCategories: tests per scenario", () => {
       });
 
       test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' uses the value in every description`, () => {
-        for (const template in category.descriptionTemplates) {
-          if (template === "verb") continue;
-          const generatedDescription = category.descriptionTemplates[template](
-            category.values[0],
-          );
-          expect(generatedDescription).toContain(category.values[0].toString());
-        }
+        const templates = category.templates;
+        const testValue = category.values[0];
+
+        expect(
+          (templates.generateDescription as (v: string | number) => string)(
+            testValue,
+          ),
+        ).toContain(testValue.toString());
+
+        // Using this syntax to avoid calling expect conditionally
+        expect(
+          category.kind === "number" &&
+            category.templates.generateDiffGreaterDescription
+            ? category.templates.generateDiffGreaterDescription(
+                testValue as number,
+              )
+            : `${testValue}`,
+        ).toContain(testValue.toString());
+
+        expect(
+          category.kind === "number" &&
+            category.templates.generateDiffLesserDescription
+            ? category.templates.generateDiffLesserDescription(
+                testValue as number,
+              )
+            : `${testValue}`,
+        ).toContain(testValue.toString());
       });
 
       test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' has the expected description templates`, () => {
-        if (typeof category.values[0] === "number") {
-          expect(category.descriptionTemplates).toHaveProperty(
-            "diffLesserDescription",
-          );
-          expect(category.descriptionTemplates).toHaveProperty(
-            "diffGreaterDescription",
-          );
-        }
-        expect(category.descriptionTemplates).toHaveProperty("description");
+        const isNumeric = typeof category.values[0] === "number";
+
+        const hasGenerateDiffLesserDescription = Object.hasOwn(
+          category.templates,
+          "generateDiffLesserDescription",
+        );
+        // Using this syntax to avoid calling expect conditionally
+        expect(isNumeric ? hasGenerateDiffLesserDescription : true).toBe(true);
+
+        const hasGenerateDiffGreaterDescription = Object.hasOwn(
+          category.templates,
+          "generateDiffGreaterDescription",
+        );
+        // Using this syntax to avoid calling expect conditionally
+        expect(isNumeric ? hasGenerateDiffGreaterDescription : true).toBe(true);
+
+        expect(category.templates).toHaveProperty("generateDescription");
       });
     });
   });
@@ -86,21 +108,27 @@ describe("allCategories: tests per scenario", () => {
 
 describe("allCategories example text", () => {
   test("A sampling of clue text", () => {
-    let descriptions = [];
-    let greaterDescriptions = [];
-    let lesserDescriptions = [];
+    let descriptions: string[] = [];
+    let greaterDescriptions: string[] = [];
+    let lesserDescriptions: string[] = [];
     allCategories.forEach((scenario) => {
       scenario.forEach((categoryA, indexA) => {
         const valueA = categoryA.values[0];
-        const templatesA = categoryA.descriptionTemplates;
+        const templatesA = categoryA.templates;
         scenario.forEach((categoryB, indexB) => {
           if (indexA === indexB) return;
           const valueB = categoryB.values[0];
           const valueB2 = categoryB.values[1];
-          const templatesB = categoryB.descriptionTemplates;
-          const leadingDescription = templatesA.description(valueA);
-          const trailingDescription = templatesB.description(valueB);
-          const trailingDescription2 = templatesB.description(valueB2);
+          const templatesB = categoryB.templates;
+          const leadingDescription = (
+            templatesA.generateDescription as (v: string | number) => string
+          )(valueA);
+          const trailingDescription = (
+            templatesB.generateDescription as (v: string | number) => string
+          )(valueB);
+          const trailingDescription2 = (
+            templatesB.generateDescription as (v: string | number) => string
+          )(valueB2);
 
           // not description
           descriptions = [
@@ -113,20 +141,20 @@ describe("allCategories example text", () => {
             ...descriptions,
             `${leadingDescription} is ${trailingDescription} or ${trailingDescription2}.`,
           ];
-          if (typeof valueB != "number") return;
+          if (categoryB.kind != "number") return;
           const sortedNumerics = sortLabels([...categoryB.values]);
           const lesserValue = sortedNumerics[2];
           const greaterValue = sortedNumerics[3];
           const diff = getNumericDiff(greaterValue, lesserValue);
           const numericGreaterDescription =
-            templatesB.diffGreaterDescription(diff);
+            categoryB.templates.generateDiffGreaterDescription(diff);
           const numericLesserDescription =
-            templatesB.diffLesserDescription(diff);
+            categoryB.templates.generateDiffLesserDescription(diff);
           const numericComparisonVerb = templatesB.verb || "is";
           // numeric greater description
           descriptions = [
             ...descriptions,
-            `${leadingDescription} ${numericComparisonVerb} at least ${numericGreaterDescription} than ${templatesB.description(
+            `${leadingDescription} ${numericComparisonVerb} at least ${numericGreaterDescription} than ${categoryB.templates.generateDescription(
               lesserValue,
             )}.`,
           ];
@@ -138,7 +166,7 @@ describe("allCategories example text", () => {
           // numeric lesser description
           descriptions = [
             ...descriptions,
-            `${leadingDescription} ${numericComparisonVerb} at least ${numericLesserDescription} than ${templatesB.description(
+            `${leadingDescription} ${numericComparisonVerb} at least ${numericLesserDescription} than ${categoryB.templates.generateDescription(
               greaterValue,
             )}.`,
           ];

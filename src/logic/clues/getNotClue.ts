@@ -20,8 +20,8 @@ export type NotClue = {
 export function getNotClue(solutionMatrix: PuzzleMatrix): NotClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
-  const columnLabels = solutionMatrix[solutionKey].columnLabels;
-  const rowLabels = solutionMatrix[solutionKey].rowLabels;
+  const columnLabels = solutionMatrix[solutionKey].column.labels;
+  const rowLabels = solutionMatrix[solutionKey].row.labels;
   const grid = solutionMatrix[solutionKey].grid;
 
   // Choose a random row label (e.g. 'Colin')
@@ -36,12 +36,25 @@ export function getNotClue(solutionMatrix: PuzzleMatrix): NotClue {
 
   const columnItem = columnLabels[columnIndex];
 
+  // Overkill but I didn't find a better way to satisfy TS
   const rowDescription =
-    solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
+    solutionMatrix[solutionKey].row.kind === "number"
+      ? solutionMatrix[solutionKey].row.templates.generateDescription(
+          rowItem as number,
+        )
+      : solutionMatrix[solutionKey].row.templates.generateDescription(
+          rowItem as string,
+        );
+
   const columnDescription =
-    solutionMatrix[solutionKey].columnDescriptionTemplates.description(
-      columnItem,
-    );
+    solutionMatrix[solutionKey].column.kind === "number"
+      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItem as number,
+        )
+      : solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItem as string,
+        );
+
   const [leadingDescription, trailingDescription] = shuffleArray([
     rowDescription,
     columnDescription,

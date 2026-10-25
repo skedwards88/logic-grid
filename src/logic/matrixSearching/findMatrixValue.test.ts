@@ -1,10 +1,10 @@
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 import {findMatrixValue} from "./findMatrixValue";
 
-const matrix = addTemplatesForTestMatrix({
+const matrix = {
   "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -13,8 +13,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "0v2": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["fly", "back", "breast", "free"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -23,8 +23,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "0v3": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, false, null],
@@ -33,8 +33,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "1v2": {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["fly", "back", "breast", "free"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
     grid: [
       [true, null, null, null],
       [null, null, null, null],
@@ -43,8 +43,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "1v3": {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -53,8 +53,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "2v3": {
-    rowLabels: ["fly", "back", "breast", "free"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["fly", "back", "breast", "free"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -62,7 +62,7 @@ const matrix = addTemplatesForTestMatrix({
       [null, null, null, null],
     ],
   },
-});
+};
 
 describe("findMatrixValue", () => {
   test("finds the value that corresponds to the intersection of two items", () => {

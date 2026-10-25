@@ -1,10 +1,11 @@
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 import {findMatrixKey} from "./findMatrixKey";
 
-const matrix = addTemplatesForTestMatrix({
+const matrix: PuzzleMatrix = {
   "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -13,8 +14,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "0v2": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["fly", "back", "breast", "free"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -23,8 +24,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "0v3": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -33,8 +34,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "1v2": {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["fly", "back", "breast", "free"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -43,8 +44,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "1v3": {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -53,8 +54,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "2v3": {
-    rowLabels: ["fly", "back", "breast", "free"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["fly", "back", "breast", "free"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [true, false, false, false],
       [false, true, false, false],
@@ -62,7 +63,7 @@ const matrix = addTemplatesForTestMatrix({
       [false, false, false, true],
     ],
   },
-});
+};
 
 // Custom matcher to check if array includes one of the items, but not both
 expect.extend({
@@ -104,15 +105,15 @@ describe("findMatrixKey", () => {
   test("finds the matrix entry that corresponds to the intersection of two items", () => {
     const foundKey = findMatrixKey(matrix, "Sarah", "green");
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].rowLabels).toIncludeOneOf("Sarah", "green");
-    expect(matrix[foundKey].columnLabels).toIncludeOneOf("Sarah", "green");
+    expect(matrix[foundKey].row.labels).toIncludeOneOf("Sarah", "green");
+    expect(matrix[foundKey].column.labels).toIncludeOneOf("Sarah", "green");
   });
 
   test("finds the matrix entry that corresponds to the intersection of two items (opposite order)", () => {
     const foundKey = findMatrixKey(matrix, "green", "Sarah");
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].rowLabels).toIncludeOneOf("green", "Sarah");
-    expect(matrix[foundKey].columnLabels).toIncludeOneOf("green", "Sarah");
+    expect(matrix[foundKey].row.labels).toIncludeOneOf("green", "Sarah");
+    expect(matrix[foundKey].column.labels).toIncludeOneOf("green", "Sarah");
   });
 
   test("throws an error if the key is not found", () => {

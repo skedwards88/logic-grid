@@ -1,13 +1,13 @@
 import cloneDeep from "lodash.clonedeep";
 import {autocomplete} from "./autocomplete";
-import {addTemplatesForTestMatrix} from "./helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "./helpers/testHelpers";
 
 describe("autocomplete", () => {
   test("it autocompletes a puzzle if enough trues are known to do so", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, null],
           [null, null, true],
@@ -15,8 +15,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, true],
           [null, true, null],
@@ -24,20 +24,20 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
-    const expectedMatrix = addTemplatesForTestMatrix({
+    const expectedMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, false, false],
           [false, false, true],
@@ -45,8 +45,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [false, false, true],
           [false, true, false],
@@ -54,25 +54,25 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [false, true, false],
           [false, false, true],
           [true, false, false],
         ],
       },
-    });
+    };
 
     const outputMatrix = autocomplete(inputMatrix);
     expect(outputMatrix).toEqual(expectedMatrix);
   });
 
   test("It should not change the input matrix", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [false, false, true],
           [null, true, null],
@@ -80,8 +80,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, true, null],
           [true, null, null],
@@ -89,15 +89,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     const matrixCopy = cloneDeep(inputMatrix);
     const outputMatrix = autocomplete(inputMatrix);
@@ -107,10 +107,10 @@ describe("autocomplete", () => {
   });
 
   test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, false, false],
           [false, null, false],
@@ -118,8 +118,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, false, false],
           [false, null, false],
@@ -127,15 +127,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, false, false],
           [false, null, false],
           [false, false, null],
         ],
       },
-    });
+    };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
@@ -143,10 +143,10 @@ describe("autocomplete", () => {
   });
 
   test("it throws an error if it can't complete the matrix", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, null],
           [null, null, null],
@@ -154,8 +154,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, true],
           [null, true, null],
@@ -163,15 +163,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
@@ -179,10 +179,10 @@ describe("autocomplete", () => {
   });
 
   test("it throws an error if it results in multiple trues per column", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, null],
           [null, null, true],
@@ -190,8 +190,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, true],
           [null, true, null],
@@ -199,15 +199,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
@@ -215,10 +215,10 @@ describe("autocomplete", () => {
   });
 
   test("it throws an error if it results in multiple trues per row", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, true],
           [null, null, null],
@@ -226,8 +226,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, true],
           [null, true, null],
@@ -235,15 +235,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, null, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
@@ -251,10 +251,10 @@ describe("autocomplete", () => {
   });
 
   test("it throws an error if the autocompleted solution conflicts with the input matrix", () => {
-    const inputMatrix = addTemplatesForTestMatrix({
+    const inputMatrix = {
       NameVsNumber: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [true, null, null],
           [null, null, true],
@@ -262,8 +262,8 @@ describe("autocomplete", () => {
         ],
       },
       NameVsColor: {
-        rowLabels: ["Colin", "Sarah", "Fefe"],
-        columnLabels: ["red", "blue", "green"],
+        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntry(["red", "blue", "green"]),
         grid: [
           [null, null, true],
           [null, true, null],
@@ -271,15 +271,15 @@ describe("autocomplete", () => {
         ],
       },
       ColorVsNumber: {
-        rowLabels: ["red", "blue", "green"],
-        columnLabels: [1, 2, 3],
+        row: populateSparseTestEntry(["red", "blue", "green"]),
+        column: populateSparseTestEntry([1, 2, 3]),
         grid: [
           [null, false, null],
           [null, null, null],
           [null, null, null],
         ],
       },
-    });
+    };
 
     expect(() => autocomplete(inputMatrix)).toThrow(
       "Propagating the trues leads to a disagreement with the original array",

@@ -22,8 +22,8 @@ export type OrClue = {
 export function getOrClue(solutionMatrix: SolvedPuzzleMatrix): OrClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
-  const columnLabels = solutionMatrix[solutionKey].columnLabels;
-  const rowLabels = solutionMatrix[solutionKey].rowLabels;
+  const columnLabels = solutionMatrix[solutionKey].column.labels;
+  const rowLabels = solutionMatrix[solutionKey].row.labels;
   const grid = solutionMatrix[solutionKey].grid;
 
   // Choose a random row label (e.g. 'Colin')
@@ -41,16 +41,34 @@ export function getOrClue(solutionMatrix: SolvedPuzzleMatrix): OrClue {
   const columnIndexFalse = pickRandomItemFromArray(falseIndexes);
   const columnItemFalse = columnLabels[columnIndexFalse];
 
+  // Overkill but I didn't find a better way to satisfy TS
   const leadingDescription =
-    solutionMatrix[solutionKey].rowDescriptionTemplates.description(rowItem);
+    solutionMatrix[solutionKey].row.kind === "number"
+      ? solutionMatrix[solutionKey].row.templates.generateDescription(
+          rowItem as number,
+        )
+      : solutionMatrix[solutionKey].row.templates.generateDescription(
+          rowItem as string,
+        );
+
   const trailingDescriptionTrue =
-    solutionMatrix[solutionKey].columnDescriptionTemplates.description(
-      columnItemTrue,
-    );
+    solutionMatrix[solutionKey].column.kind === "number"
+      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItemTrue as number,
+        )
+      : solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItemTrue as string,
+        );
+
   const trailingDescriptionFalse =
-    solutionMatrix[solutionKey].columnDescriptionTemplates.description(
-      columnItemFalse,
-    );
+    solutionMatrix[solutionKey].column.kind === "number"
+      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItemFalse as number,
+        )
+      : solutionMatrix[solutionKey].column.templates.generateDescription(
+          columnItemFalse as string,
+        );
+
   const [trailingDescriptionA, trailingDescriptionB] = shuffleArray([
     trailingDescriptionTrue,
     trailingDescriptionFalse,

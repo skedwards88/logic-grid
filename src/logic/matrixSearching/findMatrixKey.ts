@@ -8,16 +8,15 @@ export function findMatrixKey(
   // Given two items, finds the corresponding matrix key
   //  for the grid that contains the two items
   for (const key in matrix) {
-    if (
-      matrix[key].rowLabels.includes(itemA) &&
-      matrix[key].columnLabels.includes(itemB)
-    ) {
+    // Need to widen the type to satisfy TS
+    const rowLabels: readonly (string | number)[] = matrix[key].row.labels;
+    const columnLabels: readonly (string | number)[] =
+      matrix[key].column.labels;
+
+    if (rowLabels.includes(itemA) && columnLabels.includes(itemB)) {
       return key;
     }
-    if (
-      matrix[key].rowLabels.includes(itemB) &&
-      matrix[key].columnLabels.includes(itemA)
-    ) {
+    if (rowLabels.includes(itemB) && columnLabels.includes(itemA)) {
       return key;
     }
   }

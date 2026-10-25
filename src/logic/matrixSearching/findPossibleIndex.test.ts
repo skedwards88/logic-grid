@@ -1,14 +1,14 @@
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 import {
   findFirstPossibleIndex,
   findLastPossibleIndex,
   findAllPossibleIndexes,
 } from "./findPossibleIndex";
 
-const matrix = addTemplatesForTestMatrix({
+const matrix = {
   "0v1": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [null, null, null, null], // all null
@@ -17,8 +17,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "0v3": {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, true, false, null], // true before null
       [false, true, false, false], // true, no null
@@ -27,8 +27,8 @@ const matrix = addTemplatesForTestMatrix({
     ],
   },
   "1v3": {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, false, null, false], // null, no true
       [false, true, null, false],
@@ -36,7 +36,7 @@ const matrix = addTemplatesForTestMatrix({
       [false, false, null, true],
     ],
   },
-});
+};
 
 describe("findFirstPossibleIndex", () => {
   test("returns the index of the first true or null (case where there is a true and no null)", () => {

@@ -1,12 +1,12 @@
 import cloneDeep from "lodash.clonedeep";
 import {validQNotClue} from "./validQNotClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {addTemplatesForTestMatrix} from "../helpers/addTemplatesForTestMatrix";
+import {populateSparseTestEntry} from "../helpers/testHelpers";
 
-const completeMatrix = addTemplatesForTestMatrix({
+const completeMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [false, false, true, false],
@@ -15,8 +15,8 @@ const completeMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, true, false, false],
       [true, false, false, false],
@@ -25,8 +25,8 @@ const completeMatrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsColor: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, true, false, false],
       [false, false, false, true],
@@ -34,12 +34,12 @@ const completeMatrix = addTemplatesForTestMatrix({
       [false, false, true, false],
     ],
   },
-});
+};
 
-const sparseMatrix = addTemplatesForTestMatrix({
+const sparseMatrix = {
   NameVsNumber: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: [1, 2, 3, 4],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry([1, 2, 3, 4]),
     grid: [
       [true, false, false, false],
       [false, null, null, null],
@@ -48,8 +48,8 @@ const sparseMatrix = addTemplatesForTestMatrix({
     ],
   },
   NameVsColor: {
-    rowLabels: ["Colin", "Sarah", "Fefe", "Meme"],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [false, null, null, null],
       [null, null, null, null],
@@ -58,8 +58,8 @@ const sparseMatrix = addTemplatesForTestMatrix({
     ],
   },
   NumberVsColor: {
-    rowLabels: [1, 2, 3, 4],
-    columnLabels: ["red", "blue", "green", "yellow"],
+    row: populateSparseTestEntry([1, 2, 3, 4]),
+    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
     grid: [
       [null, null, null, null],
       [null, null, null, null],
@@ -67,7 +67,7 @@ const sparseMatrix = addTemplatesForTestMatrix({
       [null, null, null, null],
     ],
   },
-});
+};
 
 describe("validQNotClue, strict", () => {
   test("returns false if the intersection is true", () => {
