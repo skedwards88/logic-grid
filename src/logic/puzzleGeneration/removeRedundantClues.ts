@@ -10,7 +10,7 @@ export function removeRedundantClues(
 ): Clue[] {
   // Remove redundant clues by seeing if each clue makes any difference
   //  if it is applied after all other clues are applied
-  let nonRedundantClues: Clue[] = [];
+  const nonRedundantClues: Clue[] = [];
   for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
     const cluesSansClue = [
       ...nonRedundantClues, // the first part of the list is the clues we have screened for redundancy
@@ -28,7 +28,7 @@ export function removeRedundantClues(
     if (
       !matrixesEqualQ(matrixWithOtherCluesApplied, matrixWithAllCluesApplied)
     ) {
-      nonRedundantClues = [...nonRedundantClues, clues[clueIndex]];
+      nonRedundantClues.push(clues[clueIndex]);
     }
   }
   return nonRedundantClues;

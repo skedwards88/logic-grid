@@ -108,7 +108,7 @@ describe("allCategories: tests per scenario", () => {
 
 describe("allCategories example text", () => {
   test("A sampling of clue text", () => {
-    let descriptions: string[] = [];
+    const descriptions: string[] = [];
     let greaterDescriptions: string[] = [];
     let lesserDescriptions: string[] = [];
     allCategories.forEach((scenario) => {
@@ -131,18 +131,16 @@ describe("allCategories example text", () => {
           )(valueB2);
 
           // not description
-          descriptions = [
-            ...descriptions,
+          descriptions.push(
             `${leadingDescription} is not ${trailingDescription}.`,
-          ];
+          );
 
           // or description
-          descriptions = [
-            ...descriptions,
+          descriptions.push(
             `${leadingDescription} is ${trailingDescription} or ${trailingDescription2}.`,
-          ];
+          );
           if (categoryB.kind != "number") return;
-          const sortedNumerics = sortLabels([...categoryB.values]);
+          const sortedNumerics = sortLabels(categoryB.values);
           const lesserValue = sortedNumerics[2];
           const greaterValue = sortedNumerics[3];
           const diff = getNumericDiff(greaterValue, lesserValue);
@@ -152,28 +150,24 @@ describe("allCategories example text", () => {
             categoryB.templates.generateDiffLesserDescription(diff);
           const numericComparisonVerb = templatesB.verb || "is";
           // numeric greater description
-          descriptions = [
-            ...descriptions,
+          descriptions.push(
             `${leadingDescription} ${numericComparisonVerb} at least ${numericGreaterDescription} than ${categoryB.templates.generateDescription(
               lesserValue,
             )}.`,
-          ];
-          greaterDescriptions = [
-            ...greaterDescriptions,
+          );
+          greaterDescriptions.push(
             `${greaterValue} is ${numericGreaterDescription} than ${lesserValue}.`,
-          ];
+          );
 
           // numeric lesser description
-          descriptions = [
-            ...descriptions,
+          descriptions.push(
             `${leadingDescription} ${numericComparisonVerb} at least ${numericLesserDescription} than ${categoryB.templates.generateDescription(
               greaterValue,
             )}.`,
-          ];
-          lesserDescriptions = [
-            ...lesserDescriptions,
+          );
+          lesserDescriptions.push(
             `${lesserValue} is ${numericLesserDescription} than ${greaterValue}.`,
-          ];
+          );
         });
       });
     });

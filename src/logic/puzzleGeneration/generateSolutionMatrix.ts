@@ -43,9 +43,9 @@ export function generateSolutionMatrix(
       const columnDescriptionTemplates =
         matrixColumnInfo[columnIndex].templates;
 
-      let grid: boolean[][] = [];
+      const grid: boolean[][] = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
-        let row: boolean[] = [];
+        const row: boolean[] = [];
         for (
           let columnIndex = 0;
           columnIndex < columnLabels.length;
@@ -58,12 +58,12 @@ export function generateSolutionMatrix(
                 solutionEntry.includes(columnLabels[columnIndex]),
             )
           ) {
-            row = [...row, true];
+            row.push(true);
           } else {
-            row = [...row, false];
+            row.push(false);
           }
         }
-        grid = [...grid, row];
+        grid.push(row);
       }
 
       solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {

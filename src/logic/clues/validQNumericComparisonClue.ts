@@ -100,14 +100,11 @@ export function validQNumericComparisonClue({
       (index) => numericLabels[index],
     );
 
-    let possibleDiffs: number[] = [];
+    const possibleDiffs: number[] = [];
 
     for (const lesserValue of lesserItemPossibleValues) {
       for (const greaterValue of greaterItemPossibleValues) {
-        possibleDiffs = [
-          ...possibleDiffs,
-          getNumericDiff(greaterValue, lesserValue),
-        ];
+        possibleDiffs.push(getNumericDiff(greaterValue, lesserValue));
       }
     }
 

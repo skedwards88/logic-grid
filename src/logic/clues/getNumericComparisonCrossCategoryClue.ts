@@ -102,12 +102,11 @@ export function getNumericComparisonCrossCategoryClue(
       i >= Math.min(itemANumericValue, itemBNumericValue) &&
       i <= Math.max(itemANumericValue, itemBNumericValue),
   );
-  let numericDiffOptions: (number | undefined)[] = [undefined];
+  const numericDiffOptions: (number | undefined)[] = [undefined];
   for (let index = 1; index < inclusiveNumericLabels.length; index++) {
-    numericDiffOptions = [
-      ...numericDiffOptions,
+    numericDiffOptions.push(
       getNumericDiff(inclusiveNumericLabels[index], inclusiveNumericLabels[0]),
-    ];
+    );
   }
   const numericDiffClue = pickRandomItemFromArray(numericDiffOptions);
   const actualNumericDiff = Math.abs(

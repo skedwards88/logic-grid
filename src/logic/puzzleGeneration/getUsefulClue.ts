@@ -33,18 +33,18 @@ export function getUsefulClue(
   let clue: Clue;
   let newDerivedMatrix: PuzzleMatrix;
 
-  let clueFunctions: ((solutionMatrix: SolvedPuzzleMatrix) => Clue)[] = [
+  const clueFunctions: ((solutionMatrix: SolvedPuzzleMatrix) => Clue)[] = [
     getNotClue,
     getOrClue,
   ];
   if (includeCrossCategoryClues) {
-    clueFunctions = [...clueFunctions, getOrCrossCategoryClue];
+    clueFunctions.push(getOrCrossCategoryClue);
   }
   if (includeNumericClues) {
-    clueFunctions = [...clueFunctions, getNumericComparisonClue];
+    clueFunctions.push(getNumericComparisonClue);
   }
   if (includeCrossCategoryClues && includeNumericClues) {
-    clueFunctions = [...clueFunctions, getNumericComparisonCrossCategoryClue];
+    clueFunctions.push(getNumericComparisonCrossCategoryClue);
   }
 
   while (true) {

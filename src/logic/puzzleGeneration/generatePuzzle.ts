@@ -44,7 +44,7 @@ export function generatePuzzle(
     .map((i) => i.labels)
     .some((i) => typeof i[0] === "number");
 
-  let clues: Clue[] = [];
+  const clues: Clue[] = [];
   let puzzleIsSolved = false;
   let clue;
   let newDerivedMatrix = cloneDeep(emptyMatrix);
@@ -56,7 +56,7 @@ export function generatePuzzle(
       includeCrossCategoryClues,
       includeNumericClues,
     ));
-    clues = [...clues, clue];
+    clues.push(clue);
 
     newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix);
     puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);

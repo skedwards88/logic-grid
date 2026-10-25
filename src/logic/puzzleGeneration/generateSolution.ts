@@ -12,24 +12,21 @@ export function generateSolution(
     shuffleArray(labels),
   );
 
-  let solutions: (string | number)[][] = [];
+  const solutions: (string | number)[][] = [];
   for (
     let solutionIndex = 0;
     solutionIndex < numItemsPerCategory;
     solutionIndex++
   ) {
-    let solution: (string | number)[] = [];
+    const solution: (string | number)[] = [];
     for (
       let categoryIndex = 0;
       categoryIndex < numCategories;
       categoryIndex++
     ) {
-      solution = [
-        ...solution,
-        shuffledCategoryLabels[categoryIndex][solutionIndex],
-      ];
+      solution.push(shuffledCategoryLabels[categoryIndex][solutionIndex]);
     }
-    solutions = [...solutions, solution];
+    solutions.push(solution);
   }
 
   return solutions;

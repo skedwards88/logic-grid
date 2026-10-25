@@ -56,7 +56,7 @@ export function findAllPossibleIndexes(
   // If there is a true, just returns the first true index
   // Otherwise, returns all null indexes
 
-  let possibleIndexes: number[] = [];
+  const possibleIndexes: number[] = [];
   for (let index = 0; index < intersectingItems.length; index++) {
     const value = findMatrixValue(
       derivedMatrix,
@@ -66,7 +66,7 @@ export function findAllPossibleIndexes(
     if (value === true) {
       return [index];
     } else if (value === null) {
-      possibleIndexes = [...possibleIndexes, index];
+      possibleIndexes.push(index);
     }
   }
 

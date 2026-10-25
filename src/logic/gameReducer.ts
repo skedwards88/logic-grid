@@ -75,9 +75,9 @@ export function gameReducer(
       ];
     const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
     const currentGrid = newDerivedMatrix[payload.gridID].grid;
-    let newGrid: (boolean | null)[][] = [];
+    const newGrid: (boolean | null)[][] = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
-      let newRow: (boolean | null)[] = [];
+      const newRow: (boolean | null)[] = [];
       for (
         let columnIndex = 0;
         columnIndex < currentGrid[rowIndex].length;
@@ -87,17 +87,17 @@ export function gameReducer(
           rowIndex === payload.rowIndex &&
           columnIndex === payload.columnIndex
         ) {
-          newRow = [...newRow, true];
+          newRow.push(true);
         } else if (
           rowIndex === payload.rowIndex ||
           columnIndex === payload.columnIndex
         ) {
-          newRow = [...newRow, false];
+          newRow.push(false);
         } else {
-          newRow = [...newRow, currentGrid[rowIndex][columnIndex]];
+          newRow.push(currentGrid[rowIndex][columnIndex]);
         }
       }
-      newGrid = [...newGrid, newRow];
+      newGrid.push(newRow);
     }
     newDerivedMatrix[payload.gridID].grid = newGrid;
 

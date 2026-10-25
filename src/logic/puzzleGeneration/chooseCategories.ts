@@ -22,7 +22,7 @@ export function chooseCategories(
 
   const categories = shuffleArray(categorySet).slice(0, numCategories);
 
-  let categoryLabelsAndTemplates: AxisWithDisplay[] = [];
+  const categoryLabelsAndTemplates: AxisWithDisplay[] = [];
 
   for (const category of categories) {
     const possibleValues = shuffleArray(category.values);
@@ -56,7 +56,7 @@ export function chooseCategories(
             templates: category.templates,
           };
 
-    categoryLabelsAndTemplates = [...categoryLabelsAndTemplates, categoryInfo];
+    categoryLabelsAndTemplates.push(categoryInfo);
   }
   return categoryLabelsAndTemplates;
 }

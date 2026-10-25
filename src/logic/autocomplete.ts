@@ -49,7 +49,7 @@ export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
     const grid = inputMatrix[key].grid;
     const autofilledGrid = autofilledMatrix[key].grid;
 
-    let columnTrueIndexes: number[] = [];
+    const columnTrueIndexes: number[] = [];
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       const trueIndexesInRow = [...autofilledGrid[rowIndex].keys()].filter(
         (i) => autofilledGrid[rowIndex][i],
@@ -72,7 +72,7 @@ export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
           "Propagating the trues resulted in multiple trues per column",
         );
       }
-      columnTrueIndexes = [...columnTrueIndexes, ...trueIndexesInRow];
+      columnTrueIndexes.push(...trueIndexesInRow);
 
       for (
         let columnIndex = 0;
