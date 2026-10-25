@@ -1,27 +1,4 @@
-export const daysInOrder: string[] = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
-
-export const monthsInOrder = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import {monthsInOrder, daysInOrder} from "../puzzleGeneration/commonLists";
 
 type Sorted<A extends readonly unknown[]> = A extends readonly (infer E)[]
   ? E[]

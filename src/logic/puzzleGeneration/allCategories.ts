@@ -5,9 +5,9 @@ import {
   colors,
   continentalUnitedStates,
   carModels,
-  months,
-  weekdays,
-  weekdaysAndWeekends,
+  monthsInOrder,
+  weekdaysInOrder,
+  daysInOrder,
 } from "./commonLists";
 import {
   appendNth,
@@ -536,7 +536,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     },
     {
       kind: "string",
-      values: weekdaysAndWeekends,
+      values: daysInOrder,
       generateDisplayLabels: (value) => value.slice(0, 3),
       templates: {
         generateDescription: (value) =>
@@ -1018,7 +1018,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     },
     {
       kind: "string",
-      values: months,
+      values: monthsInOrder,
       generateDisplayLabels: (value) => value.slice(0, 3),
       templates: {
         generateDescription: (value) =>
@@ -1027,7 +1027,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     },
     {
       kind: "string",
-      values: weekdaysAndWeekends,
+      values: daysInOrder,
       generateDisplayLabels: (value) => value.slice(0, 3),
       templates: {
         generateDescription: (value) =>
@@ -1485,7 +1485,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
   [
     {
       kind: "string",
-      values: weekdays,
+      values: weekdaysInOrder,
       generateDisplayLabels: (value) => value.slice(0, 3),
       templates: {
         generateDescription: (value) =>
@@ -1568,7 +1568,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     },
     {
       kind: "string",
-      values: months,
+      values: monthsInOrder,
       generateDisplayLabels: (value) => value.slice(0, 3),
       templates: {
         generateDescription: (value) =>

@@ -565,7 +565,7 @@ export const continentalUnitedStates = [
 
 export const carModels = ["Ford", "BMW", "Honda", "Mercedes", "Kia"];
 
-export const months = [
+export const monthsInOrder = [
   "January",
   "February",
   "March",
@@ -579,11 +579,13 @@ export const months = [
   "November",
   "December",
 ];
-export const weekdays = [
+
+export const weekdaysInOrder = [
   "Monday",
   "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
 ];
-export const weekdaysAndWeekends = [...weekdays, "Saturday", "Sunday"];
+
+export const daysInOrder = [...weekdaysInOrder, "Saturday", "Sunday"];
