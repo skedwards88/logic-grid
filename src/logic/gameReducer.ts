@@ -132,10 +132,14 @@ export function gameReducer(
       useSaved: false,
     });
   } else if (payload.action === "setClueCrossedOff") {
-    const newGameState = {...currentGameState};
-    newGameState.clues[payload.index].crossedOff =
-      !newGameState.clues[payload.index].crossedOff;
-    return newGameState;
+    return {
+      ...currentGameState,
+      clues: currentGameState.clues.map((clue, index) =>
+        index === payload.index
+          ? {...clue, crossedOff: !clue.crossedOff}
+          : clue,
+      ),
+    };
   } else if (payload.action === "changeEasyTrue") {
     return {...currentGameState, easyTrue: !currentGameState.easyTrue};
   } else if (payload.action === "changeShowViolations") {
