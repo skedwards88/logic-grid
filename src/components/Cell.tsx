@@ -35,9 +35,9 @@ export default function Cell({
       if (easyTrue) {
         dispatchGameState({
           action: "utilizeEasyTrue",
-          gridID: gridID,
-          rowIndex: rowIndex,
-          columnIndex: columnIndex,
+          gridID,
+          rowIndex,
+          columnIndex,
         });
       }
     }, 500);
@@ -57,9 +57,9 @@ export default function Cell({
 
     dispatchGameState({
       action: "changeCellState",
-      gridID: gridID,
-      rowIndex: rowIndex,
-      columnIndex: columnIndex,
+      gridID,
+      rowIndex,
+      columnIndex,
     });
   }
 

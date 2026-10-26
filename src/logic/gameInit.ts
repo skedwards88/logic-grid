@@ -57,12 +57,12 @@ export function gameInit({
 
   return {
     id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
-    clues: clues,
+    clues,
     derivedMatrixHistory: [derivedMatrix],
-    numCategories: numCategories,
-    numItemsPerCategory: numItemsPerCategory,
-    easyTrue: easyTrue,
-    showViolations: showViolations,
+    numCategories,
+    numItemsPerCategory,
+    easyTrue,
+    showViolations,
     lastBreakingChange: "20230702",
   };
 }

@@ -30,9 +30,7 @@ function ClueElement({
   }
   return (
     <li
-      onClick={() =>
-        dispatchGameState({action: "setClueCrossedOff", index: index})
-      }
+      onClick={() => dispatchGameState({action: "setClueCrossedOff", index})}
       className={className}
     >
       {clue.writtenClue}
