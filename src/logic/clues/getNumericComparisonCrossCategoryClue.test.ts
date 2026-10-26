@@ -2,10 +2,7 @@ import * as wordLogic from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type PuzzleMatrix,
-  type SolvedPuzzleMatrix,
-} from "../puzzleGeneration/buildEmptyMatrix";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -38,7 +35,7 @@ afterEach(() => {
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",
@@ -321,7 +318,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", () => {
   const numericLabels = [10, 20, 30, 40];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",
@@ -617,7 +614,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 
 describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   const numericLabels = [10, 15, 30, 40];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",
@@ -927,7 +924,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   const numericLabelsYears = [1, 2, 3, 4];
   const numericLabelsMiles = [10, 20, 30, 40];
   const numericLabelsDollars = [100, 200, 300, 400];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     YearsVsMiles: {
       row: {
         kind: "number",

@@ -15,7 +15,7 @@ import {
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {applyClueLogic} from "../clues/applyClueLogic";
-import {type PuzzleMatrix, type SolvedPuzzleMatrix} from "./buildEmptyMatrix";
+import {type PuzzleMatrix} from "./buildEmptyMatrix";
 
 export type Clue =
   | OrClue
@@ -25,7 +25,7 @@ export type Clue =
   | OrCrossCategoryClue;
 
 export function getUsefulClue(
-  solutionMatrix: SolvedPuzzleMatrix,
+  solutionMatrix: PuzzleMatrix,
   derivedMatrix: PuzzleMatrix,
   includeCrossCategoryClues: boolean,
   includeNumericClues: boolean,
@@ -33,7 +33,7 @@ export function getUsefulClue(
   let clue: Clue;
   let newDerivedMatrix: PuzzleMatrix;
 
-  const clueFunctions: ((solutionMatrix: SolvedPuzzleMatrix) => Clue)[] = [
+  const clueFunctions: ((solutionMatrix: PuzzleMatrix) => Clue)[] = [
     getNotClue,
     getOrClue,
   ];

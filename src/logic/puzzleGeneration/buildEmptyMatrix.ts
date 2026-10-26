@@ -30,14 +30,7 @@ export type UnsolvedMatrix = {
   grid: (boolean | null)[][];
 };
 
-export type SolvedMatrix = {
-  row: Axis;
-  column: Axis;
-  grid: boolean[][];
-};
-
 export type PuzzleMatrix = Record<string, UnsolvedMatrix>;
-export type SolvedPuzzleMatrix = Record<string, SolvedMatrix>;
 
 export function buildEmptyMatrix(solutionMatrix: PuzzleMatrix): PuzzleMatrix {
   const matrixCopy = cloneDeep(solutionMatrix);

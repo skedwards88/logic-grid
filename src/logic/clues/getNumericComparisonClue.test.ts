@@ -2,10 +2,7 @@ import * as wordLogic from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type PuzzleMatrix,
-  type SolvedPuzzleMatrix,
-} from "../puzzleGeneration/buildEmptyMatrix";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -39,7 +36,7 @@ afterEach(() => {
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
 
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",
@@ -552,7 +549,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
 describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   const numericLabels = [10, 20, 30, 40];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",
@@ -1065,7 +1062,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
 describe("getNumericComparisonClue, not evenly spaced", () => {
   const numericLabels = [10, 15, 30, 40];
-  const solutionMatrix: SolvedPuzzleMatrix = {
+  const solutionMatrix: PuzzleMatrix = {
     NameVsNumber: {
       row: {
         kind: "string",

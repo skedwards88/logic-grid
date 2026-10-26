@@ -1,9 +1,6 @@
 import cloneDeep from "lodash.clonedeep";
 import {setToTrue} from "../logic/puzzleGeneration/setValue";
-import {
-  type SolvedPuzzleMatrix,
-  type PuzzleMatrix,
-} from "./puzzleGeneration/buildEmptyMatrix";
+import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
 
 function makeEmptyCopyOfMatrix(matrix: PuzzleMatrix): PuzzleMatrix {
   const matrixCopy = cloneDeep(matrix);
@@ -17,7 +14,7 @@ function makeEmptyCopyOfMatrix(matrix: PuzzleMatrix): PuzzleMatrix {
   return matrixCopy;
 }
 
-export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
+export function autocomplete(inputMatrix: PuzzleMatrix): PuzzleMatrix {
   let autofilledMatrix = makeEmptyCopyOfMatrix(inputMatrix);
 
   // Propagate the trues in the matrix
@@ -100,5 +97,5 @@ export function autocomplete(inputMatrix: PuzzleMatrix): SolvedPuzzleMatrix {
     }
   }
 
-  return autofilledMatrix as SolvedPuzzleMatrix;
+  return autofilledMatrix;
 }

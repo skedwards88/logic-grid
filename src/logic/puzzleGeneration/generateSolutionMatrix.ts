@@ -1,9 +1,9 @@
-import {type SolvedPuzzleMatrix, type Axis} from "./buildEmptyMatrix";
+import {type PuzzleMatrix, type Axis} from "./buildEmptyMatrix";
 import {generateSolution} from "./generateSolution";
 
 export function generateSolutionMatrix(
   categoryLabelsAndTemplates: Axis[],
-): SolvedPuzzleMatrix {
+): PuzzleMatrix {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
   // Columns = 2nd...last categories
@@ -23,7 +23,7 @@ export function generateSolutionMatrix(
     categoryLabelsAndTemplates.map((i) => i.labels),
   );
 
-  const solutionMatrix: SolvedPuzzleMatrix = {};
+  const solutionMatrix: PuzzleMatrix = {};
 
   for (let rowIndex = 0; rowIndex < matrixRowInfo.length; rowIndex++) {
     for (

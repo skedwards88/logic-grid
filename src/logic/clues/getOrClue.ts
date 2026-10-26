@@ -3,7 +3,7 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {type SolvedPuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
 export type OrClue = {
   writtenClue: string;
@@ -19,7 +19,7 @@ export type OrClue = {
 // Generates an "or" clue
 // e.g. "Colin is red or blue"
 // which equates to "Colin is not green or yellow"
-export function getOrClue(solutionMatrix: SolvedPuzzleMatrix): OrClue {
+export function getOrClue(solutionMatrix: PuzzleMatrix): OrClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
   const columnLabels = solutionMatrix[solutionKey].column.labels;

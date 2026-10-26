@@ -2,10 +2,7 @@ import * as wordLogic from "@skedwards88/word_logic";
 import cloneDeep from "lodash.clonedeep";
 import {getOrClue} from "./getOrClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type PuzzleMatrix,
-  type SolvedPuzzleMatrix,
-} from "../puzzleGeneration/buildEmptyMatrix";
+import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -34,7 +31,7 @@ afterEach(() => {
   );
 });
 
-const solutionMatrix: SolvedPuzzleMatrix = {
+const solutionMatrix: PuzzleMatrix = {
   NameVsNumber: {
     row: {
       kind: "string",
