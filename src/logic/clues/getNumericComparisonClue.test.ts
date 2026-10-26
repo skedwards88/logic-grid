@@ -44,6 +44,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -51,6 +52,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -68,6 +70,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -75,6 +78,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -90,6 +94,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -99,6 +104,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -551,6 +557,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -558,6 +565,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -575,6 +583,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -582,6 +591,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -597,6 +607,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -606,6 +617,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -1058,6 +1070,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -1065,6 +1078,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -1082,6 +1096,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -1089,6 +1104,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -1104,6 +1120,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -1113,6 +1130,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },

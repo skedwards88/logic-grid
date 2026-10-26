@@ -2,13 +2,13 @@ import {allCategories} from "./allCategories";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {sortLabels} from "../helpers/sortLabels";
-import {type AxisWithDisplay} from "./buildEmptyMatrix";
+import {type Axis} from "./buildEmptyMatrix";
 
 // returns a list of category labels and description templates
 export function chooseCategories(
   numCategories: number,
   numItemsPerCategory: number,
-): AxisWithDisplay[] {
+): Axis[] {
   let categorySet = pickRandomItemFromArray(allCategories);
 
   // If we have more categories than we need,
@@ -22,7 +22,7 @@ export function chooseCategories(
 
   const categories = shuffleArray(categorySet).slice(0, numCategories);
 
-  const categoryLabelsAndTemplates: AxisWithDisplay[] = [];
+  const categoryLabelsAndTemplates: Axis[] = [];
 
   for (const category of categories) {
     const possibleValues = shuffleArray(category.values);
@@ -33,7 +33,7 @@ export function chooseCategories(
     // note: the numeric clues assume that the numeric labels are sorted
     const sortedValues = sortLabels(selectedValues);
 
-    const categoryInfo: AxisWithDisplay =
+    const categoryInfo: Axis =
       category.kind === "number"
         ? {
             kind: category.kind,

@@ -43,6 +43,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -50,6 +51,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -67,6 +69,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -74,6 +77,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -89,6 +93,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -98,6 +103,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -320,6 +326,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -327,6 +334,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -344,6 +352,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -351,6 +360,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -366,6 +376,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -375,6 +386,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -610,6 +622,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -617,6 +630,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       column: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -634,6 +648,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -641,6 +656,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -656,6 +672,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       row: {
         kind: "number",
         labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -665,6 +682,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -914,6 +932,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         labels: numericLabelsYears,
+        displayLabels: numericLabelsYears.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -923,6 +942,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       column: {
         kind: "number",
         labels: numericLabelsMiles,
+        displayLabels: numericLabelsMiles.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the car with ${value} miles`,
           generateDiffGreaterDescription: (value) => `${value} more moles`,
@@ -941,6 +961,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         labels: numericLabelsMiles,
+        displayLabels: numericLabelsMiles.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the car with ${value} miles`,
           generateDiffGreaterDescription: (value) => `${value} more moles`,
@@ -951,6 +972,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       column: {
         kind: "number",
         labels: numericLabelsDollars,
+        displayLabels: numericLabelsDollars.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the ${value} dollar car`,
           generateDiffGreaterDescription: (value) => `${value} dollars more`,
@@ -968,6 +990,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         labels: numericLabelsDollars,
+        displayLabels: numericLabelsDollars.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the ${value} dollar car`,
           generateDiffGreaterDescription: (value) => `${value} dollars more`,
@@ -977,6 +1000,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       column: {
         kind: "number",
         labels: numericLabelsYears,
+        displayLabels: numericLabelsYears.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,

@@ -41,6 +41,7 @@ describe("getOrCrossCategoryClue", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -48,6 +49,7 @@ describe("getOrCrossCategoryClue", () => {
       column: {
         kind: "number",
         labels: [1, 2, 3, 4],
+        displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -65,6 +67,7 @@ describe("getOrCrossCategoryClue", () => {
       row: {
         kind: "string",
         labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
@@ -72,6 +75,7 @@ describe("getOrCrossCategoryClue", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
@@ -87,6 +91,7 @@ describe("getOrCrossCategoryClue", () => {
       row: {
         kind: "number",
         labels: [1, 2, 3, 4],
+        displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -96,6 +101,7 @@ describe("getOrCrossCategoryClue", () => {
       column: {
         kind: "string",
         labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },

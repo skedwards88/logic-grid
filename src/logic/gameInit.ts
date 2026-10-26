@@ -9,8 +9,6 @@ export type GameState = {
   derivedMatrixHistory: PuzzleMatrix[];
   numCategories: number;
   numItemsPerCategory: number;
-  matrixRowLabels: (string | number)[][];
-  matrixColumnLabels: (string | number)[][];
   easyTrue: boolean;
   showViolations: boolean;
   lastBreakingChange: string;
@@ -38,8 +36,6 @@ export function gameInit({
     savedState.derivedMatrixHistory &&
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
-    savedState.matrixRowLabels &&
-    savedState.matrixColumnLabels &&
     savedState.easyTrue != undefined &&
     savedState.showViolations != undefined
   ) {
@@ -54,8 +50,10 @@ export function gameInit({
   // Make sure numItemsPerCategory is 3-5
   numItemsPerCategory = Math.min(5, Math.max(3, numItemsPerCategory));
 
-  const {clues, derivedMatrix, matrixRowLabels, matrixColumnLabels} =
-    generatePuzzle(numCategories, numItemsPerCategory);
+  const {clues, derivedMatrix} = generatePuzzle(
+    numCategories,
+    numItemsPerCategory,
+  );
 
   return {
     id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
@@ -63,8 +61,6 @@ export function gameInit({
     derivedMatrixHistory: [derivedMatrix],
     numCategories: numCategories,
     numItemsPerCategory: numItemsPerCategory,
-    matrixRowLabels: matrixRowLabels,
-    matrixColumnLabels: matrixColumnLabels,
     easyTrue: easyTrue,
     showViolations: showViolations,
     lastBreakingChange: "20230702",

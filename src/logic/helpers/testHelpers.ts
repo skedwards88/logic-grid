@@ -17,12 +17,14 @@ export function populateSparseTestEntry(labels: string[] | number[]): Axis {
   if (labels.every((label) => typeof label === "number")) {
     return {
       labels,
+      displayLabels: labels.map((l) => l.toString()),
       kind: "number",
       templates: genericNumberTemplates,
     };
   } else {
     return {
       labels,
+      displayLabels: labels,
       kind: "string",
       templates: genericStringTemplates,
     };

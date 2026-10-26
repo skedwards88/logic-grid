@@ -7,6 +7,7 @@ import Result from "./Result";
 import {type GameState} from "../logic/gameInit";
 import {type ReducerPayload} from "../logic/gameReducer";
 import {type DisplayState} from "./App";
+import {getDisplayLabels} from "../logic/helpers/getDisplayLabels";
 
 export default function Game({
   gameState,
@@ -44,24 +45,27 @@ export default function Game({
     );
   }
 
+  const {rowDisplayLabels, columnDisplayLabels} =
+    getDisplayLabels(derivedMatrix);
+
   const labels = [];
-  for (let index = 0; index < gameState.matrixColumnLabels.length; index++) {
+  for (let index = 0; index < columnDisplayLabels.length; index++) {
     labels.push(
       <LabelSet
         key={`column${index}`}
         id={index}
         type="column"
-        labels={gameState.matrixColumnLabels[index]}
+        labels={columnDisplayLabels[index]}
       ></LabelSet>,
     );
   }
-  for (let index = 0; index < gameState.matrixRowLabels.length; index++) {
+  for (let index = 0; index < rowDisplayLabels.length; index++) {
     labels.push(
       <LabelSet
         key={`row${index}`}
         id={index}
         type="row"
-        labels={gameState.matrixRowLabels[index]}
+        labels={rowDisplayLabels[index]}
       ></LabelSet>,
     );
   }

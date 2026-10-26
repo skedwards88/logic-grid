@@ -1,9 +1,4 @@
-import {
-  type SolvedPuzzleMatrix,
-  type Axis,
-  type StringAxis,
-  type NumberAxis,
-} from "./buildEmptyMatrix";
+import {type SolvedPuzzleMatrix, type Axis} from "./buildEmptyMatrix";
 import {generateSolution} from "./generateSolution";
 
 export function generateSolutionMatrix(
@@ -11,6 +6,8 @@ export function generateSolutionMatrix(
 ): SolvedPuzzleMatrix {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
+  // Columns = 2nd...last categories
+  // Rows = 1st, then last...3rd categories
   const matrixColumnInfo = categoryLabelsAndTemplates.slice(
     1,
     categoryLabelsAndTemplates.length,
@@ -36,12 +33,7 @@ export function generateSolutionMatrix(
     ) {
       const rowLabels = matrixRowInfo[rowIndex].labels;
 
-      const rowDescriptionTemplates = matrixRowInfo[rowIndex].templates;
-
       const columnLabels = matrixColumnInfo[columnIndex].labels;
-
-      const columnDescriptionTemplates =
-        matrixColumnInfo[columnIndex].templates;
 
       const grid: boolean[][] = [];
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
@@ -67,30 +59,11 @@ export function generateSolutionMatrix(
       }
 
       solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
-        row: addTypeInfo(rowLabels, rowDescriptionTemplates),
-        column: addTypeInfo(columnLabels, columnDescriptionTemplates),
+        row: matrixRowInfo[rowIndex],
+        column: matrixColumnInfo[columnIndex],
         grid,
       };
     }
   }
   return solutionMatrix;
-}
-
-function addTypeInfo(
-  labels: string[] | number[],
-  templates: Axis["templates"],
-): Axis {
-  if (labels.every((label) => typeof label === "number")) {
-    return {
-      labels,
-      kind: "number",
-      templates,
-    } as NumberAxis;
-  } else {
-    return {
-      labels,
-      kind: "string",
-      templates,
-    } as StringAxis;
-  }
 }

@@ -39,6 +39,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "string",
       labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       templates: {
         generateDescription: (value) => `${value}'s car`,
       },
@@ -46,6 +47,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "number",
       labels: [1, 2, 3, 4],
+      displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
       templates: {
         generateDescription: (value) => `${value} years old`,
         generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -63,6 +65,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "string",
       labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       templates: {
         generateDescription: (value) => `${value}'s car`,
       },
@@ -70,6 +73,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "string",
       labels: ["Ford", "Honda", "Kia", "Subaru"],
+      displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
       templates: {
         generateDescription: (value) => `the ${value}`,
       },
@@ -85,6 +89,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "string",
       labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       templates: {
         generateDescription: (value) => `${value}'s car`,
       },
@@ -92,6 +97,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "string",
       labels: ["red", "blue", "green", "yellow"],
+      displayLabels: ["red", "blue", "green", "yellow"],
       templates: {
         generateDescription: (value) => `the ${value} car`,
       },
@@ -107,6 +113,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "number",
       labels: [1, 2, 3, 4],
+      displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
       templates: {
         generateDescription: (value) => `${value} years old`,
         generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -116,6 +123,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "string",
       labels: ["Ford", "Honda", "Kia", "Subaru"],
+      displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
       templates: {
         generateDescription: (value) => `the ${value}`,
       },
@@ -131,6 +139,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "number",
       labels: [1, 2, 3, 4],
+      displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
       templates: {
         generateDescription: (value) => `${value} years old`,
         generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -140,6 +149,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "string",
       labels: ["red", "blue", "green", "yellow"],
+      displayLabels: ["red", "blue", "green", "yellow"],
       templates: {
         generateDescription: (value) => `the ${value} car`,
       },
@@ -155,6 +165,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     row: {
       kind: "string",
       labels: ["Ford", "Honda", "Kia", "Subaru"],
+      displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
       templates: {
         generateDescription: (value) => `the ${value}`,
       },
@@ -162,6 +173,7 @@ const solutionMatrix: SolvedPuzzleMatrix = {
     column: {
       kind: "string",
       labels: ["red", "blue", "green", "yellow"],
+      displayLabels: ["red", "blue", "green", "yellow"],
       templates: {
         generateDescription: (value) => `the ${value} car`,
       },

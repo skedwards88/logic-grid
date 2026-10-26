@@ -7,6 +7,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["cat", "dog", "cow"],
+        displayLabels: ["cat", "dog", "cow"],
         templates: {
           generateDescription: (value) => `the ${value}`,
         },
@@ -14,6 +15,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "number",
         labels: [1, 2, 3],
+        displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -23,6 +25,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["red", "orange", "blue"],
+        displayLabels: ["red", "orange", "blue"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
         },
@@ -100,6 +103,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["cat", "dog", "cow", "horse", "spider"],
+        displayLabels: ["cat", "dog", "cow", "horse", "spider"],
         templates: {
           generateDescription: (value) => `the ${value}`,
         },
@@ -107,6 +111,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "number",
         labels: [1, 2, 3, 4, 5],
+        displayLabels: [1, 2, 3, 4, 5].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -116,6 +121,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["red", "blue", "green", "orange", "yellow"],
+        displayLabels: ["red", "blue", "green", "orange", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
         },
@@ -123,6 +129,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
+        displayLabels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
         templates: {
           generateDescription: (value) => `${value}'s pet`,
         },
@@ -200,6 +207,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["cat", "dog", "cow"],
+        displayLabels: ["cat", "dog", "cow"],
         templates: {
           generateDescription: (value) => `the ${value}`,
         },
@@ -207,6 +215,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "number",
         labels: [1, 2, 3],
+        displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -216,6 +225,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["red", "blue", "green"],
+        displayLabels: ["red", "blue", "green"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
         },
@@ -223,6 +233,7 @@ describe("generateSolutionMatrix", () => {
       {
         kind: "string",
         labels: ["Tom", "Bob", "Jim"],
+        displayLabels: ["Tom", "Bob", "Jim"],
         templates: {
           generateDescription: (value) => `${value}'s pet`,
         },

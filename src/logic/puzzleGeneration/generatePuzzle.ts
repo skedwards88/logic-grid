@@ -13,8 +13,6 @@ export function generatePuzzle(
 ): {
   clues: Clue[];
   derivedMatrix: PuzzleMatrix;
-  matrixRowLabels: (string | number)[][];
-  matrixColumnLabels: (string | number)[][];
 } {
   const categoryLabelsAndTemplates = chooseCategories(
     numCategories,
@@ -22,22 +20,6 @@ export function generatePuzzle(
   );
   const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
   const emptyMatrix = buildEmptyMatrix(solutionMatrix);
-
-  // the computer just cares about one category vs another (but doesn't care which is a row vs column)
-  // but humans generally make a matrix where it does matter which category is the row vs which is the column
-  // pull out the labels to avoid some convoluted calculations later
-  const matrixColumnInfo = categoryLabelsAndTemplates.slice(
-    1,
-    categoryLabelsAndTemplates.length,
-  );
-  const matrixRowInfo = [
-    categoryLabelsAndTemplates[0],
-    ...categoryLabelsAndTemplates
-      .slice(2, categoryLabelsAndTemplates.length)
-      .reverse(),
-  ];
-  const matrixColumnLabels = matrixColumnInfo.map((i) => i.displayLabels);
-  const matrixRowLabels = matrixRowInfo.map((i) => i.displayLabels);
 
   const includeCrossCategoryClues = numCategories > 2;
   const includeNumericClues = categoryLabelsAndTemplates
@@ -67,7 +49,5 @@ export function generatePuzzle(
   return {
     clues: nonRedundantClues,
     derivedMatrix: emptyMatrix,
-    matrixRowLabels,
-    matrixColumnLabels,
   };
 }

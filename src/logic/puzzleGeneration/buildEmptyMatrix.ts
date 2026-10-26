@@ -3,6 +3,7 @@ import cloneDeep from "lodash.clonedeep";
 export type StringAxis = {
   kind: "string";
   labels: string[];
+  displayLabels: string[];
   templates: {
     generateDescription: (value: string) => string;
     verb?: string;
@@ -12,6 +13,7 @@ export type StringAxis = {
 export type NumberAxis = {
   kind: "number";
   labels: number[];
+  displayLabels: string[];
   templates: {
     generateDescription: (value: number) => string;
     generateDiffGreaterDescription: (value: number) => string;
@@ -19,16 +21,6 @@ export type NumberAxis = {
     verb?: string;
   };
 };
-
-export type StringAxisWithDisplay = StringAxis & {
-  displayLabels: string[];
-};
-
-export type NumberAxisWithDisplay = NumberAxis & {
-  displayLabels: string[];
-};
-
-export type AxisWithDisplay = StringAxisWithDisplay | NumberAxisWithDisplay;
 
 export type Axis = StringAxis | NumberAxis;
 
