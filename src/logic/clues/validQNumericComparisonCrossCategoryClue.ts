@@ -2,7 +2,7 @@ import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 

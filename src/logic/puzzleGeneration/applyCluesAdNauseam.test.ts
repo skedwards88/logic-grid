@@ -2,7 +2,7 @@ import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
 import {type Clue} from "./getUsefulClue";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrixGrids";
+import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
 
 describe("applyCluesAdNauseam", () => {
   beforeEach(() => jest.spyOn(applyClueLogicModule, "applyClueLogic"));

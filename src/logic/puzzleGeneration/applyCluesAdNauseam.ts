@@ -1,7 +1,7 @@
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {applyClueLogic} from "../clues/applyClueLogic";
 import {type Clue} from "./getUsefulClue";
-import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrixGrids";
+import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
 
 export function applyCluesAdNauseam({
   clues,

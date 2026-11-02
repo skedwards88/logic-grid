@@ -3,7 +3,7 @@ import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 
 const emptyMatrixGrids: MatrixGrids = {
   NameVsNumber: [

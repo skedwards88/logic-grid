@@ -1,7 +1,7 @@
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
 import {type OrClue} from "./getOrClue";
 

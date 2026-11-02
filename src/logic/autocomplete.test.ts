@@ -3,7 +3,7 @@ import {populateSparseTestEntryLabels} from "./helpers/testHelpers";
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "./puzzleGeneration/buildEmptyMatrixGrids";
+} from "./puzzleGeneration/generateSolutionMatrix";
 
 describe("autocomplete", () => {
   const matrixLabels: MatrixLabels = {

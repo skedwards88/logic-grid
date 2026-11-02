@@ -11,7 +11,7 @@ import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 import {type Clue} from "../puzzleGeneration/getUsefulClue";
 
 export function validQ({

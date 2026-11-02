@@ -5,7 +5,7 @@ import {
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 
 export type OrCrossCategoryClue = {
   writtenClue: string;

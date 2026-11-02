@@ -1,5 +1,5 @@
 import {findMatrixKey} from "../matrixSearching/findMatrixKey";
-import {type MatrixLabels, type MatrixGrids} from "./buildEmptyMatrixGrids";
+import {type MatrixLabels, type MatrixGrids} from "./generateSolutionMatrix";
 
 export function setToTrue({
   matrixGrids,

@@ -2,7 +2,7 @@ import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
 import type {
   MatrixGrids,
   MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 import {
   findFirstPossibleIndex,
   findLastPossibleIndex,

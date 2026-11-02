@@ -5,8 +5,8 @@ import {
   type MatrixTemplates,
   type MatrixGrids,
   type MatrixLabels,
-  buildEmptyMatrixGrids,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
+import {buildEmptyMatrixGrids} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(

@@ -1,10 +1,57 @@
-import {
-  type Axis,
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
-} from "./buildEmptyMatrixGrids";
+import {type Axis} from "./chooseCategories";
 import {generateSolution} from "./generateSolution";
+
+export type Grid = (boolean | null)[][];
+
+export type StringLabels = {
+  values: string[];
+  displayLabels: string[];
+};
+
+export type NumberLabels = {
+  values: number[];
+  displayLabels: string[];
+};
+
+export type Labels = StringLabels | NumberLabels;
+
+export type StringTemplates = {
+  kind: "string";
+  templates: {
+    generateDescription: (value: string) => string;
+    verb?: string;
+  };
+};
+
+export type NumberTemplates = {
+  kind: "number";
+  templates: {
+    generateDescription: (value: number) => string;
+    generateDiffGreaterDescription: (value: number) => string;
+    generateDiffLesserDescription: (value: number) => string;
+    verb?: string;
+  };
+};
+
+export type Templates = StringTemplates | NumberTemplates;
+
+export type MatrixLabels = Record<
+  string,
+  {
+    row: Labels;
+    column: Labels;
+  }
+>;
+
+export type MatrixTemplates = Record<
+  string,
+  {
+    row: Templates;
+    column: Templates;
+  }
+>;
+
+export type MatrixGrids = Record<string, Grid>;
 
 export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
   solvedMatrixGrids: MatrixGrids;

@@ -4,7 +4,7 @@ import {type Clue} from "../logic/puzzleGeneration/getUsefulClue";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../logic/puzzleGeneration/buildEmptyMatrixGrids";
+} from "../logic/puzzleGeneration/generateSolutionMatrix";
 import {type ReducerPayload} from "../logic/gameReducer";
 
 export default function Result({

@@ -2,7 +2,18 @@ import {allCategories} from "./allCategories";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {sortValues} from "../helpers/sortValues";
-import {type Axis} from "./buildEmptyMatrixGrids";
+import type {
+  NumberLabels,
+  NumberTemplates,
+  StringLabels,
+  StringTemplates,
+} from "./generateSolutionMatrix";
+
+type StringAxis = StringLabels & StringTemplates;
+
+type NumberAxis = NumberLabels & NumberTemplates;
+
+export type Axis = StringAxis | NumberAxis;
 
 // returns a list of category labels and description templates
 export function chooseCategories(

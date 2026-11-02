@@ -1,4 +1,4 @@
-import {type Axis} from "./buildEmptyMatrixGrids";
+import {type Axis} from "./chooseCategories";
 import {generateSolutionMatrix} from "./generateSolutionMatrix";
 
 describe("generateSolutionMatrix", () => {

@@ -15,20 +15,16 @@ import {
   convertWheelCountToVehicle,
   basicPluralize,
 } from "./categoryHelpers";
-import {type NumberAxis, type StringAxis} from "./buildEmptyMatrixGrids";
+import type {NumberTemplates, StringTemplates} from "./generateSolutionMatrix";
 
-export type NumberCategory = {
-  kind: "number";
+export type NumberCategory = NumberTemplates & {
   values: number[];
   generateDisplayLabels?: (value: number) => string;
-  templates: NumberAxis["templates"];
 };
 
-export type StringCategory = {
-  kind: "string";
+export type StringCategory = StringTemplates & {
   values: string[];
   generateDisplayLabels?: (value: string) => string;
-  templates: StringAxis["templates"];
 };
 
 export const allCategories: (NumberCategory | StringCategory)[][] = [

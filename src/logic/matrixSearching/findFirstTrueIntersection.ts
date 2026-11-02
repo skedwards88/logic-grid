@@ -1,7 +1,7 @@
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 import {findMatrixValue} from "./findMatrixValue";
 
 export function findFirstTrueIntersection<

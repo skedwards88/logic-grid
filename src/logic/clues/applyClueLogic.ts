@@ -7,7 +7,7 @@ import {type Clue} from "../puzzleGeneration/getUsefulClue";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 
 export function applyClueLogic({
   clue,

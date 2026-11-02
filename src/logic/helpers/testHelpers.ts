@@ -1,7 +1,7 @@
 import type {
   Labels,
   Templates,
-} from "../puzzleGeneration/buildEmptyMatrixGrids";
+} from "../puzzleGeneration/generateSolutionMatrix";
 
 export const genericTestDescription = (test: string | number): string =>
   `generic ${test}`;

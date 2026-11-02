@@ -1,5 +1,5 @@
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrixGrids";
+import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
 import {
   setToFalse,
   setToTrue,

@@ -1,7 +1,7 @@
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {type Clue} from "./getUsefulClue";
-import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrixGrids";
+import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
 
 export function removeRedundantClues({
   clues,

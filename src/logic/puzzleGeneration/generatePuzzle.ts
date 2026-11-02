@@ -3,12 +3,9 @@ import {type Clue, getUsefulClue} from "./getUsefulClue";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {chooseCategories} from "./chooseCategories";
 import {generateSolutionMatrix} from "./generateSolutionMatrix";
-import {
-  buildEmptyMatrixGrids,
-  type MatrixGrids,
-  type MatrixLabels,
-} from "./buildEmptyMatrixGrids";
+import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
 import {removeRedundantClues} from "./removeRedundantClues";
+import {buildEmptyMatrixGrids} from "./buildEmptyMatrixGrids";
 
 export function generatePuzzle(
   numCategories: number,

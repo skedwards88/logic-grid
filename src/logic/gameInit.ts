@@ -2,7 +2,7 @@ import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "./puzzleGeneration/buildEmptyMatrixGrids";
+} from "./puzzleGeneration/generateSolutionMatrix";
 import {type Clue} from "./puzzleGeneration/getUsefulClue";
 import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
