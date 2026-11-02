@@ -1,7 +1,7 @@
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {setToFalse} from "../puzzleGeneration/setValue";
 import {type NotClue} from "./getNotClue";
 

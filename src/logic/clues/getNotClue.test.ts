@@ -5,7 +5,8 @@ import {
   type MatrixTemplates,
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+  buildEmptyMatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -229,15 +230,7 @@ const matrixTemplates: MatrixTemplates = {
   },
 };
 
-const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-for (const key in emptyMatrixGrids) {
-  emptyMatrixGrids[key] = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-  ];
-}
+const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
 describe("getNotClue", () => {
   afterEach(() => {

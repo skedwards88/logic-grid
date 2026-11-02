@@ -2,7 +2,7 @@ import {allCategories} from "./allCategories";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {sortValues} from "../helpers/sortValues";
-import {type Axis} from "./buildEmptyMatrix";
+import {type Axis} from "./buildEmptyMatrixGrids";
 
 // returns a list of category labels and description templates
 export function chooseCategories(

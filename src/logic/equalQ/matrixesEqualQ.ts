@@ -1,4 +1,4 @@
-import {type MatrixGrids} from "../puzzleGeneration/buildEmptyMatrix";
+import {type MatrixGrids} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {gridsEqualQ} from "./gridsEqualQ";
 
 export function matrixesEqualQ(

@@ -3,7 +3,7 @@ import {
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "./buildEmptyMatrix";
+} from "./buildEmptyMatrixGrids";
 import {generateSolution} from "./generateSolution";
 
 export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {

@@ -1,4 +1,4 @@
-import {type MatrixGrids} from "./puzzleGeneration/buildEmptyMatrix";
+import {type MatrixGrids} from "./puzzleGeneration/buildEmptyMatrixGrids";
 
 export function puzzleSolvedQ(derivedMatrixGrids: MatrixGrids): boolean {
   for (const key in derivedMatrixGrids) {

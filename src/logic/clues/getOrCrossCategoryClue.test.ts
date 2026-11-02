@@ -2,10 +2,11 @@ import * as wordLogic from "@skedwards88/word_logic";
 import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
 import {
+  buildEmptyMatrixGrids,
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -139,15 +140,7 @@ describe("getOrCrossCategoryClue", () => {
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "cross category or" clue for a given solution matrix (using mocked random values)', () => {
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce("Colin"); // itemA

@@ -6,7 +6,7 @@ import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {type NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function validQNumericComparisonClue({

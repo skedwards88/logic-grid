@@ -1,4 +1,4 @@
-import {type MatrixLabels} from "../puzzleGeneration/buildEmptyMatrix";
+import {type MatrixLabels} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 function getUniqueLabels(allLabels: string[][]): string[][] {
   const seen = new Set<string>();

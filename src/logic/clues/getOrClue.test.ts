@@ -2,10 +2,11 @@ import * as wordLogic from "@skedwards88/word_logic";
 import {getOrClue} from "./getOrClue";
 import {applyClueLogic} from "./applyClueLogic";
 import {
+  buildEmptyMatrixGrids,
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -229,15 +230,7 @@ const matrixTemplates: MatrixTemplates = {
   },
 };
 
-const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-for (const key in emptyMatrixGrids) {
-  emptyMatrixGrids[key] = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-  ];
-}
+const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
 describe("getOrClue", () => {
   test('returns an "or" clue for a given solution matrix (using mocked values)', () => {

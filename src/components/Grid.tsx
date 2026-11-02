@@ -1,5 +1,5 @@
 import {type ReducerPayload} from "../logic/gameReducer";
-import {type Grid} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {type Grid} from "../logic/puzzleGeneration/buildEmptyMatrixGrids";
 import Cell from "./Cell";
 
 export default function Grid({

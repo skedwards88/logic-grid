@@ -2,10 +2,11 @@ import * as wordLogic from "@skedwards88/word_logic";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
 import {
+  buildEmptyMatrixGrids,
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -141,15 +142,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values to return clue "undefined")', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
@@ -493,15 +486,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
+
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
       numericLabels[0],
@@ -848,15 +834,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff undefined)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
@@ -1216,15 +1194,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test("works even if multiple numeric categories", () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([

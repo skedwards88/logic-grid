@@ -1,5 +1,5 @@
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {type MatrixLabels, type MatrixGrids} from "./buildEmptyMatrix";
+import {type MatrixLabels, type MatrixGrids} from "./buildEmptyMatrixGrids";
 import {type Clue} from "./getUsefulClue";
 import {removeRedundantClues} from "./removeRedundantClues";
 

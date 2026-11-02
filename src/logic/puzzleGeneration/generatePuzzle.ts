@@ -7,7 +7,7 @@ import {
   buildEmptyMatrixGrids,
   type MatrixGrids,
   type MatrixLabels,
-} from "./buildEmptyMatrix";
+} from "./buildEmptyMatrixGrids";
 import {removeRedundantClues} from "./removeRedundantClues";
 
 export function generatePuzzle(

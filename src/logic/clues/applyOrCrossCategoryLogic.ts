@@ -2,7 +2,7 @@ import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {setToFalse, setToTrue} from "../puzzleGeneration/setValue";
 import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 

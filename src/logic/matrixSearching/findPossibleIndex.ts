@@ -1,7 +1,7 @@
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {findMatrixValue} from "./findMatrixValue";
 
 export function findFirstPossibleIndex({

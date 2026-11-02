@@ -1,7 +1,7 @@
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 export function findMatrixValue({
   matrixGrids,

@@ -19,7 +19,7 @@ import {
   type MatrixTemplates,
   type MatrixGrids,
   type MatrixLabels,
-} from "./buildEmptyMatrix";
+} from "./buildEmptyMatrixGrids";
 
 export type Clue =
   | OrClue

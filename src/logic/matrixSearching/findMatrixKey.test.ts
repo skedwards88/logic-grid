@@ -2,7 +2,7 @@ import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
 import {
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {findMatrixKey} from "./findMatrixKey";
 
 const matrixGrids: MatrixGrids = {

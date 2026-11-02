@@ -15,7 +15,7 @@ import {
   convertWheelCountToVehicle,
   basicPluralize,
 } from "./categoryHelpers";
-import {type NumberAxis, type StringAxis} from "./buildEmptyMatrix";
+import {type NumberAxis, type StringAxis} from "./buildEmptyMatrixGrids";
 
 export type NumberCategory = {
   kind: "number";

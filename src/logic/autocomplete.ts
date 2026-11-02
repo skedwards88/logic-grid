@@ -2,7 +2,7 @@ import {setToTrue} from "../logic/puzzleGeneration/setValue";
 import {
   type MatrixLabels,
   type MatrixGrids,
-} from "./puzzleGeneration/buildEmptyMatrix";
+} from "./puzzleGeneration/buildEmptyMatrixGrids";
 
 function makeEmptyCopyOfMatrix(matrixGrids: MatrixGrids): MatrixGrids {
   const matrixGridsCopy = structuredClone(matrixGrids);

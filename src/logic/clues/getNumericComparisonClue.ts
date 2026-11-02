@@ -9,7 +9,7 @@ import {
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 
 export type NumericComparisonClue = {

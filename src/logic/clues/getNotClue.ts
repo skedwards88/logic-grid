@@ -7,7 +7,7 @@ import {
   type MatrixGrids,
   type MatrixLabels,
   type MatrixTemplates,
-} from "../puzzleGeneration/buildEmptyMatrix";
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 export type NotClue = {
   writtenClue: string;

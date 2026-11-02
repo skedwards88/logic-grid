@@ -5,7 +5,8 @@ import {
   type MatrixTemplates,
   type MatrixGrids,
   type MatrixLabels,
-} from "../puzzleGeneration/buildEmptyMatrix";
+  buildEmptyMatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -141,15 +142,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       },
     },
   };
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
@@ -775,15 +768,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
@@ -1409,15 +1394,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     },
   };
 
-  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
-  for (const key in emptyMatrixGrids) {
-    emptyMatrixGrids[key] = [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ];
-  }
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values, case of extremes)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
