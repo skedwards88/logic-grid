@@ -72,10 +72,10 @@ export function getNumericComparisonClue({
 
   // figure out the numeric labels
   const numericLabels = matrixLabels[axisKey][numericAxisDimension]
-    .labels as number[];
+    .values as number[];
 
   // choose two random items in the other label set
-  const otherLabels = matrixLabels[axisKey][otherAxisDimension].labels;
+  const otherLabels = matrixLabels[axisKey][otherAxisDimension].values;
   const [itemA, itemB] = pickRandomItemsFromArray<string | number>(
     otherLabels,
     2,

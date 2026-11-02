@@ -63,31 +63,31 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     NumberVsColor: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
@@ -696,31 +696,31 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     NumberVsColor: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
@@ -1330,31 +1330,31 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     NumberVsColor: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },

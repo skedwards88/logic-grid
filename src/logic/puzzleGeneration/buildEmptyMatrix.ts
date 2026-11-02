@@ -1,6 +1,6 @@
 export type StringAxis = {
   kind: "string";
-  labels: string[];
+  values: string[];
   displayLabels: string[];
   templates: {
     generateDescription: (value: string) => string;
@@ -10,7 +10,7 @@ export type StringAxis = {
 
 export type NumberAxis = {
   kind: "number";
-  labels: number[];
+  values: number[];
   displayLabels: string[];
   templates: {
     generateDescription: (value: number) => string;
@@ -26,11 +26,11 @@ export type Grid = (boolean | null)[][];
 
 export type Labels =
   | {
-      labels: string[];
+      values: string[];
       displayLabels: string[];
     }
   | {
-      labels: number[];
+      values: number[];
       displayLabels: string[];
     };
 

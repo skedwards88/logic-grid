@@ -25,8 +25,8 @@ export function autocomplete(
   // Propagate the trues in the matrix
   for (const key in matrixGrids) {
     const grid = matrixGrids[key];
-    const rowLabels = matrixLabels[key].row.labels;
-    const columnLabels = matrixLabels[key].column.labels;
+    const rowLabels = matrixLabels[key].row.values;
+    const columnLabels = matrixLabels[key].column.values;
 
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       for (

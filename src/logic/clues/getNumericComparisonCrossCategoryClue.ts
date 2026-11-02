@@ -52,14 +52,14 @@ export function getNumericComparisonCrossCategoryClue({
     if (!numericAxisKey || !numericAxisDimension) {
       // If we haven't found a numeric axis, choose the first that we find
       if (
-        matrixLabels[key].row.labels.every((label) => typeof label === "number")
+        matrixLabels[key].row.values.every((label) => typeof label === "number")
       ) {
         numericAxisDimension = "row";
         axisADimension = "column";
         numericAxisKey = key;
         axisAKey = key;
       } else if (
-        matrixLabels[key].column.labels.every(
+        matrixLabels[key].column.values.every(
           (label) => typeof label === "number",
         )
       ) {
@@ -71,23 +71,23 @@ export function getNumericComparisonCrossCategoryClue({
     } else {
       // in case there are multiple numeric axes, make sure we find one that matches the one we already found
       if (
-        matrixLabels[key].row.labels.every(
+        matrixLabels[key].row.values.every(
           (label) => typeof label === "number",
         ) &&
         arraysEqualQ(
-          matrixLabels[key].row.labels,
-          matrixLabels[numericAxisKey][numericAxisDimension].labels as number[],
+          matrixLabels[key].row.values,
+          matrixLabels[numericAxisKey][numericAxisDimension].values as number[],
         )
       ) {
         axisBDimension = "column";
         axisBKey = key;
       } else if (
-        matrixLabels[key].column.labels.every(
+        matrixLabels[key].column.values.every(
           (label) => typeof label === "number",
         ) &&
         arraysEqualQ(
-          matrixLabels[key].column.labels,
-          matrixLabels[numericAxisKey][numericAxisDimension].labels as number[],
+          matrixLabels[key].column.values,
+          matrixLabels[numericAxisKey][numericAxisDimension].values as number[],
         )
       ) {
         axisBDimension = "row";
@@ -108,7 +108,7 @@ export function getNumericComparisonCrossCategoryClue({
   }
 
   const numericLabels = matrixLabels[numericAxisKey][numericAxisDimension]
-    .labels as number[];
+    .values as number[];
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
@@ -120,13 +120,13 @@ export function getNumericComparisonCrossCategoryClue({
     matrixGrids: solvedMatrixGrids,
     matrixLabels,
     item: itemANumericValue,
-    intersectingItems: matrixLabels[axisAKey][axisADimension].labels,
+    intersectingItems: matrixLabels[axisAKey][axisADimension].values,
   });
   const itemB = findFirstTrueIntersection({
     matrixGrids: solvedMatrixGrids,
     matrixLabels,
     item: itemBNumericValue,
-    intersectingItems: matrixLabels[axisBKey][axisBDimension].labels,
+    intersectingItems: matrixLabels[axisBKey][axisBDimension].values,
   });
 
   if (itemA === undefined || itemB === undefined) {

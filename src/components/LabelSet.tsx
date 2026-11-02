@@ -1,17 +1,17 @@
 export default function LabelSet({
-  labels,
+  displayLabels,
   id,
   type,
 }: {
-  labels: (string | number)[];
+  displayLabels: string[];
   id: number;
   type: "column" | "row";
 }): React.JSX.Element {
-  const labelDivs = labels.map((label, index) => (
+  const labelDivs = displayLabels.map((label, index) => (
     <div key={`${type}Label${id}_${index}`}>{label}</div>
   ));
   return (
-    <div className={`${type}Label label${id} size${labels.length}`}>
+    <div className={`${type}Label label${id} size${displayLabels.length}`}>
       {labelDivs}
     </div>
   );

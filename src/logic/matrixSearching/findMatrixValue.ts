@@ -17,26 +17,26 @@ export function findMatrixValue({
   // Given two items, finds the value of their intersection
   for (const key in matrixGrids) {
     if (
-      (matrixLabels[key].row.labels as (string | number)[]).includes(itemA) &&
-      (matrixLabels[key].column.labels as (string | number)[]).includes(itemB)
+      (matrixLabels[key].row.values as (string | number)[]).includes(itemA) &&
+      (matrixLabels[key].column.values as (string | number)[]).includes(itemB)
     ) {
       const rowIndex = (
-        matrixLabels[key].row.labels as (string | number)[]
+        matrixLabels[key].row.values as (string | number)[]
       ).indexOf(itemA);
       const columnIndex = (
-        matrixLabels[key].column.labels as (string | number)[]
+        matrixLabels[key].column.values as (string | number)[]
       ).indexOf(itemB);
       return matrixGrids[key][rowIndex][columnIndex];
     }
     if (
-      (matrixLabels[key].row.labels as (string | number)[]).includes(itemB) &&
-      (matrixLabels[key].column.labels as (string | number)[]).includes(itemA)
+      (matrixLabels[key].row.values as (string | number)[]).includes(itemB) &&
+      (matrixLabels[key].column.values as (string | number)[]).includes(itemA)
     ) {
       const rowIndex = (
-        matrixLabels[key].row.labels as (string | number)[]
+        matrixLabels[key].row.values as (string | number)[]
       ).indexOf(itemB);
       const columnIndex = (
-        matrixLabels[key].column.labels as (string | number)[]
+        matrixLabels[key].column.values as (string | number)[]
       ).indexOf(itemA);
       return matrixGrids[key][rowIndex][columnIndex];
     }

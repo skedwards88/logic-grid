@@ -16,9 +16,9 @@ export function setToTrue({
 
   // Need to widen the type to satisfy TS
   const rowLabels: readonly (string | number)[] =
-    matrixLabels[solutionKey].row.labels;
+    matrixLabels[solutionKey].row.values;
   const columnLabels: readonly (string | number)[] =
-    matrixLabels[solutionKey].column.labels;
+    matrixLabels[solutionKey].column.values;
 
   const rowIndex =
     rowLabels.indexOf(itemA) > -1
@@ -39,7 +39,7 @@ export function setToTrue({
   newDerivedMatrixGrids[solutionKey][rowIndex][columnIndex] = true;
 
   // All other items in that row/column are false
-  for (const columnLabel of matrixLabels[solutionKey].column.labels) {
+  for (const columnLabel of matrixLabels[solutionKey].column.values) {
     if (columnLabel === itemA || columnLabel === itemB) {
       // skip for the position we just set to true
       continue;
@@ -47,11 +47,11 @@ export function setToTrue({
     newDerivedMatrixGrids = setToFalse({
       matrixGrids: newDerivedMatrixGrids,
       matrixLabels,
-      itemA: matrixLabels[solutionKey].row.labels[rowIndex],
+      itemA: matrixLabels[solutionKey].row.values[rowIndex],
       itemB: columnLabel,
     });
   }
-  for (const rowLabel of matrixLabels[solutionKey].row.labels) {
+  for (const rowLabel of matrixLabels[solutionKey].row.values) {
     if (rowLabel === itemA || rowLabel === itemB) {
       // skip for the position we just set to true
       continue;
@@ -60,7 +60,7 @@ export function setToTrue({
       matrixGrids: newDerivedMatrixGrids,
       matrixLabels,
       itemA: rowLabel,
-      itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+      itemB: matrixLabels[solutionKey].column.values[columnIndex],
     });
   }
 
@@ -118,9 +118,9 @@ export function deduceSecondOrderFromFalse({
   for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
     const rowLabels: readonly (string | number)[] =
-      matrixLabels[key].row.labels;
+      matrixLabels[key].row.values;
     const columnLabels: readonly (string | number)[] =
-      matrixLabels[key].column.labels;
+      matrixLabels[key].column.values;
 
     if (rowLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -227,9 +227,9 @@ export function deduceSecondOrderFromTrue({
   for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
     const rowLabels: readonly (string | number)[] =
-      matrixLabels[key].row.labels;
+      matrixLabels[key].row.values;
     const columnLabels: readonly (string | number)[] =
-      matrixLabels[key].column.labels;
+      matrixLabels[key].column.values;
 
     if (rowLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -315,9 +315,9 @@ export function setToFalse({
 
   // Need to widen the type to satisfy TS
   const rowLabels: readonly (string | number)[] =
-    matrixLabels[solutionKey].row.labels;
+    matrixLabels[solutionKey].row.values;
   const columnLabels: readonly (string | number)[] =
-    matrixLabels[solutionKey].column.labels;
+    matrixLabels[solutionKey].column.values;
 
   const rowIndex =
     rowLabels.indexOf(itemA) > -1
@@ -350,15 +350,15 @@ export function setToFalse({
       newDerivedMatrixGrids = setToFalse({
         matrixGrids: newDerivedMatrixGrids,
         matrixLabels,
-        itemA: matrixLabels[solutionKey].row.labels[rowIndex],
-        itemB: matrixLabels[solutionKey].column.labels[nullIndexesInRow[0]],
+        itemA: matrixLabels[solutionKey].row.values[rowIndex],
+        itemB: matrixLabels[solutionKey].column.values[nullIndexesInRow[0]],
       });
     } else {
       newDerivedMatrixGrids = setToTrue({
         matrixGrids: newDerivedMatrixGrids,
         matrixLabels,
-        itemA: matrixLabels[solutionKey].row.labels[rowIndex],
-        itemB: matrixLabels[solutionKey].column.labels[nullIndexesInRow[0]],
+        itemA: matrixLabels[solutionKey].row.values[rowIndex],
+        itemB: matrixLabels[solutionKey].column.values[nullIndexesInRow[0]],
       });
     }
   }
@@ -378,15 +378,15 @@ export function setToFalse({
       newDerivedMatrixGrids = setToFalse({
         matrixGrids: newDerivedMatrixGrids,
         matrixLabels,
-        itemA: matrixLabels[solutionKey].row.labels[nullIndexesInColumn[0]],
-        itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+        itemA: matrixLabels[solutionKey].row.values[nullIndexesInColumn[0]],
+        itemB: matrixLabels[solutionKey].column.values[columnIndex],
       });
     } else {
       newDerivedMatrixGrids = setToTrue({
         matrixGrids: newDerivedMatrixGrids,
         matrixLabels,
-        itemA: matrixLabels[solutionKey].row.labels[nullIndexesInColumn[0]],
-        itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+        itemA: matrixLabels[solutionKey].row.values[nullIndexesInColumn[0]],
+        itemB: matrixLabels[solutionKey].column.values[columnIndex],
       });
     }
   }

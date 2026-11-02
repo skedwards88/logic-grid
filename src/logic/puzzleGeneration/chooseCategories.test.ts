@@ -69,7 +69,7 @@ describe("chooseCategories", () => {
     const categories = chooseCategories(numCategories, numItems);
     expect(categories.length).toBe(numCategories);
     for (const category of categories) {
-      expect(category.labels.length).toBe(numItems);
+      expect(category.values.length).toBe(numItems);
 
       expect(category.templates).toHaveProperty("generateDescription");
     }
@@ -93,7 +93,7 @@ describe("chooseCategories", () => {
     const categories = chooseCategories(numCategories, numItems);
     expect(categories.length).toBe(numCategories);
     for (const category of categories) {
-      expect(category.labels.length).toBe(numItems);
+      expect(category.values.length).toBe(numItems);
       expect(category.templates).toHaveProperty("generateDescription");
     }
 

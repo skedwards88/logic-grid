@@ -28,7 +28,7 @@ export function generatePuzzle(
 
   const includeCrossCategoryClues = numCategories > 2;
   const includeNumericClues = categoryLabelsAndTemplates
-    .map((i) => i.labels)
+    .map((i) => i.values)
     .some((i) => typeof i[0] === "number");
 
   const clues: Clue[] = [];

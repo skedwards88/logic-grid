@@ -56,7 +56,7 @@ export default function Game({
         key={`column${index}`}
         id={index}
         type="column"
-        labels={columnDisplayLabels[index]}
+        displayLabels={columnDisplayLabels[index]}
       ></LabelSet>,
     );
   }
@@ -66,7 +66,7 @@ export default function Game({
         key={`row${index}`}
         id={index}
         type="row"
-        labels={rowDisplayLabels[index]}
+        displayLabels={rowDisplayLabels[index]}
       ></LabelSet>,
     );
   }

@@ -1,7 +1,7 @@
 import {allCategories} from "./allCategories";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {sortLabels} from "../helpers/sortLabels";
+import {sortValues} from "../helpers/sortValues";
 import {type Axis} from "./buildEmptyMatrix";
 
 // returns a list of category labels and description templates
@@ -31,13 +31,13 @@ export function chooseCategories(
 
     // sort the values to make more user friendly
     // note: the numeric clues assume that the numeric labels are sorted
-    const sortedValues = sortLabels(selectedValues);
+    const sortedValues = sortValues(selectedValues);
 
     const categoryInfo: Axis =
       category.kind === "number"
         ? {
             kind: category.kind,
-            labels: sortedValues as number[],
+            values: sortedValues as number[],
             displayLabels: (sortedValues as number[]).map((value) =>
               category.generateDisplayLabels
                 ? category.generateDisplayLabels(value)
@@ -47,7 +47,7 @@ export function chooseCategories(
           }
         : {
             kind: category.kind,
-            labels: sortedValues as string[],
+            values: sortedValues as string[],
             displayLabels: (sortedValues as string[]).map((value) =>
               category.generateDisplayLabels
                 ? category.generateDisplayLabels(value)

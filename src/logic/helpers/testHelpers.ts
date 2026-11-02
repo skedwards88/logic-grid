@@ -14,25 +14,25 @@ export const genericNumberTemplates = {
 };
 
 export function populateSparseTestEntryLabels(
-  labels: string[] | number[],
+  values: string[] | number[],
 ): Labels {
-  if (labels.every((label) => typeof label === "number")) {
+  if (values.every((value) => typeof value === "number")) {
     return {
-      labels,
-      displayLabels: labels.map((l) => l.toString()),
+      values,
+      displayLabels: values.map((l) => l.toString()),
     };
   } else {
     return {
-      labels,
-      displayLabels: labels,
+      values,
+      displayLabels: values,
     };
   }
 }
 
 export function populateSparseTestEntryTemplates(
-  labels: string[] | number[],
+  values: string[] | number[],
 ): Templates {
-  if (labels.every((label) => typeof label === "number")) {
+  if (values.every((value) => typeof value === "number")) {
     return {
       kind: "number",
       templates: genericNumberTemplates,

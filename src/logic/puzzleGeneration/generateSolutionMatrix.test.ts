@@ -6,7 +6,7 @@ describe("generateSolutionMatrix", () => {
     const labelsAndTemplates: Axis[] = [
       {
         kind: "string",
-        labels: ["cat", "dog", "cow"],
+        values: ["cat", "dog", "cow"],
         displayLabels: ["cat", "dog", "cow"],
         templates: {
           generateDescription: (value) => `the ${value}`,
@@ -14,7 +14,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "number",
-        labels: [1, 2, 3],
+        values: [1, 2, 3],
         displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
@@ -24,7 +24,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "string",
-        labels: ["red", "orange", "blue"],
+        values: ["red", "orange", "blue"],
         displayLabels: ["red", "orange", "blue"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
@@ -48,33 +48,33 @@ describe("generateSolutionMatrix", () => {
     for (const key in solvedMatrixGrids) {
       // rows are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].row.labels),
+        expect.objectContaining(matrixLabels[key].row.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].row.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].row.values,
       );
 
       // columns are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].column.labels),
+        expect.objectContaining(matrixLabels[key].column.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].column.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].column.values,
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.labels).not.toEqual(
-        matrixLabels[key].row.labels,
+      expect(matrixLabels[key].column.values).not.toEqual(
+        matrixLabels[key].row.values,
       );
 
       // grid has expected number of rows
       expect(solvedMatrixGrids[key].length).toBe(
-        matrixLabels[key].row.labels.length,
+        matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.labels.length);
+        expect(row.length).toBe(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false
@@ -107,7 +107,7 @@ describe("generateSolutionMatrix", () => {
     const labelsAndTemplates: Axis[] = [
       {
         kind: "string",
-        labels: ["cat", "dog", "cow", "horse", "spider"],
+        values: ["cat", "dog", "cow", "horse", "spider"],
         displayLabels: ["cat", "dog", "cow", "horse", "spider"],
         templates: {
           generateDescription: (value) => `the ${value}`,
@@ -115,7 +115,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "number",
-        labels: [1, 2, 3, 4, 5],
+        values: [1, 2, 3, 4, 5],
         displayLabels: [1, 2, 3, 4, 5].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
@@ -125,7 +125,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "string",
-        labels: ["red", "blue", "green", "orange", "yellow"],
+        values: ["red", "blue", "green", "orange", "yellow"],
         displayLabels: ["red", "blue", "green", "orange", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
@@ -133,7 +133,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "string",
-        labels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
+        values: ["Tom", "Bob", "Jim", "Joe", "Abe"],
         displayLabels: ["Tom", "Bob", "Jim", "Joe", "Abe"],
         templates: {
           generateDescription: (value) => `${value}'s pet`,
@@ -157,33 +157,33 @@ describe("generateSolutionMatrix", () => {
     for (const key in solvedMatrixGrids) {
       // rows are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].row.labels),
+        expect.objectContaining(matrixLabels[key].row.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].row.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].row.values,
       );
 
       // columns are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].column.labels),
+        expect.objectContaining(matrixLabels[key].column.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].column.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].column.values,
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.labels).not.toEqual(
-        matrixLabels[key].row.labels,
+      expect(matrixLabels[key].column.values).not.toEqual(
+        matrixLabels[key].row.values,
       );
 
       // grid has expected number of rows
       expect(solvedMatrixGrids[key].length).toBe(
-        matrixLabels[key].row.labels.length,
+        matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.labels.length);
+        expect(row.length).toBe(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false
@@ -216,7 +216,7 @@ describe("generateSolutionMatrix", () => {
     const labelsAndTemplates: Axis[] = [
       {
         kind: "string",
-        labels: ["cat", "dog", "cow"],
+        values: ["cat", "dog", "cow"],
         displayLabels: ["cat", "dog", "cow"],
         templates: {
           generateDescription: (value) => `the ${value}`,
@@ -224,7 +224,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "number",
-        labels: [1, 2, 3],
+        values: [1, 2, 3],
         displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
@@ -234,7 +234,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "string",
-        labels: ["red", "blue", "green"],
+        values: ["red", "blue", "green"],
         displayLabels: ["red", "blue", "green"],
         templates: {
           generateDescription: (value) => `the ${value} animal`,
@@ -242,7 +242,7 @@ describe("generateSolutionMatrix", () => {
       },
       {
         kind: "string",
-        labels: ["Tom", "Bob", "Jim"],
+        values: ["Tom", "Bob", "Jim"],
         displayLabels: ["Tom", "Bob", "Jim"],
         templates: {
           generateDescription: (value) => `${value}'s pet`,
@@ -266,33 +266,33 @@ describe("generateSolutionMatrix", () => {
     for (const key in solvedMatrixGrids) {
       // rows are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].row.labels),
+        expect.objectContaining(matrixLabels[key].row.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].row.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].row.values,
       );
 
       // columns are one of the label lists
       expect.arrayContaining([
-        expect.objectContaining(matrixLabels[key].column.labels),
+        expect.objectContaining(matrixLabels[key].column.values),
       ]);
-      expect(labelsAndTemplates.map((i) => i.labels)).toContainEqual(
-        matrixLabels[key].column.labels,
+      expect(labelsAndTemplates.map((i) => i.values)).toContainEqual(
+        matrixLabels[key].column.values,
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.labels).not.toEqual(
-        matrixLabels[key].row.labels,
+      expect(matrixLabels[key].column.values).not.toEqual(
+        matrixLabels[key].row.values,
       );
 
       // grid has expected number of rows
       expect(solvedMatrixGrids[key].length).toBe(
-        matrixLabels[key].row.labels.length,
+        matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.labels.length);
+        expect(row.length).toBe(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false

@@ -19,9 +19,9 @@ export function findMatrixKey({
   for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
     const rowLabels: readonly (string | number)[] =
-      matrixLabels[key].row.labels;
+      matrixLabels[key].row.values;
     const columnLabels: readonly (string | number)[] =
-      matrixLabels[key].column.labels;
+      matrixLabels[key].column.values;
 
     if (rowLabels.includes(itemA) && columnLabels.includes(itemB)) {
       return key;

@@ -43,8 +43,8 @@ export function getOrCrossCategoryClue({
     if (!keyAB) {
       keyAB = key;
     } else if (
-      matrixLabels[keyAB].column.labels[0] ===
-      matrixLabels[key].column.labels[0]
+      matrixLabels[keyAB].column.values[0] ===
+      matrixLabels[key].column.values[0]
     ) {
       keyAC = key;
 
@@ -55,7 +55,7 @@ export function getOrCrossCategoryClue({
       axisBDimension = "row";
       axisCDimension = "row";
     } else if (
-      matrixLabels[keyAB].row.labels[0] === matrixLabels[key].column.labels[0]
+      matrixLabels[keyAB].row.values[0] === matrixLabels[key].column.values[0]
     ) {
       keyAC = key;
 
@@ -66,7 +66,7 @@ export function getOrCrossCategoryClue({
       axisBDimension = "column";
       axisCDimension = "row";
     } else if (
-      matrixLabels[keyAB].row.labels[0] === matrixLabels[key].row.labels[0]
+      matrixLabels[keyAB].row.values[0] === matrixLabels[key].row.values[0]
     ) {
       keyAC = key;
 
@@ -77,7 +77,7 @@ export function getOrCrossCategoryClue({
       axisBDimension = "column";
       axisCDimension = "column";
     } else if (
-      matrixLabels[keyAB].column.labels[0] === matrixLabels[key].row.labels[0]
+      matrixLabels[keyAB].column.values[0] === matrixLabels[key].row.values[0]
     ) {
       keyAC = key;
 
@@ -107,7 +107,7 @@ export function getOrCrossCategoryClue({
   // the shared label set will have our first item
   // e.g. "colin" in "colin is red or 1"
   const itemA = pickRandomItemFromArray<string | number>(
-    matrixLabels[axisAKey][axisADimension].labels,
+    matrixLabels[axisAKey][axisADimension].values,
   );
 
   // the opposing label sets will have our other two items, one true one false
@@ -118,16 +118,16 @@ export function getOrCrossCategoryClue({
     matrixGrids: solvedMatrixGrids,
     matrixLabels,
     item: itemA,
-    intersectingItems: matrixLabels[axisBKey][axisBDimension].labels,
+    intersectingItems: matrixLabels[axisBKey][axisBDimension].values,
   });
   const itemCNot = findFirstTrueIntersection({
     matrixGrids: solvedMatrixGrids,
     matrixLabels,
     item: itemA,
-    intersectingItems: matrixLabels[axisCKey][axisCDimension].labels,
+    intersectingItems: matrixLabels[axisCKey][axisCDimension].values,
   });
   const itemC = shuffleArray(
-    matrixLabels[axisCKey][axisCDimension].labels,
+    matrixLabels[axisCKey][axisCDimension].values,
   ).find((i) => i != itemCNot);
 
   if (itemB === undefined || itemC === undefined) {

@@ -76,61 +76,61 @@ const solvedMatrixGrids: MatrixGrids = {
 const matrixLabels: MatrixLabels = {
   NameVsNumber: {
     row: {
-      labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      values: ["Colin", "Sarah", "Fefe", "Meme"],
       displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     },
     column: {
-      labels: [1, 2, 3, 4],
+      values: [1, 2, 3, 4],
       displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
     },
   },
   NameVsMake: {
     row: {
-      labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      values: ["Colin", "Sarah", "Fefe", "Meme"],
       displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     },
     column: {
-      labels: ["Ford", "Honda", "Kia", "Subaru"],
+      values: ["Ford", "Honda", "Kia", "Subaru"],
       displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
     },
   },
   NameVsColor: {
     row: {
-      labels: ["Colin", "Sarah", "Fefe", "Meme"],
+      values: ["Colin", "Sarah", "Fefe", "Meme"],
       displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
     },
     column: {
-      labels: ["red", "blue", "green", "yellow"],
+      values: ["red", "blue", "green", "yellow"],
       displayLabels: ["red", "blue", "green", "yellow"],
     },
   },
   NumberVsMake: {
     row: {
-      labels: [1, 2, 3, 4],
+      values: [1, 2, 3, 4],
       displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
     },
     column: {
-      labels: ["Ford", "Honda", "Kia", "Subaru"],
+      values: ["Ford", "Honda", "Kia", "Subaru"],
       displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
     },
   },
   NumberVsColor: {
     row: {
-      labels: [1, 2, 3, 4],
+      values: [1, 2, 3, 4],
       displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
     },
     column: {
-      labels: ["red", "blue", "green", "yellow"],
+      values: ["red", "blue", "green", "yellow"],
       displayLabels: ["red", "blue", "green", "yellow"],
     },
   },
   MakeVsColor: {
     row: {
-      labels: ["Ford", "Honda", "Kia", "Subaru"],
+      values: ["Ford", "Honda", "Kia", "Subaru"],
       displayLabels: ["Ford", "Honda", "Kia", "Subaru"],
     },
     column: {
-      labels: ["red", "blue", "green", "yellow"],
+      values: ["red", "blue", "green", "yellow"],
       displayLabels: ["red", "blue", "green", "yellow"],
     },
   },

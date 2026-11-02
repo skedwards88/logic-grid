@@ -121,8 +121,8 @@ describe("findMatrixKey", () => {
       itemB: "green",
     });
     expect(foundKey).toEqual("0v3");
-    expect(matrixLabels[foundKey].row.labels).toIncludeOneOf("Sarah", "green");
-    expect(matrixLabels[foundKey].column.labels).toIncludeOneOf(
+    expect(matrixLabels[foundKey].row.values).toIncludeOneOf("Sarah", "green");
+    expect(matrixLabels[foundKey].column.values).toIncludeOneOf(
       "Sarah",
       "green",
     );
@@ -136,8 +136,8 @@ describe("findMatrixKey", () => {
       itemB: "Sarah",
     });
     expect(foundKey).toEqual("0v3");
-    expect(matrixLabels[foundKey].row.labels).toIncludeOneOf("green", "Sarah");
-    expect(matrixLabels[foundKey].column.labels).toIncludeOneOf(
+    expect(matrixLabels[foundKey].row.values).toIncludeOneOf("green", "Sarah");
+    expect(matrixLabels[foundKey].column.values).toIncludeOneOf(
       "green",
       "Sarah",
     );

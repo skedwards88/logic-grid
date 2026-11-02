@@ -1,6 +1,6 @@
 import {allCategories} from "./allCategories";
 import {getNumericDiff} from "../helpers/getNumericDiff";
-import {sortLabels} from "../helpers/sortLabels";
+import {sortValues} from "../helpers/sortValues";
 
 function arrayValuesAreUniqueQ(array: readonly unknown[]): boolean {
   const uniqueArray = Array.from(new Set(array));
@@ -140,7 +140,7 @@ describe("allCategories example text", () => {
             `${leadingDescription} is ${trailingDescription} or ${trailingDescription2}.`,
           );
           if (categoryB.kind != "number") return;
-          const sortedNumerics = sortLabels(categoryB.values);
+          const sortedNumerics = sortValues(categoryB.values);
           const lesserValue = sortedNumerics[2];
           const greaterValue = sortedNumerics[3];
           const diff = getNumericDiff(greaterValue, lesserValue);

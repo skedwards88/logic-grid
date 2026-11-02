@@ -27,7 +27,7 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
   ];
 
   const solution = generateSolution(
-    categoryLabelsAndTemplates.map((i) => i.labels),
+    categoryLabelsAndTemplates.map((i) => i.values),
   );
 
   const solvedMatrixGrids: MatrixGrids = {};
@@ -44,18 +44,18 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
       const rowInfo = matrixRowInfo[rowIndex];
 
       const grid: boolean[][] = [];
-      for (let rowIndex = 0; rowIndex < rowInfo.labels.length; rowIndex++) {
+      for (let rowIndex = 0; rowIndex < rowInfo.values.length; rowIndex++) {
         const row: boolean[] = [];
         for (
           let columnIndex = 0;
-          columnIndex < columnInfo.labels.length;
+          columnIndex < columnInfo.values.length;
           columnIndex++
         ) {
           if (
             solution.some(
               (solutionEntry) =>
-                solutionEntry.includes(rowInfo.labels[rowIndex]) &&
-                solutionEntry.includes(columnInfo.labels[columnIndex]),
+                solutionEntry.includes(rowInfo.values[rowIndex]) &&
+                solutionEntry.includes(columnInfo.values[columnIndex]),
             )
           ) {
             row.push(true);
@@ -70,16 +70,16 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
 
       const columnLabels =
         columnInfo.kind === "number"
-          ? {labels: columnInfo.labels, displayLabels: columnInfo.displayLabels}
+          ? {values: columnInfo.values, displayLabels: columnInfo.displayLabels}
           : {
-              labels: columnInfo.labels,
+              values: columnInfo.values,
               displayLabels: columnInfo.displayLabels,
             };
 
       const rowLabels =
         rowInfo.kind === "number"
-          ? {labels: rowInfo.labels, displayLabels: rowInfo.displayLabels}
-          : {labels: rowInfo.labels, displayLabels: rowInfo.displayLabels};
+          ? {values: rowInfo.values, displayLabels: rowInfo.displayLabels}
+          : {values: rowInfo.values, displayLabels: rowInfo.displayLabels};
 
       matrixLabels[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
         row: rowLabels,

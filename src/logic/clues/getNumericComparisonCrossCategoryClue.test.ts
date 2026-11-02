@@ -62,31 +62,31 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     ColorVsNumber: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
@@ -414,31 +414,31 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     ColorVsNumber: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
@@ -769,31 +769,31 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     ColorVsNumber: {
       row: {
-        labels: numericLabels,
+        values: numericLabels,
         displayLabels: numericLabels.map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
@@ -1127,31 +1127,31 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   const matrixLabels: MatrixLabels = {
     YearsVsMiles: {
       row: {
-        labels: numericLabelsYears,
+        values: numericLabelsYears,
         displayLabels: numericLabelsYears.map((l) => l.toString()),
       },
       column: {
-        labels: numericLabelsMiles,
+        values: numericLabelsMiles,
         displayLabels: numericLabelsMiles.map((l) => l.toString()),
       },
     },
     MilesVsDollars: {
       row: {
-        labels: numericLabelsMiles,
+        values: numericLabelsMiles,
         displayLabels: numericLabelsMiles.map((l) => l.toString()),
       },
       column: {
-        labels: numericLabelsDollars,
+        values: numericLabelsDollars,
         displayLabels: numericLabelsDollars.map((l) => l.toString()),
       },
     },
     DollarsVsYears: {
       row: {
-        labels: numericLabelsDollars,
+        values: numericLabelsDollars,
         displayLabels: numericLabelsDollars.map((l) => l.toString()),
       },
       column: {
-        labels: numericLabelsYears,
+        values: numericLabelsYears,
         displayLabels: numericLabelsYears.map((l) => l.toString()),
       },
     },

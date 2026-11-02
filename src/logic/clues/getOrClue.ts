@@ -34,8 +34,8 @@ export function getOrClue({
 }): OrClue {
   // choose a random grid in the solution matrix
   const solutionKey = pickRandomItemFromArray(Object.keys(solvedMatrixGrids));
-  const columnLabels = matrixLabels[solutionKey].column.labels;
-  const rowLabels = matrixLabels[solutionKey].row.labels;
+  const columnLabels = matrixLabels[solutionKey].column.values;
+  const rowLabels = matrixLabels[solutionKey].row.values;
   const grid = solvedMatrixGrids[solutionKey];
 
   // Choose a random row label (e.g. 'Colin')

@@ -60,31 +60,31 @@ describe("getOrCrossCategoryClue", () => {
   const matrixLabels: MatrixLabels = {
     NameVsNumber: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: [1, 2, 3, 4],
+        values: [1, 2, 3, 4],
         displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
       },
     },
     NameVsColor: {
       row: {
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        values: ["Colin", "Sarah", "Fefe", "Meme"],
         displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
     ColorVsNumber: {
       row: {
-        labels: [1, 2, 3, 4],
+        values: [1, 2, 3, 4],
         displayLabels: [1, 2, 3, 4].map((l) => l.toString()),
       },
       column: {
-        labels: ["red", "blue", "green", "yellow"],
+        values: ["red", "blue", "green", "yellow"],
         displayLabels: ["red", "blue", "green", "yellow"],
       },
     },
