@@ -6,6 +6,8 @@ import {
 import {type Clue} from "./puzzleGeneration/getUsefulClue";
 import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
+const LAST_BREAKING_CHANGE = "20261101";
+
 export type GameState = {
   id: string;
   clues: Clue[];
@@ -21,7 +23,7 @@ export type GameState = {
 export function gameInit({
   numCategories = 3,
   numItemsPerCategory = 4,
-  easyTrue = false,
+  easyTrue = true,
   showViolations = false,
   useSaved = true,
 }: {
@@ -44,8 +46,8 @@ export function gameInit({
     savedState.showViolations != undefined
   ) {
     // Only use the saved state if it is compatible with the most recent breaking change
-    if (savedState.lastBreakingChange === "20230702") {
-      // return savedState;
+    if (savedState.lastBreakingChange === LAST_BREAKING_CHANGE) {
+      return savedState;
     }
   }
 
@@ -68,6 +70,6 @@ export function gameInit({
     numItemsPerCategory,
     easyTrue,
     showViolations,
-    lastBreakingChange: "20230702",
+    lastBreakingChange: LAST_BREAKING_CHANGE,
   };
 }
