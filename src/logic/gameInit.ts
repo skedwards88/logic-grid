@@ -1,12 +1,16 @@
 import {generatePuzzle} from "../logic/puzzleGeneration/generatePuzzle";
-import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "./puzzleGeneration/buildEmptyMatrix";
 import {type Clue} from "./puzzleGeneration/getUsefulClue";
 import {getFromStorage} from "@skedwards88/shared-components/src/logic/safeStorage";
 
 export type GameState = {
   id: string;
   clues: Clue[];
-  derivedMatrixHistory: PuzzleMatrix[];
+  matrixLabels: MatrixLabels;
+  matrixGridsHistory: MatrixGrids[];
   numCategories: number;
   numItemsPerCategory: number;
   easyTrue: boolean;
@@ -33,7 +37,7 @@ export function gameInit({
 
   if (
     savedState?.clues &&
-    savedState.derivedMatrixHistory &&
+    savedState.matrixGridsHistory &&
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
     savedState.easyTrue != undefined &&
@@ -41,7 +45,7 @@ export function gameInit({
   ) {
     // Only use the saved state if it is compatible with the most recent breaking change
     if (savedState.lastBreakingChange === "20230702") {
-      return savedState;
+      // return savedState;
     }
   }
 
@@ -50,7 +54,7 @@ export function gameInit({
   // Make sure numItemsPerCategory is 3-5
   numItemsPerCategory = Math.min(5, Math.max(3, numItemsPerCategory));
 
-  const {clues, derivedMatrix} = generatePuzzle(
+  const {clues, matrixGrids, matrixLabels} = generatePuzzle(
     numCategories,
     numItemsPerCategory,
   );
@@ -58,7 +62,8 @@ export function gameInit({
   return {
     id: crypto.randomUUID(), // just a random ID to track when the user generates a new puzzle
     clues,
-    derivedMatrixHistory: [derivedMatrix],
+    matrixLabels,
+    matrixGridsHistory: [matrixGrids],
     numCategories,
     numItemsPerCategory,
     easyTrue,

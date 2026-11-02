@@ -1,12 +1,21 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
 import {type NotClue} from "./getNotClue";
 
 export function applyNotLogic(
-  derivedMatrix: PuzzleMatrix,
+  matrixGrids: MatrixGrids,
+  matrixLabels: MatrixLabels,
   {itemA, itemB}: NotClue["clueParameters"],
-): PuzzleMatrix {
-  const newDerivedMatrix = setToFalse(derivedMatrix, itemA, itemB);
+): MatrixGrids {
+  const newDerivedMatrix = setToFalse({
+    matrixGrids,
+    matrixLabels,
+    itemA,
+    itemB,
+  });
 
   return newDerivedMatrix;
 }

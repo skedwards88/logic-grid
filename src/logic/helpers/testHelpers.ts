@@ -1,4 +1,4 @@
-import type {Axis} from "../puzzleGeneration/buildEmptyMatrix";
+import type {Labels, Templates} from "../puzzleGeneration/buildEmptyMatrix";
 
 export const genericTestDescription = (test: string | number): string =>
   `generic ${test}`;
@@ -13,18 +13,32 @@ export const genericNumberTemplates = {
   generateDiffLesserDescription: genericTestDescription,
 };
 
-export function populateSparseTestEntry(labels: string[] | number[]): Axis {
+export function populateSparseTestEntryLabels(
+  labels: string[] | number[],
+): Labels {
   if (labels.every((label) => typeof label === "number")) {
     return {
       labels,
       displayLabels: labels.map((l) => l.toString()),
-      kind: "number",
-      templates: genericNumberTemplates,
     };
   } else {
     return {
       labels,
       displayLabels: labels,
+    };
+  }
+}
+
+export function populateSparseTestEntryTemplates(
+  labels: string[] | number[],
+): Templates {
+  if (labels.every((label) => typeof label === "number")) {
+    return {
+      kind: "number",
+      templates: genericNumberTemplates,
+    };
+  } else {
+    return {
       kind: "string",
       templates: genericStringTemplates,
     };

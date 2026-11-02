@@ -1,19 +1,24 @@
-import cloneDeep from "lodash.clonedeep";
 import {findMatrixKey} from "../matrixSearching/findMatrixKey";
-import {type PuzzleMatrix} from "./buildEmptyMatrix";
+import {type MatrixLabels, type MatrixGrids} from "./buildEmptyMatrix";
 
-export function setToTrue(
-  derivedMatrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): PuzzleMatrix {
-  const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
+export function setToTrue({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): MatrixGrids {
+  const solutionKey = findMatrixKey({matrixGrids, matrixLabels, itemA, itemB});
 
   // Need to widen the type to satisfy TS
   const rowLabels: readonly (string | number)[] =
-    derivedMatrix[solutionKey].row.labels;
+    matrixLabels[solutionKey].row.labels;
   const columnLabels: readonly (string | number)[] =
-    derivedMatrix[solutionKey].column.labels;
+    matrixLabels[solutionKey].column.labels;
 
   const rowIndex =
     rowLabels.indexOf(itemA) > -1
@@ -25,78 +30,97 @@ export function setToTrue(
       : columnLabels.indexOf(itemB);
 
   // if already true, return early
-  if (derivedMatrix[solutionKey].grid[rowIndex][columnIndex]) {
-    return derivedMatrix;
+  if (matrixGrids[solutionKey][rowIndex][columnIndex]) {
+    return matrixGrids;
   }
 
-  let newDerivedMatrix = cloneDeep(derivedMatrix);
+  let newDerivedMatrixGrids = structuredClone(matrixGrids);
 
-  newDerivedMatrix[solutionKey].grid[rowIndex][columnIndex] = true;
+  newDerivedMatrixGrids[solutionKey][rowIndex][columnIndex] = true;
 
   // All other items in that row/column are false
-  for (const columnLabel of newDerivedMatrix[solutionKey].column.labels) {
+  for (const columnLabel of matrixLabels[solutionKey].column.labels) {
     if (columnLabel === itemA || columnLabel === itemB) {
       // skip for the position we just set to true
       continue;
     }
-    newDerivedMatrix = setToFalse(
-      newDerivedMatrix,
-      newDerivedMatrix[solutionKey].row.labels[rowIndex],
-      columnLabel,
-    );
+    newDerivedMatrixGrids = setToFalse({
+      matrixGrids: newDerivedMatrixGrids,
+      matrixLabels,
+      itemA: matrixLabels[solutionKey].row.labels[rowIndex],
+      itemB: columnLabel,
+    });
   }
-  for (const rowLabel of newDerivedMatrix[solutionKey].row.labels) {
+  for (const rowLabel of matrixLabels[solutionKey].row.labels) {
     if (rowLabel === itemA || rowLabel === itemB) {
       // skip for the position we just set to true
       continue;
     }
-    newDerivedMatrix = setToFalse(
-      newDerivedMatrix,
-      rowLabel,
-      newDerivedMatrix[solutionKey].column.labels[columnIndex],
-    );
+    newDerivedMatrixGrids = setToFalse({
+      matrixGrids: newDerivedMatrixGrids,
+      matrixLabels,
+      itemA: rowLabel,
+      itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+    });
   }
 
-  newDerivedMatrix = deduceSecondOrderFromTrue(newDerivedMatrix, itemA, itemB);
+  newDerivedMatrixGrids = deduceSecondOrderFromTrue({
+    matrixGrids: newDerivedMatrixGrids,
+    matrixLabels,
+    itemA,
+    itemB,
+  });
 
-  return newDerivedMatrix;
+  return newDerivedMatrixGrids;
 }
 
-export function propagateValue(
-  matrix: PuzzleMatrix,
-  items: (string | number)[],
-  value: boolean | null,
-): PuzzleMatrix {
+export function propagateValue({
+  matrixGrids,
+  matrixLabels,
+  items,
+  value,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  items: (string | number)[];
+  value: boolean | null;
+}): MatrixGrids {
   const [itemA, itemB] = items;
 
   if (value === true) {
-    return setToTrue(matrix, itemA, itemB);
+    return setToTrue({matrixGrids, matrixLabels, itemA, itemB});
   } else if (value === false) {
-    return setToFalse(matrix, itemA, itemB);
+    return setToFalse({matrixGrids, matrixLabels, itemA, itemB});
   } else {
-    return matrix;
+    return matrixGrids;
   }
 }
 
-export function deduceSecondOrderFromFalse(
-  derivedMatrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): PuzzleMatrix {
+export function deduceSecondOrderFromFalse({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): MatrixGrids {
   // When you set an index to false
   // Check if you know a truth about either item
   // if so,
   // e.g. if you set 'dog vs red' to 'false' and you know 'dog vs Colin' is true,
   // then you know 'Colin vs red' is false as well
 
-  let newDerivedMatrix = cloneDeep(derivedMatrix);
+  let newDerivedMatrixGrids = structuredClone(matrixGrids);
 
-  for (const key in derivedMatrix) {
+  for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
     const rowLabels: readonly (string | number)[] =
-      derivedMatrix[key].row.labels;
+      matrixLabels[key].row.labels;
     const columnLabels: readonly (string | number)[] =
-      derivedMatrix[key].column.labels;
+      matrixLabels[key].column.labels;
 
     if (rowLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -110,12 +134,13 @@ export function deduceSecondOrderFromFalse(
         columnIndex++
       ) {
         // if the value is true, propagate the false
-        if (derivedMatrix[key].grid[rowIndex][columnIndex]) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            columnLabels[columnIndex],
+        if (matrixGrids[key][rowIndex][columnIndex]) {
+          newDerivedMatrixGrids = setToFalse({
+            matrixGrids: newDerivedMatrixGrids,
+            matrixLabels,
+            itemA: columnLabels[columnIndex],
             itemB,
-          );
+          });
         }
       }
     } else if (rowLabels.includes(itemB)) {
@@ -130,12 +155,13 @@ export function deduceSecondOrderFromFalse(
         columnIndex++
       ) {
         // if the value is true, propagate the false
-        if (derivedMatrix[key].grid[rowIndex][columnIndex]) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            columnLabels[columnIndex],
-            itemA,
-          );
+        if (matrixGrids[key][rowIndex][columnIndex]) {
+          newDerivedMatrixGrids = setToFalse({
+            matrixGrids: newDerivedMatrixGrids,
+            matrixLabels,
+            itemA: columnLabels[columnIndex],
+            itemB: itemA,
+          });
         }
       }
     } else if (columnLabels.includes(itemA)) {
@@ -146,12 +172,13 @@ export function deduceSecondOrderFromFalse(
       const columnIndex = columnLabels.indexOf(itemA);
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
         // if the value is true, propagate the false
-        if (derivedMatrix[key].grid[rowIndex][columnIndex]) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            rowLabels[rowIndex],
+        if (matrixGrids[key][rowIndex][columnIndex]) {
+          newDerivedMatrixGrids = setToFalse({
+            matrixGrids: newDerivedMatrixGrids,
+            matrixLabels,
+            itemA: rowLabels[rowIndex],
             itemB,
-          );
+          });
         }
       }
     } else if (columnLabels.includes(itemB)) {
@@ -162,40 +189,47 @@ export function deduceSecondOrderFromFalse(
       const columnIndex = columnLabels.indexOf(itemB);
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
         // if the value is true, propagate the false
-        if (derivedMatrix[key].grid[rowIndex][columnIndex]) {
-          newDerivedMatrix = setToFalse(
-            newDerivedMatrix,
-            rowLabels[rowIndex],
-            itemA,
-          );
+        if (matrixGrids[key][rowIndex][columnIndex]) {
+          newDerivedMatrixGrids = setToFalse({
+            matrixGrids: newDerivedMatrixGrids,
+            matrixLabels,
+            itemA: rowLabels[rowIndex],
+            itemB: itemA,
+          });
         }
       }
     }
   }
-  return newDerivedMatrix;
+  return newDerivedMatrixGrids;
 }
 
-export function deduceSecondOrderFromTrue(
-  derivedMatrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): PuzzleMatrix {
+export function deduceSecondOrderFromTrue({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): MatrixGrids {
   // When set an index to true (e.g. red fly)
   // check for other things that you know about that row and column (e.g. fly is colin)
   // if 'red is fly' and 'colin is fly', then 'red is colin'
 
-  let newDerivedMatrix = cloneDeep(derivedMatrix);
+  let newDerivedMatrixGrids = structuredClone(matrixGrids);
 
   // For every grid in the matrix
   // check if the grid row/column labels include one of the ones we just set to true
   // if yes, propagate the knowledge from that row/column to the other value that we just set to true
 
-  for (const key in derivedMatrix) {
+  for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
     const rowLabels: readonly (string | number)[] =
-      derivedMatrix[key].row.labels;
+      matrixLabels[key].row.labels;
     const columnLabels: readonly (string | number)[] =
-      derivedMatrix[key].column.labels;
+      matrixLabels[key].column.labels;
 
     if (rowLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -208,11 +242,12 @@ export function deduceSecondOrderFromTrue(
         columnIndex < columnLabels.length;
         columnIndex++
       ) {
-        newDerivedMatrix = propagateValue(
-          newDerivedMatrix,
-          [columnLabels[columnIndex], itemB],
-          derivedMatrix[key].grid[rowIndex][columnIndex],
-        );
+        newDerivedMatrixGrids = propagateValue({
+          matrixGrids: newDerivedMatrixGrids,
+          matrixLabels,
+          items: [columnLabels[columnIndex], itemB],
+          value: matrixGrids[key][rowIndex][columnIndex],
+        });
       }
     } else if (rowLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
@@ -225,11 +260,12 @@ export function deduceSecondOrderFromTrue(
         columnIndex < columnLabels.length;
         columnIndex++
       ) {
-        newDerivedMatrix = propagateValue(
-          newDerivedMatrix,
-          [columnLabels[columnIndex], itemA],
-          derivedMatrix[key].grid[rowIndex][columnIndex],
-        );
+        newDerivedMatrixGrids = propagateValue({
+          matrixGrids: newDerivedMatrixGrids,
+          matrixLabels,
+          items: [columnLabels[columnIndex], itemA],
+          value: matrixGrids[key][rowIndex][columnIndex],
+        });
       }
     } else if (columnLabels.includes(itemA)) {
       // return early if this is the key that includes A and B
@@ -238,11 +274,12 @@ export function deduceSecondOrderFromTrue(
       }
       const columnIndex = columnLabels.indexOf(itemA);
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
-        newDerivedMatrix = propagateValue(
-          newDerivedMatrix,
-          [rowLabels[rowIndex], itemB],
-          derivedMatrix[key].grid[rowIndex][columnIndex],
-        );
+        newDerivedMatrixGrids = propagateValue({
+          matrixGrids: newDerivedMatrixGrids,
+          matrixLabels,
+          items: [rowLabels[rowIndex], itemB],
+          value: matrixGrids[key][rowIndex][columnIndex],
+        });
       }
     } else if (columnLabels.includes(itemB)) {
       // return early if this is the key that includes A and B
@@ -251,29 +288,36 @@ export function deduceSecondOrderFromTrue(
       }
       const columnIndex = columnLabels.indexOf(itemB);
       for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
-        newDerivedMatrix = propagateValue(
-          newDerivedMatrix,
-          [rowLabels[rowIndex], itemA],
-          derivedMatrix[key].grid[rowIndex][columnIndex],
-        );
+        newDerivedMatrixGrids = propagateValue({
+          matrixGrids: newDerivedMatrixGrids,
+          matrixLabels,
+          items: [rowLabels[rowIndex], itemA],
+          value: matrixGrids[key][rowIndex][columnIndex],
+        });
       }
     }
   }
-  return newDerivedMatrix;
+  return newDerivedMatrixGrids;
 }
 
-export function setToFalse(
-  derivedMatrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): PuzzleMatrix {
-  const solutionKey = findMatrixKey(derivedMatrix, itemA, itemB);
+export function setToFalse({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): MatrixGrids {
+  const solutionKey = findMatrixKey({matrixGrids, matrixLabels, itemA, itemB});
 
   // Need to widen the type to satisfy TS
   const rowLabels: readonly (string | number)[] =
-    derivedMatrix[solutionKey].row.labels;
+    matrixLabels[solutionKey].row.labels;
   const columnLabels: readonly (string | number)[] =
-    derivedMatrix[solutionKey].column.labels;
+    matrixLabels[solutionKey].column.labels;
 
   const rowIndex =
     rowLabels.indexOf(itemA) > -1
@@ -285,16 +329,16 @@ export function setToFalse(
       : columnLabels.indexOf(itemB);
 
   // if already false, return early
-  if (derivedMatrix[solutionKey].grid[rowIndex][columnIndex] === false) {
-    return derivedMatrix;
+  if (matrixGrids[solutionKey][rowIndex][columnIndex] === false) {
+    return matrixGrids;
   }
 
-  let newDerivedMatrix = cloneDeep(derivedMatrix);
+  let newDerivedMatrixGrids = structuredClone(matrixGrids);
 
-  newDerivedMatrix[solutionKey].grid[rowIndex][columnIndex] = false;
+  newDerivedMatrixGrids[solutionKey][rowIndex][columnIndex] = false;
 
   // If this leaves only one null in the row, the last null is true if there are no trues, otherwise false
-  const nullIndexesInRow = newDerivedMatrix[solutionKey].grid[rowIndex].reduce<
+  const nullIndexesInRow = newDerivedMatrixGrids[solutionKey][rowIndex].reduce<
     number[]
   >(
     (indexes, currentValue, currentIndex) =>
@@ -302,23 +346,25 @@ export function setToFalse(
     [],
   );
   if (nullIndexesInRow.length === 1) {
-    if (newDerivedMatrix[solutionKey].grid[rowIndex].some((value) => value)) {
-      newDerivedMatrix = setToFalse(
-        newDerivedMatrix,
-        newDerivedMatrix[solutionKey].row.labels[rowIndex],
-        newDerivedMatrix[solutionKey].column.labels[nullIndexesInRow[0]],
-      );
+    if (newDerivedMatrixGrids[solutionKey][rowIndex].some((value) => value)) {
+      newDerivedMatrixGrids = setToFalse({
+        matrixGrids: newDerivedMatrixGrids,
+        matrixLabels,
+        itemA: matrixLabels[solutionKey].row.labels[rowIndex],
+        itemB: matrixLabels[solutionKey].column.labels[nullIndexesInRow[0]],
+      });
     } else {
-      newDerivedMatrix = setToTrue(
-        newDerivedMatrix,
-        newDerivedMatrix[solutionKey].row.labels[rowIndex],
-        newDerivedMatrix[solutionKey].column.labels[nullIndexesInRow[0]],
-      );
+      newDerivedMatrixGrids = setToTrue({
+        matrixGrids: newDerivedMatrixGrids,
+        matrixLabels,
+        itemA: matrixLabels[solutionKey].row.labels[rowIndex],
+        itemB: matrixLabels[solutionKey].column.labels[nullIndexesInRow[0]],
+      });
     }
   }
 
   // If this leaves only one null in the column, the last null is true if there are no trues, otherwise false
-  const nullIndexesInColumn = newDerivedMatrix[solutionKey].grid.reduce<
+  const nullIndexesInColumn = newDerivedMatrixGrids[solutionKey].reduce<
     number[]
   >(
     (indexes, currentRow, currentRowIndex) =>
@@ -328,22 +374,29 @@ export function setToFalse(
     [],
   );
   if (nullIndexesInColumn.length === 1) {
-    if (newDerivedMatrix[solutionKey].grid.some((row) => row[columnIndex])) {
-      newDerivedMatrix = setToFalse(
-        newDerivedMatrix,
-        newDerivedMatrix[solutionKey].row.labels[nullIndexesInColumn[0]],
-        newDerivedMatrix[solutionKey].column.labels[columnIndex],
-      );
+    if (newDerivedMatrixGrids[solutionKey].some((row) => row[columnIndex])) {
+      newDerivedMatrixGrids = setToFalse({
+        matrixGrids: newDerivedMatrixGrids,
+        matrixLabels,
+        itemA: matrixLabels[solutionKey].row.labels[nullIndexesInColumn[0]],
+        itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+      });
     } else {
-      newDerivedMatrix = setToTrue(
-        newDerivedMatrix,
-        newDerivedMatrix[solutionKey].row.labels[nullIndexesInColumn[0]],
-        newDerivedMatrix[solutionKey].column.labels[columnIndex],
-      );
+      newDerivedMatrixGrids = setToTrue({
+        matrixGrids: newDerivedMatrixGrids,
+        matrixLabels,
+        itemA: matrixLabels[solutionKey].row.labels[nullIndexesInColumn[0]],
+        itemB: matrixLabels[solutionKey].column.labels[columnIndex],
+      });
     }
   }
 
-  newDerivedMatrix = deduceSecondOrderFromFalse(newDerivedMatrix, itemA, itemB);
+  newDerivedMatrixGrids = deduceSecondOrderFromFalse({
+    matrixGrids: newDerivedMatrixGrids,
+    matrixLabels,
+    itemA,
+    itemB,
+  });
 
-  return newDerivedMatrix;
+  return newDerivedMatrixGrids;
 }

@@ -1,10 +1,14 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 
 export function validQNumericComparisonCrossCategoryClue({
-  matrix,
+  matrixGrids,
+  matrixLabels,
   clueParameters: {
     greaterItem,
     lesserItem,
@@ -14,17 +18,27 @@ export function validQNumericComparisonCrossCategoryClue({
   },
   strict = false,
 }: {
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   clueParameters: NumericComparisonCrossCategoryClue["clueParameters"];
   strict?: boolean;
 }): boolean {
   // in strict mode, the greaterItem cannot be the lesserItem
-  if (strict && findMatrixValue(matrix, greaterItem, lesserItem)) {
+  if (
+    strict &&
+    findMatrixValue({
+      matrixGrids,
+      matrixLabels,
+      itemA: greaterItem,
+      itemB: lesserItem,
+    })
+  ) {
     return false;
   }
 
   return validQNumericComparisonClue({
-    matrix,
+    matrixGrids,
+    matrixLabels,
     clueParameters: {
       greaterItem,
       lesserItem,

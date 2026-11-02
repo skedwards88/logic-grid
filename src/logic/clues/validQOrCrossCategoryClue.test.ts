@@ -1,39 +1,47 @@
-import cloneDeep from "lodash.clonedeep";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import type {
+  MatrixGrids,
+  MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-const completeMatrix = {
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [null, false, true, false],
-      [false, true, false, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [null, false, false, false],
-      [false, false, false, true],
-      [false, false, true, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [false, false, false, true],
-      [false, false, true, false],
-      [true, false, false, false],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
+};
+
+const completeMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [true, false, false, false],
+    [null, false, true, false],
+    [false, true, false, false],
+    [false, false, false, true],
+  ],
+
+  NameVsColor: [
+    [false, true, false, false],
+    [null, false, false, false],
+    [false, false, false, true],
+    [false, false, true, null],
+  ],
+
+  NumberVsColor: [
+    [false, true, false, false],
+    [false, false, false, true],
+    [false, false, true, false],
+    [true, false, false, false],
+  ],
 };
 
 describe("validQOrCrossCategoryClue, non-strict", () => {
@@ -41,15 +49,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["red", 4];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
     expect(validQ).toBe(false);
   });
 
@@ -57,15 +80,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["blue", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -73,15 +111,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
 
     expect(validQ).toBe(true);
   });
@@ -90,15 +143,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 2];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -107,15 +175,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = [1, "red"];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -124,15 +207,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = [3, "red"];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
@@ -140,15 +238,30 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
@@ -156,28 +269,44 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 3];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQOrCrossCategoryClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         orItems: ["blue", 2],
       },
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });
 
@@ -186,7 +315,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["red", 4];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -194,8 +324,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
     expect(validQ).toBe(false);
   });
 
@@ -203,7 +347,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["blue", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -211,8 +356,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -220,7 +379,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -228,8 +388,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
 
     expect(validQ).toBe(false);
   });
@@ -238,7 +412,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 2];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -246,8 +421,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(false);
   });
@@ -256,7 +445,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = [1, "red"];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -264,8 +454,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -274,7 +478,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Colin";
     const orItems: [string | number, string | number] = ["red", 1];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -282,8 +487,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
@@ -291,7 +510,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = [3, "red"];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -299,8 +519,22 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
@@ -308,7 +542,8 @@ describe("validQOrCrossCategoryClue, strict", () => {
     const itemA = "Sarah";
     const orItems: [string | number, string | number] = ["red", 3];
     const validQ = validQOrCrossCategoryClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -316,21 +551,36 @@ describe("validQOrCrossCategoryClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQOrCrossCategoryClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         orItems: ["blue", 2],
       },
       strict: true,
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });

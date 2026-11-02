@@ -1,6 +1,9 @@
-import cloneDeep from "lodash.clonedeep";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 describe("validQNumericComparisonClue, non-strict, exact diff", () => {
   test("returns true if both items are known and they are separated by the exact diff", () => {
@@ -9,21 +12,30 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -42,21 +54,30 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry([0, 2, 3, 4]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels([0, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -75,20 +96,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -107,20 +137,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -139,20 +178,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -171,20 +219,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -203,20 +260,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -235,20 +301,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -267,21 +342,25 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(numericLabels),
-        grid: [
-          [true, null, null, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels(numericLabels),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -300,20 +379,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -332,20 +420,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -364,20 +461,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -396,20 +502,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -428,20 +543,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -460,20 +584,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -492,20 +625,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -524,20 +666,29 @@ describe("validQNumericComparisonClue, non-strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -558,21 +709,30 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -592,21 +752,30 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [0, 2, 3, 4];
     const actualNumericDiff = 4;
     const numericDiffClue = 4;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -626,20 +795,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -659,20 +837,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -692,20 +879,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -725,20 +921,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -758,20 +963,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -791,20 +1005,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -824,21 +1047,25 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(numericLabels),
-        grid: [
-          [true, null, null, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels(numericLabels),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -858,20 +1085,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -891,20 +1127,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -924,20 +1169,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -957,20 +1211,29 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -984,47 +1247,61 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
     expect(validQ).toBe(false);
   });
 
-  test("does not modify the input matrix when validating the clue", () => {
-    const matrix = {
+  test("does not modify the input matrix grids when validating the clue", () => {
+    const matrixLabels: MatrixLabels = {
       NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry([1, 2, 3, 4]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([1, 2, 3, 4]),
       },
       NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
       NumberVsColor: {
-        row: populateSparseTestEntry([1, 2, 3, 4]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
-    const matrixCopy = cloneDeep(matrix);
+
+    const matrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NameVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+    const matrixGridsCopy = structuredClone(matrixGrids);
     const greaterItem = "yellow";
     const lesserItem = "red";
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 2;
     validQNumericComparisonClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1034,7 +1311,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
       },
       strict: true,
     });
-    expect(matrixCopy).toEqual(matrix);
+    expect(matrixGridsCopy).toEqual(matrixGrids);
   });
 });
 
@@ -1045,21 +1322,30 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1078,21 +1364,30 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1111,20 +1406,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1143,20 +1447,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1175,20 +1488,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1207,20 +1529,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1239,20 +1570,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1271,20 +1611,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1303,20 +1652,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1335,20 +1693,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1367,20 +1734,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1399,20 +1775,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1431,20 +1816,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1463,20 +1857,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1495,20 +1898,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1527,20 +1939,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1559,20 +1980,29 @@ describe("validQNumericComparisonClue, non-strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1593,21 +2023,30 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1627,21 +2066,30 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1661,20 +2109,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1694,20 +2151,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1727,20 +2193,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = 1;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1760,20 +2235,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1793,20 +2277,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1826,20 +2319,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1859,20 +2361,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1892,20 +2403,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1925,20 +2445,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1958,20 +2487,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -1991,20 +2529,29 @@ describe("validQNumericComparisonClue, strict, non-exact diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = 2;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2026,21 +2573,30 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2059,21 +2615,30 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2092,20 +2657,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2124,20 +2698,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2156,20 +2739,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, null, true],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2188,20 +2780,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2220,20 +2821,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, true, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2252,20 +2862,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2284,20 +2903,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2316,20 +2944,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2348,20 +2985,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, false, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2380,20 +3026,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2412,20 +3067,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2444,20 +3108,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, true, null, null],
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2475,20 +3148,29 @@ describe("validQNumericComparisonClue, non-strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2509,21 +3191,30 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2543,21 +3234,30 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [0, 1, 2, 3];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2577,20 +3277,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 2;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, true, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2610,20 +3319,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, true],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2643,20 +3361,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, false, null],
-          [null, null, null, true],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2676,20 +3403,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, true, null, null],
-          [null, null, null, null],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2709,20 +3445,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, true, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2742,20 +3487,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2775,20 +3529,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, false, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2808,20 +3571,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, false],
-          [null, null, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,
@@ -2841,20 +3613,29 @@ describe("validQNumericComparisonClue, strict, unknown diff", () => {
     const numericLabels = [1, 2, 3, 4];
     const actualNumericDiff = 3;
     const numericDiffClue = undefined;
-    const matrix = {
+    const matrixLabels: MatrixLabels = {
       NumberVsColor: {
-        row: populateSparseTestEntry(numericLabels),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, false, null, false],
-          [null, null, null, false],
-        ],
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+    };
     const validQ = validQNumericComparisonClue({
-      matrix: matrix,
+      matrixGrids,
+      matrixLabels,
       clueParameters: {
         greaterItem,
         lesserItem,

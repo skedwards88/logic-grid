@@ -1,35 +1,44 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-export function findMatrixValue(
-  matrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): boolean | null {
+export function findMatrixValue({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): boolean | null {
   // Given two items, finds the value of their intersection
-  for (const key in matrix) {
+  for (const key in matrixGrids) {
     if (
-      (matrix[key].row.labels as (string | number)[]).includes(itemA) &&
-      (matrix[key].column.labels as (string | number)[]).includes(itemB)
+      (matrixLabels[key].row.labels as (string | number)[]).includes(itemA) &&
+      (matrixLabels[key].column.labels as (string | number)[]).includes(itemB)
     ) {
-      const rowIndex = (matrix[key].row.labels as (string | number)[]).indexOf(
-        itemA,
-      );
+      const rowIndex = (
+        matrixLabels[key].row.labels as (string | number)[]
+      ).indexOf(itemA);
       const columnIndex = (
-        matrix[key].column.labels as (string | number)[]
+        matrixLabels[key].column.labels as (string | number)[]
       ).indexOf(itemB);
-      return matrix[key].grid[rowIndex][columnIndex];
+      return matrixGrids[key][rowIndex][columnIndex];
     }
     if (
-      (matrix[key].row.labels as (string | number)[]).includes(itemB) &&
-      (matrix[key].column.labels as (string | number)[]).includes(itemA)
+      (matrixLabels[key].row.labels as (string | number)[]).includes(itemB) &&
+      (matrixLabels[key].column.labels as (string | number)[]).includes(itemA)
     ) {
-      const rowIndex = (matrix[key].row.labels as (string | number)[]).indexOf(
-        itemB,
-      );
+      const rowIndex = (
+        matrixLabels[key].row.labels as (string | number)[]
+      ).indexOf(itemB);
       const columnIndex = (
-        matrix[key].column.labels as (string | number)[]
+        matrixLabels[key].column.labels as (string | number)[]
       ).indexOf(itemA);
-      return matrix[key].grid[rowIndex][columnIndex];
+      return matrixGrids[key][rowIndex][columnIndex];
     }
   }
   throw new Error(

@@ -1,287 +1,222 @@
-import cloneDeep from "lodash.clonedeep";
 import {autocomplete} from "./autocomplete";
-import {populateSparseTestEntry} from "./helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "./helpers/testHelpers";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "./puzzleGeneration/buildEmptyMatrix";
 
 describe("autocomplete", () => {
+  const matrixLabels: MatrixLabels = {
+    NameVsNumber: {
+      row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+      column: populateSparseTestEntryLabels([1, 2, 3]),
+    },
+    NameVsColor: {
+      row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+      column: populateSparseTestEntryLabels(["red", "blue", "green"]),
+    },
+    ColorVsNumber: {
+      row: populateSparseTestEntryLabels(["red", "blue", "green"]),
+      column: populateSparseTestEntryLabels([1, 2, 3]),
+    },
+  };
   test("it autocompletes a puzzle if enough trues are known to do so", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, null],
-          [null, null, true],
-          [false, true, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null],
+        [null, null, true],
+        [false, true, null],
+      ],
+      NameVsColor: [
+        [null, null, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+      ColorVsNumber: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    const expectedMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, false, false],
-          [false, false, true],
-          [false, true, false],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [false, false, true],
-          [false, true, false],
-          [true, false, false],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [false, true, false],
-          [false, false, true],
-          [true, false, false],
-        ],
-      },
+    const expectedMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, false, false],
+        [false, false, true],
+        [false, true, false],
+      ],
+
+      NameVsColor: [
+        [false, false, true],
+        [false, true, false],
+        [true, false, false],
+      ],
+
+      ColorVsNumber: [
+        [false, true, false],
+        [false, false, true],
+        [true, false, false],
+      ],
     };
 
-    const outputMatrix = autocomplete(inputMatrix);
-    expect(outputMatrix).toEqual(expectedMatrix);
+    const outputMatrix = autocomplete(inputMatrixGrids, matrixLabels);
+    expect(outputMatrix).toEqual(expectedMatrixGrids);
   });
 
-  test("It should not change the input matrix", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [false, false, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, true, null],
-          [true, null, null],
-          [null, null, true],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+  test("It should not change the input matrix grids", () => {
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [false, false, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+
+      NameVsColor: [
+        [null, true, null],
+        [true, null, null],
+        [null, null, true],
+      ],
+
+      ColorVsNumber: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    const matrixCopy = cloneDeep(inputMatrix);
-    const outputMatrix = autocomplete(inputMatrix);
+    const matrixGridsCopy = structuredClone(inputMatrixGrids);
+    const outputMatrix = autocomplete(inputMatrixGrids, matrixLabels);
 
-    expect(matrixCopy).toEqual(inputMatrix);
-    expect(matrixCopy).not.toEqual(outputMatrix);
+    expect(matrixGridsCopy).toEqual(inputMatrixGrids);
+    expect(matrixGridsCopy).not.toEqual(outputMatrix);
   });
 
   test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, false, false],
-          [false, null, false],
-          [false, false, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, false, false],
-          [false, null, false],
-          [false, false, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, false, false],
-          [false, null, false],
-          [false, false, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [null, false, false],
+        [false, null, false],
+        [false, false, null],
+      ],
+
+      NameVsColor: [
+        [null, false, false],
+        [false, null, false],
+        [false, false, null],
+      ],
+
+      ColorVsNumber: [
+        [null, false, false],
+        [false, null, false],
+        [false, false, null],
+      ],
     };
 
-    expect(() => autocomplete(inputMatrix)).toThrow(
+    expect(() => autocomplete(inputMatrixGrids, matrixLabels)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it can't complete the matrix", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, null],
-          [null, null, null],
-          [false, null, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null],
+        [null, null, null],
+        [false, null, null],
+      ],
+
+      NameVsColor: [
+        [null, null, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+
+      ColorVsNumber: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    expect(() => autocomplete(inputMatrix)).toThrow(
+    expect(() => autocomplete(inputMatrixGrids, matrixLabels)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it results in multiple trues per column", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, null],
-          [null, null, true],
-          [true, null, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null],
+        [null, null, true],
+        [true, null, null],
+      ],
+
+      NameVsColor: [
+        [null, null, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+
+      ColorVsNumber: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    expect(() => autocomplete(inputMatrix)).toThrow(
+    expect(() => autocomplete(inputMatrixGrids, matrixLabels)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if it results in multiple trues per row", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, true],
-          [null, null, null],
-          [false, null, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, true],
+        [null, null, null],
+        [false, null, null],
+      ],
+
+      NameVsColor: [
+        [null, null, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+
+      ColorVsNumber: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    expect(() => autocomplete(inputMatrix)).toThrow(
+    expect(() => autocomplete(inputMatrixGrids, matrixLabels)).toThrow(
       "Propagating the trues did not result in exactly one true/row",
     );
   });
 
   test("it throws an error if the autocompleted solution conflicts with the input matrix", () => {
-    const inputMatrix = {
-      NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, null],
-          [null, null, true],
-          [false, true, null],
-        ],
-      },
-      NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, true],
-          [null, true, null],
-          [true, null, null],
-        ],
-      },
-      ColorVsNumber: {
-        row: populateSparseTestEntry(["red", "blue", "green"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, false, null],
-          [null, null, null],
-          [null, null, null],
-        ],
-      },
+    const inputMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [true, null, null],
+        [null, null, true],
+        [false, true, null],
+      ],
+
+      NameVsColor: [
+        [null, null, true],
+        [null, true, null],
+        [true, null, null],
+      ],
+
+      ColorVsNumber: [
+        [null, false, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
-    expect(() => autocomplete(inputMatrix)).toThrow(
+    expect(() => autocomplete(inputMatrixGrids, matrixLabels)).toThrow(
       "Propagating the trues leads to a disagreement with the original array",
     );
   });

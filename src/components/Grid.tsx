@@ -1,32 +1,28 @@
 import {type ReducerPayload} from "../logic/gameReducer";
-import {type UnsolvedMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {type Grid} from "../logic/puzzleGeneration/buildEmptyMatrix";
 import Cell from "./Cell";
 
 export default function Grid({
-  solutionEntry,
+  grid,
   id,
   easyTrue,
   dispatchGameState,
 }: {
-  solutionEntry: UnsolvedMatrix;
+  grid: Grid;
   id: string;
   easyTrue: boolean;
   dispatchGameState: React.Dispatch<ReducerPayload>;
 }): React.JSX.Element {
-  const numRows = solutionEntry.grid.length;
+  const numRows = grid.length;
   const cells = [];
-  for (let rowIndex = 0; rowIndex < solutionEntry.grid.length; rowIndex++) {
-    for (
-      let columnIndex = 0;
-      columnIndex < solutionEntry.grid[0].length;
-      columnIndex++
-    ) {
+  for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
+    for (let columnIndex = 0; columnIndex < grid[0].length; columnIndex++) {
       cells.push(
         <Cell
           rowIndex={rowIndex}
           columnIndex={columnIndex}
           gridID={id}
-          value={solutionEntry.grid[rowIndex][columnIndex]}
+          value={grid[rowIndex][columnIndex]}
           key={`${id}_${rowIndex}-${columnIndex}`}
           dispatchGameState={dispatchGameState}
           easyTrue={easyTrue}

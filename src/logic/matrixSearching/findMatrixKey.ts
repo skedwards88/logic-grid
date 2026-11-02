@@ -1,17 +1,27 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-export function findMatrixKey(
-  matrix: PuzzleMatrix,
-  itemA: string | number,
-  itemB: string | number,
-): string {
+export function findMatrixKey({
+  matrixGrids,
+  matrixLabels,
+  itemA,
+  itemB,
+}: {
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  itemA: string | number;
+  itemB: string | number;
+}): string {
   // Given two items, finds the corresponding matrix key
   //  for the grid that contains the two items
-  for (const key in matrix) {
+  for (const key in matrixGrids) {
     // Need to widen the type to satisfy TS
-    const rowLabels: readonly (string | number)[] = matrix[key].row.labels;
+    const rowLabels: readonly (string | number)[] =
+      matrixLabels[key].row.labels;
     const columnLabels: readonly (string | number)[] =
-      matrix[key].column.labels;
+      matrixLabels[key].column.labels;
 
     if (rowLabels.includes(itemA) && columnLabels.includes(itemB)) {
       return key;

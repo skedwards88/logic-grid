@@ -7,11 +7,15 @@ import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getNumericSum} from "../helpers/getNumericSum";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function applyNumericComparisonLogic(
-  derivedMatrix: PuzzleMatrix,
+  matrixGrids: MatrixGrids,
+  matrixLabels: MatrixLabels,
   {
     greaterItem,
     lesserItem,
@@ -19,18 +23,19 @@ export function applyNumericComparisonLogic(
     actualNumericDiff,
     numericDiffClue,
   }: NumericComparisonClue["clueParameters"],
-): PuzzleMatrix {
+): MatrixGrids {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
-  let newDerivedMatrix = derivedMatrix;
+  let newMatrixGrids = matrixGrids;
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
-  const lesserItemLowestPossibleIndex = findFirstPossibleIndex(
-    derivedMatrix,
-    lesserItem,
-    numericLabels,
-  );
+  const lesserItemLowestPossibleIndex = findFirstPossibleIndex({
+    matrixGrids,
+    matrixLabels,
+    item: lesserItem,
+    intersectingItems: numericLabels,
+  });
 
   if (lesserItemLowestPossibleIndex === undefined) {
     throw new Error("No possible index");
@@ -41,16 +46,22 @@ export function applyNumericComparisonLogic(
 
   if (
     actualNumericDiff === numericDiffClue &&
-    findMatrixValue(derivedMatrix, lesserItem, lesserItemLowestPossibleValue)
+    findMatrixValue({
+      matrixGrids,
+      matrixLabels,
+      itemA: lesserItem,
+      itemB: lesserItemLowestPossibleValue,
+    })
   ) {
     // If we know the exact diff
     // and we know the value of the lesser item
     // then we know the value of the greater item
-    newDerivedMatrix = setToTrue(
-      newDerivedMatrix,
-      greaterItem,
-      getNumericSum(lesserItemLowestPossibleValue, numericDiffClue),
-    );
+    newMatrixGrids = setToTrue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA: greaterItem,
+      itemB: getNumericSum(lesserItemLowestPossibleValue, numericDiffClue),
+    });
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
     // then we exclude any combos that don't match the diff
@@ -65,11 +76,12 @@ export function applyNumericComparisonLogic(
           numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
-        newDerivedMatrix = setToFalse(
-          newDerivedMatrix,
-          greaterItem,
-          numericLabels[numericIndex],
-        );
+        newMatrixGrids = setToFalse({
+          matrixGrids: newMatrixGrids,
+          matrixLabels,
+          itemA: greaterItem,
+          itemB: numericLabels[numericIndex],
+        });
       }
     }
   } else {
@@ -88,19 +100,21 @@ export function applyNumericComparisonLogic(
       numericIndex < greaterItemLowestPossibleIndex;
       numericIndex++
     ) {
-      newDerivedMatrix = setToFalse(
-        newDerivedMatrix,
-        greaterItem,
-        numericLabels[numericIndex],
-      );
+      newMatrixGrids = setToFalse({
+        matrixGrids: newMatrixGrids,
+        matrixLabels,
+        itemA: greaterItem,
+        itemB: numericLabels[numericIndex],
+      });
     }
   }
 
-  const greaterItemHighestPossibleIndex = findLastPossibleIndex(
-    derivedMatrix,
-    greaterItem,
-    numericLabels,
-  );
+  const greaterItemHighestPossibleIndex = findLastPossibleIndex({
+    matrixGrids,
+    matrixLabels,
+    item: greaterItem,
+    intersectingItems: numericLabels,
+  });
 
   if (greaterItemHighestPossibleIndex === undefined) {
     throw new Error("No possible index");
@@ -111,16 +125,22 @@ export function applyNumericComparisonLogic(
 
   if (
     actualNumericDiff === numericDiffClue &&
-    findMatrixValue(derivedMatrix, greaterItem, greaterItemHighestPossibleValue)
+    findMatrixValue({
+      matrixGrids,
+      matrixLabels,
+      itemA: greaterItem,
+      itemB: greaterItemHighestPossibleValue,
+    })
   ) {
     // If we know the exact diff
     // and we know the value of the greater item
     // then we know the value of the lesser item
-    newDerivedMatrix = setToTrue(
-      newDerivedMatrix,
-      lesserItem,
-      getNumericDiff(greaterItemHighestPossibleValue, numericDiffClue),
-    );
+    newMatrixGrids = setToTrue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA: lesserItem,
+      itemB: getNumericDiff(greaterItemHighestPossibleValue, numericDiffClue),
+    });
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
     // then we exclude any combos that don't match the diff
@@ -135,11 +155,12 @@ export function applyNumericComparisonLogic(
           numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
-        newDerivedMatrix = setToFalse(
-          newDerivedMatrix,
-          lesserItem,
-          numericLabels[numericIndex],
-        );
+        newMatrixGrids = setToFalse({
+          matrixGrids: newMatrixGrids,
+          matrixLabels,
+          itemA: lesserItem,
+          itemB: numericLabels[numericIndex],
+        });
       }
     }
   } else {
@@ -158,12 +179,13 @@ export function applyNumericComparisonLogic(
       numericIndex > lesserItemHighestPossibleIndex;
       numericIndex--
     ) {
-      newDerivedMatrix = setToFalse(
-        newDerivedMatrix,
-        lesserItem,
-        numericLabels[numericIndex],
-      );
+      newMatrixGrids = setToFalse({
+        matrixGrids: newMatrixGrids,
+        matrixLabels,
+        itemA: lesserItem,
+        itemB: numericLabels[numericIndex],
+      });
     }
   }
-  return newDerivedMatrix;
+  return newMatrixGrids;
 }

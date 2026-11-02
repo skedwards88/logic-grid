@@ -3,11 +3,15 @@ import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueInterse
 import {findAllPossibleIndexes} from "../matrixSearching/findPossibleIndex";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function validQNumericComparisonClue({
-  matrix,
+  matrixGrids,
+  matrixLabels,
   clueParameters: {
     greaterItem,
     lesserItem,
@@ -17,20 +21,23 @@ export function validQNumericComparisonClue({
   },
   strict = false,
 }: {
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   clueParameters: NumericComparisonClue["clueParameters"];
   strict?: boolean;
 }): boolean {
-  const greaterValue = findFirstTrueIntersection(
-    matrix,
-    greaterItem,
-    numericLabels,
-  );
-  const lesserValue = findFirstTrueIntersection(
-    matrix,
-    lesserItem,
-    numericLabels,
-  );
+  const greaterValue = findFirstTrueIntersection({
+    matrixGrids,
+    matrixLabels,
+    item: greaterItem,
+    intersectingItems: numericLabels,
+  });
+  const lesserValue = findFirstTrueIntersection({
+    matrixGrids,
+    matrixLabels,
+    item: lesserItem,
+    intersectingItems: numericLabels,
+  });
 
   // if strict mode, both items must be known
   if (strict && (greaterValue === undefined || lesserValue === undefined)) {
@@ -41,19 +48,21 @@ export function validQNumericComparisonClue({
   const lesserTrues: boolean[] = [];
   const greaterTrues: boolean[] = [];
   for (const numericValue of numericLabels) {
-    const lesserIntersectionValue = findMatrixValue(
-      matrix,
-      lesserItem,
-      numericValue,
-    );
+    const lesserIntersectionValue = findMatrixValue({
+      matrixGrids,
+      matrixLabels,
+      itemA: lesserItem,
+      itemB: numericValue,
+    });
     if (lesserIntersectionValue) {
       lesserTrues.push(lesserIntersectionValue);
     }
-    const greaterIntersectionValue = findMatrixValue(
-      matrix,
-      greaterItem,
-      numericValue,
-    );
+    const greaterIntersectionValue = findMatrixValue({
+      matrixGrids,
+      matrixLabels,
+      itemA: greaterItem,
+      itemB: numericValue,
+    });
     if (greaterIntersectionValue) {
       greaterTrues.push(greaterIntersectionValue);
     }
@@ -81,17 +90,19 @@ export function validQNumericComparisonClue({
       }
     }
   } else {
-    const lesserItemPossibleIndexes = findAllPossibleIndexes(
-      matrix,
-      lesserItem,
-      numericLabels,
-    );
+    const lesserItemPossibleIndexes = findAllPossibleIndexes({
+      matrixGrids,
+      matrixLabels,
+      item: lesserItem,
+      intersectingItems: numericLabels,
+    });
 
-    const greaterItemPossibleIndexes = findAllPossibleIndexes(
-      matrix,
-      greaterItem,
-      numericLabels,
-    );
+    const greaterItemPossibleIndexes = findAllPossibleIndexes({
+      matrixGrids,
+      matrixLabels,
+      item: greaterItem,
+      intersectingItems: numericLabels,
+    });
 
     const lesserItemPossibleValues = lesserItemPossibleIndexes.map(
       (index) => numericLabels[index],

@@ -3,7 +3,11 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 export type NotClue = {
   writtenClue: string;
@@ -17,12 +21,20 @@ export type NotClue = {
 
 // Generates a "not" clue
 // e.g. "Colin is not blue"
-export function getNotClue(solutionMatrix: PuzzleMatrix): NotClue {
+export function getNotClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): NotClue {
   // choose a random grid in the solution matrix
-  const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
-  const columnLabels = solutionMatrix[solutionKey].column.labels;
-  const rowLabels = solutionMatrix[solutionKey].row.labels;
-  const grid = solutionMatrix[solutionKey].grid;
+  const solutionKey = pickRandomItemFromArray(Object.keys(solvedMatrixGrids));
+  const columnLabels = matrixLabels[solutionKey].column.labels;
+  const rowLabels = matrixLabels[solutionKey].row.labels;
+  const grid = solvedMatrixGrids[solutionKey];
 
   // Choose a random row label (e.g. 'Colin')
   const rowIndex = pickRandomIndexFromArray(rowLabels);
@@ -38,20 +50,20 @@ export function getNotClue(solutionMatrix: PuzzleMatrix): NotClue {
 
   // Overkill but I didn't find a better way to satisfy TS
   const rowDescription =
-    solutionMatrix[solutionKey].row.kind === "number"
-      ? solutionMatrix[solutionKey].row.templates.generateDescription(
+    matrixTemplates[solutionKey].row.kind === "number"
+      ? matrixTemplates[solutionKey].row.templates.generateDescription(
           rowItem as number,
         )
-      : solutionMatrix[solutionKey].row.templates.generateDescription(
+      : matrixTemplates[solutionKey].row.templates.generateDescription(
           rowItem as string,
         );
 
   const columnDescription =
-    solutionMatrix[solutionKey].column.kind === "number"
-      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+    matrixTemplates[solutionKey].column.kind === "number"
+      ? matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItem as number,
         )
-      : solutionMatrix[solutionKey].column.templates.generateDescription(
+      : matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItem as string,
         );
 

@@ -1,24 +1,29 @@
 import {validQ} from "../logic/clues/validQ";
 import type {Clue} from "../logic/puzzleGeneration/getUsefulClue";
 import {type ReducerPayload} from "../logic/gameReducer";
-import {type PuzzleMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../logic/puzzleGeneration/buildEmptyMatrix";
 
 function ClueElement({
   clue,
   dispatchGameState,
   index,
   showViolations,
-  matrix,
+  matrixGrids,
+  matrixLabels,
 }: {
   clue: Clue;
   dispatchGameState: React.Dispatch<ReducerPayload>;
   index: number;
   showViolations: boolean;
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
 }): React.JSX.Element {
   let clueValid = true;
   if (showViolations) {
-    clueValid = validQ({clue, matrix, strict: false});
+    clueValid = validQ({clue, matrixGrids, matrixLabels, strict: false});
   }
 
   let className = "clue";
@@ -42,12 +47,14 @@ export default function Clues({
   clues,
   dispatchGameState,
   showViolations,
-  matrix,
+  matrixGrids,
+  matrixLabels,
 }: {
   clues: Clue[];
   dispatchGameState: React.Dispatch<ReducerPayload>;
   showViolations: boolean;
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
 }): React.JSX.Element {
   const clueDivs = clues.map((clue, index) => (
     <ClueElement
@@ -56,7 +63,8 @@ export default function Clues({
       index={index}
       key={index}
       showViolations={showViolations}
-      matrix={matrix}
+      matrixGrids={matrixGrids}
+      matrixLabels={matrixLabels}
     ></ClueElement>
   ));
   return (

@@ -1,19 +1,29 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type OrClue} from "./getOrClue";
 
 export function validQOrClue({
-  matrix,
+  matrixGrids,
+  matrixLabels,
   clueParameters: {itemA, orItems, allItems},
   strict = false,
 }: {
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   clueParameters: OrClue["clueParameters"];
   strict?: boolean;
 }): boolean {
   const [itemB, itemC] = orItems;
-  const aVsB = findMatrixValue(matrix, itemA, itemB);
-  const aVsC = findMatrixValue(matrix, itemA, itemC);
+  const aVsB = findMatrixValue({matrixGrids, matrixLabels, itemA, itemB});
+  const aVsC = findMatrixValue({
+    matrixGrids,
+    matrixLabels,
+    itemA,
+    itemB: itemC,
+  });
 
   // item A cannot be both itemB and itemC
   if (aVsB && aVsC) {
@@ -28,7 +38,7 @@ export function validQOrClue({
   // itemA cannot be any of the non-or items
   for (const item of allItems) {
     if (!orItems.includes(item)) {
-      if (findMatrixValue(matrix, itemA, item)) {
+      if (findMatrixValue({matrixGrids, matrixLabels, itemA, itemB: item})) {
         return false;
       }
     }

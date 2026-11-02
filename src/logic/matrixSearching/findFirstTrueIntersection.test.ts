@@ -1,110 +1,146 @@
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {findFirstTrueIntersection} from "./findFirstTrueIntersection";
 
-const matrix = {
+const matrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  NameVsColor: [
+    [false, false, false, true],
+    [false, true, false, false],
+    [false, false, true, false],
+    [true, false, false, false],
+  ],
+
+  NumberVsColor: [
+    [false, false, true, false],
+    [false, true, false, false],
+    [true, false, false, false],
+    [false, false, false, true],
+  ],
+};
+
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, false, false, true],
-      [false, true, false, false],
-      [false, false, true, false],
-      [true, false, false, false],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, false, true, false],
-      [false, true, false, false],
-      [true, false, false, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
 };
 
 describe("findFirstTrueIntersection", () => {
   test("returns the item that forms a 'true' with the input item (row vs column)", () => {
     expect(
-      findFirstTrueIntersection(matrix, "Sarah", [
-        "red",
-        "blue",
-        "green",
-        "yellow",
-      ]),
+      findFirstTrueIntersection({
+        matrixGrids,
+        matrixLabels,
+        item: "Sarah",
+        intersectingItems: ["red", "blue", "green", "yellow"],
+      }),
     ).toEqual("blue");
   });
 
   test("returns the item that forms a 'true' with the input item (column vs row)", () => {
     expect(
-      findFirstTrueIntersection(matrix, "blue", [
-        "Colin",
-        "Sarah",
-        "Fefe",
-        "Meme",
-      ]),
+      findFirstTrueIntersection({
+        matrixGrids,
+        matrixLabels,
+        item: "blue",
+        intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
+      }),
     ).toEqual("Sarah");
   });
 
   test("works on non-strings", () => {
     expect(
-      findFirstTrueIntersection(matrix, 1, ["red", "blue", "green", "yellow"]),
+      findFirstTrueIntersection({
+        matrixGrids,
+        matrixLabels,
+        item: 1,
+        intersectingItems: ["red", "blue", "green", "yellow"],
+      }),
     ).toEqual("green");
-    expect(findFirstTrueIntersection(matrix, "blue", [1, 2, 3, 4])).toEqual(2);
+    expect(
+      findFirstTrueIntersection({
+        matrixGrids,
+        matrixLabels,
+        item: "blue",
+        intersectingItems: [1, 2, 3, 4],
+      }),
+    ).toEqual(2);
   });
 
   test("returns undefined if there is not a 'true' intersection", () => {
-    const emptyMatrix = {
+    const emptyMatrixGrids: MatrixGrids = {
+      NameVsNumber: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+
+      NameVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const emptyMatrixLabels: MatrixLabels = {
       NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry([1, 2, 3, 4]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([1, 2, 3, 4]),
       },
       NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
       NumberVsColor: {
-        row: populateSparseTestEntry([1, 2, 3, 4]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
 
     expect(
-      findFirstTrueIntersection(emptyMatrix, "blue", [
-        "Colin",
-        "Sarah",
-        "Fefe",
-        "Meme",
-      ]),
+      findFirstTrueIntersection({
+        matrixGrids: emptyMatrixGrids,
+        matrixLabels: emptyMatrixLabels,
+        item: "blue",
+        intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
+      }),
     ).toEqual(undefined);
   });
 });

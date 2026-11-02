@@ -1,9 +1,16 @@
-import {type PuzzleMatrix, type Axis} from "./buildEmptyMatrix";
+import {
+  type Axis,
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "./buildEmptyMatrix";
 import {generateSolution} from "./generateSolution";
 
-export function generateSolutionMatrix(
-  categoryLabelsAndTemplates: Axis[],
-): PuzzleMatrix {
+export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+} {
   // the computer just cares about one category vs another (but doesn't care which is a row vs column)
   // but humans generally make a matrix where it does matter which category is the row vs which is the column
   // Columns = 2nd...last categories
@@ -23,7 +30,9 @@ export function generateSolutionMatrix(
     categoryLabelsAndTemplates.map((i) => i.labels),
   );
 
-  const solutionMatrix: PuzzleMatrix = {};
+  const solvedMatrixGrids: MatrixGrids = {};
+  const matrixTemplates: MatrixTemplates = {};
+  const matrixLabels: MatrixLabels = {};
 
   for (let rowIndex = 0; rowIndex < matrixRowInfo.length; rowIndex++) {
     for (
@@ -31,23 +40,22 @@ export function generateSolutionMatrix(
       columnIndex < matrixColumnInfo.length - rowIndex;
       columnIndex++
     ) {
-      const rowLabels = matrixRowInfo[rowIndex].labels;
-
-      const columnLabels = matrixColumnInfo[columnIndex].labels;
+      const columnInfo = matrixColumnInfo[columnIndex];
+      const rowInfo = matrixRowInfo[rowIndex];
 
       const grid: boolean[][] = [];
-      for (let rowIndex = 0; rowIndex < rowLabels.length; rowIndex++) {
+      for (let rowIndex = 0; rowIndex < rowInfo.labels.length; rowIndex++) {
         const row: boolean[] = [];
         for (
           let columnIndex = 0;
-          columnIndex < columnLabels.length;
+          columnIndex < columnInfo.labels.length;
           columnIndex++
         ) {
           if (
             solution.some(
               (solutionEntry) =>
-                solutionEntry.includes(rowLabels[rowIndex]) &&
-                solutionEntry.includes(columnLabels[columnIndex]),
+                solutionEntry.includes(rowInfo.labels[rowIndex]) &&
+                solutionEntry.includes(columnInfo.labels[columnIndex]),
             )
           ) {
             row.push(true);
@@ -58,12 +66,45 @@ export function generateSolutionMatrix(
         grid.push(row);
       }
 
-      solutionMatrix[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
-        row: matrixRowInfo[rowIndex],
-        column: matrixColumnInfo[columnIndex],
-        grid,
+      solvedMatrixGrids[`rowSet${rowIndex}_columnSet${columnIndex}`] = grid;
+
+      const columnLabels =
+        columnInfo.kind === "number"
+          ? {labels: columnInfo.labels, displayLabels: columnInfo.displayLabels}
+          : {
+              labels: columnInfo.labels,
+              displayLabels: columnInfo.displayLabels,
+            };
+
+      const rowLabels =
+        rowInfo.kind === "number"
+          ? {labels: rowInfo.labels, displayLabels: rowInfo.displayLabels}
+          : {labels: rowInfo.labels, displayLabels: rowInfo.displayLabels};
+
+      matrixLabels[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
+        row: rowLabels,
+        column: columnLabels,
+      };
+
+      const columnTemplates =
+        columnInfo.kind === "number"
+          ? {kind: columnInfo.kind, templates: columnInfo.templates}
+          : {
+              kind: columnInfo.kind,
+              templates: columnInfo.templates,
+            };
+
+      const rowTemplates =
+        rowInfo.kind === "number"
+          ? {kind: rowInfo.kind, templates: rowInfo.templates}
+          : {kind: rowInfo.kind, templates: rowInfo.templates};
+
+      matrixTemplates[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
+        row: rowTemplates,
+        column: columnTemplates,
       };
     }
   }
-  return solutionMatrix;
+
+  return {solvedMatrixGrids, matrixLabels, matrixTemplates};
 }

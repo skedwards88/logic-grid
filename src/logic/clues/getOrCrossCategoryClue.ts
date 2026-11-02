@@ -1,8 +1,11 @@
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import type {Axis} from "../puzzleGeneration/buildEmptyMatrix";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 export type OrCrossCategoryClue = {
   writtenClue: string;
@@ -16,92 +19,137 @@ export type OrCrossCategoryClue = {
 
 // Generates an "or" clue that spans categories
 // e.g. "Colin is red or 2"
-export function getOrCrossCategoryClue(
-  solutionMatrix: PuzzleMatrix,
-): OrCrossCategoryClue {
+export function getOrCrossCategoryClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): OrCrossCategoryClue {
   // choose two grids in the solution matrix that share one set of labels
   let keyAB;
   let keyAC;
-  let axisA: Axis | undefined;
-  let axisB: Axis | undefined;
-  let axisC: Axis | undefined;
-  for (const key of shuffleArray(Object.keys(solutionMatrix))) {
+
+  let axisAKey: string | undefined;
+  let axisBKey: string | undefined;
+  let axisCKey: string | undefined;
+  let axisADimension: "column" | "row" | undefined;
+  let axisBDimension: "column" | "row" | undefined;
+  let axisCDimension: "column" | "row" | undefined;
+
+  for (const key of shuffleArray(Object.keys(solvedMatrixGrids))) {
     if (!keyAB) {
       keyAB = key;
     } else if (
-      solutionMatrix[keyAB].column.labels[0] ===
-      solutionMatrix[key].column.labels[0]
+      matrixLabels[keyAB].column.labels[0] ===
+      matrixLabels[key].column.labels[0]
     ) {
       keyAC = key;
-      axisA = solutionMatrix[key].column;
-      axisB = solutionMatrix[keyAB].row;
-      axisC = solutionMatrix[key].row;
+
+      axisAKey = keyAC;
+      axisBKey = keyAB;
+      axisCKey = keyAC;
+      axisADimension = "column";
+      axisBDimension = "row";
+      axisCDimension = "row";
     } else if (
-      solutionMatrix[keyAB].row.labels[0] ===
-      solutionMatrix[key].column.labels[0]
+      matrixLabels[keyAB].row.labels[0] === matrixLabels[key].column.labels[0]
     ) {
       keyAC = key;
-      axisA = solutionMatrix[key].column;
-      axisB = solutionMatrix[keyAB].column;
-      axisC = solutionMatrix[key].row;
+
+      axisAKey = keyAC;
+      axisBKey = keyAB;
+      axisCKey = keyAC;
+      axisADimension = "column";
+      axisBDimension = "column";
+      axisCDimension = "row";
     } else if (
-      solutionMatrix[keyAB].row.labels[0] === solutionMatrix[key].row.labels[0]
+      matrixLabels[keyAB].row.labels[0] === matrixLabels[key].row.labels[0]
     ) {
       keyAC = key;
-      axisA = solutionMatrix[key].row;
-      axisB = solutionMatrix[keyAB].column;
-      axisC = solutionMatrix[key].column;
+
+      axisAKey = keyAC;
+      axisBKey = keyAB;
+      axisCKey = keyAC;
+      axisADimension = "row";
+      axisBDimension = "column";
+      axisCDimension = "column";
     } else if (
-      solutionMatrix[keyAB].column.labels[0] ===
-      solutionMatrix[key].row.labels[0]
+      matrixLabels[keyAB].column.labels[0] === matrixLabels[key].row.labels[0]
     ) {
       keyAC = key;
-      axisA = solutionMatrix[key].row;
-      axisB = solutionMatrix[keyAB].row;
-      axisC = solutionMatrix[key].column;
+
+      axisAKey = keyAC;
+      axisBKey = keyAB;
+      axisCKey = keyAC;
+      axisADimension = "row";
+      axisBDimension = "row";
+      axisCDimension = "column";
     }
     if (keyAC) {
       break;
     }
   }
 
-  if (!axisA || !axisB || !axisC) {
+  if (
+    !axisAKey ||
+    !axisBKey ||
+    !axisCKey ||
+    !axisADimension ||
+    !axisBDimension ||
+    !axisCDimension
+  ) {
     throw new Error("Axes not set as expected");
   }
 
   // the shared label set will have our first item
   // e.g. "colin" in "colin is red or 1"
-  const itemA = pickRandomItemFromArray<string | number>(axisA.labels);
+  const itemA = pickRandomItemFromArray<string | number>(
+    matrixLabels[axisAKey][axisADimension].labels,
+  );
 
   // the opposing label sets will have our other two items, one true one false
   // e.g. "red" and "1" in "colin is red or 1"
   // we've already randomized the key order above,
   //   so we can just make the first item true and the second false
-  const itemB = findFirstTrueIntersection(solutionMatrix, itemA, axisB.labels);
-  const itemCNot = findFirstTrueIntersection(
-    solutionMatrix,
-    itemA,
-    axisC.labels,
-  );
-  const itemC = shuffleArray(axisC.labels).find((i) => i != itemCNot);
+  const itemB = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemA,
+    intersectingItems: matrixLabels[axisBKey][axisBDimension].labels,
+  });
+  const itemCNot = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemA,
+    intersectingItems: matrixLabels[axisCKey][axisCDimension].labels,
+  });
+  const itemC = shuffleArray(
+    matrixLabels[axisCKey][axisCDimension].labels,
+  ).find((i) => i != itemCNot);
 
   if (itemB === undefined || itemC === undefined) {
     throw new Error("Unable to find items");
   }
 
   // Overkill but I didn't find a better way to satisfy TS
+  const templatesA = matrixTemplates[axisAKey][axisADimension];
   const descriptionA =
-    axisA.kind === "number"
-      ? axisA.templates.generateDescription(itemA as number)
-      : axisA.templates.generateDescription(itemA as string);
+    templatesA.kind === "number"
+      ? templatesA.templates.generateDescription(itemA as number)
+      : templatesA.templates.generateDescription(itemA as string);
+  const templatesB = matrixTemplates[axisBKey][axisBDimension];
   const descriptionB =
-    axisB.kind === "number"
-      ? axisB.templates.generateDescription(itemB as number)
-      : axisB.templates.generateDescription(itemB as string);
+    templatesB.kind === "number"
+      ? templatesB.templates.generateDescription(itemB as number)
+      : templatesB.templates.generateDescription(itemB as string);
+  const templatesC = matrixTemplates[axisCKey][axisCDimension];
   const descriptionC =
-    axisC.kind === "number"
-      ? axisC.templates.generateDescription(itemC as number)
-      : axisC.templates.generateDescription(itemC as string);
+    templatesC.kind === "number"
+      ? templatesC.templates.generateDescription(itemC as number)
+      : templatesC.templates.generateDescription(itemC as string);
 
   const [leadingDescription, trailingDescription] = shuffleArray([
     descriptionB,

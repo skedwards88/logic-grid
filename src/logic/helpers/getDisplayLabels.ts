@@ -1,4 +1,4 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type MatrixLabels} from "../puzzleGeneration/buildEmptyMatrix";
 
 function getUniqueLabels(allLabels: string[][]): string[][] {
   const seen = new Set<string>();
@@ -14,7 +14,7 @@ function getUniqueLabels(allLabels: string[][]): string[][] {
   });
 }
 
-export function getDisplayLabels(puzzleMatrix: PuzzleMatrix): {
+export function getDisplayLabels(puzzleMatrix: MatrixLabels): {
   rowDisplayLabels: string[][];
   columnDisplayLabels: string[][];
 } {

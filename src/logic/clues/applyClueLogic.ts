@@ -4,23 +4,43 @@ import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 import {applyNumericComparisonCrossCategoryLogic} from "./applyNumericComparisonCrossCategoryLogic";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic";
 import {type Clue} from "../puzzleGeneration/getUsefulClue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-export function applyClueLogic(clue: Clue, matrix: PuzzleMatrix): PuzzleMatrix {
+export function applyClueLogic({
+  clue,
+  matrixGrids,
+  matrixLabels,
+}: {
+  clue: Clue;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+}): MatrixGrids {
   switch (clue.clueType) {
     case "not":
-      return applyNotLogic(matrix, clue.clueParameters);
+      return applyNotLogic(matrixGrids, matrixLabels, clue.clueParameters);
     case "or":
-      return applyOrLogic(matrix, clue.clueParameters);
+      return applyOrLogic(matrixGrids, matrixLabels, clue.clueParameters);
     case "numericComparison":
-      return applyNumericComparisonLogic(matrix, clue.clueParameters);
+      return applyNumericComparisonLogic(
+        matrixGrids,
+        matrixLabels,
+        clue.clueParameters,
+      );
     case "numericComparisonCrossCategory":
       return applyNumericComparisonCrossCategoryLogic(
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clue.clueParameters,
       );
     case "orCrossCategory":
-      return applyOrCrossCategoryLogic(matrix, clue.clueParameters);
+      return applyOrCrossCategoryLogic(
+        matrixGrids,
+        matrixLabels,
+        clue.clueParameters,
+      );
     default: {
       const exhaustiveCheck: never = clue;
 

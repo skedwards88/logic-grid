@@ -29,14 +29,14 @@ export default function Game({
     );
   }, [gameState.numCategories, gameState.numItemsPerCategory, numSquaresWide]);
 
-  const derivedMatrix =
-    gameState.derivedMatrixHistory[gameState.derivedMatrixHistory.length - 1];
+  const currentMatrixGrids =
+    gameState.matrixGridsHistory[gameState.matrixGridsHistory.length - 1];
 
   const grids = [];
-  for (const key in derivedMatrix) {
+  for (const key in currentMatrixGrids) {
     grids.push(
       <Grid
-        solutionEntry={derivedMatrix[key]}
+        grid={currentMatrixGrids[key]}
         key={key}
         id={key}
         easyTrue={gameState.easyTrue}
@@ -45,8 +45,9 @@ export default function Game({
     );
   }
 
-  const {rowDisplayLabels, columnDisplayLabels} =
-    getDisplayLabels(derivedMatrix);
+  const {rowDisplayLabels, columnDisplayLabels} = getDisplayLabels(
+    gameState.matrixLabels,
+  );
 
   const labels = [];
   for (let index = 0; index < columnDisplayLabels.length; index++) {
@@ -73,7 +74,7 @@ export default function Game({
   return (
     <div id="app">
       <ControlBar
-        undoDisabled={gameState.derivedMatrixHistory.length <= 1}
+        undoDisabled={gameState.matrixGridsHistory.length <= 1}
         dispatchGameState={dispatchGameState}
         setDisplay={setDisplay}
       ></ControlBar>
@@ -83,14 +84,16 @@ export default function Game({
       </div>
       <Result
         clues={gameState.clues}
-        matrix={derivedMatrix}
+        matrixGrids={currentMatrixGrids}
+        matrixLabels={gameState.matrixLabels}
         dispatchGameState={dispatchGameState}
         showViolations={gameState.showViolations}
       ></Result>
       <Clues
         clues={gameState.clues}
         dispatchGameState={dispatchGameState}
-        matrix={derivedMatrix}
+        matrixGrids={currentMatrixGrids}
+        matrixLabels={gameState.matrixLabels}
         showViolations={gameState.showViolations}
       ></Clues>
     </div>

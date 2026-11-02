@@ -1,10 +1,13 @@
-import cloneDeep from "lodash.clonedeep";
 import {puzzleSolvedQ} from "../puzzleSolvedQ";
 import {type Clue, getUsefulClue} from "./getUsefulClue";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {chooseCategories} from "./chooseCategories";
 import {generateSolutionMatrix} from "./generateSolutionMatrix";
-import {buildEmptyMatrix, type PuzzleMatrix} from "./buildEmptyMatrix";
+import {
+  buildEmptyMatrixGrids,
+  type MatrixGrids,
+  type MatrixLabels,
+} from "./buildEmptyMatrix";
 import {removeRedundantClues} from "./removeRedundantClues";
 
 export function generatePuzzle(
@@ -12,14 +15,16 @@ export function generatePuzzle(
   numItemsPerCategory: number,
 ): {
   clues: Clue[];
-  derivedMatrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
 } {
   const categoryLabelsAndTemplates = chooseCategories(
     numCategories,
     numItemsPerCategory,
   );
-  const solutionMatrix = generateSolutionMatrix(categoryLabelsAndTemplates);
-  const emptyMatrix = buildEmptyMatrix(solutionMatrix);
+  const {solvedMatrixGrids, matrixLabels, matrixTemplates} =
+    generateSolutionMatrix(categoryLabelsAndTemplates);
+  const emptyMatrixGrids = buildEmptyMatrixGrids(solvedMatrixGrids);
 
   const includeCrossCategoryClues = numCategories > 2;
   const includeNumericClues = categoryLabelsAndTemplates
@@ -29,25 +34,36 @@ export function generatePuzzle(
   const clues: Clue[] = [];
   let puzzleIsSolved = false;
   let clue;
-  let newDerivedMatrix = cloneDeep(emptyMatrix);
+  let newDerivedMatrixGrids = structuredClone(emptyMatrixGrids);
 
   while (!puzzleIsSolved) {
-    ({clue, newDerivedMatrix} = getUsefulClue(
-      solutionMatrix,
-      newDerivedMatrix,
+    ({clue, newDerivedMatrixGrids} = getUsefulClue({
+      solvedMatrixGrids,
+      derivedMatrixGrids: newDerivedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
       includeCrossCategoryClues,
       includeNumericClues,
-    ));
+    }));
     clues.push(clue);
 
-    newDerivedMatrix = applyCluesAdNauseam(clues, newDerivedMatrix);
-    puzzleIsSolved = puzzleSolvedQ(newDerivedMatrix);
+    newDerivedMatrixGrids = applyCluesAdNauseam({
+      clues,
+      matrixGrids: newDerivedMatrixGrids,
+      matrixLabels,
+    });
+    puzzleIsSolved = puzzleSolvedQ(newDerivedMatrixGrids);
   }
 
-  const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+  const nonRedundantClues = removeRedundantClues({
+    clues,
+    emptyMatrixGrids,
+    matrixLabels,
+  });
 
   return {
     clues: nonRedundantClues,
-    derivedMatrix: emptyMatrix,
+    matrixGrids: emptyMatrixGrids,
+    matrixLabels,
   };
 }

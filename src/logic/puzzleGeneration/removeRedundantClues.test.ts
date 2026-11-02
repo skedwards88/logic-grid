@@ -1,38 +1,43 @@
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {type MatrixLabels, type MatrixGrids} from "./buildEmptyMatrix";
 import {type Clue} from "./getUsefulClue";
 import {removeRedundantClues} from "./removeRedundantClues";
 
-const emptyMatrix = {
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   ColorVsNumber: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
+};
+
+const emptyMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NameVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+
+  ColorVsNumber: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
 };
 
 describe("removeRedundantClues", () => {
@@ -59,7 +64,11 @@ describe("removeRedundantClues", () => {
       },
     ];
 
-    const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+    const nonRedundantClues = removeRedundantClues({
+      clues,
+      emptyMatrixGrids,
+      matrixLabels,
+    });
     expect(nonRedundantClues).toEqual([clues[0]]);
   });
 
@@ -86,7 +95,11 @@ describe("removeRedundantClues", () => {
       },
     ];
 
-    const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+    const nonRedundantClues = removeRedundantClues({
+      clues,
+      emptyMatrixGrids,
+      matrixLabels,
+    });
     expect(nonRedundantClues).toEqual([clues[1]]);
   });
 
@@ -112,7 +125,11 @@ describe("removeRedundantClues", () => {
       },
     ];
 
-    const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+    const nonRedundantClues = removeRedundantClues({
+      clues,
+      emptyMatrixGrids,
+      matrixLabels,
+    });
     expect(nonRedundantClues).toEqual([clues[1]]);
   });
 
@@ -148,7 +165,11 @@ describe("removeRedundantClues", () => {
       },
     ];
 
-    const nonRedundantClues = removeRedundantClues(clues, emptyMatrix);
+    const nonRedundantClues = removeRedundantClues({
+      clues,
+      emptyMatrixGrids,
+      matrixLabels,
+    });
     expect(nonRedundantClues).toEqual([clues[2]]);
   });
 });

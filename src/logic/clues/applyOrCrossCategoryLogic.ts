@@ -1,30 +1,87 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {setToFalse, setToTrue} from "../puzzleGeneration/setValue";
 import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function applyOrCrossCategoryLogic(
-  derivedMatrix: PuzzleMatrix,
+  matrixGrids: MatrixGrids,
+  matrixLabels: MatrixLabels,
   {itemA, orItems: [itemB, itemC]}: OrCrossCategoryClue["clueParameters"],
-): PuzzleMatrix {
-  let newDerivedMatrix = derivedMatrix;
+): MatrixGrids {
+  let newMatrixGrids = matrixGrids;
 
   // Know that itemB is not itemC
-  newDerivedMatrix = setToFalse(newDerivedMatrix, itemB, itemC);
+  newMatrixGrids = setToFalse({
+    matrixGrids: newMatrixGrids,
+    matrixLabels,
+    itemA: itemB,
+    itemB: itemC,
+  });
 
   // If you know that itemA is itemB, then you know itemA is not itemC
   // If you know that itemA is itemC, then you know itemA is not itemB
   // If you know that itemA is not itemB, then you know itemA is itemC
   // If you know that itemA is not itemC, then you know itemA is itemB
-  if (findMatrixValue(newDerivedMatrix, itemA, itemB)) {
-    newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, itemC);
-  } else if (findMatrixValue(newDerivedMatrix, itemA, itemC)) {
-    newDerivedMatrix = setToFalse(newDerivedMatrix, itemA, itemB);
-  } else if (findMatrixValue(newDerivedMatrix, itemA, itemB) === false) {
-    newDerivedMatrix = setToTrue(newDerivedMatrix, itemA, itemC);
-  } else if (findMatrixValue(newDerivedMatrix, itemA, itemC) === false) {
-    newDerivedMatrix = setToTrue(newDerivedMatrix, itemA, itemB);
+  if (
+    findMatrixValue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB,
+    })
+  ) {
+    newMatrixGrids = setToFalse({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB: itemC,
+    });
+  } else if (
+    findMatrixValue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB: itemC,
+    })
+  ) {
+    newMatrixGrids = setToFalse({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB,
+    });
+  } else if (
+    findMatrixValue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB,
+    }) === false
+  ) {
+    newMatrixGrids = setToTrue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB: itemC,
+    });
+  } else if (
+    findMatrixValue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB: itemC,
+    }) === false
+  ) {
+    newMatrixGrids = setToTrue({
+      matrixGrids: newMatrixGrids,
+      matrixLabels,
+      itemA,
+      itemB,
+    });
   }
 
-  return newDerivedMatrix;
+  return newMatrixGrids;
 }

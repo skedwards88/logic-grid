@@ -1,72 +1,66 @@
-import cloneDeep from "lodash.clonedeep";
 import {validQNotClue} from "./validQNotClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-const completeMatrix = {
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [false, false, true, false],
-      [false, true, false, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [true, false, false, false],
-      [false, false, false, true],
-      [false, false, true, false],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [false, false, false, true],
-      [true, false, false, false],
-      [false, false, true, false],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
 };
 
-const sparseMatrix = {
-  NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [false, null, null, null],
-      [false, null, null, null],
-      [false, null, null, null],
-    ],
-  },
-  NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-  },
-  NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
-  },
+const completeMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [true, false, false, false],
+    [false, false, true, false],
+    [false, true, false, false],
+    [false, false, false, true],
+  ],
+  NameVsColor: [
+    [false, true, false, false],
+    [true, false, false, false],
+    [false, false, false, true],
+    [false, false, true, false],
+  ],
+  NumberVsColor: [
+    [false, true, false, false],
+    [false, false, false, true],
+    [true, false, false, false],
+    [false, false, true, false],
+  ],
+};
+
+const sparseMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [true, false, false, false],
+    [false, null, null, null],
+    [false, null, null, null],
+    [false, null, null, null],
+  ],
+  NameVsColor: [
+    [false, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NumberVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
 };
 
 describe("validQNotClue, strict", () => {
@@ -74,7 +68,8 @@ describe("validQNotClue, strict", () => {
     const itemA = "Colin";
     const itemB = "blue";
     const validQ = validQNotClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
@@ -82,7 +77,14 @@ describe("validQNotClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, itemB)).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -90,7 +92,8 @@ describe("validQNotClue, strict", () => {
     const itemA = "Colin";
     const itemB = "red";
     const validQ = validQNotClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
@@ -98,7 +101,14 @@ describe("validQNotClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, itemB)).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(false);
     expect(validQ).toBe(true);
   });
 
@@ -106,7 +116,8 @@ describe("validQNotClue, strict", () => {
     const itemA = 1;
     const itemB = "red";
     const validQ = validQNotClue({
-      matrix: sparseMatrix,
+      matrixGrids: sparseMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
@@ -114,20 +125,28 @@ describe("validQNotClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(sparseMatrix, itemA, itemB)).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: sparseMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(null);
     expect(validQ).toBe(false);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQNotClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         itemB: "red",
       },
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });
 
@@ -136,14 +155,22 @@ describe("validQNotClue, not strict", () => {
     const itemA = "Colin";
     const itemB = "blue";
     const validQ = validQNotClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, itemB)).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -151,14 +178,22 @@ describe("validQNotClue, not strict", () => {
     const itemA = "Colin";
     const itemB = "red";
     const validQ = validQNotClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, itemB)).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(false);
     expect(validQ).toBe(true);
   });
 
@@ -166,14 +201,22 @@ describe("validQNotClue, not strict", () => {
     const itemA = 1;
     const itemB = "red";
     const validQ = validQNotClue({
-      matrix: sparseMatrix,
+      matrixGrids: sparseMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
       },
     });
 
-    expect(findMatrixValue(sparseMatrix, itemA, itemB)).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: sparseMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
@@ -181,7 +224,8 @@ describe("validQNotClue, not strict", () => {
     const itemA = 1;
     const itemB = "red";
     const validQ = validQNotClue({
-      matrix: sparseMatrix,
+      matrixGrids: sparseMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         itemB,
@@ -189,19 +233,27 @@ describe("validQNotClue, not strict", () => {
       strict: false,
     });
 
-    expect(findMatrixValue(sparseMatrix, itemA, itemB)).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: sparseMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB,
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQNotClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         itemB: "red",
       },
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });

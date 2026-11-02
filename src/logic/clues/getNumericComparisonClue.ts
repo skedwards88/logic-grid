@@ -6,9 +6,9 @@ import {shuffleArray} from "@skedwards88/word_logic";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 import {
-  type Axis,
-  type NumberAxis,
-  type PuzzleMatrix,
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
 } from "../puzzleGeneration/buildEmptyMatrix";
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 
@@ -27,56 +27,73 @@ export type NumericComparisonClue = {
 
 // Generates a numeric clue
 // e.g. The red house has more trees than the white house
-export function getNumericComparisonClue(
-  solutionMatrix: PuzzleMatrix,
-): NumericComparisonClue {
+export function getNumericComparisonClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): NumericComparisonClue {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // choose a grid in the solution matrix that uses a numeric category
   // (upstream logic ensures that this function is only called if there is a numeric category)
-  const shuffledKeys = shuffleArray(Object.keys(solutionMatrix));
-  let numericAxis: NumberAxis | undefined;
-  let otherAxis: Axis | undefined;
+  const shuffledKeys = shuffleArray(Object.keys(solvedMatrixGrids));
+  let axisKey: string | undefined;
+  let numericAxisDimension: "column" | "row" | undefined;
+  let otherAxisDimension: "column" | "row" | undefined;
+
   for (const key of shuffledKeys) {
-    if (solutionMatrix[key].row.kind === "number") {
-      numericAxis = solutionMatrix[key].row;
-      otherAxis = solutionMatrix[key].column;
+    if (matrixTemplates[key].row.kind === "number") {
+      axisKey = key;
+      numericAxisDimension = "row";
+      otherAxisDimension = "column";
       break;
     }
-    if (solutionMatrix[key].column.kind === "number") {
-      numericAxis = solutionMatrix[key].column;
-      otherAxis = solutionMatrix[key].row;
+    if (matrixTemplates[key].column.kind === "number") {
+      axisKey = key;
+      numericAxisDimension = "column";
+      otherAxisDimension = "row";
       break;
     }
   }
 
-  if (numericAxis === undefined || otherAxis === undefined) {
+  if (
+    axisKey === undefined ||
+    numericAxisDimension === undefined ||
+    otherAxisDimension === undefined
+  ) {
     throw new Error(
       `getNumericComparisonClue called without a numeric category`,
     );
   }
 
   // figure out the numeric labels
-  const numericLabels = numericAxis.labels;
+  const numericLabels = matrixLabels[axisKey][numericAxisDimension]
+    .labels as number[];
 
   // choose two random items in the other label set
-  const otherLabels = otherAxis.labels;
+  const otherLabels = matrixLabels[axisKey][otherAxisDimension].labels;
   const [itemA, itemB] = pickRandomItemsFromArray<string | number>(
     otherLabels,
     2,
   );
 
   // Figure out the corresponding numeric value of those items
-  const itemANumericValue = findFirstTrueIntersection(
-    solutionMatrix,
-    itemA,
-    numericLabels,
-  );
-  const itemBNumericValue = findFirstTrueIntersection(
-    solutionMatrix,
-    itemB,
-    numericLabels,
-  );
+  const itemANumericValue = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemA,
+    intersectingItems: numericLabels,
+  });
+  const itemBNumericValue = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemB,
+    intersectingItems: numericLabels,
+  });
 
   if (itemANumericValue === undefined || itemBNumericValue === undefined) {
     throw new Error("Unable to find item intersections");
@@ -103,27 +120,34 @@ export function getNumericComparisonClue(
   );
 
   // Overkill but I didn't find a better way to satisfy TS
+  const otherAxisTemplates = matrixTemplates[axisKey][otherAxisDimension];
+  const numericAxisTemplates = matrixTemplates[axisKey][numericAxisDimension];
   const leadingDescription =
-    otherAxis.kind === "number"
-      ? otherAxis.templates.generateDescription(itemA as number)
-      : otherAxis.templates.generateDescription(itemA as string);
+    otherAxisTemplates.kind === "number"
+      ? otherAxisTemplates.templates.generateDescription(itemA as number)
+      : otherAxisTemplates.templates.generateDescription(itemA as string);
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
+  // This shouldn't be hit, but it's required for TS now that I split the templates out from the other info
+  if (numericAxisTemplates.kind !== "number") {
+    throw new Error("");
+  }
+
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
-      ? numericAxis.templates.generateDiffLesserDescription
-      : numericAxis.templates.generateDiffGreaterDescription;
-  const numericComparisonVerb = numericAxis.templates.verb || "is";
+      ? numericAxisTemplates.templates.generateDiffLesserDescription
+      : numericAxisTemplates.templates.generateDiffGreaterDescription;
+  const numericComparisonVerb = numericAxisTemplates.templates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
     : numericDescriptionTemplate(minimumNumericDiff);
 
   // Overkill but I didn't find a better way to satisfy TS
   const trailingDescription =
-    otherAxis.kind === "number"
-      ? otherAxis.templates.generateDescription(itemB as number)
-      : otherAxis.templates.generateDescription(itemB as string);
+    otherAxisTemplates.kind === "number"
+      ? otherAxisTemplates.templates.generateDescription(itemB as number)
+      : otherAxisTemplates.templates.generateDescription(itemB as string);
 
   const relationWord =
     actualNumericDiff === numericDiffClue ? "exactly " : "at least ";

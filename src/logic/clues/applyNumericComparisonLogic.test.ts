@@ -1,60 +1,69 @@
-import cloneDeep from "lodash.clonedeep";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-const emptyMatrix: PuzzleMatrix = {
+const emptyMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NameVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  ColorVsNumber: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+};
+
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   ColorVsNumber: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
 };
 
 describe("applyNumericComparisonLogic", () => {
   test('applies a "numeric comparison" clue (clue diff undefined, actual diff 2)', () => {
-    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: undefined,
-    });
+    const newMatrixGrids = applyNumericComparisonLogic(
+      emptyMatrixGrids,
+      matrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: undefined,
+      },
+    );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -62,28 +71,32 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('applies a "numeric comparison" clue (clue diff 1, actual diff 2)', () => {
-    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: 1,
-    });
+    const newMatrixGrids = applyNumericComparisonLogic(
+      emptyMatrixGrids,
+      matrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 1,
+      },
+    );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -91,28 +104,32 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('applies a "numeric comparison" clue (clue diff 2, actual diff 2)', () => {
-    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: 2,
-    });
+    const newMatrixGrids = applyNumericComparisonLogic(
+      emptyMatrixGrids,
+      matrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 2,
+      },
+    );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, false, null, null],
       [false, null, null, null],
@@ -120,41 +137,55 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('applies a "numeric comparison" clue (clue diff 2, actual diff 2, know greater value)', () => {
-    const inputMatrix = {
-      ...emptyMatrix,
+    const inputMatrixGrids = {
+      ...emptyMatrixGrids,
+      ColorVsNumber: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [false, true, false, false],
+        [null, false, null, null],
+      ],
+    };
+
+    const inputMatrixLabels = {
+      ...matrixLabels,
       ColorVsNumber: {
-        row: populateSparseTestEntry([1, 2, 3, 4]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, false, null, null],
-          [false, true, false, false],
-          [null, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
-    const newDerivedMatrix = applyNumericComparisonLogic(inputMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: 2,
-    });
+
+    const newMatrixGrids = applyNumericComparisonLogic(
+      inputMatrixGrids,
+      inputMatrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 2,
+      },
+    );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [true, false, false, false],
       [false, false, null, null],
       [false, true, false, false],
@@ -162,41 +193,55 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('applies a "numeric comparison" clue (clue diff 2, actual diff 2, know lesser value)', () => {
-    const inputMatrix = {
-      ...emptyMatrix,
+    const inputMatrixGrids = {
+      ...emptyMatrixGrids,
+      ColorVsNumber: [
+        [true, false, false, false],
+        [false, null, null, null],
+        [false, null, null, null],
+        [false, null, null, null],
+      ],
+    };
+
+    const inputMatrixLabels = {
+      ...matrixLabels,
       ColorVsNumber: {
-        row: populateSparseTestEntry([1, 2, 3, 4]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [true, false, false, false],
-          [false, null, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
-    const newDerivedMatrix = applyNumericComparisonLogic(inputMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: 2,
-    });
+
+    const newMatrixGrids = applyNumericComparisonLogic(
+      inputMatrixGrids,
+      inputMatrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 2,
+      },
+    );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [true, false, false, false],
       [false, false, null, null],
       [false, true, false, false],
@@ -204,45 +249,38 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('applies a "numeric comparison" clue (clue diff 0.2, actual diff 0.2)', () => {
-    const emptyMatrixWithDecimals = {
+    const matrixLabelsWithDecimels = {
       NameVsNumber: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry([3.5, 3.6, 3.7, 3.8]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([3.5, 3.6, 3.7, 3.8]),
       },
       NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
       ColorVsNumber: {
-        row: populateSparseTestEntry([3.5, 3.6, 3.7, 3.8]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([3.5, 3.6, 3.7, 3.8]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
-    const newDerivedMatrix = applyNumericComparisonLogic(
-      emptyMatrixWithDecimals,
+    const newMatrixGrids = applyNumericComparisonLogic(
+      emptyMatrixGrids,
+      matrixLabelsWithDecimels,
       {
         greaterItem: "blue",
         lesserItem: "red",
@@ -253,14 +291,14 @@ describe("applyNumericComparisonLogic", () => {
     );
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, false, null, null],
       [false, null, null, null],
@@ -268,20 +306,24 @@ describe("applyNumericComparisonLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = cloneDeep(emptyMatrix);
-    const newDerivedMatrix = applyNumericComparisonLogic(emptyMatrix, {
-      greaterItem: "blue",
-      lesserItem: "red",
-      numericLabels: [1, 2, 3, 4],
-      actualNumericDiff: 2,
-      numericDiffClue: 1,
-    });
-    expect(matrixCopy).toEqual(emptyMatrix);
-    expect(matrixCopy).not.toEqual(newDerivedMatrix);
+    const matrixCopy = structuredClone(emptyMatrixGrids);
+    const newMatrixGrids = applyNumericComparisonLogic(
+      emptyMatrixGrids,
+      matrixLabels,
+      {
+        greaterItem: "blue",
+        lesserItem: "red",
+        numericLabels: [1, 2, 3, 4],
+        actualNumericDiff: 2,
+        numericDiffClue: 1,
+      },
+    );
+    expect(matrixCopy).toEqual(emptyMatrixGrids);
+    expect(matrixCopy).not.toEqual(newMatrixGrids);
   });
 });

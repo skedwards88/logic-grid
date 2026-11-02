@@ -1,8 +1,8 @@
-import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
+import {type MatrixGrids} from "./puzzleGeneration/buildEmptyMatrix";
 
-export function puzzleSolvedQ(derivedMatrix: PuzzleMatrix): boolean {
-  for (const key in derivedMatrix) {
-    const grid = derivedMatrix[key].grid;
+export function puzzleSolvedQ(derivedMatrixGrids: MatrixGrids): boolean {
+  for (const key in derivedMatrixGrids) {
+    const grid = derivedMatrixGrids[key];
     for (const row of grid) {
       for (const item of row) {
         if (item === null) {

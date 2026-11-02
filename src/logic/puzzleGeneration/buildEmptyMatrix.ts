@@ -1,5 +1,3 @@
-import cloneDeep from "lodash.clonedeep";
-
 export type StringAxis = {
   kind: "string";
   labels: string[];
@@ -24,21 +22,61 @@ export type NumberAxis = {
 
 export type Axis = StringAxis | NumberAxis;
 
-export type UnsolvedMatrix = {
-  row: Axis;
-  column: Axis;
-  grid: (boolean | null)[][];
-};
+export type Grid = (boolean | null)[][];
 
-export type PuzzleMatrix = Record<string, UnsolvedMatrix>;
+export type Labels =
+  | {
+      labels: string[];
+      displayLabels: string[];
+    }
+  | {
+      labels: number[];
+      displayLabels: string[];
+    };
 
-export function buildEmptyMatrix(solutionMatrix: PuzzleMatrix): PuzzleMatrix {
-  const matrixCopy = cloneDeep(solutionMatrix);
+export type Templates =
+  | {
+      kind: "string";
+      templates: {
+        generateDescription: (value: string) => string;
+        verb?: string;
+      };
+    }
+  | {
+      kind: "number";
+      templates: {
+        generateDescription: (value: number) => string;
+        generateDiffGreaterDescription: (value: number) => string;
+        generateDiffLesserDescription: (value: number) => string;
+        verb?: string;
+      };
+    };
+
+export type MatrixLabels = Record<
+  string,
+  {
+    row: Labels;
+    column: Labels;
+  }
+>;
+
+export type MatrixTemplates = Record<
+  string,
+  {
+    row: Templates;
+    column: Templates;
+  }
+>;
+
+export type MatrixGrids = Record<string, Grid>;
+
+export function buildEmptyMatrixGrids(
+  solutionMatrixGrids: MatrixGrids,
+): MatrixGrids {
+  const matrixCopy = structuredClone(solutionMatrixGrids);
 
   for (const key in matrixCopy) {
-    matrixCopy[key].grid = matrixCopy[key].grid.map((row) =>
-      row.map(() => null),
-    );
+    matrixCopy[key] = matrixCopy[key].map((row) => row.map(() => null));
   }
   return matrixCopy;
 }

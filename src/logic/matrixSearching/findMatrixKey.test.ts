@@ -1,67 +1,78 @@
-import {populateSparseTestEntry} from "../helpers/testHelpers";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {findMatrixKey} from "./findMatrixKey";
 
-const matrix: PuzzleMatrix = {
+const matrixGrids: MatrixGrids = {
+  "0v1": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  "0v2": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  "0v3": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  "1v2": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  "1v3": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+
+  "2v3": [
+    [true, false, false, false],
+    [false, true, false, false],
+    [false, false, true, false],
+    [false, false, false, true],
+  ],
+};
+
+const matrixLabels: MatrixLabels = {
   "0v1": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   "0v2": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["fly", "back", "breast", "free"]),
   },
   "0v3": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   "1v2": {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["fly", "back", "breast", "free"]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["fly", "back", "breast", "free"]),
   },
   "1v3": {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   "2v3": {
-    row: populateSparseTestEntry(["fly", "back", "breast", "free"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [true, false, false, false],
-      [false, true, false, false],
-      [false, false, true, false],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["fly", "back", "breast", "free"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
 };
 
@@ -103,22 +114,43 @@ expect.extend({
 
 describe("findMatrixKey", () => {
   test("finds the matrix entry that corresponds to the intersection of two items", () => {
-    const foundKey = findMatrixKey(matrix, "Sarah", "green");
+    const foundKey = findMatrixKey({
+      matrixGrids,
+      matrixLabels,
+      itemA: "Sarah",
+      itemB: "green",
+    });
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].row.labels).toIncludeOneOf("Sarah", "green");
-    expect(matrix[foundKey].column.labels).toIncludeOneOf("Sarah", "green");
+    expect(matrixLabels[foundKey].row.labels).toIncludeOneOf("Sarah", "green");
+    expect(matrixLabels[foundKey].column.labels).toIncludeOneOf(
+      "Sarah",
+      "green",
+    );
   });
 
   test("finds the matrix entry that corresponds to the intersection of two items (opposite order)", () => {
-    const foundKey = findMatrixKey(matrix, "green", "Sarah");
+    const foundKey = findMatrixKey({
+      matrixGrids,
+      matrixLabels,
+      itemA: "green",
+      itemB: "Sarah",
+    });
     expect(foundKey).toEqual("0v3");
-    expect(matrix[foundKey].row.labels).toIncludeOneOf("green", "Sarah");
-    expect(matrix[foundKey].column.labels).toIncludeOneOf("green", "Sarah");
+    expect(matrixLabels[foundKey].row.labels).toIncludeOneOf("green", "Sarah");
+    expect(matrixLabels[foundKey].column.labels).toIncludeOneOf(
+      "green",
+      "Sarah",
+    );
   });
 
   test("throws an error if the key is not found", () => {
-    expect(() => findMatrixKey(matrix, "dog", "Sarah")).toThrow(
-      "Did not find matrix entry corresponding to dog vs Sarah",
-    );
+    expect(() =>
+      findMatrixKey({
+        matrixGrids,
+        matrixLabels,
+        itemA: "dog",
+        itemB: "Sarah",
+      }),
+    ).toThrow("Did not find matrix entry corresponding to dog vs Sarah");
   });
 });

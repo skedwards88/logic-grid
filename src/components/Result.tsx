@@ -1,34 +1,41 @@
 import {validQ} from "../logic/clues/validQ";
 import {autocomplete} from "../logic/autocomplete";
 import {type Clue} from "../logic/puzzleGeneration/getUsefulClue";
-import {type PuzzleMatrix} from "../logic/puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../logic/puzzleGeneration/buildEmptyMatrix";
 import {type ReducerPayload} from "../logic/gameReducer";
 
 export default function Result({
   clues,
-  matrix,
+  matrixGrids,
+  matrixLabels,
   showViolations,
   dispatchGameState,
 }: {
   clues: Clue[];
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   showViolations: boolean;
   dispatchGameState: React.Dispatch<ReducerPayload>;
 }): React.JSX.Element {
   // check if every square is filled
-  const matrixComplete = Object.values(matrix).every(
-    (entry) => !entry.grid.flat().includes(null),
+  const matrixComplete = Object.values(matrixGrids).every(
+    (grid) => !grid.flat().includes(null),
   );
 
   // Verify that no clues are actively violated
-  const allCluesValid = clues.every((clue) => validQ({clue, matrix}));
+  const allCluesValid = clues.every((clue) =>
+    validQ({clue, matrixGrids, matrixLabels}),
+  );
 
   let matrixAutofillable;
   try {
-    const autofilledMatrix = autocomplete(matrix);
+    const autofilledMatrix = autocomplete(matrixGrids, matrixLabels);
     // Check if all clues are satisfied
     const autofilledValid = clues.every((clue) =>
-      validQ({clue, matrix: autofilledMatrix, strict: true}),
+      validQ({clue, matrixGrids: autofilledMatrix, matrixLabels, strict: true}),
     );
     matrixAutofillable = autofilledValid;
   } catch {

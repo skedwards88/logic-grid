@@ -1,4 +1,5 @@
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrix";
 import {
   setToFalse,
   setToTrue,
@@ -6,61 +7,64 @@ import {
   deduceSecondOrderFromFalse,
 } from "./setValue";
 
-const emptyInputMatrix = {
+const matrixLabels: MatrixLabels = {
   "0v1": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-    column: populateSparseTestEntry([1, 2, 3]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntryLabels([1, 2, 3]),
   },
   "0v2": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-    column: populateSparseTestEntry(["fly", "back", "breast"]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
   },
   "0v3": {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-    column: populateSparseTestEntry(["red", "blue", "green"]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green"]),
   },
   "1v2": {
-    row: populateSparseTestEntry([1, 2, 3]),
-    column: populateSparseTestEntry(["fly", "back", "breast"]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3]),
+    column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
   },
   "1v3": {
-    row: populateSparseTestEntry([1, 2, 3]),
-    column: populateSparseTestEntry(["red", "blue", "green"]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green"]),
   },
   "2v3": {
-    row: populateSparseTestEntry(["fly", "back", "breast"]),
-    column: populateSparseTestEntry(["red", "blue", "green"]),
-    grid: [
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["fly", "back", "breast"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green"]),
   },
+};
+
+const emptyInputMatrixGrids: MatrixGrids = {
+  "0v1": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
+  "0v2": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
+  "0v3": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
+  "1v2": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
+  "1v3": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
+  "2v3": [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ],
 };
 
 describe("setToFalse", () => {
@@ -71,8 +75,13 @@ describe("setToFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = setToFalse(emptyInputMatrix, "Colin", "red");
-    const outputGrid = outputMatrix["0v3"].grid;
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    const outputGrid = outputMatrixGrids["0v3"];
     expect(outputGrid).toEqual(expectedGrid);
   });
 
@@ -83,12 +92,22 @@ describe("setToFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = setToFalse(emptyInputMatrix, "red", "Colin");
-    const outputGrid = outputMatrix["0v3"].grid;
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "Colin",
+    });
+    const outputGrid = outputMatrixGrids["0v3"];
     expect(outputGrid).toEqual(expectedGrid);
 
-    const outputMatrix2 = setToFalse(emptyInputMatrix, "Colin", "red");
-    const outputGrid2 = outputMatrix2["0v3"].grid;
+    const outputMatrix2 = setToFalse({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    const outputGrid2 = outputMatrix2["0v3"];
     expect(outputGrid2).toEqual(expectedGrid);
   });
 
@@ -99,8 +118,13 @@ describe("setToFalse", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = setToFalse(emptyInputMatrix, 3, "red");
-    const outputGrid = outputMatrix["1v3"].grid;
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: 3,
+      itemB: "red",
+    });
+    const outputGrid = outputMatrixGrids["1v3"];
     expect(outputGrid).toEqual(expectedGrid);
   });
 
@@ -111,59 +135,75 @@ describe("setToFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = setToFalse(emptyInputMatrix, "Colin", "red");
-    expect(outputMatrix).not.toBe(emptyInputMatrix);
-    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids).not.toBe(emptyInputMatrixGrids);
+    expect(emptyInputMatrixGrids["0v3"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("It should return the original grid if the specified position is already false", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [null, null, null],
-          [null, null, false],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels([1, 2, 3]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["fly", "back", "breast"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
       },
     };
 
-    const outputMatrix = setToFalse(inputMatrix, "Sarah", 3);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, false],
+        [null, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
 
-    expect(outputMatrix).toEqual(inputMatrix);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Sarah",
+      itemB: 3,
+    });
+
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 
   test("if it leaves only one null in the row and there are no trues in the row, it should set the last null to true", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels([1, 2, 3]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["fly", "back", "breast"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -172,22 +212,30 @@ describe("setToFalse", () => {
       [null, null, false],
     ];
 
-    const outputMatrix = setToFalse(inputMatrix, "Colin", 2);
-    expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
-    expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: 2,
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the column and there are no trues in the column, it should set the last null to true", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels([1, 2, 3]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -195,23 +243,31 @@ describe("setToFalse", () => {
       [true, false, false],
       [false, null, null],
     ];
-    const outputMatrix = setToFalse(inputMatrix, "Fefe", 1);
-    expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
-    expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Fefe",
+      itemB: 1,
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the row and there is a true in the row, it should set the last null to false", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry([1, 2, 3, 4]),
-        grid: [
-          [true, false, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-          [false, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([1, 2, 3, 4]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, null, null],
+        [false, null, null, null],
+        [false, null, null, null],
+        [false, null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -220,23 +276,31 @@ describe("setToFalse", () => {
       [false, null, null, null],
       [false, null, null, null],
     ];
-    const outputMatrix = setToFalse(inputMatrix, "Colin", 3);
-    expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
-    expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: 3,
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the column and there is a true in the column, it should set the last null to false", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry([1, 2, 3, 4]),
-        grid: [
-          [true, false, false, false],
-          [false, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([1, 2, 3, 4]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false, false],
+        [false, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -246,50 +310,63 @@ describe("setToFalse", () => {
       [false, null, null, null],
     ];
 
-    const outputMatrix = setToFalse(inputMatrix, "Fefe", 1);
-    expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
-    expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Fefe",
+      itemB: 1,
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = setToFalse(inputMatrix, "Colin", "dog");
-    expect(outputMatrix["0v1"].grid).toEqual([
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = setToFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual([
       [false, null, null],
       [null, null, null],
       [null, null, null],
     ]);
-    expect(outputMatrix["0v2"].grid).toEqual(inputMatrix["0v2"].grid);
-    expect(outputMatrix["0v3"].grid).toEqual([
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual([
       [false, null, null],
       [null, null, null],
       [null, null, null],
@@ -305,8 +382,13 @@ describe("setToTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = setToTrue(emptyInputMatrix, "Colin", "red");
-    const outputGrid = outputMatrix["0v3"].grid;
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    const outputGrid = outputMatrixGrids["0v3"];
     expect(outputGrid).toEqual(expectedGrid);
   });
 
@@ -317,12 +399,22 @@ describe("setToTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = setToTrue(emptyInputMatrix, "red", "Colin");
-    const outputGrid = outputMatrix["0v3"].grid;
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "Colin",
+    });
+    const outputGrid = outputMatrixGrids["0v3"];
     expect(outputGrid).toEqual(expectedGrid);
 
-    const outputMatrix2 = setToTrue(emptyInputMatrix, "Colin", "red");
-    const outputGrid2 = outputMatrix2["0v3"].grid;
+    const outputMatrix2 = setToTrue({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    const outputGrid2 = outputMatrix2["0v3"];
     expect(outputGrid2).toEqual(expectedGrid);
   });
 
@@ -333,8 +425,13 @@ describe("setToTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = setToTrue(emptyInputMatrix, 1, "red");
-    const outputGrid = outputMatrix["1v3"].grid;
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: 1,
+      itemB: "red",
+    });
+    const outputGrid = outputMatrixGrids["1v3"];
     expect(outputGrid).toEqual(expectedGrid);
   });
 
@@ -345,58 +442,74 @@ describe("setToTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = setToTrue(emptyInputMatrix, "Colin", "red");
-    expect(outputMatrix).not.toBe(emptyInputMatrix);
-    expect(emptyInputMatrix["0v3"].grid).not.toEqual(expectedGrid);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: emptyInputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids).not.toBe(emptyInputMatrixGrids);
+    expect(emptyInputMatrixGrids["0v3"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("It should return the original grid if the specified position is already true", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [true, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels([1, 2, 3]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["fly", "back", "breast"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
       },
     };
 
-    const outputMatrix = setToTrue(inputMatrix, "Colin", 1);
-    expect(outputMatrix).toEqual(inputMatrix);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: 1,
+    });
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 
   test("all other items in that row/column are set to false", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry([1, 2, 3]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels([1, 2, 3]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["fly", "back", "breast"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["fly", "back", "breast"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -405,50 +518,63 @@ describe("setToTrue", () => {
       [null, false, null],
     ];
 
-    const outputMatrix = setToTrue(inputMatrix, "Colin", 2);
-    expect(outputMatrix["0v1"].grid).toEqual(expectedGrid);
-    expect(inputMatrix["0v1"].grid).not.toEqual(expectedGrid);
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: 2,
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
   });
 
   test("cascading can occur", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = setToTrue(inputMatrix, "Colin", "red");
-    expect(outputMatrix["0v1"].grid).toEqual([
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = setToTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual([
       [true, false, false],
       [false, null, null],
       [false, null, null],
     ]);
-    expect(outputMatrix["0v2"].grid).toEqual(inputMatrix["0v2"].grid);
-    expect(outputMatrix["0v3"].grid).toEqual([
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual([
       [true, false, false],
       [false, null, null],
       [false, null, null],
@@ -458,34 +584,37 @@ describe("setToTrue", () => {
 
 describe("deduceSecondOrderFromTrue", () => {
   test("deduces a false value (itemA in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [false, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [false, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -494,42 +623,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (itemB in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [false, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [false, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -538,42 +675,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (item A in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, false, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [null, false, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -582,42 +727,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "Colin", "dog");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (item B in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, false, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [null, false, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -626,112 +779,137 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "Colin");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "Colin",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
   });
 
   test("no changes if no additional info is known", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
-    expect(outputMatrix).toEqual(inputMatrix);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 
   test("no changes if no additional info is known (swapped input order)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
-    expect(outputMatrix).toEqual(inputMatrix);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 
   test("deduces a true value (itemA in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [false, null, null],
-          [true, false, false],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [true, false, false],
+        [false, null, null],
+      ],
+
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -740,42 +918,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "red");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a true value (itemB in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [false, null, null],
-          [true, false, false],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [true, false, false],
+        [false, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -784,42 +970,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [false, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "red", "dog");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a true value (item A in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [false, true, false],
-          [null, false, null],
-          [null, false, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [false, true, false],
+        [null, false, null],
+        [null, false, null],
+      ],
     };
 
     const expectedGrid = [
@@ -828,42 +1022,50 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, false, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "Colin", "dog");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
   });
 
   test("deduces a true value (item B in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [false, true, false],
-          [null, false, null],
-          [null, false, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [false, true, false],
+        [null, false, null],
+        [null, false, null],
+      ],
     };
 
     const expectedGrid = [
@@ -872,44 +1074,52 @@ describe("deduceSecondOrderFromTrue", () => {
       [null, false, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromTrue(inputMatrix, "dog", "Colin");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).not.toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v2"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "Colin",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
   });
 });
 
 describe("deduceSecondOrderFromFalse", () => {
   test("deduces a false value (itemA in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -918,46 +1128,51 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(
-      inputMatrix,
-      "Colin",
-      "dog",
-    );
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "Colin",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (itemB in row)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -966,46 +1181,50 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(
-      inputMatrix,
-      "dog",
-      "Colin",
-    );
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "Colin",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (item A in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -1014,42 +1233,50 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(inputMatrix, "red", "dog");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "red",
+      itemB: "dog",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("deduces a false value (item B in column)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [false, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
+    };
+
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v2": [
+        [false, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
     };
 
     const expectedGrid = [
@@ -1058,88 +1285,103 @@ describe("deduceSecondOrderFromFalse", () => {
       [null, null, null],
     ];
 
-    const outputMatrix = deduceSecondOrderFromFalse(inputMatrix, "dog", "red");
-    expect(outputMatrix["0v1"]).toEqual(inputMatrix["0v1"]);
-    expect(outputMatrix["0v2"]).toEqual(inputMatrix["0v2"]);
-    expect(outputMatrix["0v3"]).not.toEqual(inputMatrix["0v3"]);
-    expect(outputMatrix["0v3"].grid).toEqual(expectedGrid);
+    const outputMatrixGrids = deduceSecondOrderFromFalse({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "dog",
+      itemB: "red",
+    });
+    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
   });
 
   test("no changes if no trues about inputs are known", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(
-      inputMatrix,
-      "green",
-      "mouse",
-    );
-    expect(outputMatrix).toEqual(inputMatrix);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "green",
+      itemB: "mouse",
+    });
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 
   test("no changes if no trues about inputs are known (swapped input order)", () => {
-    const inputMatrix = {
+    const matrixLabels: MatrixLabels = {
       "0v1": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
       },
       "0v2": {
-        row: populateSparseTestEntry(["dog", "cat", "mouse"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [true, false, false],
-          [false, null, null],
-          [false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["dog", "cat", "mouse"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
       "0v3": {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe"]),
-        column: populateSparseTestEntry(["red", "blue", "green"]),
-        grid: [
-          [null, null, null],
-          [null, null, null],
-          [null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe"]),
+        column: populateSparseTestEntryLabels(["red", "blue", "green"]),
       },
     };
 
-    const outputMatrix = deduceSecondOrderFromTrue(
-      inputMatrix,
-      "mouse",
-      "green",
-    );
-    expect(outputMatrix).toEqual(inputMatrix);
+    const inputMatrixGrids: MatrixGrids = {
+      "0v1": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+      "0v2": [
+        [true, false, false],
+        [false, null, null],
+        [false, null, null],
+      ],
+      "0v3": [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ],
+    };
+
+    const outputMatrixGrids = deduceSecondOrderFromTrue({
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+      itemA: "mouse",
+      itemB: "green",
+    });
+    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
   });
 });

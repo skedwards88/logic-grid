@@ -1,4 +1,3 @@
-import cloneDeep from "lodash.clonedeep";
 import {gameInit, type GameState} from "./gameInit";
 import {autocomplete} from "./autocomplete";
 
@@ -34,15 +33,13 @@ export function gameReducer(
   payload: ReducerPayload,
 ): GameState {
   if (payload.action === "changeCellState") {
-    const currentDerivedMatrix =
-      currentGameState.derivedMatrixHistory[
-        currentGameState.derivedMatrixHistory.length - 1
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
       ];
-    const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
+    const newMatrixGrids = structuredClone(currentMatrixGrids);
     const currentCellValue =
-      newDerivedMatrix[payload.gridID].grid[payload.rowIndex][
-        payload.columnIndex
-      ];
+      newMatrixGrids[payload.gridID][payload.rowIndex][payload.columnIndex];
 
     // true -> null, null -> false, false -> true
     let newCellValue;
@@ -54,27 +51,26 @@ export function gameReducer(
       newCellValue = false;
     }
 
-    newDerivedMatrix[payload.gridID].grid[payload.rowIndex][
-      payload.columnIndex
-    ] = newCellValue;
+    newMatrixGrids[payload.gridID][payload.rowIndex][payload.columnIndex] =
+      newCellValue;
 
     return {
       ...currentGameState,
-      derivedMatrixHistory: [
-        ...currentGameState.derivedMatrixHistory,
-        newDerivedMatrix,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
       ],
     };
   } else if (payload.action === "utilizeEasyTrue") {
     // regardless of the current cell value,
     //  change the value to true
     //  and make everything else in the row/column false
-    const currentDerivedMatrix =
-      currentGameState.derivedMatrixHistory[
-        currentGameState.derivedMatrixHistory.length - 1
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
       ];
-    const newDerivedMatrix = cloneDeep(currentDerivedMatrix);
-    const currentGrid = newDerivedMatrix[payload.gridID].grid;
+    const newMatrixGrids = structuredClone(currentMatrixGrids);
+    const currentGrid = currentMatrixGrids[payload.gridID];
     const newGrid: (boolean | null)[][] = [];
     for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
       const newRow: (boolean | null)[] = [];
@@ -99,27 +95,30 @@ export function gameReducer(
       }
       newGrid.push(newRow);
     }
-    newDerivedMatrix[payload.gridID].grid = newGrid;
+    newMatrixGrids[payload.gridID] = newGrid;
 
     return {
       ...currentGameState,
-      derivedMatrixHistory: [
-        ...currentGameState.derivedMatrixHistory,
-        newDerivedMatrix,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
       ],
     };
   } else if (payload.action === "autofill") {
-    const currentDerivedMatrix =
-      currentGameState.derivedMatrixHistory[
-        currentGameState.derivedMatrixHistory.length - 1
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
       ];
-    let newDerivedMatrix = cloneDeep(currentDerivedMatrix);
-    newDerivedMatrix = autocomplete(newDerivedMatrix);
+    let newMatrixGrids = structuredClone(currentMatrixGrids);
+    newMatrixGrids = autocomplete(
+      newMatrixGrids,
+      currentGameState.matrixLabels,
+    );
     return {
       ...currentGameState,
-      derivedMatrixHistory: [
-        ...currentGameState.derivedMatrixHistory,
-        newDerivedMatrix,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
       ],
     };
   } else if (payload.action === "newGame") {
@@ -150,15 +149,15 @@ export function gameReducer(
   } else if (payload.action === "undo") {
     return {
       ...currentGameState,
-      derivedMatrixHistory: currentGameState.derivedMatrixHistory.slice(
+      matrixGridsHistory: currentGameState.matrixGridsHistory.slice(
         0,
-        Math.max(1, currentGameState.derivedMatrixHistory.length - 1),
+        Math.max(1, currentGameState.matrixGridsHistory.length - 1),
       ),
     };
   } else if (payload.action === "reset") {
     return {
       ...currentGameState,
-      derivedMatrixHistory: currentGameState.derivedMatrixHistory.slice(0, 1),
+      matrixGridsHistory: currentGameState.matrixGridsHistory.slice(0, 1),
     };
   } else {
     console.log(

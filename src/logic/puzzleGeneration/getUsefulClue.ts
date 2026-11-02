@@ -15,7 +15,11 @@ import {
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {applyClueLogic} from "../clues/applyClueLogic";
-import {type PuzzleMatrix} from "./buildEmptyMatrix";
+import {
+  type MatrixTemplates,
+  type MatrixGrids,
+  type MatrixLabels,
+} from "./buildEmptyMatrix";
 
 export type Clue =
   | OrClue
@@ -24,19 +28,33 @@ export type Clue =
   | NumericComparisonCrossCategoryClue
   | OrCrossCategoryClue;
 
-export function getUsefulClue(
-  solutionMatrix: PuzzleMatrix,
-  derivedMatrix: PuzzleMatrix,
-  includeCrossCategoryClues: boolean,
-  includeNumericClues: boolean,
-): {clue: Clue; newDerivedMatrix: PuzzleMatrix} {
+export function getUsefulClue({
+  solvedMatrixGrids,
+  derivedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+  includeCrossCategoryClues,
+  includeNumericClues,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  derivedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+  includeCrossCategoryClues: boolean;
+  includeNumericClues: boolean;
+}): {clue: Clue; newDerivedMatrixGrids: MatrixGrids} {
   let clue: Clue;
-  let newDerivedMatrix: PuzzleMatrix;
+  let newDerivedMatrixGrids: MatrixGrids;
 
-  const clueFunctions: ((solutionMatrix: PuzzleMatrix) => Clue)[] = [
-    getNotClue,
-    getOrClue,
-  ];
+  const clueFunctions: (({
+    solvedMatrixGrids,
+    matrixLabels,
+    matrixTemplates,
+  }: {
+    solvedMatrixGrids: MatrixGrids;
+    matrixLabels: MatrixLabels;
+    matrixTemplates: MatrixTemplates;
+  }) => Clue)[] = [getNotClue, getOrClue];
   if (includeCrossCategoryClues) {
     clueFunctions.push(getOrCrossCategoryClue);
   }
@@ -50,15 +68,19 @@ export function getUsefulClue(
   while (true) {
     // get a clue
     const clueFunction = pickRandomItemFromArray(clueFunctions);
-    clue = clueFunction(solutionMatrix);
+    clue = clueFunction({solvedMatrixGrids, matrixLabels, matrixTemplates});
 
-    // see if it changes the derivedMatrix
-    newDerivedMatrix = applyClueLogic(clue, derivedMatrix);
+    // see if it changes the derivedMatrixGrids
+    newDerivedMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: derivedMatrixGrids,
+      matrixLabels,
+    });
 
-    if (!matrixesEqualQ(newDerivedMatrix, derivedMatrix)) {
+    if (!matrixesEqualQ(newDerivedMatrixGrids, derivedMatrixGrids)) {
       return {
         clue,
-        newDerivedMatrix,
+        newDerivedMatrixGrids,
       };
     }
   }

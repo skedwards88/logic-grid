@@ -1,17 +1,22 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type NotClue} from "./getNotClue";
 
 export function validQNotClue({
-  matrix,
+  matrixGrids,
+  matrixLabels,
   clueParameters: {itemA, itemB},
   strict = false,
 }: {
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   clueParameters: NotClue["clueParameters"];
   strict?: boolean;
 }): boolean {
-  const value = findMatrixValue(matrix, itemA, itemB);
+  const value = findMatrixValue({matrixGrids, matrixLabels, itemA, itemB});
 
   if (value === true) {
     // if value is true, clue is violated

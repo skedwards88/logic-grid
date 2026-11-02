@@ -1,19 +1,8 @@
-import cloneDeep from "lodash.clonedeep";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
 import {type Clue} from "./getUsefulClue";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
-import {type PuzzleMatrix} from "./buildEmptyMatrix";
-
-// function visualizeOutput(derivedMatrix) {
-//   for (const key in derivedMatrix) {
-//     console.log(
-//       derivedMatrix[key].grid.map((row) =>
-//         row.map((item) => (item ? "O" : item === false ? "X" : " ")),
-//       ),
-//     );
-//   }
-// }
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {type MatrixGrids, type MatrixLabels} from "./buildEmptyMatrix";
 
 describe("applyCluesAdNauseam", () => {
   beforeEach(() => jest.spyOn(applyClueLogicModule, "applyClueLogic"));
@@ -22,36 +11,55 @@ describe("applyCluesAdNauseam", () => {
   });
 
   test("solves an empty puzzle to completion (2)", () => {
-    const inputMatrix: PuzzleMatrix = {
+    const inputMatrixGrids: MatrixGrids = {
+      box1: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      box2: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+
+      box3: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const matrixLabels: MatrixLabels = {
       box1: {
-        row: populateSparseTestEntry([80, 85, 90, 95]),
-        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([80, 85, 90, 95]),
+        column: populateSparseTestEntryLabels([
+          "Wayne",
+          "Alonzo",
+          "Connor",
+          "Megan",
+        ]),
       },
       box2: {
-        row: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
-        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["teal", "yellow", "blue", "lime"]),
+        column: populateSparseTestEntryLabels([
+          "Wayne",
+          "Alonzo",
+          "Connor",
+          "Megan",
+        ]),
       },
       box3: {
-        row: populateSparseTestEntry([80, 85, 90, 95]),
-        column: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([80, 85, 90, 95]),
+        column: populateSparseTestEntryLabels([
+          "teal",
+          "yellow",
+          "blue",
+          "lime",
+        ]),
       },
     };
 
@@ -156,7 +164,11 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam(clues, inputMatrix);
+    const derivedMatrix = applyCluesAdNauseam({
+      clues,
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+    });
 
     expect(applyClueLogicModule.applyClueLogic).toHaveBeenCalledTimes(
       3 * clues.length,
@@ -189,52 +201,70 @@ describe("applyCluesAdNauseam", () => {
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(derivedMatrix[key]).toEqual(expectedChanges[key]);
 
-      expect(derivedMatrix[key]["grid"]).not.toEqual(inputMatrix[key]["grid"]);
+      expect(derivedMatrix[key]).not.toEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
     }
   });
 
   test("solves an empty puzzle to completion", () => {
-    const inputMatrix: PuzzleMatrix = {
+    const inputMatrixGrids: MatrixGrids = {
+      box1: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      box2: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      box3: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const matrixLabels: MatrixLabels = {
       box1: {
-        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
-        column: populateSparseTestEntry([10, 15, 20, 25]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([
+          "ghoul",
+          "mummy",
+          "troll",
+          "vampire",
+        ]),
+        column: populateSparseTestEntryLabels([10, 15, 20, 25]),
       },
       box2: {
-        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
-        column: populateSparseTestEntry([
+        row: populateSparseTestEntryLabels([
+          "ghoul",
+          "mummy",
+          "troll",
+          "vampire",
+        ]),
+        column: populateSparseTestEntryLabels([
           "m&ms",
           "resses",
           "twix",
           "twizzlers",
         ]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
       },
       box3: {
-        row: populateSparseTestEntry(["m&ms", "resses", "twix", "twizzlers"]),
-        column: populateSparseTestEntry([10, 15, 20, 25]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([
+          "m&ms",
+          "resses",
+          "twix",
+          "twizzlers",
+        ]),
+        column: populateSparseTestEntryLabels([10, 15, 20, 25]),
       },
     };
 
@@ -300,7 +330,11 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam(clues, inputMatrix);
+    const derivedMatrix = applyCluesAdNauseam({
+      clues,
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+    });
 
     expect(applyClueLogicModule.applyClueLogic).toHaveBeenCalledTimes(
       4 * clues.length,
@@ -333,49 +367,67 @@ describe("applyCluesAdNauseam", () => {
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(derivedMatrix[key]).toEqual(expectedChanges[key]);
 
-      expect(derivedMatrix[key]["grid"]).not.toEqual(inputMatrix[key]["grid"]);
+      expect(derivedMatrix[key]).not.toEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
     }
 
     // todo count number of times called
   });
 
   test("expands the solution to a partial puzzle", () => {
-    const inputMatrix: PuzzleMatrix = {
+    const inputMatrixGrids: MatrixGrids = {
+      box1: [
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [false, false, null, null],
+      ],
+      box2: [
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [false, false, null, null],
+      ],
+      box3: [
+        [null, null, false, false],
+        [null, null, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+    };
+
+    const matrixLabels: MatrixLabels = {
       box1: {
-        row: populateSparseTestEntry([80, 85, 90, 95]),
-        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, false, null, false],
-          [false, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels([80, 85, 90, 95]),
+        column: populateSparseTestEntryLabels([
+          "Wayne",
+          "Alonzo",
+          "Connor",
+          "Megan",
+        ]),
       },
       box2: {
-        row: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
-        column: populateSparseTestEntry(["Wayne", "Alonzo", "Connor", "Megan"]),
-        grid: [
-          [null, null, false, null],
-          [null, null, null, null],
-          [null, false, null, false],
-          [false, false, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["teal", "yellow", "blue", "lime"]),
+        column: populateSparseTestEntryLabels([
+          "Wayne",
+          "Alonzo",
+          "Connor",
+          "Megan",
+        ]),
       },
       box3: {
-        row: populateSparseTestEntry([80, 85, 90, 95]),
-        column: populateSparseTestEntry(["teal", "yellow", "blue", "lime"]),
-        grid: [
-          [null, null, false, false],
-          [null, null, false, false],
-          [false, false, true, false],
-          [false, false, false, true],
-        ],
+        row: populateSparseTestEntryLabels([80, 85, 90, 95]),
+        column: populateSparseTestEntryLabels([
+          "teal",
+          "yellow",
+          "blue",
+          "lime",
+        ]),
       },
     };
 
@@ -388,7 +440,11 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam(clues, inputMatrix);
+    const derivedMatrix = applyCluesAdNauseam({
+      clues,
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+    });
 
     expect(applyClueLogicModule.applyClueLogic).toHaveBeenCalledTimes(
       2 * clues.length,
@@ -399,10 +455,8 @@ describe("applyCluesAdNauseam", () => {
       (key) => key != changedKey,
     );
 
-    expect(derivedMatrix[changedKey]["grid"]).not.toEqual(
-      inputMatrix[changedKey]["grid"],
-    );
-    expect(derivedMatrix[changedKey]["grid"]).toEqual([
+    expect(derivedMatrix[changedKey]).not.toEqual(inputMatrixGrids[changedKey]);
+    expect(derivedMatrix[changedKey]).toEqual([
       [null, false, false, null],
       [false, true, false, false],
       [null, false, null, false],
@@ -410,46 +464,66 @@ describe("applyCluesAdNauseam", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
     }
   });
 
   test("does not change the input matrix", () => {
-    const inputMatrix = {
+    const inputMatrixGrids: MatrixGrids = {
+      box1: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+
+      box2: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+
+      box3: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const matrixLabels: MatrixLabels = {
       box1: {
-        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
-        column: populateSparseTestEntry([10, 15, 20, 25]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([
+          "ghoul",
+          "mummy",
+          "troll",
+          "vampire",
+        ]),
+        column: populateSparseTestEntryLabels([10, 15, 20, 25]),
       },
       box2: {
-        row: populateSparseTestEntry(["ghoul", "mummy", "troll", "vampire"]),
-        column: populateSparseTestEntry([
+        row: populateSparseTestEntryLabels([
+          "ghoul",
+          "mummy",
+          "troll",
+          "vampire",
+        ]),
+        column: populateSparseTestEntryLabels([
           "m&ms",
           "resses",
           "twix",
           "twizzlers",
         ]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
       },
       box3: {
-        row: populateSparseTestEntry(["m&ms", "resses", "twix", "twizzlers"]),
-        column: populateSparseTestEntry([10, 15, 20, 25]),
-        grid: [
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels([
+          "m&ms",
+          "resses",
+          "twix",
+          "twizzlers",
+        ]),
+        column: populateSparseTestEntryLabels([10, 15, 20, 25]),
       },
     };
 
@@ -514,10 +588,14 @@ describe("applyCluesAdNauseam", () => {
         },
       },
     ];
-    const inputMatrixCopy = cloneDeep(inputMatrix);
+    const inputMatrixGridsCopy = structuredClone(inputMatrixGrids);
 
-    const derivedMatrix = applyCluesAdNauseam(clues, inputMatrix);
-    expect(inputMatrix).toEqual(inputMatrixCopy);
-    expect(inputMatrix).not.toEqual(derivedMatrix);
+    const derivedMatrix = applyCluesAdNauseam({
+      clues,
+      matrixGrids: inputMatrixGrids,
+      matrixLabels,
+    });
+    expect(inputMatrixGrids).toEqual(inputMatrixGridsCopy);
+    expect(inputMatrixGrids).not.toEqual(derivedMatrix);
   });
 });

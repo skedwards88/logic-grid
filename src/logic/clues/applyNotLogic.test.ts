@@ -1,87 +1,93 @@
-import cloneDeep from "lodash.clonedeep";
 import {applyNotLogic} from "./applyNotLogic";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-const emptyMatrix: PuzzleMatrix = {
+const emptyMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+
+  NameVsMake: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NameVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NumberVsMake: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  NumberVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+  MakeVsColor: [
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ],
+};
+
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsMake: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["Ford", "Honda", "Kia", "Subaru"]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   NumberVsMake: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["Ford", "Honda", "Kia", "Subaru"]),
   },
   NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   MakeVsColor: {
-    row: populateSparseTestEntry(["Ford", "Honda", "Kia", "Subaru"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-      [null, null, null, null],
-    ],
+    row: populateSparseTestEntryLabels(["Ford", "Honda", "Kia", "Subaru"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
 };
 
 describe("applyNotLogic", () => {
   test("sets an intersection to false (when both items are strings)", () => {
-    const newDerivedMatrix = applyNotLogic(emptyMatrix, {
+    const newMatrixGrids = applyNotLogic(emptyMatrixGrids, matrixLabels, {
       itemA: "Colin",
       itemB: "blue",
     });
 
     const changedKey = "NameVsColor";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -89,25 +95,25 @@ describe("applyNotLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("sets an intersection to false (when one item is string, one is number)", () => {
-    const newDerivedMatrix = applyNotLogic(emptyMatrix, {
+    const newMatrixGrids = applyNotLogic(emptyMatrixGrids, matrixLabels, {
       itemA: 3,
       itemB: "blue",
     });
 
     const changedKey = "NumberVsColor";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]["grid"]).not.toEqual(
-      emptyMatrix[changedKey]["grid"],
+    expect(newMatrixGrids[changedKey]).not.toEqual(
+      emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]["grid"]).toEqual([
+    expect(newMatrixGrids[changedKey]).toEqual([
       [null, null, null, null],
       [null, null, null, null],
       [null, false, null, null],
@@ -115,41 +121,51 @@ describe("applyNotLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("works even if the intersection is already false", () => {
-    const inputMatrix: PuzzleMatrix = {
-      ...emptyMatrix,
+    const inputMatrixGrids: MatrixGrids = {
+      ...emptyMatrixGrids,
+      NameVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const inputMatrixLabels: MatrixLabels = {
+      ...matrixLabels,
       NameVsColor: {
-        row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-        column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-        grid: [
-          [null, false, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-          [null, null, null, null],
-        ],
+        row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
       },
     };
-    const newDerivedMatrix = applyNotLogic(inputMatrix, {
+
+    const newMatrixGrids = applyNotLogic(inputMatrixGrids, inputMatrixLabels, {
       itemA: "Colin",
       itemB: "blue",
     });
 
-    for (const key in newDerivedMatrix) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(inputMatrix[key]["grid"]);
+    for (const key in newMatrixGrids) {
+      expect(newMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
     }
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = cloneDeep(emptyMatrix);
-    const newDerivedMatrix = applyNotLogic(emptyMatrix, {
+    const matrixCopy = structuredClone(emptyMatrixGrids);
+    const newMatrixGrids = applyNotLogic(emptyMatrixGrids, matrixLabels, {
       itemA: "Sarah",
       itemB: "blue",
     });
-    expect(matrixCopy).toEqual(emptyMatrix);
-    expect(matrixCopy).not.toEqual(newDerivedMatrix);
+    expect(matrixCopy).toEqual(emptyMatrixGrids);
+    expect(matrixCopy).not.toEqual(newMatrixGrids);
   });
 });

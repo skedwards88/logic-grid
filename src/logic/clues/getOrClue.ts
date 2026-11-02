@@ -3,7 +3,11 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 export type OrClue = {
   writtenClue: string;
@@ -19,12 +23,20 @@ export type OrClue = {
 // Generates an "or" clue
 // e.g. "Colin is red or blue"
 // which equates to "Colin is not green or yellow"
-export function getOrClue(solutionMatrix: PuzzleMatrix): OrClue {
+export function getOrClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): OrClue {
   // choose a random grid in the solution matrix
-  const solutionKey = pickRandomItemFromArray(Object.keys(solutionMatrix));
-  const columnLabels = solutionMatrix[solutionKey].column.labels;
-  const rowLabels = solutionMatrix[solutionKey].row.labels;
-  const grid = solutionMatrix[solutionKey].grid;
+  const solutionKey = pickRandomItemFromArray(Object.keys(solvedMatrixGrids));
+  const columnLabels = matrixLabels[solutionKey].column.labels;
+  const rowLabels = matrixLabels[solutionKey].row.labels;
+  const grid = solvedMatrixGrids[solutionKey];
 
   // Choose a random row label (e.g. 'Colin')
   const rowIndex = pickRandomIndexFromArray(rowLabels);
@@ -43,29 +55,29 @@ export function getOrClue(solutionMatrix: PuzzleMatrix): OrClue {
 
   // Overkill but I didn't find a better way to satisfy TS
   const leadingDescription =
-    solutionMatrix[solutionKey].row.kind === "number"
-      ? solutionMatrix[solutionKey].row.templates.generateDescription(
+    matrixTemplates[solutionKey].row.kind === "number"
+      ? matrixTemplates[solutionKey].row.templates.generateDescription(
           rowItem as number,
         )
-      : solutionMatrix[solutionKey].row.templates.generateDescription(
+      : matrixTemplates[solutionKey].row.templates.generateDescription(
           rowItem as string,
         );
 
   const trailingDescriptionTrue =
-    solutionMatrix[solutionKey].column.kind === "number"
-      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+    matrixTemplates[solutionKey].column.kind === "number"
+      ? matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItemTrue as number,
         )
-      : solutionMatrix[solutionKey].column.templates.generateDescription(
+      : matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItemTrue as string,
         );
 
   const trailingDescriptionFalse =
-    solutionMatrix[solutionKey].column.kind === "number"
-      ? solutionMatrix[solutionKey].column.templates.generateDescription(
+    matrixTemplates[solutionKey].column.kind === "number"
+      ? matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItemFalse as number,
         )
-      : solutionMatrix[solutionKey].column.templates.generateDescription(
+      : matrixTemplates[solutionKey].column.templates.generateDescription(
           columnItemFalse as string,
         );
 

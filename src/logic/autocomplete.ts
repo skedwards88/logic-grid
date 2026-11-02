@@ -1,27 +1,32 @@
-import cloneDeep from "lodash.clonedeep";
 import {setToTrue} from "../logic/puzzleGeneration/setValue";
-import {type PuzzleMatrix} from "./puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "./puzzleGeneration/buildEmptyMatrix";
 
-function makeEmptyCopyOfMatrix(matrix: PuzzleMatrix): PuzzleMatrix {
-  const matrixCopy = cloneDeep(matrix);
+function makeEmptyCopyOfMatrix(matrixGrids: MatrixGrids): MatrixGrids {
+  const matrixGridsCopy = structuredClone(matrixGrids);
 
-  for (const key in matrixCopy) {
-    matrixCopy[key].grid = matrixCopy[key].grid.map((row) =>
+  for (const key in matrixGridsCopy) {
+    matrixGridsCopy[key] = matrixGridsCopy[key].map((row) =>
       row.map(() => null),
     );
   }
 
-  return matrixCopy;
+  return matrixGridsCopy;
 }
 
-export function autocomplete(inputMatrix: PuzzleMatrix): PuzzleMatrix {
-  let autofilledMatrix = makeEmptyCopyOfMatrix(inputMatrix);
+export function autocomplete(
+  matrixGrids: MatrixGrids,
+  matrixLabels: MatrixLabels,
+): MatrixGrids {
+  let autofilledMatrix = makeEmptyCopyOfMatrix(matrixGrids);
 
   // Propagate the trues in the matrix
-  for (const key in inputMatrix) {
-    const grid = inputMatrix[key].grid;
-    const rowLabels = inputMatrix[key].row.labels;
-    const columnLabels = inputMatrix[key].column.labels;
+  for (const key in matrixGrids) {
+    const grid = matrixGrids[key];
+    const rowLabels = matrixLabels[key].row.labels;
+    const columnLabels = matrixLabels[key].column.labels;
 
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
       for (
@@ -31,20 +36,21 @@ export function autocomplete(inputMatrix: PuzzleMatrix): PuzzleMatrix {
       ) {
         const value = grid[rowIndex][columnIndex];
         if (value === true) {
-          autofilledMatrix = setToTrue(
-            autofilledMatrix,
-            rowLabels[rowIndex],
-            columnLabels[columnIndex],
-          );
+          autofilledMatrix = setToTrue({
+            matrixGrids: autofilledMatrix,
+            matrixLabels,
+            itemA: rowLabels[rowIndex],
+            itemB: columnLabels[columnIndex],
+          });
         }
       }
     }
   }
 
   // Check the validity of the autocompleted matrix
-  for (const key in inputMatrix) {
-    const grid = inputMatrix[key].grid;
-    const autofilledGrid = autofilledMatrix[key].grid;
+  for (const key in matrixGrids) {
+    const grid = matrixGrids[key];
+    const autofilledGrid = autofilledMatrix[key];
 
     const columnTrueIndexes: number[] = [];
     for (let rowIndex = 0; rowIndex < grid.length; rowIndex++) {
@@ -85,8 +91,8 @@ export function autocomplete(inputMatrix: PuzzleMatrix): PuzzleMatrix {
         // Verify that there are no disagreements between the original and autofilled matrix
         // for cases where the original is not null
         if (
-          inputMatrix[key].grid[rowIndex][columnIndex] != null &&
-          inputMatrix[key].grid[rowIndex][columnIndex] !=
+          matrixGrids[key][rowIndex][columnIndex] != null &&
+          matrixGrids[key][rowIndex][columnIndex] !=
             autofilledGrid[rowIndex][columnIndex]
         ) {
           throw new Error(

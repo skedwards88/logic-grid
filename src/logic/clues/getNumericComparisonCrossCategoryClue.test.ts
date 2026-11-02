@@ -1,8 +1,11 @@
 import * as wordLogic from "@skedwards88/word_logic";
-import cloneDeep from "lodash.clonedeep";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
 jest.mock("@skedwards88/word_logic", () => {
   const actual = jest.requireActual<typeof wordLogic>(
@@ -35,62 +38,94 @@ afterEach(() => {
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
   const numericLabels = [1, 2, 3, 4];
-  const solutionMatrix: PuzzleMatrix = {
+  const solvedMatrixGrids: MatrixGrids = {
+    NameVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    NameVsColor: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    ColorVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  };
+
+  const matrixLabels: MatrixLabels = {
+    NameVsNumber: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+    },
+    NameVsColor: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+    ColorVsNumber: {
+      row: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+  };
+
+  const matrixTemplates: MatrixTemplates = {
     NameVsNumber: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
           generateDiffLesserDescription: (value) => `${value} years younger`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     NameVsColor: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     ColorVsNumber: {
       row: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -99,42 +134,47 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
   };
-  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
-  for (const key in emptyMatrix) {
-    emptyMatrix[key].grid = [
+
+  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
+  for (const key in emptyMatrixGrids) {
+    emptyMatrixGrids[key] = [
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
     ];
   }
+
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values to return clue "undefined")', () => {
-    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 1 years younger than the green car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -158,36 +198,45 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 2)', () => {
-    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(2);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 2 years younger than the green car."`,
     );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -211,36 +260,45 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff 3)', () => {
-    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabels[0],
+      numericLabels[2],
+    ]);
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(3);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 3 years younger than the green car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -264,25 +322,27 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
 
     expect(clue).toHaveProperty("writtenClue");
     expect(clue).toHaveProperty("clueType");
@@ -301,79 +361,123 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = cloneDeep(solutionMatrix);
-    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const matrixGridsCopy = structuredClone(solvedMatrixGrids);
+    getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
+    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = cloneDeep(emptyMatrix);
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerivedMatrix = applyClueLogic(clue, derivedCopy);
-    expect(derivedCopy).toEqual(emptyMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
+    const derivedGridsCopy = structuredClone(emptyMatrixGrids);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: derivedGridsCopy,
+      matrixLabels,
+    });
+    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
   });
 });
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", () => {
   const numericLabels = [10, 20, 30, 40];
-  const solutionMatrix: PuzzleMatrix = {
+  const solvedMatrixGrids: MatrixGrids = {
+    NameVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    NameVsColor: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    ColorVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  };
+
+  const matrixLabels: MatrixLabels = {
+    NameVsNumber: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+    },
+    NameVsColor: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+    ColorVsNumber: {
+      row: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+  };
+
+  const matrixTemplates: MatrixTemplates = {
     NameVsNumber: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
           generateDiffLesserDescription: (value) => `${value} years younger`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     NameVsColor: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     ColorVsNumber: {
       row: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -382,23 +486,16 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
   };
-  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
-  for (const key in emptyMatrix) {
-    emptyMatrix[key].grid = [
+
+  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
+  for (const key in emptyMatrixGrids) {
+    emptyMatrixGrids[key] = [
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -413,14 +510,22 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(undefined);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 10 years younger than the green car."`,
     );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -444,20 +549,18 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -471,14 +574,22 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 20 years younger than the green car."`,
     );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -502,20 +613,18 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -529,14 +638,22 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(mockedDiff);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 30 years younger than the green car."`,
     );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       NameVsNumber: [
@@ -560,25 +677,27 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
 
     expect(clue).toHaveProperty("writtenClue");
     expect(clue).toHaveProperty("clueType");
@@ -597,79 +716,123 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = cloneDeep(solutionMatrix);
-    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const matrixGridsCopy = structuredClone(solvedMatrixGrids);
+    getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
+    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = cloneDeep(emptyMatrix);
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerivedMatrix = applyClueLogic(clue, derivedCopy);
-    expect(derivedCopy).toEqual(emptyMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
+    const derivedGridsCopy = structuredClone(emptyMatrixGrids);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: derivedGridsCopy,
+      matrixLabels,
+    });
+    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
   });
 });
 
 describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   const numericLabels = [10, 15, 30, 40];
-  const solutionMatrix: PuzzleMatrix = {
+  const solvedMatrixGrids: MatrixGrids = {
+    NameVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    NameVsColor: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    ColorVsNumber: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  };
+
+  const matrixLabels: MatrixLabels = {
+    NameVsNumber: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+    },
+    NameVsColor: {
+      row: {
+        labels: ["Colin", "Sarah", "Fefe", "Meme"],
+        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+    ColorVsNumber: {
+      row: {
+        labels: numericLabels,
+        displayLabels: numericLabels.map((l) => l.toString()),
+      },
+      column: {
+        labels: ["red", "blue", "green", "yellow"],
+        displayLabels: ["red", "blue", "green", "yellow"],
+      },
+    },
+  };
+
+  const matrixTemplates: MatrixTemplates = {
     NameVsNumber: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
           generateDiffLesserDescription: (value) => `${value} years younger`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     NameVsColor: {
       row: {
         kind: "string",
-        labels: ["Colin", "Sarah", "Fefe", "Meme"],
-        displayLabels: ["Colin", "Sarah", "Fefe", "Meme"],
         templates: {
           generateDescription: (value) => `${value}'s car`,
         },
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     ColorVsNumber: {
       row: {
         kind: "number",
-        labels: numericLabels,
-        displayLabels: numericLabels.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `${value} years old`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
@@ -678,29 +841,23 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       },
       column: {
         kind: "string",
-        labels: ["red", "blue", "green", "yellow"],
-        displayLabels: ["red", "blue", "green", "yellow"],
         templates: {
           generateDescription: (value) => `the ${value} car`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
   };
-  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
-  for (const key in emptyMatrix) {
-    emptyMatrix[key].grid = [
+
+  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
+  for (const key in emptyMatrixGrids) {
+    emptyMatrixGrids[key] = [
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
     ];
   }
+
   test('returns a "numeric comparison" clue for a given solution matrix (using mocked random values and diff undefined)', () => {
     mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
       numericLabels[0],
@@ -728,34 +885,36 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       [null, null, null, null],
     ];
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 5 years younger than the green car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
+    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+      emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
+    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
 
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
+    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+      emptyMatrixGrids["NameVsColor"],
     );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
+    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
 
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
+    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+      emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
+    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
@@ -790,34 +949,36 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       [null, null, false, null],
     ];
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is exactly 20 years younger than the green car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
+    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+      emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
+    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
 
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
+    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+      emptyMatrixGrids["NameVsColor"],
     );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
+    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
 
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
+    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+      emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
+    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
@@ -852,41 +1013,47 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       [false, false, true, false],
     ];
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"Colin's car is at least 30 years younger than the green car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
 
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsNumber"]["grid"],
+    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+      emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newDerivedMatrix["NameVsNumber"]["grid"]).toEqual(
-      expectedGridNameVsNumber,
-    );
+    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
 
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).not.toEqual(
-      emptyMatrix["NameVsColor"]["grid"],
+    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+      emptyMatrixGrids["NameVsColor"],
     );
-    expect(newDerivedMatrix["NameVsColor"]["grid"]).toEqual(
-      expectedGridNameVsColor,
-    );
+    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
 
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).not.toEqual(
-      emptyMatrix["ColorVsNumber"]["grid"],
+    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+      emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newDerivedMatrix["ColorVsNumber"]["grid"]).toEqual(
-      expectedGridColorVsNumber,
-    );
+    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
 
     expect(clue).toHaveProperty("writtenClue");
     expect(clue).toHaveProperty("clueType");
@@ -905,18 +1072,30 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = cloneDeep(solutionMatrix);
-    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const matrixGridsCopy = structuredClone(solvedMatrixGrids);
+    getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
+    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = cloneDeep(emptyMatrix);
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerivedMatrix = applyClueLogic(clue, derivedCopy);
-    expect(derivedCopy).toEqual(emptyMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
+    const derivedGridsCopy = structuredClone(emptyMatrixGrids);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: derivedGridsCopy,
+      matrixLabels,
+    });
+    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
   });
 });
 
@@ -924,70 +1103,102 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   const numericLabelsYears = [1, 2, 3, 4];
   const numericLabelsMiles = [10, 20, 30, 40];
   const numericLabelsDollars = [100, 200, 300, 400];
-  const solutionMatrix: PuzzleMatrix = {
+  const solvedMatrixGrids: MatrixGrids = {
+    YearsVsMiles: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    MilesVsDollars: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+    DollarsVsYears: [
+      [true, false, false, false],
+      [false, true, false, false],
+      [false, false, true, false],
+      [false, false, false, true],
+    ],
+  };
+
+  const matrixLabels: MatrixLabels = {
+    YearsVsMiles: {
+      row: {
+        labels: numericLabelsYears,
+        displayLabels: numericLabelsYears.map((l) => l.toString()),
+      },
+      column: {
+        labels: numericLabelsMiles,
+        displayLabels: numericLabelsMiles.map((l) => l.toString()),
+      },
+    },
+    MilesVsDollars: {
+      row: {
+        labels: numericLabelsMiles,
+        displayLabels: numericLabelsMiles.map((l) => l.toString()),
+      },
+      column: {
+        labels: numericLabelsDollars,
+        displayLabels: numericLabelsDollars.map((l) => l.toString()),
+      },
+    },
+    DollarsVsYears: {
+      row: {
+        labels: numericLabelsDollars,
+        displayLabels: numericLabelsDollars.map((l) => l.toString()),
+      },
+      column: {
+        labels: numericLabelsYears,
+        displayLabels: numericLabelsYears.map((l) => l.toString()),
+      },
+    },
+  };
+
+  const matrixTemplates: MatrixTemplates = {
     YearsVsMiles: {
       row: {
         kind: "number",
-        labels: numericLabelsYears,
-        displayLabels: numericLabelsYears.map((l) => l.toString()),
         templates: {
-          generateDescription: (value) => `${value} years old`,
+          generateDescription: (value) => `the ${value} years old car`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
           generateDiffLesserDescription: (value) => `${value} years younger`,
         },
       },
       column: {
         kind: "number",
-        labels: numericLabelsMiles,
-        displayLabels: numericLabelsMiles.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the car with ${value} miles`,
-          generateDiffGreaterDescription: (value) => `${value} more moles`,
+          generateDiffGreaterDescription: (value) => `${value} more miles`,
           generateDiffLesserDescription: (value) => `${value} less miles`,
           verb: "has",
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     MilesVsDollars: {
       row: {
         kind: "number",
-        labels: numericLabelsMiles,
-        displayLabels: numericLabelsMiles.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the car with ${value} miles`,
-          generateDiffGreaterDescription: (value) => `${value} more moles`,
+          generateDiffGreaterDescription: (value) => `${value} more miles`,
           generateDiffLesserDescription: (value) => `${value} less miles`,
           verb: "has",
         },
       },
       column: {
         kind: "number",
-        labels: numericLabelsDollars,
-        displayLabels: numericLabelsDollars.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the ${value} dollar car`,
           generateDiffGreaterDescription: (value) => `${value} dollars more`,
           generateDiffLesserDescription: (value) => `${value} dollars less`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
     DollarsVsYears: {
       row: {
         kind: "number",
-        labels: numericLabelsDollars,
-        displayLabels: numericLabelsDollars.map((l) => l.toString()),
         templates: {
           generateDescription: (value) => `the ${value} dollar car`,
           generateDiffGreaterDescription: (value) => `${value} dollars more`,
@@ -996,43 +1207,49 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       },
       column: {
         kind: "number",
-        labels: numericLabelsYears,
-        displayLabels: numericLabelsYears.map((l) => l.toString()),
         templates: {
-          generateDescription: (value) => `${value} years old`,
+          generateDescription: (value) => `the ${value} years old car`,
           generateDiffGreaterDescription: (value) => `${value} years older`,
           generateDiffLesserDescription: (value) => `${value} years younger`,
         },
       },
-      grid: [
-        [true, false, false, false],
-        [false, true, false, false],
-        [false, false, true, false],
-        [false, false, false, true],
-      ],
     },
   };
-  const emptyMatrix = cloneDeep<PuzzleMatrix>(solutionMatrix);
-  for (const key in emptyMatrix) {
-    emptyMatrix[key].grid = [
+
+  const emptyMatrixGrids = structuredClone(solvedMatrixGrids);
+  for (const key in emptyMatrixGrids) {
+    emptyMatrixGrids[key] = [
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
       [null, null, null, null],
     ];
   }
+
   test("works even if multiple numeric categories", () => {
-    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([1, 3]);
+    mockedWordLogic.pickRandomItemsFromArray.mockReturnValueOnce([
+      numericLabelsYears[0],
+      numericLabelsYears[2],
+    ]);
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(1);
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     expect(clue.writtenClue).toMatchInlineSnapshot(
       `"The car with 10 miles is at least 1 years younger than the 300 dollar car."`,
     );
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic(clue, emptyMatrix);
+
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: emptyMatrixGrids,
+      matrixLabels,
+    });
 
     const expectedChanges: Record<string, (boolean | null)[][]> = {
       YearsVsMiles: [
@@ -1056,25 +1273,27 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(newDerivedMatrix[key]["grid"]).not.toEqual(
-        emptyMatrix[key]["grid"],
-      );
+      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]["grid"]).toEqual(emptyMatrix[key]["grid"]);
+      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
 
     expect(clue).toHaveProperty("writtenClue");
     expect(clue).toHaveProperty("clueType");
@@ -1093,17 +1312,29 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
   });
 
   test("does not modify the solution matrix when generating the clue", () => {
-    const matrixCopy = cloneDeep(solutionMatrix);
-    getNumericComparisonCrossCategoryClue(solutionMatrix);
+    const matrixGridsCopy = structuredClone(solvedMatrixGrids);
+    getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixCopy).toEqual(cloneDeep(solutionMatrix));
+    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
-    const derivedCopy = cloneDeep(emptyMatrix);
-    const clue = getNumericComparisonCrossCategoryClue(solutionMatrix);
-    const newDerivedMatrix = applyClueLogic(clue, derivedCopy);
-    expect(derivedCopy).toEqual(emptyMatrix);
-    expect(newDerivedMatrix).not.toEqual(emptyMatrix);
+    const derivedGridsCopy = structuredClone(emptyMatrixGrids);
+    const clue = getNumericComparisonCrossCategoryClue({
+      solvedMatrixGrids,
+      matrixLabels,
+      matrixTemplates,
+    });
+    const newMatrixGrids = applyClueLogic({
+      clue,
+      matrixGrids: derivedGridsCopy,
+      matrixLabels,
+    });
+    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
   });
 });

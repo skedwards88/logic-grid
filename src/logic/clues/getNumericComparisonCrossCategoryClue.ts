@@ -8,9 +8,9 @@ import {arraysEqualQ} from "../equalQ/arraysEqualQ";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 import {
-  type Axis,
-  type NumberAxis,
-  type PuzzleMatrix,
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
 } from "../puzzleGeneration/buildEmptyMatrix";
 
 export type NumericComparisonCrossCategoryClue = {
@@ -28,50 +28,87 @@ export type NumericComparisonCrossCategoryClue = {
 
 // Generates a numeric clue that spans categories
 // e.g. The red house has more trees than Colin's house
-export function getNumericComparisonCrossCategoryClue(
-  solutionMatrix: PuzzleMatrix,
-): NumericComparisonCrossCategoryClue {
+export function getNumericComparisonCrossCategoryClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): NumericComparisonCrossCategoryClue {
   // Note: this relies on labels being sorted by size, which occurs when the puzzle labels are generated
 
   // find two grids in the solution matrix that uses a numeric category
   // (upstream logic ensures that this function is only called if there is a numeric category)
-  let numericAxis: NumberAxis | undefined;
-  let axisA: Axis | undefined;
-  let axisB: Axis | undefined;
+  let numericAxisKey: string | undefined;
+  let axisAKey: string | undefined;
+  let axisBKey: string | undefined;
+  let numericAxisDimension: "column" | "row" | undefined;
+  let axisADimension: "column" | "row" | undefined;
+  let axisBDimension: "column" | "row" | undefined;
 
-  for (const key of shuffleArray(Object.keys(solutionMatrix))) {
-    const {row, column} = solutionMatrix[key];
-
-    if (!numericAxis) {
+  for (const key of shuffleArray(Object.keys(solvedMatrixGrids))) {
+    if (!numericAxisKey || !numericAxisDimension) {
       // If we haven't found a numeric axis, choose the first that we find
-      if (row.kind === "number") {
-        numericAxis = row;
-        axisA = column;
-      } else if (column.kind === "number") {
-        numericAxis = column;
-        axisA = row;
+      if (
+        matrixLabels[key].row.labels.every((label) => typeof label === "number")
+      ) {
+        numericAxisDimension = "row";
+        axisADimension = "column";
+        numericAxisKey = key;
+        axisAKey = key;
+      } else if (
+        matrixLabels[key].column.labels.every(
+          (label) => typeof label === "number",
+        )
+      ) {
+        numericAxisDimension = "column";
+        axisADimension = "row";
+        numericAxisKey = key;
+        axisAKey = key;
       }
     } else {
       // in case there are multiple numeric axes, make sure we find one that matches the one we already found
       if (
-        row.kind === "number" &&
-        arraysEqualQ(row.labels, numericAxis.labels)
+        matrixLabels[key].row.labels.every(
+          (label) => typeof label === "number",
+        ) &&
+        arraysEqualQ(
+          matrixLabels[key].row.labels,
+          matrixLabels[numericAxisKey][numericAxisDimension].labels as number[],
+        )
       ) {
-        axisB = column;
+        axisBDimension = "column";
+        axisBKey = key;
       } else if (
-        column.kind === "number" &&
-        arraysEqualQ(column.labels, numericAxis.labels)
+        matrixLabels[key].column.labels.every(
+          (label) => typeof label === "number",
+        ) &&
+        arraysEqualQ(
+          matrixLabels[key].column.labels,
+          matrixLabels[numericAxisKey][numericAxisDimension].labels as number[],
+        )
       ) {
-        axisB = row;
+        axisBDimension = "row";
+        axisBKey = key;
       }
     }
   }
 
-  if (!numericAxis || !axisA || !axisB) {
+  if (
+    !numericAxisKey ||
+    !numericAxisDimension ||
+    !axisAKey ||
+    !axisADimension ||
+    !axisBKey ||
+    !axisBDimension
+  ) {
     throw new Error("Axes not set as expected");
   }
 
-  const numericLabels = numericAxis.labels;
+  const numericLabels = matrixLabels[numericAxisKey][numericAxisDimension]
+    .labels as number[];
 
   // choose two random items in two separate non-numeric label sets
   // make sure that the items don't have the same numeric value
@@ -79,16 +116,18 @@ export function getNumericComparisonCrossCategoryClue(
     numericLabels,
     2,
   );
-  const itemA = findFirstTrueIntersection(
-    solutionMatrix,
-    itemANumericValue,
-    axisA.labels,
-  );
-  const itemB = findFirstTrueIntersection(
-    solutionMatrix,
-    itemBNumericValue,
-    axisB.labels,
-  );
+  const itemA = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemANumericValue,
+    intersectingItems: matrixLabels[axisAKey][axisADimension].labels,
+  });
+  const itemB = findFirstTrueIntersection({
+    matrixGrids: solvedMatrixGrids,
+    matrixLabels,
+    item: itemBNumericValue,
+    intersectingItems: matrixLabels[axisBKey][axisBDimension].labels,
+  });
 
   if (itemA === undefined || itemB === undefined) {
     throw new Error("Unable to find items");
@@ -114,23 +153,31 @@ export function getNumericComparisonCrossCategoryClue(
   );
 
   // Overkill but I didn't find a better way to satisfy TS
+  const templatesA = matrixTemplates[axisAKey][axisADimension];
+  const templatesB = matrixTemplates[axisBKey][axisBDimension];
+  const templatesNumeric =
+    matrixTemplates[numericAxisKey][numericAxisDimension];
+  // This shouldn't be hit, but it's required for TS now that I split the templates out from the other info
+  if (templatesNumeric.kind !== "number") {
+    throw new Error("");
+  }
   const itemADescription =
-    axisA.kind === "number"
-      ? axisA.templates.generateDescription(itemA as number)
-      : axisA.templates.generateDescription(itemA as string);
+    templatesA.kind === "number"
+      ? templatesA.templates.generateDescription(itemA as number)
+      : templatesA.templates.generateDescription(itemA as string);
 
   const itemBDescription =
-    axisB.kind === "number"
-      ? axisB.templates.generateDescription(itemB as number)
-      : axisB.templates.generateDescription(itemB as string);
+    templatesB.kind === "number"
+      ? templatesB.templates.generateDescription(itemB as number)
+      : templatesB.templates.generateDescription(itemB as string);
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
   const numericDescriptionTemplate =
     itemANumericValue < itemBNumericValue
-      ? numericAxis.templates.generateDiffLesserDescription
-      : numericAxis.templates.generateDiffGreaterDescription;
-  const numericComparisonVerb = numericAxis.templates.verb || "is";
+      ? templatesNumeric.templates.generateDiffLesserDescription
+      : templatesNumeric.templates.generateDiffGreaterDescription;
+  const numericComparisonVerb = templatesNumeric.templates.verb || "is";
   const numericDescription = numericDiffClue
     ? numericDescriptionTemplate(numericDiffClue)
     : numericDescriptionTemplate(minimumNumericDiff);

@@ -1,39 +1,45 @@
-import cloneDeep from "lodash.clonedeep";
 import {validQOrClue} from "./validQOrClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {populateSparseTestEntry} from "../helpers/testHelpers";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import type {
+  MatrixGrids,
+  MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 
-const completeMatrix = {
+const matrixLabels: MatrixLabels = {
   NameVsNumber: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry([1, 2, 3, 4]),
-    grid: [
-      [true, false, false, false],
-      [false, true, true, false],
-      [false, true, null, null],
-      [false, false, false, true],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels([1, 2, 3, 4]),
   },
   NameVsColor: {
-    row: populateSparseTestEntry(["Colin", "Sarah", "Fefe", "Meme"]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [true, false, false, false],
-      [false, false, false, true],
-      [null, null, null, false],
-    ],
+    row: populateSparseTestEntryLabels(["Colin", "Sarah", "Fefe", "Meme"]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
   NumberVsColor: {
-    row: populateSparseTestEntry([1, 2, 3, 4]),
-    column: populateSparseTestEntry(["red", "blue", "green", "yellow"]),
-    grid: [
-      [false, true, false, false],
-      [false, false, false, true],
-      [true, false, false, false],
-      [false, false, true, false],
-    ],
+    row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+    column: populateSparseTestEntryLabels(["red", "blue", "green", "yellow"]),
   },
+};
+
+const completeMatrixGrids: MatrixGrids = {
+  NameVsNumber: [
+    [true, false, false, false],
+    [false, true, true, false],
+    [false, true, null, null],
+    [false, false, false, true],
+  ],
+  NameVsColor: [
+    [false, true, false, false],
+    [true, false, false, false],
+    [false, false, false, true],
+    [null, null, null, false],
+  ],
+  NumberVsColor: [
+    [false, true, false, false],
+    [false, false, false, true],
+    [true, false, false, false],
+    [false, false, true, false],
+  ],
 };
 
 describe("validQOrClue, strict", () => {
@@ -42,7 +48,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -51,9 +58,30 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, allItems[0])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: allItems[0],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -62,7 +90,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -71,8 +100,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
     expect(validQ).toBe(false);
   });
 
@@ -81,7 +124,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -90,8 +134,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -100,7 +158,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = ["blue", "green"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -109,8 +168,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
 
     expect(validQ).toBe(false);
   });
@@ -120,7 +193,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = ["blue", "yellow"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -129,8 +203,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(false);
   });
@@ -140,7 +228,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [1, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -149,8 +238,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -160,7 +263,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -169,8 +273,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
@@ -179,7 +297,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [4, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -188,8 +307,22 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
@@ -198,7 +331,8 @@ describe("validQOrClue, strict", () => {
     const orItems: [string | number, string | number] = [3, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -207,15 +341,30 @@ describe("validQOrClue, strict", () => {
       strict: true,
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQOrClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         orItems: ["red", "blue"],
@@ -223,7 +372,7 @@ describe("validQOrClue, strict", () => {
       },
       strict: true,
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });
 
@@ -233,7 +382,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -241,9 +391,30 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, allItems[0])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: allItems[0],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -252,7 +423,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [2, 4];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -260,8 +432,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
     expect(validQ).toBe(false);
   });
 
@@ -270,7 +456,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -278,8 +465,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(false);
   });
 
@@ -288,7 +489,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = ["blue", "green"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -296,8 +498,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
 
     expect(validQ).toBe(true);
   });
@@ -307,7 +523,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = ["blue", "yellow"];
     const allItems = ["red", "blue", "green", "yellow"];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -315,8 +532,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -326,7 +557,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [1, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -334,8 +566,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(false);
 
     expect(validQ).toBe(true);
   });
@@ -345,7 +591,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [2, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -353,8 +600,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(true);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(null);
     expect(validQ).toBe(true);
   });
 
@@ -363,7 +624,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [4, 3];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -371,8 +633,22 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(false);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(false);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
@@ -381,7 +657,8 @@ describe("validQOrClue, non-strict", () => {
     const orItems: [string | number, string | number] = [3, 2];
     const allItems = [1, 2, 3, 4];
     const validQ = validQOrClue({
-      matrix: completeMatrix,
+      matrixGrids: completeMatrixGrids,
+      matrixLabels,
       clueParameters: {
         itemA,
         orItems,
@@ -389,21 +666,36 @@ describe("validQOrClue, non-strict", () => {
       },
     });
 
-    expect(findMatrixValue(completeMatrix, itemA, orItems[0])).toBe(null);
-    expect(findMatrixValue(completeMatrix, itemA, orItems[1])).toBe(true);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[0],
+      }),
+    ).toBe(null);
+    expect(
+      findMatrixValue({
+        matrixGrids: completeMatrixGrids,
+        matrixLabels,
+        itemA,
+        itemB: orItems[1],
+      }),
+    ).toBe(true);
     expect(validQ).toBe(true);
   });
 
   test("does not modify the input matrix when validating the clue", () => {
-    const matrixCopy = cloneDeep(completeMatrix);
+    const matrixGridsCopy = structuredClone(completeMatrixGrids);
     validQOrClue({
-      matrix: matrixCopy,
+      matrixGrids: matrixGridsCopy,
+      matrixLabels,
       clueParameters: {
         itemA: "Colin",
         orItems: ["red", "blue"],
         allItems: [],
       },
     });
-    expect(matrixCopy).toEqual(completeMatrix);
+    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
   });
 });

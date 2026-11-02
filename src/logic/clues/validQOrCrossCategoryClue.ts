@@ -1,24 +1,35 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function validQOrCrossCategoryClue({
-  matrix,
+  matrixGrids,
+  matrixLabels,
   clueParameters: {
     itemA,
     orItems: [itemB, itemC],
   },
   strict = false,
 }: {
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   clueParameters: OrCrossCategoryClue["clueParameters"];
   strict?: boolean;
 }): boolean {
   // itemB cannot be itemC
-  if (findMatrixValue(matrix, itemB, itemC)) return false;
+  if (findMatrixValue({matrixGrids, matrixLabels, itemA: itemB, itemB: itemC}))
+    return false;
 
-  const aVsB = findMatrixValue(matrix, itemA, itemB);
-  const aVsC = findMatrixValue(matrix, itemA, itemC);
+  const aVsB = findMatrixValue({matrixGrids, matrixLabels, itemA, itemB});
+  const aVsC = findMatrixValue({
+    matrixGrids,
+    matrixLabels,
+    itemA,
+    itemB: itemC,
+  });
 
   // itemA cannot be both itemB and itemC
   if (aVsB && aVsC) return false;

@@ -1,24 +1,24 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {type MatrixGrids} from "../puzzleGeneration/buildEmptyMatrix";
 import {gridsEqualQ} from "./gridsEqualQ";
 
 export function matrixesEqualQ(
-  matrixA: PuzzleMatrix,
-  matrixB: PuzzleMatrix,
+  matrixGridsA: MatrixGrids,
+  matrixGridsB: MatrixGrids,
 ): boolean {
   // exit early if we got the exact same object
-  if (matrixA === matrixB) return true;
+  if (matrixGridsA === matrixGridsB) return true;
 
   // exit early if we didn't get valid input
   if (
-    typeof matrixA !== "object" ||
-    typeof matrixB !== "object" ||
-    !matrixA ||
-    !matrixB
+    typeof matrixGridsA !== "object" ||
+    typeof matrixGridsB !== "object" ||
+    !matrixGridsA ||
+    !matrixGridsB
   )
     throw new Error("matrixesEqualQ: Inputs are not objects");
 
-  const matrixAKeys = Object.keys(matrixA);
-  const matrixBKeys = Object.keys(matrixB);
+  const matrixAKeys = Object.keys(matrixGridsA);
+  const matrixBKeys = Object.keys(matrixGridsB);
   if (matrixAKeys.length !== matrixBKeys.length)
     throw new Error(
       "matrixesEqualQ: Inputs do not have the same number of keys",
@@ -28,8 +28,8 @@ export function matrixesEqualQ(
     if (!matrixBKeys.includes(key))
       throw new Error("matrixesEqualQ: Inputs have different keys");
 
-    const matrixAGrid = matrixA[key].grid;
-    const matrixBGrid = matrixB[key].grid;
+    const matrixAGrid = matrixGridsA[key];
+    const matrixBGrid = matrixGridsB[key];
 
     if (!gridsEqualQ(matrixAGrid, matrixBGrid)) {
       return false;

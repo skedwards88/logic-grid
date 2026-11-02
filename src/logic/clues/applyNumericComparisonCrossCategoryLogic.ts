@@ -1,10 +1,14 @@
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 
 export function applyNumericComparisonCrossCategoryLogic(
-  derivedMatrix: PuzzleMatrix,
+  matrixGrids: MatrixGrids,
+  matrixLabels: MatrixLabels,
   {
     greaterItem,
     lesserItem,
@@ -12,14 +16,17 @@ export function applyNumericComparisonCrossCategoryLogic(
     actualNumericDiff,
     numericDiffClue,
   }: NumericComparisonCrossCategoryClue["clueParameters"],
-): PuzzleMatrix {
-  let newDerivedMatrix = derivedMatrix;
-
+): MatrixGrids {
   // Know that greaterItem is not lesserItem
-  newDerivedMatrix = setToFalse(newDerivedMatrix, greaterItem, lesserItem);
+  const newMatrixGrids = setToFalse({
+    matrixGrids,
+    matrixLabels,
+    itemA: greaterItem,
+    itemB: lesserItem,
+  });
 
   // the rest of the logic is the same as the applyNumericComparisonLogic logic
-  return applyNumericComparisonLogic(newDerivedMatrix, {
+  return applyNumericComparisonLogic(newMatrixGrids, matrixLabels, {
     greaterItem,
     lesserItem,
     numericLabels,

@@ -8,46 +8,56 @@ import {validQOrClue} from "./validQOrClue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
-import {type PuzzleMatrix} from "../puzzleGeneration/buildEmptyMatrix";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+} from "../puzzleGeneration/buildEmptyMatrix";
 import {type Clue} from "../puzzleGeneration/getUsefulClue";
 
 export function validQ({
   clue,
-  matrix,
+  matrixGrids,
+  matrixLabels,
   strict = false,
 }: {
   clue: Clue;
-  matrix: PuzzleMatrix;
+  matrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
   strict?: boolean;
 }): boolean {
   switch (clue.clueType) {
     case "not":
       return validQNotClue({
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clueParameters: clue.clueParameters,
         strict,
       });
     case "or":
       return validQOrClue({
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clueParameters: clue.clueParameters,
         strict,
       });
     case "numericComparison":
       return validQNumericComparisonClue({
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clueParameters: clue.clueParameters,
         strict,
       });
     case "numericComparisonCrossCategory":
       return validQNumericComparisonCrossCategoryClue({
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clueParameters: clue.clueParameters,
         strict,
       });
     case "orCrossCategory":
       return validQOrCrossCategoryClue({
-        matrix,
+        matrixGrids,
+        matrixLabels,
         clueParameters: clue.clueParameters,
         strict,
       });
