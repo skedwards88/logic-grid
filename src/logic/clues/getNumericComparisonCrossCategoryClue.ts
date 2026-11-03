@@ -1,10 +1,10 @@
 import {
   pickRandomItemsFromArray,
   pickRandomItemFromArray,
+  arraysMatchQ,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
-import {arraysEqualQ} from "../equalQ/arraysEqualQ";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
 import {
@@ -74,7 +74,7 @@ export function getNumericComparisonCrossCategoryClue({
         matrixLabels[key].row.values.every(
           (label) => typeof label === "number",
         ) &&
-        arraysEqualQ(
+        arraysMatchQ(
           matrixLabels[key].row.values,
           matrixLabels[numericAxisKey][numericAxisDimension].values as number[],
         )
@@ -85,7 +85,7 @@ export function getNumericComparisonCrossCategoryClue({
         matrixLabels[key].column.values.every(
           (label) => typeof label === "number",
         ) &&
-        arraysEqualQ(
+        arraysMatchQ(
           matrixLabels[key].column.values,
           matrixLabels[numericAxisKey][numericAxisDimension].values as number[],
         )

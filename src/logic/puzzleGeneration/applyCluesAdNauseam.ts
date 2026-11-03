@@ -1,7 +1,7 @@
-import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {applyClueLogic} from "../clues/applyClueLogic";
 import {type Clue} from "./getUsefulClue";
 import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import {matrixesMatchQ} from "@skedwards88/word_logic";
 
 export function applyCluesAdNauseam({
   clues,
@@ -29,7 +29,7 @@ export function applyCluesAdNauseam({
         matrixLabels,
       });
     }
-    matrixMayChange = !matrixesEqualQ(matrixPreClues, matrixPostClues);
+    matrixMayChange = !matrixesMatchQ(matrixPreClues, matrixPostClues);
     matrixPreClues = matrixPostClues;
   }
   return matrixPostClues;

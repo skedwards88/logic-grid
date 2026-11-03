@@ -12,8 +12,7 @@ import {
   getOrCrossCategoryClue,
   type OrCrossCategoryClue,
 } from "../clues/getOrCrossCategoryClue";
-import {pickRandomItemFromArray} from "@skedwards88/word_logic";
-import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
+import {pickRandomItemFromArray, matrixesMatchQ} from "@skedwards88/word_logic";
 import {applyClueLogic} from "../clues/applyClueLogic";
 import {
   type MatrixTemplates,
@@ -77,7 +76,7 @@ export function getUsefulClue({
       matrixLabels,
     });
 
-    if (!matrixesEqualQ(newDerivedMatrixGrids, derivedMatrixGrids)) {
+    if (!matrixesMatchQ(newDerivedMatrixGrids, derivedMatrixGrids)) {
       return {
         clue,
         newDerivedMatrixGrids,

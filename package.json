@@ -28,7 +28,7 @@
   "homepage": "https://github.com/skedwards88/logic-grid#readme",
   "dependencies": {
     "@skedwards88/shared-components": "latest",
-    "@skedwards88/word_logic": "^4.0.9",
+    "@skedwards88/word_logic": "^4.0.13",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

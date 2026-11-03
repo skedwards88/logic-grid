@@ -1,7 +1,7 @@
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
-import {matrixesEqualQ} from "../equalQ/matrixesEqualQ";
 import {type Clue} from "./getUsefulClue";
 import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import {matrixesMatchQ} from "@skedwards88/word_logic";
 
 export function removeRedundantClues({
   clues,
@@ -32,7 +32,7 @@ export function removeRedundantClues({
       matrixLabels,
     });
     if (
-      !matrixesEqualQ(matrixWithOtherCluesApplied, matrixWithAllCluesApplied)
+      !matrixesMatchQ(matrixWithOtherCluesApplied, matrixWithAllCluesApplied)
     ) {
       nonRedundantClues.push(clues[clueIndex]);
     }
