@@ -1,3 +1,5 @@
+// More complex way of handling subtraction so that the displayed values look correct
+// (i.e. no weird floating point things where 0.3 - 0.1 shows as 0.19999999999999998 instead of 0.2)
 export function getNumericDiff(numberA: number, numberB: number): number {
   // Subtraction that handles floating point numbers
   const decimalsA = (numberA.toString().split(".")[1] || "").length;
