@@ -1,0 +1,73 @@
+import {allCategories} from "./allCategories";
+import {pickRandomItemFromArray} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
+import {sortValues} from "../helpers/sortValues";
+import type {
+  NumberLabels,
+  NumberTemplates,
+  StringLabels,
+  StringTemplates,
+} from "./generateSolutionMatrix";
+
+type StringAxis = StringLabels & StringTemplates;
+
+type NumberAxis = NumberLabels & NumberTemplates;
+
+export type Axis = StringAxis | NumberAxis;
+
+// returns a list of category labels and description templates
+export function chooseCategories(
+  numCategories: number,
+  numItemsPerCategory: number,
+): Axis[] {
+  let categorySet = pickRandomItemFromArray(allCategories);
+
+  // If we have more categories than we need,
+  // omit the "first name" category
+  // to prevent this common category from feeling overused
+  if (categorySet.length > numCategories) {
+    categorySet = categorySet.filter(
+      (category) => !(category.values as (string | number)[]).includes("Aaron"),
+    );
+  }
+
+  const categories = shuffleArray(categorySet).slice(0, numCategories);
+
+  const categoryLabelsAndTemplates: Axis[] = [];
+
+  for (const category of categories) {
+    const possibleValues = shuffleArray(category.values);
+
+    const selectedValues = possibleValues.slice(0, numItemsPerCategory);
+
+    // sort the values to make more user friendly
+    // note: the numeric clues assume that the numeric labels are sorted
+    const sortedValues = sortValues(selectedValues);
+
+    const categoryInfo: Axis =
+      category.kind === "number"
+        ? {
+            kind: category.kind,
+            values: sortedValues as number[],
+            displayLabels: (sortedValues as number[]).map((value) =>
+              category.generateDisplayLabels
+                ? category.generateDisplayLabels(value)
+                : String(value),
+            ),
+            templates: category.templates,
+          }
+        : {
+            kind: category.kind,
+            values: sortedValues as string[],
+            displayLabels: (sortedValues as string[]).map((value) =>
+              category.generateDisplayLabels
+                ? category.generateDisplayLabels(value)
+                : value,
+            ),
+            templates: category.templates,
+          };
+
+    categoryLabelsAndTemplates.push(categoryInfo);
+  }
+  return categoryLabelsAndTemplates;
+}

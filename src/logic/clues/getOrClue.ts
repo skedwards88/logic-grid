@@ -1,0 +1,101 @@
+import {
+  pickRandomItemFromArray,
+  pickRandomIndexFromArray,
+} from "@skedwards88/word_logic";
+import {shuffleArray} from "@skedwards88/word_logic";
+import {
+  type MatrixGrids,
+  type MatrixLabels,
+  type MatrixTemplates,
+} from "../puzzleGeneration/generateSolutionMatrix";
+
+export type OrClue = {
+  writtenClue: string;
+  crossedOff: boolean;
+  clueType: "or";
+  clueParameters: {
+    itemA: string | number;
+    orItems: [string | number, string | number];
+    allItems: (string | number)[];
+  };
+};
+
+// Generates an "or" clue
+// e.g. "Colin is red or blue"
+// which equates to "Colin is not green or yellow"
+export function getOrClue({
+  solvedMatrixGrids,
+  matrixLabels,
+  matrixTemplates,
+}: {
+  solvedMatrixGrids: MatrixGrids;
+  matrixLabels: MatrixLabels;
+  matrixTemplates: MatrixTemplates;
+}): OrClue {
+  // choose a random grid in the solution matrix
+  const solutionKey = pickRandomItemFromArray(Object.keys(solvedMatrixGrids));
+  const columnLabels = matrixLabels[solutionKey].column.values;
+  const rowLabels = matrixLabels[solutionKey].row.values;
+  const grid = solvedMatrixGrids[solutionKey];
+
+  // Choose a random row label (e.g. 'Colin')
+  const rowIndex = pickRandomIndexFromArray(rowLabels);
+  const rowItem = rowLabels[rowIndex];
+
+  // get the 'true' from that row
+  const columnIndexTrue = grid[rowIndex].indexOf(true);
+  const columnItemTrue = columnLabels[columnIndexTrue];
+
+  // choose any of the 'false's from that row
+  const falseIndexes = grid[rowIndex]
+    .map((value, index) => (value ? null : index))
+    .filter((index) => index !== null);
+  const columnIndexFalse = pickRandomItemFromArray(falseIndexes);
+  const columnItemFalse = columnLabels[columnIndexFalse];
+
+  // Overkill but I didn't find a better way to satisfy TS
+  const leadingDescription =
+    matrixTemplates[solutionKey].row.kind === "number"
+      ? matrixTemplates[solutionKey].row.templates.generateDescription(
+          rowItem as number,
+        )
+      : matrixTemplates[solutionKey].row.templates.generateDescription(
+          rowItem as string,
+        );
+
+  const trailingDescriptionTrue =
+    matrixTemplates[solutionKey].column.kind === "number"
+      ? matrixTemplates[solutionKey].column.templates.generateDescription(
+          columnItemTrue as number,
+        )
+      : matrixTemplates[solutionKey].column.templates.generateDescription(
+          columnItemTrue as string,
+        );
+
+  const trailingDescriptionFalse =
+    matrixTemplates[solutionKey].column.kind === "number"
+      ? matrixTemplates[solutionKey].column.templates.generateDescription(
+          columnItemFalse as number,
+        )
+      : matrixTemplates[solutionKey].column.templates.generateDescription(
+          columnItemFalse as string,
+        );
+
+  const [trailingDescriptionA, trailingDescriptionB] = shuffleArray([
+    trailingDescriptionTrue,
+    trailingDescriptionFalse,
+  ]);
+  let writtenClue = `${leadingDescription} is either ${trailingDescriptionA} or ${trailingDescriptionB}.`;
+  writtenClue = writtenClue.charAt(0).toUpperCase() + writtenClue.slice(1);
+
+  return {
+    writtenClue,
+    crossedOff: false,
+    clueType: "or",
+    clueParameters: {
+      itemA: rowItem,
+      orItems: [columnItemTrue, columnItemFalse],
+      allItems: columnLabels,
+    },
+  };
+}

@@ -1,0 +1,6284 @@
+import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
+import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
+import {
+  type MatrixLabels,
+  type MatrixGrids,
+} from "../puzzleGeneration/generateSolutionMatrix";
+
+describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () => {
+  test("returns true if both items are known and they are separated by the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [0, 2, 3, 4];
+    const actualNumericDiff = 4;
+    const numericDiffClue = 4;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels([0, 2, 3, 4]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels([0, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and they are separated by more than the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by less than the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by the negative exact diff", () => {
+    const greaterItem = "blue";
+    const lesserItem = "ape";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "blue";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [true, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "ape";
+    const lesserItem = "red";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [true, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true (case 1)", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+});
+
+describe("validQNumericComparisonCrossCategoryClue, strict, exact diff", () => {
+  test("returns true if both items are known and they are separated by the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the items are set to each other", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and they are separated by the exact diff even if one item is 0", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [0, 2, 3, 4];
+    const actualNumericDiff = 4;
+    const numericDiffClue = 4;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and they are separated by more than the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by less than the exact diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by the negative exact diff", () => {
+    const greaterItem = "blue";
+    const lesserItem = "ape";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "blue";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [true, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "cat";
+    const lesserItem = "red";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [true, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("does not modify the input matrix grids when validating the clue", () => {
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels([1, 2, 3, 4]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const matrixGridsCopy = structuredClone(matrixGrids);
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 2;
+    validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+    expect(matrixGridsCopy).toEqual(matrixGrids);
+  });
+});
+
+describe("validQNumericComparisonCrossCategoryClue, non-strict, non-exact diff", () => {
+  test("returns true if both items are known and they are separated by the given diff", () => {
+    const greaterItem = "green";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and they are separated by the given diff even if one item is 0", () => {
+    const greaterItem = "green";
+    const lesserItem = "dog";
+    const numericLabels = [0, 1, 2, 3];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns true if both items are known and they are separated by more than the diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and they are separated by less than the diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by the negative diff", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true (case 2)", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item has more than one true (case 3)", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+});
+
+describe("validQNumericComparisonCrossCategoryClue, strict, non-exact diff", () => {
+  test("returns true if both items are known and they are separated by the given diff", () => {
+    const greaterItem = "green";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and they are separated by the given diff even if one item is 0", () => {
+    const greaterItem = "green";
+    const lesserItem = "dog";
+    const numericLabels = [0, 1, 2, 3];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns true if both items are known and they are separated by more than the diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "dog";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and they are separated by less than the diff", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if both items are known and they are separated by the negative diff", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = 1;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = 2;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+});
+
+describe("validQNumericComparisonCrossCategoryClue, non-strict, unknown diff", () => {
+  test("returns true if both items are known and the greater item is greater than the lesser item", () => {
+    const greaterItem = "green";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and the greater item is greater than the lesser item e even if one item is 0", () => {
+    const greaterItem = "green";
+    const lesserItem = "dog";
+    const numericLabels = [0, 1, 2, 3];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and the greater item is less than the lesser item", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the greater item is all falses", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if the lesser item has more than one true", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, true, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+  test("returns false if the greater item has more than one true (case 4)", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+    });
+
+    expect(validQ).toBe(false);
+  });
+});
+
+describe("validQNumericComparisonCrossCategoryClue, strict, unknown diff", () => {
+  test("returns true if both items are known and the greater item is greater than the lesser item", () => {
+    const greaterItem = "green";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if the items are equal to each other", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns true if both items are known and the greater item is greater than the lesser item even if one item is 0", () => {
+    const greaterItem = "green";
+    const lesserItem = "dog";
+    const numericLabels = [0, 1, 2, 3];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(true);
+  });
+
+  test("returns false if both items are known and the greater item is less than the lesser item", () => {
+    const greaterItem = "blue";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 2;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      NumberVsColor: [
+        [true, false, false, false],
+        [false, true, false, false],
+        [false, false, true, false],
+        [false, false, false, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the greater item is known but the lesser item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, true],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the greater item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cow";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, false, null],
+        [null, null, false, null],
+        [null, null, null, true],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the lesser item is known but the greater item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, null],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if only the lesser item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, true, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but both items have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the lesser item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, false, null, null],
+        [null, null, null, null],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but the greater item does not have options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, null, null, null],
+        [null, null, null, false],
+        [null, null, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+
+  test("returns false if neither item is known but neither item has options to be valid", () => {
+    const greaterItem = "yellow";
+    const lesserItem = "cat";
+    const numericLabels = [1, 2, 3, 4];
+    const actualNumericDiff = 3;
+    const numericDiffClue = undefined;
+    const matrixLabels: MatrixLabels = {
+      NumberVsAnimal: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+      },
+      NumberVsColor: {
+        row: populateSparseTestEntryLabels(numericLabels),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+      AnimalVsColor: {
+        row: populateSparseTestEntryLabels(["dog", "cat", "cow", "ape"]),
+        column: populateSparseTestEntryLabels([
+          "red",
+          "blue",
+          "green",
+          "yellow",
+        ]),
+      },
+    };
+
+    const matrixGrids: MatrixGrids = {
+      NumberVsAnimal: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+      NumberVsColor: [
+        [null, false, null, null],
+        [null, null, null, null],
+        [null, false, null, false],
+        [null, null, null, false],
+      ],
+      AnimalVsColor: [
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+        [null, null, null, null],
+      ],
+    };
+    const validQ = validQNumericComparisonCrossCategoryClue({
+      matrixGrids,
+      matrixLabels,
+      clueParameters: {
+        greaterItem,
+        lesserItem,
+        numericLabels,
+        actualNumericDiff,
+        numericDiffClue,
+      },
+      strict: true,
+    });
+
+    expect(validQ).toBe(false);
+  });
+});

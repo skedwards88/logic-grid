@@ -1,0 +1,168 @@
+import {gameInit, type GameState} from "./gameInit";
+import {autocomplete} from "./autocomplete";
+
+export type ReducerPayload =
+  | {
+      action: "changeCellState";
+      gridID: string;
+      rowIndex: number;
+      columnIndex: number;
+    }
+  | {
+      action: "utilizeEasyTrue";
+      gridID: string;
+      rowIndex: number;
+      columnIndex: number;
+    }
+  | {action: "autofill"}
+  | {action: "setClueCrossedOff"; index: number}
+  | {action: "changeEasyTrue"}
+  | {action: "changeShowViolations"}
+  | {action: "undo"}
+  | {action: "reset"}
+  | {
+      action: "newGame";
+      numCategories?: number;
+      numItemsPerCategory?: number;
+      easyTrue?: boolean;
+      showViolations?: boolean;
+    };
+
+export function gameReducer(
+  currentGameState: GameState,
+  payload: ReducerPayload,
+): GameState {
+  if (payload.action === "changeCellState") {
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
+      ];
+    const newMatrixGrids = structuredClone(currentMatrixGrids);
+    const currentCellValue =
+      newMatrixGrids[payload.gridID][payload.rowIndex][payload.columnIndex];
+
+    // true -> null, null -> false, false -> true
+    let newCellValue;
+    if (currentCellValue) {
+      newCellValue = null;
+    } else if (currentCellValue === false) {
+      newCellValue = true;
+    } else {
+      newCellValue = false;
+    }
+
+    newMatrixGrids[payload.gridID][payload.rowIndex][payload.columnIndex] =
+      newCellValue;
+
+    return {
+      ...currentGameState,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
+      ],
+    };
+  } else if (payload.action === "utilizeEasyTrue") {
+    // regardless of the current cell value,
+    //  change the value to true
+    //  and make everything else in the row/column false
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
+      ];
+    const newMatrixGrids = structuredClone(currentMatrixGrids);
+    const currentGrid = currentMatrixGrids[payload.gridID];
+    const newGrid: (boolean | null)[][] = [];
+    for (let rowIndex = 0; rowIndex < currentGrid.length; rowIndex++) {
+      const newRow: (boolean | null)[] = [];
+      for (
+        let columnIndex = 0;
+        columnIndex < currentGrid[rowIndex].length;
+        columnIndex++
+      ) {
+        if (
+          rowIndex === payload.rowIndex &&
+          columnIndex === payload.columnIndex
+        ) {
+          newRow.push(true);
+        } else if (
+          rowIndex === payload.rowIndex ||
+          columnIndex === payload.columnIndex
+        ) {
+          newRow.push(false);
+        } else {
+          newRow.push(currentGrid[rowIndex][columnIndex]);
+        }
+      }
+      newGrid.push(newRow);
+    }
+    newMatrixGrids[payload.gridID] = newGrid;
+
+    return {
+      ...currentGameState,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
+      ],
+    };
+  } else if (payload.action === "autofill") {
+    const currentMatrixGrids =
+      currentGameState.matrixGridsHistory[
+        currentGameState.matrixGridsHistory.length - 1
+      ];
+    let newMatrixGrids = structuredClone(currentMatrixGrids);
+    newMatrixGrids = autocomplete(
+      newMatrixGrids,
+      currentGameState.matrixLabels,
+    );
+    return {
+      ...currentGameState,
+      matrixGridsHistory: [
+        ...currentGameState.matrixGridsHistory,
+        newMatrixGrids,
+      ],
+    };
+  } else if (payload.action === "newGame") {
+    return gameInit({
+      numCategories: payload.numCategories ?? currentGameState.numCategories,
+      numItemsPerCategory:
+        payload.numItemsPerCategory ?? currentGameState.numItemsPerCategory,
+      easyTrue: payload.easyTrue ?? currentGameState.easyTrue,
+      showViolations: payload.showViolations ?? currentGameState.showViolations,
+      useSaved: false,
+    });
+  } else if (payload.action === "setClueCrossedOff") {
+    return {
+      ...currentGameState,
+      clues: currentGameState.clues.map((clue, index) =>
+        index === payload.index
+          ? {...clue, crossedOff: !clue.crossedOff}
+          : clue,
+      ),
+    };
+  } else if (payload.action === "changeEasyTrue") {
+    return {...currentGameState, easyTrue: !currentGameState.easyTrue};
+  } else if (payload.action === "changeShowViolations") {
+    return {
+      ...currentGameState,
+      showViolations: !currentGameState.showViolations,
+    };
+  } else if (payload.action === "undo") {
+    return {
+      ...currentGameState,
+      matrixGridsHistory: currentGameState.matrixGridsHistory.slice(
+        0,
+        Math.max(1, currentGameState.matrixGridsHistory.length - 1),
+      ),
+    };
+  } else if (payload.action === "reset") {
+    return {
+      ...currentGameState,
+      matrixGridsHistory: currentGameState.matrixGridsHistory.slice(0, 1),
+    };
+  } else {
+    console.log(
+      `unknown action: ${(payload as unknown as {action: string}).action}`,
+    );
+    return currentGameState;
+  }
+}
