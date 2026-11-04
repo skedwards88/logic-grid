@@ -40,6 +40,7 @@ export function gameInit({
   if (
     savedState?.clues &&
     savedState.matrixGridsHistory &&
+    savedState.matrixLabels &&
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
     savedState.easyTrue != undefined &&
