@@ -157,21 +157,21 @@ describe("getOrCrossCategoryClue", () => {
     ];
     expect(expectedClue).toContain(clue.writtenClue);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
-    const newDerivedMatrix = applyClueLogic({
+    const newDerivedMatrixGrids = applyClueLogic({
       clue,
       matrixGrids: emptyMatrixGrids,
       matrixLabels,
     });
 
     const changedKey = "ColorVsNumber";
-    const unchangedKeys = Object.keys(newDerivedMatrix).filter(
+    const unchangedKeys = Object.keys(newDerivedMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]).not.toEqual(
+    expect(newDerivedMatrixGrids[changedKey]).not.toEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]).toEqual([
+    expect(newDerivedMatrixGrids[changedKey]).toEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -179,7 +179,7 @@ describe("getOrCrossCategoryClue", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newDerivedMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
     }
   });
 

@@ -164,7 +164,7 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam({
+    const derivedMatrixGrids = applyCluesAdNauseam({
       clues,
       matrixGrids: inputMatrixGrids,
       matrixLabels,
@@ -196,18 +196,18 @@ describe("applyCluesAdNauseam", () => {
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(derivedMatrix).filter(
+    const unchangedKeys = Object.keys(derivedMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrix[key]).toEqual(expectedChanges[key]);
+      expect(derivedMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(derivedMatrix[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -330,7 +330,7 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam({
+    const derivedMatrixGrids = applyCluesAdNauseam({
       clues,
       matrixGrids: inputMatrixGrids,
       matrixLabels,
@@ -362,18 +362,18 @@ describe("applyCluesAdNauseam", () => {
     };
 
     const changedKeys = Object.keys(expectedChanges);
-    const unchangedKeys = Object.keys(derivedMatrix).filter(
+    const unchangedKeys = Object.keys(derivedMatrixGrids).filter(
       (key) => !changedKeys.includes(key),
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrix[key]).toEqual(expectedChanges[key]);
+      expect(derivedMatrixGrids[key]).toEqual(expectedChanges[key]);
 
-      expect(derivedMatrix[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
     }
 
     // todo count number of times called
@@ -440,7 +440,7 @@ describe("applyCluesAdNauseam", () => {
       },
     ];
 
-    const derivedMatrix = applyCluesAdNauseam({
+    const derivedMatrixGrids = applyCluesAdNauseam({
       clues,
       matrixGrids: inputMatrixGrids,
       matrixLabels,
@@ -451,12 +451,14 @@ describe("applyCluesAdNauseam", () => {
     );
 
     const changedKey = "box1";
-    const unchangedKeys = Object.keys(derivedMatrix).filter(
+    const unchangedKeys = Object.keys(derivedMatrixGrids).filter(
       (key) => key != changedKey,
     );
 
-    expect(derivedMatrix[changedKey]).not.toEqual(inputMatrixGrids[changedKey]);
-    expect(derivedMatrix[changedKey]).toEqual([
+    expect(derivedMatrixGrids[changedKey]).not.toEqual(
+      inputMatrixGrids[changedKey],
+    );
+    expect(derivedMatrixGrids[changedKey]).toEqual([
       [null, false, false, null],
       [false, true, false, false],
       [null, false, null, false],
@@ -464,7 +466,7 @@ describe("applyCluesAdNauseam", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrix[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -590,12 +592,12 @@ describe("applyCluesAdNauseam", () => {
     ];
     const inputMatrixGridsCopy = structuredClone(inputMatrixGrids);
 
-    const derivedMatrix = applyCluesAdNauseam({
+    const derivedMatrixGrids = applyCluesAdNauseam({
       clues,
       matrixGrids: inputMatrixGrids,
       matrixLabels,
     });
     expect(inputMatrixGrids).toEqual(inputMatrixGridsCopy);
-    expect(inputMatrixGrids).not.toEqual(derivedMatrix);
+    expect(inputMatrixGrids).not.toEqual(derivedMatrixGrids);
   });
 });

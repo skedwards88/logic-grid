@@ -311,7 +311,7 @@ describe("applyNumericComparisonLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = structuredClone(emptyMatrixGrids);
+    const matrixGridsCopy = structuredClone(emptyMatrixGrids);
     const newMatrixGrids = applyNumericComparisonLogic(
       emptyMatrixGrids,
       matrixLabels,
@@ -323,7 +323,7 @@ describe("applyNumericComparisonLogic", () => {
         numericDiffClue: 1,
       },
     );
-    expect(matrixCopy).toEqual(emptyMatrixGrids);
-    expect(matrixCopy).not.toEqual(newMatrixGrids);
+    expect(matrixGridsCopy).toEqual(emptyMatrixGrids);
+    expect(matrixGridsCopy).not.toEqual(newMatrixGrids);
   });
 });

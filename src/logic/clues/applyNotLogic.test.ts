@@ -160,12 +160,12 @@ describe("applyNotLogic", () => {
   });
 
   test("does not modify the input matrix when applying the clue", () => {
-    const matrixCopy = structuredClone(emptyMatrixGrids);
+    const matrixGridsCopy = structuredClone(emptyMatrixGrids);
     const newMatrixGrids = applyNotLogic(emptyMatrixGrids, matrixLabels, {
       itemA: "Sarah",
       itemB: "blue",
     });
-    expect(matrixCopy).toEqual(emptyMatrixGrids);
-    expect(matrixCopy).not.toEqual(newMatrixGrids);
+    expect(matrixGridsCopy).toEqual(emptyMatrixGrids);
+    expect(matrixGridsCopy).not.toEqual(newMatrixGrids);
   });
 });

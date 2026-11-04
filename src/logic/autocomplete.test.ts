@@ -85,10 +85,10 @@ describe("autocomplete", () => {
     };
 
     const matrixGridsCopy = structuredClone(inputMatrixGrids);
-    const outputMatrix = autocomplete(inputMatrixGrids, matrixLabels);
+    const outputMatrixGrids = autocomplete(inputMatrixGrids, matrixLabels);
 
     expect(matrixGridsCopy).toEqual(inputMatrixGrids);
-    expect(matrixGridsCopy).not.toEqual(outputMatrix);
+    expect(matrixGridsCopy).not.toEqual(outputMatrixGrids);
   });
 
   test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {

@@ -652,14 +652,14 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       matrixLabels,
       matrixTemplates,
     });
-    const newDerived = applyClueLogic({
+    const newDerivedGrids = applyClueLogic({
       clue,
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
 
     expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerived).not.toEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
   });
 });
 
@@ -1278,14 +1278,14 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       matrixLabels,
       matrixTemplates,
     });
-    const newDerived = applyClueLogic({
+    const newDerivedGrids = applyClueLogic({
       clue,
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
 
     expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerived).not.toEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
   });
 });
 
@@ -1904,13 +1904,13 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       matrixLabels,
       matrixTemplates,
     });
-    const newDerived = applyClueLogic({
+    const newDerivedGrids = applyClueLogic({
       clue,
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
 
     expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerived).not.toEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
   });
 });

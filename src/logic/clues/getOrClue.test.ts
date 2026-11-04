@@ -315,13 +315,13 @@ describe("getOrClue", () => {
       matrixLabels,
       matrixTemplates,
     });
-    const newDerived = applyClueLogic({
+    const newDerivedGrids = applyClueLogic({
       clue,
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
 
     expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerived).not.toEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
   });
 });
