@@ -94,7 +94,9 @@ export default function App(): React.JSX.Element {
       return (
         <InstallOverview<DisplayState>
           setDisplay={setDisplay}
-
+          googleAppLink={
+            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
+          }
           userId={userId}
           sessionId={sessionId}
           installPromptEvent={installPromptEvent}
