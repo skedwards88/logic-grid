@@ -4,7 +4,7 @@ function getUniqueLabels(allLabels: string[][]): string[][] {
   const seen = new Set<string>();
 
   return allLabels.filter((labels) => {
-    const identifier = labels.join("");
+    const identifier = JSON.stringify(labels);
     if (seen.has(identifier)) {
       return false;
     } else {
