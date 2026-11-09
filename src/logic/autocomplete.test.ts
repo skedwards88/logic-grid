@@ -60,7 +60,7 @@ describe("autocomplete", () => {
     };
 
     const outputMatrix = autocomplete(inputMatrixGrids, matrixLabels);
-    expect(outputMatrix).toEqual(expectedMatrixGrids);
+    expect(outputMatrix).toStrictEqual(expectedMatrixGrids);
   });
 
   test("It should not change the input matrix grids", () => {
@@ -87,8 +87,8 @@ describe("autocomplete", () => {
     const matrixGridsCopy = structuredClone(inputMatrixGrids);
     const outputMatrixGrids = autocomplete(inputMatrixGrids, matrixLabels);
 
-    expect(matrixGridsCopy).toEqual(inputMatrixGrids);
-    expect(matrixGridsCopy).not.toEqual(outputMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(inputMatrixGrids);
+    expect(matrixGridsCopy).not.toStrictEqual(outputMatrixGrids);
   });
 
   test("it relies on trues, not falses (so even if trues could be inferred from falses, they aren't)", () => {

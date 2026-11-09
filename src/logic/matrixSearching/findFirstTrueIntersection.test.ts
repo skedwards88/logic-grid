@@ -52,7 +52,7 @@ describe("findFirstTrueIntersection", () => {
         item: "Sarah",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual("blue");
+    ).toStrictEqual("blue");
   });
 
   test("returns the item that forms a 'true' with the input item (column vs row)", () => {
@@ -63,7 +63,7 @@ describe("findFirstTrueIntersection", () => {
         item: "blue",
         intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
       }),
-    ).toEqual("Sarah");
+    ).toStrictEqual("Sarah");
   });
 
   test("works on non-strings", () => {
@@ -74,7 +74,7 @@ describe("findFirstTrueIntersection", () => {
         item: 1,
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual("green");
+    ).toStrictEqual("green");
     expect(
       findFirstTrueIntersection({
         matrixGrids,
@@ -82,7 +82,7 @@ describe("findFirstTrueIntersection", () => {
         item: "blue",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(2);
+    ).toStrictEqual(2);
   });
 
   test("returns undefined if there is not a 'true' intersection", () => {
@@ -141,6 +141,6 @@ describe("findFirstTrueIntersection", () => {
         item: "blue",
         intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
       }),
-    ).toEqual(undefined);
+    ).toStrictEqual(undefined);
   });
 });

@@ -82,7 +82,7 @@ describe("setToFalse", () => {
       itemB: "red",
     });
     const outputGrid = outputMatrixGrids["0v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
   });
 
   test("The item order does not matter", () => {
@@ -99,7 +99,7 @@ describe("setToFalse", () => {
       itemB: "Colin",
     });
     const outputGrid = outputMatrixGrids["0v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
 
     const outputMatrix2 = setToFalse({
       matrixGrids: emptyInputMatrixGrids,
@@ -108,7 +108,7 @@ describe("setToFalse", () => {
       itemB: "red",
     });
     const outputGrid2 = outputMatrix2["0v3"];
-    expect(outputGrid2).toEqual(expectedGrid);
+    expect(outputGrid2).toStrictEqual(expectedGrid);
   });
 
   test("It also works if the item is not a string", () => {
@@ -125,7 +125,7 @@ describe("setToFalse", () => {
       itemB: "red",
     });
     const outputGrid = outputMatrixGrids["1v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
   });
 
   test("It should not change the input matrix", () => {
@@ -142,8 +142,8 @@ describe("setToFalse", () => {
       itemB: "red",
     });
     expect(outputMatrixGrids).not.toBe(emptyInputMatrixGrids);
-    expect(emptyInputMatrixGrids["0v3"]).not.toEqual(expectedGrid);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(emptyInputMatrixGrids["0v3"]).not.toStrictEqual(expectedGrid);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("It should return the original grid if the specified position is already false", () => {
@@ -178,7 +178,7 @@ describe("setToFalse", () => {
       itemB: 3,
     });
 
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 
   test("if it leaves only one null in the row and there are no trues in the row, it should set the last null to true", () => {
@@ -218,8 +218,8 @@ describe("setToFalse", () => {
       itemA: "Colin",
       itemB: 2,
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
-    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toStrictEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the column and there are no trues in the column, it should set the last null to true", () => {
@@ -249,8 +249,8 @@ describe("setToFalse", () => {
       itemA: "Fefe",
       itemB: 1,
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
-    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toStrictEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the row and there is a true in the row, it should set the last null to false", () => {
@@ -282,8 +282,8 @@ describe("setToFalse", () => {
       itemA: "Colin",
       itemB: 3,
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
-    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toStrictEqual(expectedGrid);
   });
 
   test("if it leaves only one null in the column and there is a true in the column, it should set the last null to false", () => {
@@ -316,8 +316,8 @@ describe("setToFalse", () => {
       itemA: "Fefe",
       itemB: 1,
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
-    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toStrictEqual(expectedGrid);
   });
 
   test("cascading can occur", () => {
@@ -360,13 +360,13 @@ describe("setToFalse", () => {
       itemA: "Colin",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual([
+    expect(outputMatrixGrids["0v1"]).toStrictEqual([
       [false, null, null],
       [null, null, null],
       [null, null, null],
     ]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual([
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual([
       [false, null, null],
       [null, null, null],
       [null, null, null],
@@ -389,7 +389,7 @@ describe("setToTrue", () => {
       itemB: "red",
     });
     const outputGrid = outputMatrixGrids["0v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
   });
 
   test("The item order does not matter", () => {
@@ -406,7 +406,7 @@ describe("setToTrue", () => {
       itemB: "Colin",
     });
     const outputGrid = outputMatrixGrids["0v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
 
     const outputMatrix2 = setToTrue({
       matrixGrids: emptyInputMatrixGrids,
@@ -415,7 +415,7 @@ describe("setToTrue", () => {
       itemB: "red",
     });
     const outputGrid2 = outputMatrix2["0v3"];
-    expect(outputGrid2).toEqual(expectedGrid);
+    expect(outputGrid2).toStrictEqual(expectedGrid);
   });
 
   test("It also works if the item is not a string", () => {
@@ -432,7 +432,7 @@ describe("setToTrue", () => {
       itemB: "red",
     });
     const outputGrid = outputMatrixGrids["1v3"];
-    expect(outputGrid).toEqual(expectedGrid);
+    expect(outputGrid).toStrictEqual(expectedGrid);
   });
 
   test("It should not change the input matrix", () => {
@@ -449,8 +449,8 @@ describe("setToTrue", () => {
       itemB: "red",
     });
     expect(outputMatrixGrids).not.toBe(emptyInputMatrixGrids);
-    expect(emptyInputMatrixGrids["0v3"]).not.toEqual(expectedGrid);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(emptyInputMatrixGrids["0v3"]).not.toStrictEqual(expectedGrid);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("It should return the original grid if the specified position is already true", () => {
@@ -484,7 +484,7 @@ describe("setToTrue", () => {
       itemA: "Colin",
       itemB: 1,
     });
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 
   test("all other items in that row/column are set to false", () => {
@@ -524,8 +524,8 @@ describe("setToTrue", () => {
       itemA: "Colin",
       itemB: 2,
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(expectedGrid);
-    expect(inputMatrixGrids["0v1"]).not.toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(expectedGrid);
+    expect(inputMatrixGrids["0v1"]).not.toStrictEqual(expectedGrid);
   });
 
   test("cascading can occur", () => {
@@ -568,13 +568,13 @@ describe("setToTrue", () => {
       itemA: "Colin",
       itemB: "red",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual([
+    expect(outputMatrixGrids["0v1"]).toStrictEqual([
       [true, false, false],
       [false, null, null],
       [false, null, null],
     ]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual([
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual([
       [true, false, false],
       [false, null, null],
       [false, null, null],
@@ -629,10 +629,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "dog",
       itemB: "red",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (itemB in column)", () => {
@@ -681,10 +681,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "red",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (item A in row)", () => {
@@ -733,10 +733,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "Colin",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (item B in row)", () => {
@@ -785,10 +785,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "dog",
       itemB: "Colin",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(expectedGrid);
   });
 
   test("no changes if no additional info is known", () => {
@@ -831,7 +831,7 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "dog",
       itemB: "red",
     });
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 
   test("no changes if no additional info is known (swapped input order)", () => {
@@ -874,7 +874,7 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "red",
       itemB: "dog",
     });
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 
   test("deduces a true value (itemA in column)", () => {
@@ -924,10 +924,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "dog",
       itemB: "red",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a true value (itemB in column)", () => {
@@ -976,10 +976,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "red",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a true value (item A in row)", () => {
@@ -1028,10 +1028,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "Colin",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a true value (item B in row)", () => {
@@ -1080,10 +1080,10 @@ describe("deduceSecondOrderFromTrue", () => {
       itemA: "dog",
       itemB: "Colin",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).not.toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).not.toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(expectedGrid);
   });
 });
 
@@ -1134,10 +1134,10 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "Colin",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (itemB in row)", () => {
@@ -1187,10 +1187,10 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "dog",
       itemB: "Colin",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (item A in column)", () => {
@@ -1239,10 +1239,10 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "red",
       itemB: "dog",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("deduces a false value (item B in column)", () => {
@@ -1291,10 +1291,10 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "dog",
       itemB: "red",
     });
-    expect(outputMatrixGrids["0v1"]).toEqual(inputMatrixGrids["0v1"]);
-    expect(outputMatrixGrids["0v2"]).toEqual(inputMatrixGrids["0v2"]);
-    expect(outputMatrixGrids["0v3"]).not.toEqual(inputMatrixGrids["0v3"]);
-    expect(outputMatrixGrids["0v3"]).toEqual(expectedGrid);
+    expect(outputMatrixGrids["0v1"]).toStrictEqual(inputMatrixGrids["0v1"]);
+    expect(outputMatrixGrids["0v2"]).toStrictEqual(inputMatrixGrids["0v2"]);
+    expect(outputMatrixGrids["0v3"]).not.toStrictEqual(inputMatrixGrids["0v3"]);
+    expect(outputMatrixGrids["0v3"]).toStrictEqual(expectedGrid);
   });
 
   test("no changes if no trues about inputs are known", () => {
@@ -1339,7 +1339,7 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "green",
       itemB: "mouse",
     });
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 
   test("no changes if no trues about inputs are known (swapped input order)", () => {
@@ -1382,6 +1382,6 @@ describe("deduceSecondOrderFromFalse", () => {
       itemA: "mouse",
       itemB: "green",
     });
-    expect(outputMatrixGrids).toEqual(inputMatrixGrids);
+    expect(outputMatrixGrids).toStrictEqual(inputMatrixGrids);
   });
 });

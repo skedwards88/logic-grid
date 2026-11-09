@@ -196,13 +196,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -258,13 +258,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -320,13 +320,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -341,7 +341,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    expect(clue.clueType).toStrictEqual("numericComparisonCrossCategory");
     [
       "greaterItem",
       "lesserItem",
@@ -361,7 +361,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -376,8 +376,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });
 
@@ -540,13 +540,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -604,13 +604,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -668,13 +668,13 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -689,7 +689,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    expect(clue.clueType).toStrictEqual("numericComparisonCrossCategory");
     [
       "greaterItem",
       "lesserItem",
@@ -709,7 +709,7 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -724,8 +724,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });
 
@@ -879,20 +879,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       matrixLabels,
     });
 
-    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["NameVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
+    expect(newMatrixGrids["NameVsNumber"]).toStrictEqual(
+      expectedGridNameVsNumber,
+    );
 
-    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+    expect(newMatrixGrids["NameVsColor"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsColor"],
     );
-    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
+    expect(newMatrixGrids["NameVsColor"]).toStrictEqual(
+      expectedGridNameVsColor,
+    );
 
-    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["ColorVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
+    expect(newMatrixGrids["ColorVsNumber"]).toStrictEqual(
+      expectedGridColorVsNumber,
+    );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
@@ -943,20 +949,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       matrixLabels,
     });
 
-    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["NameVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
+    expect(newMatrixGrids["NameVsNumber"]).toStrictEqual(
+      expectedGridNameVsNumber,
+    );
 
-    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+    expect(newMatrixGrids["NameVsColor"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsColor"],
     );
-    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
+    expect(newMatrixGrids["NameVsColor"]).toStrictEqual(
+      expectedGridNameVsColor,
+    );
 
-    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["ColorVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
+    expect(newMatrixGrids["ColorVsNumber"]).toStrictEqual(
+      expectedGridColorVsNumber,
+    );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
@@ -1007,20 +1019,26 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       matrixLabels,
     });
 
-    expect(newMatrixGrids["NameVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["NameVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsNumber"],
     );
-    expect(newMatrixGrids["NameVsNumber"]).toEqual(expectedGridNameVsNumber);
+    expect(newMatrixGrids["NameVsNumber"]).toStrictEqual(
+      expectedGridNameVsNumber,
+    );
 
-    expect(newMatrixGrids["NameVsColor"]).not.toEqual(
+    expect(newMatrixGrids["NameVsColor"]).not.toStrictEqual(
       emptyMatrixGrids["NameVsColor"],
     );
-    expect(newMatrixGrids["NameVsColor"]).toEqual(expectedGridNameVsColor);
+    expect(newMatrixGrids["NameVsColor"]).toStrictEqual(
+      expectedGridNameVsColor,
+    );
 
-    expect(newMatrixGrids["ColorVsNumber"]).not.toEqual(
+    expect(newMatrixGrids["ColorVsNumber"]).not.toStrictEqual(
       emptyMatrixGrids["ColorVsNumber"],
     );
-    expect(newMatrixGrids["ColorVsNumber"]).toEqual(expectedGridColorVsNumber);
+    expect(newMatrixGrids["ColorVsNumber"]).toStrictEqual(
+      expectedGridColorVsNumber,
+    );
 
     expect(mockedWordLogic.pickRandomItemsFromArray).toHaveBeenCalledTimes(1);
     expect(mockedWordLogic.pickRandomItemFromArray).toHaveBeenCalledTimes(1);
@@ -1037,7 +1055,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    expect(clue.clueType).toStrictEqual("numericComparisonCrossCategory");
     [
       "greaterItem",
       "lesserItem",
@@ -1057,7 +1075,7 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -1072,8 +1090,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });
 
@@ -1248,13 +1266,13 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1269,7 +1287,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparisonCrossCategory");
+    expect(clue.clueType).toStrictEqual("numericComparisonCrossCategory");
     [
       "greaterItem",
       "lesserItem",
@@ -1289,7 +1307,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -1304,7 +1322,7 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       matrixGrids: derivedGridsCopy,
       matrixLabels,
     });
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newMatrixGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newMatrixGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });

@@ -306,7 +306,7 @@ describe("validQOrCrossCategoryClue, non-strict", () => {
         orItems: ["blue", 2],
       },
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });
 
@@ -581,6 +581,6 @@ describe("validQOrCrossCategoryClue, strict", () => {
       },
       strict: true,
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });

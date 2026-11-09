@@ -168,10 +168,10 @@ describe("getOrCrossCategoryClue", () => {
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrixGrids[changedKey]).not.toEqual(
+    expect(newDerivedMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrixGrids[changedKey]).toEqual([
+    expect(newDerivedMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -179,7 +179,7 @@ describe("getOrCrossCategoryClue", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newDerivedMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -194,7 +194,7 @@ describe("getOrCrossCategoryClue", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("orCrossCategory");
+    expect(clue.clueType).toStrictEqual("orCrossCategory");
     ["itemA", "orItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
@@ -209,7 +209,7 @@ describe("getOrCrossCategoryClue", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -225,7 +225,7 @@ describe("getOrCrossCategoryClue", () => {
       matrixLabels,
     });
 
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerived).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newDerived).not.toStrictEqual(emptyMatrixGrids);
   });
 });

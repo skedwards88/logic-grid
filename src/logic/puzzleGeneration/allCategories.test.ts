@@ -41,7 +41,7 @@ describe("allCategories: tests per scenario", () => {
       );
 
       // Using this syntax to avoid calling expect conditionally
-      expect(includesNames ? scenario.length : 4).toEqual(4);
+      expect(includesNames ? scenario.length : 4).toStrictEqual(4);
     });
 
     scenario.forEach((category, categoryIndex) => {

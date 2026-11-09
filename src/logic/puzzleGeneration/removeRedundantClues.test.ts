@@ -69,7 +69,7 @@ describe("removeRedundantClues", () => {
       emptyMatrixGrids,
       matrixLabels,
     });
-    expect(nonRedundantClues).toEqual([clues[0]]);
+    expect(nonRedundantClues).toStrictEqual([clues[0]]);
   });
 
   test("removes a redundant clue that appears first", () => {
@@ -100,7 +100,7 @@ describe("removeRedundantClues", () => {
       emptyMatrixGrids,
       matrixLabels,
     });
-    expect(nonRedundantClues).toEqual([clues[1]]);
+    expect(nonRedundantClues).toStrictEqual([clues[1]]);
   });
 
   test("does not doubly remove redundant clues", () => {
@@ -130,7 +130,7 @@ describe("removeRedundantClues", () => {
       emptyMatrixGrids,
       matrixLabels,
     });
-    expect(nonRedundantClues).toEqual([clues[1]]);
+    expect(nonRedundantClues).toStrictEqual([clues[1]]);
   });
 
   test("will doubly remove redundant clues if the clues are truly redundant with another clue", () => {
@@ -170,6 +170,6 @@ describe("removeRedundantClues", () => {
       emptyMatrixGrids,
       matrixLabels,
     });
-    expect(nonRedundantClues).toEqual([clues[2]]);
+    expect(nonRedundantClues).toStrictEqual([clues[2]]);
   });
 });

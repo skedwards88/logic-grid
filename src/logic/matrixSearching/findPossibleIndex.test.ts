@@ -56,7 +56,7 @@ describe("findFirstPossibleIndex", () => {
         item: "Sarah",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the first true or null (case where there is a null and no true)", () => {
@@ -67,7 +67,7 @@ describe("findFirstPossibleIndex", () => {
         item: 1,
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(2);
+    ).toStrictEqual(2);
   });
 
   test("returns the index of the first true or null (case where there is null before a true)", () => {
@@ -78,7 +78,7 @@ describe("findFirstPossibleIndex", () => {
         item: "Fefe",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the first true or null (case where there is true before a null)", () => {
@@ -89,7 +89,7 @@ describe("findFirstPossibleIndex", () => {
         item: "Colin",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the first true or null (swap column and row input)", () => {
@@ -100,7 +100,7 @@ describe("findFirstPossibleIndex", () => {
         item: "blue",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the first true or null (case with multiple nulls)", () => {
@@ -111,7 +111,7 @@ describe("findFirstPossibleIndex", () => {
         item: "Sarah",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(0);
+    ).toStrictEqual(0);
     expect(
       findFirstPossibleIndex({
         matrixGrids,
@@ -119,7 +119,7 @@ describe("findFirstPossibleIndex", () => {
         item: "green",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(0);
+    ).toStrictEqual(0);
   });
 
   test("returns undefined when there are no trues or nulls", () => {
@@ -130,7 +130,7 @@ describe("findFirstPossibleIndex", () => {
         item: "red",
         intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
       }),
-    ).toEqual(undefined);
+    ).toStrictEqual(undefined);
   });
 });
 
@@ -143,7 +143,7 @@ describe("findLastPossibleIndex", () => {
         item: "Sarah",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the last true or null (case where there is a null and no true)", () => {
@@ -154,7 +154,7 @@ describe("findLastPossibleIndex", () => {
         item: 1,
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(2);
+    ).toStrictEqual(2);
   });
 
   test("returns the index of the last true or null (case where there is null before a true)", () => {
@@ -165,7 +165,7 @@ describe("findLastPossibleIndex", () => {
         item: "Fefe",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(2);
+    ).toStrictEqual(2);
   });
 
   test("returns the index of the last true or null (case where there is true before a null)", () => {
@@ -176,7 +176,7 @@ describe("findLastPossibleIndex", () => {
         item: "Colin",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual(3);
+    ).toStrictEqual(3);
   });
 
   test("returns the index of the last true or null (swap column and row input)", () => {
@@ -187,7 +187,7 @@ describe("findLastPossibleIndex", () => {
         item: "blue",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(1);
+    ).toStrictEqual(1);
   });
 
   test("returns the index of the first true or null (case with multiple nulls)", () => {
@@ -198,7 +198,7 @@ describe("findLastPossibleIndex", () => {
         item: "Sarah",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(3);
+    ).toStrictEqual(3);
     expect(
       findLastPossibleIndex({
         matrixGrids,
@@ -206,7 +206,7 @@ describe("findLastPossibleIndex", () => {
         item: "green",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual(3);
+    ).toStrictEqual(3);
   });
 
   test("returns undefined when there are no trues or nulls", () => {
@@ -217,7 +217,7 @@ describe("findLastPossibleIndex", () => {
         item: "red",
         intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
       }),
-    ).toEqual(undefined);
+    ).toStrictEqual(undefined);
   });
 });
 
@@ -230,7 +230,7 @@ describe("findAllPossibleIndexes", () => {
         item: "Sarah",
         intersectingItems: ["red", "blue", "green", "yellow"],
       }),
-    ).toEqual([1]);
+    ).toStrictEqual([1]);
   });
 
   test("returns the index of the first true when there are multiple trues", () => {
@@ -241,7 +241,7 @@ describe("findAllPossibleIndexes", () => {
         item: "blue",
         intersectingItems: ["Colin", "Sarah", "Fefe", "Meme"],
       }),
-    ).toEqual([0]);
+    ).toStrictEqual([0]);
   });
 
   test("returns the index of the all nulls when there are no trues", () => {
@@ -252,7 +252,7 @@ describe("findAllPossibleIndexes", () => {
         item: "Sarah",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual([0, 1, 2, 3]);
+    ).toStrictEqual([0, 1, 2, 3]);
   });
 
   test("returns an empty array when there are no trues or nulls", () => {
@@ -263,6 +263,6 @@ describe("findAllPossibleIndexes", () => {
         item: "red",
         intersectingItems: [1, 2, 3, 4],
       }),
-    ).toEqual([]);
+    ).toStrictEqual([]);
   });
 });

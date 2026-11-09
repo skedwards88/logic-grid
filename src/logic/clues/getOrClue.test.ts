@@ -263,10 +263,10 @@ describe("getOrClue", () => {
       (key) => key != changedKey,
     );
 
-    expect(newDerivedMatrix[changedKey]).not.toEqual(
+    expect(newDerivedMatrix[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newDerivedMatrix[changedKey]).toEqual([
+    expect(newDerivedMatrix[changedKey]).toStrictEqual([
       [null, null, false, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -274,7 +274,7 @@ describe("getOrClue", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newDerivedMatrix[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newDerivedMatrix[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -289,7 +289,7 @@ describe("getOrClue", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("or");
+    expect(clue.clueType).toStrictEqual("or");
     ["itemA", "orItems", "allItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
@@ -305,7 +305,7 @@ describe("getOrClue", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -321,7 +321,7 @@ describe("getOrClue", () => {
       matrixLabels,
     });
 
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });

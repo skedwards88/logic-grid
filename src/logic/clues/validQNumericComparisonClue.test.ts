@@ -1311,7 +1311,7 @@ describe("validQNumericComparisonClue, strict, exact diff", () => {
       },
       strict: true,
     });
-    expect(matrixGridsCopy).toEqual(matrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(matrixGrids);
   });
 });
 

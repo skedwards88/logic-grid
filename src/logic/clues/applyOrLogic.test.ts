@@ -84,10 +84,10 @@ describe("applyOrLogic", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, false, null, null],
       [null, null, null, null],
@@ -95,7 +95,7 @@ describe("applyOrLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -111,10 +111,10 @@ describe("applyOrLogic", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -122,7 +122,7 @@ describe("applyOrLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -156,7 +156,7 @@ describe("applyOrLogic", () => {
     });
 
     for (const key in newMatrixGrids) {
-      expect(newMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -167,7 +167,7 @@ describe("applyOrLogic", () => {
       orItems: ["Meme", "Fefe"],
       allItems: ["Colin", "Sarah", "Fefe", "Meme"],
     });
-    expect(matrixCopy).toEqual(emptyMatrixGrids);
-    expect(matrixCopy).not.toEqual(newMatrixGrids);
+    expect(matrixCopy).toStrictEqual(emptyMatrixGrids);
+    expect(matrixCopy).not.toStrictEqual(newMatrixGrids);
   });
 });

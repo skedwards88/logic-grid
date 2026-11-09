@@ -84,10 +84,10 @@ describe("applyNotLogic", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -95,7 +95,7 @@ describe("applyNotLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -110,10 +110,10 @@ describe("applyNotLogic", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, null],
       [null, null, null, null],
       [null, false, null, null],
@@ -121,7 +121,7 @@ describe("applyNotLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -155,7 +155,7 @@ describe("applyNotLogic", () => {
     });
 
     for (const key in newMatrixGrids) {
-      expect(newMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -165,7 +165,7 @@ describe("applyNotLogic", () => {
       itemA: "Sarah",
       itemB: "blue",
     });
-    expect(matrixGridsCopy).toEqual(emptyMatrixGrids);
-    expect(matrixGridsCopy).not.toEqual(newMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(matrixGridsCopy).not.toStrictEqual(newMatrixGrids);
   });
 });

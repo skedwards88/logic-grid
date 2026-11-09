@@ -40,8 +40,10 @@ describe("generateSolutionMatrix", () => {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
-    expect(Object.keys(solvedMatrixGrids)).toEqual(Object.keys(matrixLabels));
-    expect(Object.keys(solvedMatrixGrids)).toEqual(
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
+      Object.keys(matrixLabels),
+    );
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixTemplates),
     );
 
@@ -63,7 +65,7 @@ describe("generateSolutionMatrix", () => {
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.values).not.toEqual(
+      expect(matrixLabels[key].column.values).not.toStrictEqual(
         matrixLabels[key].row.values,
       );
 
@@ -80,7 +82,7 @@ describe("generateSolutionMatrix", () => {
       // every item in the grid is true or false
       solvedMatrixGrids[key].forEach((row) => {
         row.forEach((item) => {
-          expect(item).toEqual(expect.any(Boolean));
+          expect(item).toStrictEqual(expect.any(Boolean));
         });
       });
 
@@ -149,8 +151,10 @@ describe("generateSolutionMatrix", () => {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
-    expect(Object.keys(solvedMatrixGrids)).toEqual(Object.keys(matrixLabels));
-    expect(Object.keys(solvedMatrixGrids)).toEqual(
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
+      Object.keys(matrixLabels),
+    );
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixTemplates),
     );
 
@@ -172,7 +176,7 @@ describe("generateSolutionMatrix", () => {
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.values).not.toEqual(
+      expect(matrixLabels[key].column.values).not.toStrictEqual(
         matrixLabels[key].row.values,
       );
 
@@ -189,7 +193,7 @@ describe("generateSolutionMatrix", () => {
       // every item in the grid is true or false
       solvedMatrixGrids[key].forEach((row) => {
         row.forEach((item) => {
-          expect(item).toEqual(expect.any(Boolean));
+          expect(item).toStrictEqual(expect.any(Boolean));
         });
       });
 
@@ -258,8 +262,10 @@ describe("generateSolutionMatrix", () => {
       expectedNumberOfKeys += n;
     }
     expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
-    expect(Object.keys(solvedMatrixGrids)).toEqual(Object.keys(matrixLabels));
-    expect(Object.keys(solvedMatrixGrids)).toEqual(
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
+      Object.keys(matrixLabels),
+    );
+    expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixTemplates),
     );
 
@@ -281,7 +287,7 @@ describe("generateSolutionMatrix", () => {
       );
 
       // rows and columns are different
-      expect(matrixLabels[key].column.values).not.toEqual(
+      expect(matrixLabels[key].column.values).not.toStrictEqual(
         matrixLabels[key].row.values,
       );
 
@@ -298,7 +304,7 @@ describe("generateSolutionMatrix", () => {
       // every item in the grid is true or false
       solvedMatrixGrids[key].forEach((row) => {
         row.forEach((item) => {
-          expect(item).toEqual(expect.any(Boolean));
+          expect(item).toStrictEqual(expect.any(Boolean));
         });
       });
 

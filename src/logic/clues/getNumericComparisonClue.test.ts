@@ -174,10 +174,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -185,7 +185,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -219,10 +219,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [false, null, null, null],
       [null, null, null, null],
@@ -230,7 +230,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -266,10 +266,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -277,7 +277,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -313,10 +313,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -324,7 +324,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -359,10 +359,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -370,7 +370,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -405,10 +405,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, false, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -416,7 +416,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -451,10 +451,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, null, null, false],
       [false, null, null, false],
@@ -462,7 +462,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -499,10 +499,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -510,7 +510,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -548,10 +548,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, false, null, null],
       [false, null, null, null],
@@ -559,7 +559,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -596,10 +596,10 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, false, null, null],
       [false, false, null, null],
@@ -607,7 +607,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -622,7 +622,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparison");
+    expect(clue.clueType).toStrictEqual("numericComparison");
     [
       "greaterItem",
       "lesserItem",
@@ -642,7 +642,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -658,8 +658,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       matrixLabels,
     });
 
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });
 
@@ -800,10 +800,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -811,7 +811,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -845,10 +845,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [false, null, null, null],
       [null, null, null, null],
@@ -856,7 +856,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -892,10 +892,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -903,7 +903,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -939,10 +939,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -950,7 +950,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -985,10 +985,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -996,7 +996,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1031,10 +1031,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, false, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -1042,7 +1042,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1077,10 +1077,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, null, null, false],
       [false, null, null, false],
@@ -1088,7 +1088,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1125,10 +1125,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -1136,7 +1136,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1174,10 +1174,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, false, null, null],
       [false, null, null, null],
@@ -1185,7 +1185,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1222,10 +1222,10 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, false, null, null],
       [false, false, null, null],
@@ -1233,7 +1233,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1248,7 +1248,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparison");
+    expect(clue.clueType).toStrictEqual("numericComparison");
     [
       "greaterItem",
       "lesserItem",
@@ -1268,7 +1268,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -1284,8 +1284,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       matrixLabels,
     });
 
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });
 
@@ -1426,10 +1426,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -1437,7 +1437,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1471,10 +1471,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [false, null, null, null],
       [null, null, null, null],
@@ -1482,7 +1482,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1518,10 +1518,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -1529,7 +1529,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1565,10 +1565,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, null, null, null],
       [null, null, null, null],
@@ -1576,7 +1576,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1611,10 +1611,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -1622,7 +1622,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1657,10 +1657,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, false, false],
       [null, null, null, null],
       [null, null, null, null],
@@ -1668,7 +1668,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1703,10 +1703,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, null, null, false],
       [false, null, null, false],
@@ -1714,7 +1714,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1751,10 +1751,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, true, false, false],
       [false, false, null, null],
@@ -1762,7 +1762,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1800,10 +1800,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, false, null, null],
       [null, false, null, null],
       [false, null, null, null],
@@ -1811,7 +1811,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1848,10 +1848,10 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [true, false, false, false],
       [false, false, null, null],
       [false, false, null, null],
@@ -1859,7 +1859,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -1874,7 +1874,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     expect(clue).toHaveProperty("clueType");
     expect(clue).toHaveProperty("clueParameters");
     expect(typeof clue.writtenClue).toBe("string");
-    expect(clue.clueType).toEqual("numericComparison");
+    expect(clue.clueType).toStrictEqual("numericComparison");
     [
       "greaterItem",
       "lesserItem",
@@ -1894,7 +1894,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       matrixTemplates,
     });
     // because the matrix includes function values (which we don't care about), stringify for comparison
-    expect(matrixGridsCopy).toEqual(structuredClone(solvedMatrixGrids));
+    expect(matrixGridsCopy).toStrictEqual(structuredClone(solvedMatrixGrids));
   });
 
   test("does not modify the derived matrix when applying the clue", () => {
@@ -1910,7 +1910,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       matrixLabels,
     });
 
-    expect(derivedGridsCopy).toEqual(emptyMatrixGrids);
-    expect(newDerivedGrids).not.toEqual(emptyMatrixGrids);
+    expect(derivedGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(newDerivedGrids).not.toStrictEqual(emptyMatrixGrids);
   });
 });

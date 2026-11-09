@@ -57,10 +57,10 @@ describe("applyOrCrossCategoryLogic", () => {
       (key) => key != changedKey,
     );
 
-    expect(newMatrixGrids[changedKey]).not.toEqual(
+    expect(newMatrixGrids[changedKey]).not.toStrictEqual(
       emptyMatrixGrids[changedKey],
     );
-    expect(newMatrixGrids[changedKey]).toEqual([
+    expect(newMatrixGrids[changedKey]).toStrictEqual([
       [null, null, null, null],
       [null, null, null, null],
       [null, false, null, null],
@@ -68,7 +68,7 @@ describe("applyOrCrossCategoryLogic", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -110,13 +110,17 @@ describe("applyOrCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
   });
 
@@ -158,13 +162,17 @@ describe("applyOrCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
   });
 
@@ -206,13 +214,17 @@ describe("applyOrCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
   });
 
@@ -254,13 +266,17 @@ describe("applyOrCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(partiallySolvedMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(
+        partiallySolvedMatrixGrids[key],
+      );
     }
   });
 
@@ -274,7 +290,7 @@ describe("applyOrCrossCategoryLogic", () => {
         orItems: ["blue", 3],
       },
     );
-    expect(matrixGridsCopy).toEqual(emptyMatrixGrids);
-    expect(matrixGridsCopy).not.toEqual(newMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(matrixGridsCopy).not.toStrictEqual(newMatrixGrids);
   });
 });

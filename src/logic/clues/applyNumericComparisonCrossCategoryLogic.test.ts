@@ -82,13 +82,13 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -132,13 +132,13 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -182,13 +182,13 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(emptyMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(emptyMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(emptyMatrixGrids[key]);
     }
   });
 
@@ -249,13 +249,13 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -311,13 +311,13 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
     );
 
     for (const key of changedKeys) {
-      expect(newMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(newMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).not.toStrictEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(newMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(newMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -334,7 +334,7 @@ describe("applyNumericComparisonCrossCategoryLogic", () => {
         numericDiffClue: 1,
       },
     );
-    expect(matrixGridsCopy).toEqual(emptyMatrixGrids);
-    expect(matrixGridsCopy).not.toEqual(newMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(emptyMatrixGrids);
+    expect(matrixGridsCopy).not.toStrictEqual(newMatrixGrids);
   });
 });

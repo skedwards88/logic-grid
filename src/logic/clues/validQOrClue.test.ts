@@ -372,7 +372,7 @@ describe("validQOrClue, strict", () => {
       },
       strict: true,
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });
 
@@ -696,6 +696,6 @@ describe("validQOrClue, non-strict", () => {
         allItems: [],
       },
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });

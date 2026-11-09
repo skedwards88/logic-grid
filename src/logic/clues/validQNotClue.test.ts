@@ -146,7 +146,7 @@ describe("validQNotClue, strict", () => {
         itemB: "red",
       },
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });
 
@@ -254,6 +254,6 @@ describe("validQNotClue, not strict", () => {
         itemB: "red",
       },
     });
-    expect(matrixGridsCopy).toEqual(completeMatrixGrids);
+    expect(matrixGridsCopy).toStrictEqual(completeMatrixGrids);
   });
 });

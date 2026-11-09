@@ -201,13 +201,13 @@ describe("applyCluesAdNauseam", () => {
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(derivedMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(derivedMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).not.toStrictEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -367,13 +367,13 @@ describe("applyCluesAdNauseam", () => {
     );
 
     for (const key of changedKeys) {
-      expect(derivedMatrixGrids[key]).toEqual(expectedChanges[key]);
+      expect(derivedMatrixGrids[key]).toStrictEqual(expectedChanges[key]);
 
-      expect(derivedMatrixGrids[key]).not.toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).not.toStrictEqual(inputMatrixGrids[key]);
     }
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
 
     // todo count number of times called
@@ -455,10 +455,10 @@ describe("applyCluesAdNauseam", () => {
       (key) => key != changedKey,
     );
 
-    expect(derivedMatrixGrids[changedKey]).not.toEqual(
+    expect(derivedMatrixGrids[changedKey]).not.toStrictEqual(
       inputMatrixGrids[changedKey],
     );
-    expect(derivedMatrixGrids[changedKey]).toEqual([
+    expect(derivedMatrixGrids[changedKey]).toStrictEqual([
       [null, false, false, null],
       [false, true, false, false],
       [null, false, null, false],
@@ -466,7 +466,7 @@ describe("applyCluesAdNauseam", () => {
     ]);
 
     for (const key of unchangedKeys) {
-      expect(derivedMatrixGrids[key]).toEqual(inputMatrixGrids[key]);
+      expect(derivedMatrixGrids[key]).toStrictEqual(inputMatrixGrids[key]);
     }
   });
 
@@ -597,7 +597,7 @@ describe("applyCluesAdNauseam", () => {
       matrixGrids: inputMatrixGrids,
       matrixLabels,
     });
-    expect(inputMatrixGrids).toEqual(inputMatrixGridsCopy);
-    expect(inputMatrixGrids).not.toEqual(derivedMatrixGrids);
+    expect(inputMatrixGrids).toStrictEqual(inputMatrixGridsCopy);
+    expect(inputMatrixGrids).not.toStrictEqual(derivedMatrixGrids);
   });
 });
