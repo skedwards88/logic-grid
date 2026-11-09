@@ -44,12 +44,11 @@ export function gameInit({
     savedState.numCategories &&
     savedState.numItemsPerCategory &&
     savedState.easyTrue != undefined &&
-    savedState.showViolations != undefined
-  ) {
+    savedState.showViolations != undefined &&
     // Only use the saved state if it is compatible with the most recent breaking change
-    if (savedState.lastBreakingChange === LAST_BREAKING_CHANGE) {
-      return savedState;
-    }
+    savedState.lastBreakingChange === LAST_BREAKING_CHANGE
+  ) {
+    return savedState;
   }
 
   // Make sure the numCategories is 2-4
