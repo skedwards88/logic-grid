@@ -46,7 +46,7 @@ function savedStateValidQ(input: unknown): input is GameState {
   // This isn't full validation of these fields, but index.js clears localstorage and reloads once if the state causes errors
   if (
     !Array.isArray(savedState["clues"]) ||
-    typeof (savedState["matrixLabels"]) !== "object" ||
+    typeof savedState["matrixLabels"] !== "object" ||
     !Array.isArray(savedState["matrixGridsHistory"])
   ) {
     return false;

@@ -126,10 +126,10 @@ export default function App(): React.JSX.Element {
         />
       );
 
-    default:{
+    default: {
       const exhaustiveCheck: never = display;
 
       throw new Error(`Invalid display type ${String(exhaustiveCheck)}`);
-}
+    }
   }
 }
