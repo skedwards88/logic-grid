@@ -10,7 +10,7 @@ import {SAVED_STATE_KEY} from "./logic/gameInit";
 const RECOVERED_KEY = "logicGridRecovered";
 const RECOVERED_VALUE = "1";
 
-function recoverFromCrash(error) {
+function tryClearStateAndReload(error) {
   console.error("Uncaught render error, clearing saved state", error);
 
   try {
@@ -45,7 +45,7 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
 
 const container = document.getElementById("root");
 const root = createRoot(container, {
-  onUncaughtError: recoverFromCrash,
+  onUncaughtError: tryClearStateAndReload,
 });
 root.render(
   <React.StrictMode>
