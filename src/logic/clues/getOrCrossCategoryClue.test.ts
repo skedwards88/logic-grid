@@ -1,10 +1,10 @@
 import * as wordLogic from "@skedwards88/word_logic";
 import {getOrCrossCategoryClue} from "./getOrCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {buildEmptyMatrixGrids} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
@@ -24,17 +24,16 @@ const mockedWordLogic = jest.mocked(wordLogic);
 const actualWordLogic = jest.requireActual<typeof wordLogic>(
   "@skedwards88/word_logic",
 );
-afterEach(() => {
-  jest.clearAllMocks();
-  mockedWordLogic.pickRandomItemFromArray.mockImplementation(
-    actualWordLogic.pickRandomItemFromArray,
-  );
-  mockedWordLogic.shuffleArray.mockImplementation(actualWordLogic.shuffleArray);
-});
 
 describe("getOrCrossCategoryClue", () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.clearAllMocks();
+    mockedWordLogic.pickRandomItemFromArray.mockImplementation(
+      actualWordLogic.pickRandomItemFromArray,
+    );
+    mockedWordLogic.shuffleArray.mockImplementation(
+      actualWordLogic.shuffleArray,
+    );
   });
 
   const solvedMatrixGrids: MatrixGrids = {
@@ -102,9 +101,11 @@ describe("getOrCrossCategoryClue", () => {
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -126,9 +127,11 @@ describe("getOrCrossCategoryClue", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -165,7 +168,7 @@ describe("getOrCrossCategoryClue", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newDerivedMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newDerivedMatrixGrids[changedKey]).not.toStrictEqual(
@@ -198,7 +201,7 @@ describe("getOrCrossCategoryClue", () => {
     ["itemA", "orItems"].forEach((name) => {
       expect(clue.clueParameters).toHaveProperty(name);
     });
-    expect(clue.clueParameters.orItems.length).toBe(2);
+    expect(clue.clueParameters.orItems).toHaveLength(2);
   });
 
   test("does not modify the solution matrix when generating the clue", () => {

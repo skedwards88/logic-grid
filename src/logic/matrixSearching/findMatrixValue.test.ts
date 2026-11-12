@@ -1,7 +1,7 @@
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {findMatrixValue} from "./findMatrixValue";
 

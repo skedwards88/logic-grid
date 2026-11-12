@@ -3,10 +3,10 @@ import {applyOrLogic} from "./applyOrLogic";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 import {applyNumericComparisonCrossCategoryLogic} from "./applyNumericComparisonCrossCategoryLogic";
 import {applyOrCrossCategoryLogic} from "./applyOrCrossCategoryLogic";
-import {type Clue} from "../puzzleGeneration/getUsefulClue";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {Clue} from "../puzzleGeneration/getUsefulClue";
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 export function applyClueLogic({

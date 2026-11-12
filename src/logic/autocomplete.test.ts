@@ -1,8 +1,8 @@
 import {autocomplete} from "./autocomplete";
 import {populateSparseTestEntryLabels} from "./helpers/testHelpers";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "./puzzleGeneration/generateSolutionMatrix";
 
 describe("autocomplete", () => {

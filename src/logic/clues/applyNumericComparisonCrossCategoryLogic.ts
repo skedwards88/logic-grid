@@ -1,10 +1,10 @@
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
-import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
+import type {NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 
 export function applyNumericComparisonCrossCategoryLogic(
   matrixGrids: MatrixGrids,

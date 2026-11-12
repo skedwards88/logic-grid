@@ -11,12 +11,13 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   const scope = "";
   window.addEventListener("load", () => {
     navigator.serviceWorker
-      .register(path, {scope: scope})
+      .register(path, {scope})
       .then((registration) => {
+        // eslint-disable-next-line no-console
         console.log("SW registered: ", registration);
       })
       .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
+        console.warn("SW registration failed: ", registrationError);
       });
   });
 }

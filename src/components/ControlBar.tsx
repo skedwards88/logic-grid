@@ -1,8 +1,8 @@
 import {isRunningStandalone} from "@skedwards88/shared-components/src/logic/isRunningStandalone";
 import Share from "@skedwards88/shared-components/src/components/Share";
 import {useMetadataContext} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
-import {type DisplayState} from "./App";
-import {type ReducerPayload} from "../logic/gameReducer";
+import type {DisplayState} from "./App";
+import type {ReducerPayload} from "../logic/gameReducer";
 
 export default function ControlBar({
   dispatchGameState,
@@ -25,19 +25,31 @@ export default function ControlBar({
             action: "undo",
           });
         }}
-      ></button>
+      />
       <button
         id="newGameButton"
         onClick={() => {
           setDisplay("resetOrNewPuzzle");
         }}
-      ></button>
-      <button id="infoButton" onClick={() => setDisplay("rules")}></button>
+      />
+      <button
+        id="infoButton"
+        onClick={() => {
+          setDisplay("rules");
+        }}
+      />
       <button
         id="settingsButton"
-        onClick={() => setDisplay("settings")}
-      ></button>
-      <button id="heartButton" onClick={() => setDisplay("heart")}></button>
+        onClick={() => {
+          setDisplay("settings");
+        }}
+      />
+      <button
+        id="heartButton"
+        onClick={() => {
+          setDisplay("heart");
+        }}
+      />
       <Share
         appName="Logic grid"
         text="Check out this classic logic grid game!"
@@ -46,15 +58,15 @@ export default function ControlBar({
         id="shareButton"
         userId={userId}
         sessionId={sessionId}
-      ></Share>
+      />
       {!isRunningStandalone() ? (
         <button
           id="installButton"
-          onClick={() => setDisplay("installOverview")}
-        ></button>
-      ) : (
-        <></>
-      )}
+          onClick={() => {
+            setDisplay("installOverview");
+          }}
+        />
+      ) : null}
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
+import type {NumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 
 export function validQNumericComparisonCrossCategoryClue({

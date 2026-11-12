@@ -3,11 +3,11 @@ import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueInterse
 import {findAllPossibleIndexes} from "../matrixSearching/findPossibleIndex";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type NumericComparisonClue} from "./getNumericComparisonClue";
+import type {NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function validQNumericComparisonClue({
   matrixGrids,
@@ -72,13 +72,13 @@ export function validQNumericComparisonClue({
     return false;
   }
 
-  if (greaterValue != undefined && lesserValue != undefined) {
+  if (greaterValue !== undefined && lesserValue !== undefined) {
     if (actualNumericDiff === numericDiffClue) {
       // exact diff and both known: diff between the known values needs to match exactly
-      if (getNumericDiff(greaterValue, lesserValue) != numericDiffClue) {
+      if (getNumericDiff(greaterValue, lesserValue) !== numericDiffClue) {
         return false;
       }
-    } else if (numericDiffClue != undefined) {
+    } else if (numericDiffClue !== undefined) {
       // non-exact diff and both known: diff between the known values needs to be at least non-exact diff
       if (getNumericDiff(greaterValue, lesserValue) < numericDiffClue) {
         return false;

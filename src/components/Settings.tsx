@@ -1,15 +1,15 @@
-import {type ReducerPayload} from "../logic/gameReducer";
-import {type DisplayState} from "./App";
-import {type GameState} from "../logic/gameInit";
+import type {ReducerPayload} from "../logic/gameReducer";
+import type {DisplayState} from "./App";
+import type {GameState} from "../logic/gameInit";
 
-interface NewGameFormElements extends HTMLFormControlsCollection {
+type NewGameFormElements = {
   numItemsPerCategory: HTMLInputElement;
   numCategories: HTMLInputElement;
-}
+} & HTMLFormControlsCollection;
 
-interface NewGameFormElement extends HTMLFormElement {
+type NewGameFormElement = {
   readonly elements: NewGameFormElements;
-}
+} & HTMLFormElement;
 
 export default function Settings({
   setDisplay,
@@ -75,19 +75,25 @@ export default function Settings({
             name="easyTrue"
             type="checkbox"
             checked={gameState.easyTrue}
-            onChange={() => dispatchGameState({action: "changeEasyTrue"})}
+            onChange={() => {
+              dispatchGameState({action: "changeEasyTrue"});
+            }}
           />
         </div>
         <div className="setting">
           <div className="setting-description">
             <label htmlFor="showViolations">Show violations </label>
-            <div className="setting-info">{`Highlight clues that are violated.`}</div>
+            <div className="setting-info">
+              Highlight clues that are violated.
+            </div>
           </div>
           <input
             name="showViolations"
             type="checkbox"
             checked={gameState.showViolations}
-            onChange={() => dispatchGameState({action: "changeShowViolations"})}
+            onChange={() => {
+              dispatchGameState({action: "changeShowViolations"});
+            }}
           />
         </div>
       </div>
@@ -98,7 +104,9 @@ export default function Settings({
         <button
           type="button"
           aria-label="cancel"
-          onClick={() => setDisplay("game")}
+          onClick={() => {
+            setDisplay("game");
+          }}
         >
           Return
         </button>

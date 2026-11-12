@@ -22,17 +22,17 @@ function arraysDoNotOverlapQ(...arrays: readonly unknown[][]): boolean {
 
 describe("allCategories: tests per scenario", () => {
   allCategories.forEach((scenario, scenarioIndex) => {
-    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' has values that are unique across categories`, () => {
+    test(`Scenario ${String(scenarioIndex)}, about '${JSON.stringify(scenario.map((category) => category.values))}' has values that are unique across categories`, () => {
       const allValues = scenario.map((category) => category.values);
       const valuesAreUniqueAcrossCategories = arraysDoNotOverlapQ(...allValues);
       expect(valuesAreUniqueAcrossCategories).toBe(true);
     });
 
-    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' has at least 4 categories`, () => {
+    test(`Scenario ${String(scenarioIndex)}, about '${JSON.stringify(scenario.map((category) => category.values))}' has at least 4 categories`, () => {
       expect(scenario.length).toBeGreaterThanOrEqual(4);
     });
 
-    test(`Scenario ${scenarioIndex}, about '${JSON.stringify(scenario.map((category) => category.values))}' doesn't use first names unless it is required to reach 4 categories`, () => {
+    test(`Scenario ${String(scenarioIndex)}, about '${JSON.stringify(scenario.map((category) => category.values))}' doesn't use first names unless it is required to reach 4 categories`, () => {
       // The purpose of this test it to avoid overusing the name category
 
       const includesNames = scenario.some((category) =>
@@ -45,19 +45,21 @@ describe("allCategories: tests per scenario", () => {
     });
 
     scenario.forEach((category, categoryIndex) => {
-      test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' has values that are unique within each category`, () => {
+      test(`Scenario ${String(scenarioIndex)} category ${String(categoryIndex)}, about '${String(category.values[0])}, etc' has values that are unique within each category`, () => {
         expect(arrayValuesAreUniqueQ(category.values)).toBe(true);
       });
 
-      test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' has at least 5 values`, () => {
+      test(`Scenario ${String(scenarioIndex)} category ${String(categoryIndex)}, about '${String(category.values[0])}, etc' has at least 5 values`, () => {
         expect(category.values.length).toBeGreaterThanOrEqual(5);
       });
 
-      test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' uses the value in every description`, () => {
+      test(`Scenario ${String(scenarioIndex)} category ${String(categoryIndex)}, about '${String(category.values[0])}, etc' uses the value in every description`, () => {
         const templates = category.templates;
         const testValue = category.values[0];
 
         expect(
+          // (not going to jump through TS hoops here)
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
           (templates.generateDescription as (v: string | number) => string)(
             testValue,
           ),
@@ -65,25 +67,19 @@ describe("allCategories: tests per scenario", () => {
 
         // Using this syntax to avoid calling expect conditionally
         expect(
-          category.kind === "number" &&
-            category.templates.generateDiffGreaterDescription
-            ? category.templates.generateDiffGreaterDescription(
-                testValue as number,
-              )
-            : `${testValue}`,
+          category.kind === "number" && typeof testValue === "number"
+            ? category.templates.generateDiffGreaterDescription(testValue)
+            : testValue,
         ).toContain(testValue.toString());
 
         expect(
-          category.kind === "number" &&
-            category.templates.generateDiffLesserDescription
-            ? category.templates.generateDiffLesserDescription(
-                testValue as number,
-              )
-            : `${testValue}`,
+          category.kind === "number" && typeof testValue === "number"
+            ? category.templates.generateDiffLesserDescription(testValue)
+            : testValue,
         ).toContain(testValue.toString());
       });
 
-      test(`Scenario ${scenarioIndex} category ${categoryIndex}, about '${category.values[0]}, etc' has the expected description templates`, () => {
+      test(`Scenario ${String(scenarioIndex)} category ${String(categoryIndex)}, about '${String(category.values[0])}, etc' has the expected description templates`, () => {
         const isNumeric = typeof category.values[0] === "number";
 
         const hasGenerateDiffLesserDescription = Object.hasOwn(
@@ -120,15 +116,24 @@ describe("allCategories example text", () => {
           const valueB = categoryB.values[0];
           const valueB2 = categoryB.values[1];
           const templatesB = categoryB.templates;
-          const leadingDescription = (
-            templatesA.generateDescription as (v: string | number) => string
-          )(valueA);
-          const trailingDescription = (
-            templatesB.generateDescription as (v: string | number) => string
-          )(valueB);
-          const trailingDescription2 = (
-            templatesB.generateDescription as (v: string | number) => string
-          )(valueB2);
+          const leadingDescription =
+            // (not going to jump through TS hoops here)
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+            (templatesA.generateDescription as (v: string | number) => string)(
+              valueA,
+            );
+          const trailingDescription =
+            // (not going to jump through TS hoops here)
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+            (templatesB.generateDescription as (v: string | number) => string)(
+              valueB,
+            );
+          const trailingDescription2 =
+            // (not going to jump through TS hoops here)
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+            (templatesB.generateDescription as (v: string | number) => string)(
+              valueB2,
+            );
 
           // not description
           descriptions.push(
@@ -139,7 +144,7 @@ describe("allCategories example text", () => {
           descriptions.push(
             `${leadingDescription} is ${trailingDescription} or ${trailingDescription2}.`,
           );
-          if (categoryB.kind != "number") return;
+          if (categoryB.kind !== "number") return;
           const sortedNumerics = sortValues(categoryB.values);
           const lesserValue = sortedNumerics[2];
           const greaterValue = sortedNumerics[3];
@@ -148,7 +153,7 @@ describe("allCategories example text", () => {
             categoryB.templates.generateDiffGreaterDescription(diff);
           const numericLesserDescription =
             categoryB.templates.generateDiffLesserDescription(diff);
-          const numericComparisonVerb = templatesB.verb || "is";
+          const numericComparisonVerb = templatesB.verb ?? "is";
           // numeric greater description
           descriptions.push(
             `${leadingDescription} ${numericComparisonVerb} at least ${numericGreaterDescription} than ${categoryB.templates.generateDescription(
@@ -156,7 +161,7 @@ describe("allCategories example text", () => {
             )}.`,
           );
           greaterDescriptions.push(
-            `${greaterValue} is ${numericGreaterDescription} than ${lesserValue}.`,
+            `${String(greaterValue)} is ${numericGreaterDescription} than ${String(lesserValue)}.`,
           );
 
           // numeric lesser description
@@ -166,7 +171,7 @@ describe("allCategories example text", () => {
             )}.`,
           );
           lesserDescriptions.push(
-            `${lesserValue} is ${numericLesserDescription} than ${greaterValue}.`,
+            `${String(lesserValue)} is ${numericLesserDescription} than ${String(greaterValue)}.`,
           );
         });
       });

@@ -1,6 +1,6 @@
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
-import {type Clue} from "./getUsefulClue";
-import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import type {Clue} from "./getUsefulClue";
+import type {MatrixGrids, MatrixLabels} from "./generateSolutionMatrix";
 import {matrixesMatchQ} from "@skedwards88/word_logic";
 
 export function removeRedundantClues({

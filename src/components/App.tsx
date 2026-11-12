@@ -1,5 +1,5 @@
 import React from "react";
-import {gameInit} from "../logic/gameInit";
+import {gameInit, SAVED_STATE_KEY} from "../logic/gameInit";
 import {gameReducer} from "../logic/gameReducer";
 import Game from "./Game";
 import Rules from "./Rules";
@@ -40,7 +40,7 @@ export default function App(): React.JSX.Element {
   );
 
   React.useEffect(() => {
-    saveToStorage("logicGridState", gameState);
+    saveToStorage(SAVED_STATE_KEY, gameState);
   }, [gameState]);
 
   // Store the previous state so that we can infer which analytics events to send
@@ -81,53 +81,55 @@ export default function App(): React.JSX.Element {
         <MoreGames<DisplayState>
           setDisplay={setDisplay}
           games={["crossjig", "lexlet", "blobble", "wordfall", "gribbles"]}
-          repoName={"logic-grid"}
-          includeExtraInfo={true}
+          repoName="logic-grid"
+          includeExtraInfo
           includeWordAttribution={false}
           userId={userId}
           sessionId={sessionId}
           version={packageJson.version}
-        ></MoreGames>
+        />
       );
 
     case "installOverview":
       return (
         <InstallOverview<DisplayState>
           setDisplay={setDisplay}
-          googleAppLink={
-            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
-          }
+          googleAppLink="https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
           userId={userId}
           sessionId={sessionId}
           installPromptEvent={installPromptEvent}
           showInstallButton={showInstallButton}
           handleInstall={handleInstall}
-        ></InstallOverview>
+        />
       );
 
     case "pwaInstall":
       return (
         <PWAInstall<DisplayState>
           setDisplay={setDisplay}
-          googleAppLink={
-            "https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
-          }
-          pwaLink={"https://skedwards88.github.io/logic-grid"}
+          googleAppLink="https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
+          pwaLink="https://skedwards88.github.io/logic-grid"
           userId={userId}
           sessionId={sessionId}
-        ></PWAInstall>
+        />
       );
 
     case "rules":
-      return <Rules setDisplay={setDisplay}></Rules>;
+      return <Rules setDisplay={setDisplay} />;
 
-    default:
+    case "game":
       return (
         <Game
           dispatchGameState={dispatchGameState}
           gameState={gameState}
           setDisplay={setDisplay}
-        ></Game>
+        />
       );
+
+    default:{
+      const exhaustiveCheck: never = display;
+
+      throw new Error(`Invalid display type ${String(exhaustiveCheck)}`);
+}
   }
 }

@@ -1,9 +1,9 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type NotClue} from "./getNotClue";
+import type {NotClue} from "./getNotClue";
 
 export function validQNotClue({
   matrixGrids,
@@ -24,8 +24,7 @@ export function validQNotClue({
   } else if (strict && value === null) {
     // in strict mode, the value must be false, not null
     return false;
-  } else {
-    // if value is false or null, clue is not violated
-    return true;
   }
+  // if value is false or null, clue is not violated
+  return true;
 }

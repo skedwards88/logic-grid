@@ -14,10 +14,10 @@ import {
 } from "../clues/getOrCrossCategoryClue";
 import {pickRandomItemFromArray, matrixesMatchQ} from "@skedwards88/word_logic";
 import {applyClueLogic} from "../clues/applyClueLogic";
-import {
-  type MatrixTemplates,
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixTemplates,
+  MatrixGrids,
+  MatrixLabels,
 } from "./generateSolutionMatrix";
 
 export type Clue =

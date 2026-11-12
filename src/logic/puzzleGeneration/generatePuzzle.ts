@@ -3,7 +3,7 @@ import {type Clue, getUsefulClue} from "./getUsefulClue";
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import {chooseCategories} from "./chooseCategories";
 import {generateSolutionMatrix} from "./generateSolutionMatrix";
-import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import type {MatrixGrids, MatrixLabels} from "./generateSolutionMatrix";
 import {removeRedundantClues} from "./removeRedundantClues";
 import {buildEmptyMatrixGrids} from "./buildEmptyMatrixGrids";
 

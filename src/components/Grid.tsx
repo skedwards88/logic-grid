@@ -1,5 +1,5 @@
-import {type ReducerPayload} from "../logic/gameReducer";
-import {type Grid} from "../logic/puzzleGeneration/generateSolutionMatrix";
+import type {ReducerPayload} from "../logic/gameReducer";
+import type {Grid} from "../logic/puzzleGeneration/generateSolutionMatrix";
 import Cell from "./Cell";
 
 export default function Grid({
@@ -23,15 +23,15 @@ export default function Grid({
           columnIndex={columnIndex}
           gridID={id}
           value={grid[rowIndex][columnIndex]}
-          key={`${id}_${rowIndex}-${columnIndex}`}
+          key={`${id}_${String(rowIndex)}-${String(columnIndex)}`}
           dispatchGameState={dispatchGameState}
           easyTrue={easyTrue}
-        ></Cell>,
+        />,
       );
     }
   }
   return (
-    <div className={`grid size${numRows}`} id={`${id}`}>
+    <div className={`grid size${String(numRows)}`} id={id}>
       {cells}
     </div>
   );

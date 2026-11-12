@@ -1,11 +1,12 @@
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
 import {pickRandomItemFromArray} from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
+import {generateTSHappyDescription} from "../helpers/generateTSHappyDescription";
 
 export type OrCrossCategoryClue = {
   writtenClue: string;
@@ -40,7 +41,7 @@ export function getOrCrossCategoryClue({
   let axisCDimension: "column" | "row" | undefined;
 
   for (const key of shuffleArray(Object.keys(solvedMatrixGrids))) {
-    if (!keyAB) {
+    if (keyAB === undefined) {
       keyAB = key;
     } else if (
       matrixLabels[keyAB].column.values[0] ===
@@ -88,18 +89,18 @@ export function getOrCrossCategoryClue({
       axisBDimension = "row";
       axisCDimension = "column";
     }
-    if (keyAC) {
+    if (keyAC !== undefined) {
       break;
     }
   }
 
   if (
-    !axisAKey ||
-    !axisBKey ||
-    !axisCKey ||
-    !axisADimension ||
-    !axisBDimension ||
-    !axisCDimension
+    axisAKey === undefined ||
+    axisBKey === undefined ||
+    axisCKey === undefined ||
+    axisADimension === undefined ||
+    axisBDimension === undefined ||
+    axisCDimension === undefined
   ) {
     throw new Error("Axes not set as expected");
   }
@@ -128,28 +129,24 @@ export function getOrCrossCategoryClue({
   });
   const itemC = shuffleArray(
     matrixLabels[axisCKey][axisCDimension].values,
-  ).find((i) => i != itemCNot);
+  ).find((i) => i !== itemCNot);
 
   if (itemB === undefined || itemC === undefined) {
     throw new Error("Unable to find items");
   }
 
-  // Overkill but I didn't find a better way to satisfy TS
-  const templatesA = matrixTemplates[axisAKey][axisADimension];
-  const descriptionA =
-    templatesA.kind === "number"
-      ? templatesA.templates.generateDescription(itemA as number)
-      : templatesA.templates.generateDescription(itemA as string);
-  const templatesB = matrixTemplates[axisBKey][axisBDimension];
-  const descriptionB =
-    templatesB.kind === "number"
-      ? templatesB.templates.generateDescription(itemB as number)
-      : templatesB.templates.generateDescription(itemB as string);
-  const templatesC = matrixTemplates[axisCKey][axisCDimension];
-  const descriptionC =
-    templatesC.kind === "number"
-      ? templatesC.templates.generateDescription(itemC as number)
-      : templatesC.templates.generateDescription(itemC as string);
+  const descriptionA = generateTSHappyDescription(
+    matrixTemplates[axisAKey][axisADimension],
+    itemA,
+  );
+  const descriptionB = generateTSHappyDescription(
+    matrixTemplates[axisBKey][axisBDimension],
+    itemB,
+  );
+  const descriptionC = generateTSHappyDescription(
+    matrixTemplates[axisCKey][axisCDimension],
+    itemC,
+  );
 
   const [leadingDescription, trailingDescription] = shuffleArray([
     descriptionB,

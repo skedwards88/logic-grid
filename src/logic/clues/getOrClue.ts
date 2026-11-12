@@ -3,11 +3,12 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
+import {generateTSHappyDescription} from "../helpers/generateTSHappyDescription";
 
 export type OrClue = {
   writtenClue: string;
@@ -53,33 +54,18 @@ export function getOrClue({
   const columnIndexFalse = pickRandomItemFromArray(falseIndexes);
   const columnItemFalse = columnLabels[columnIndexFalse];
 
-  // Overkill but I didn't find a better way to satisfy TS
-  const leadingDescription =
-    matrixTemplates[solutionKey].row.kind === "number"
-      ? matrixTemplates[solutionKey].row.templates.generateDescription(
-          rowItem as number,
-        )
-      : matrixTemplates[solutionKey].row.templates.generateDescription(
-          rowItem as string,
-        );
-
-  const trailingDescriptionTrue =
-    matrixTemplates[solutionKey].column.kind === "number"
-      ? matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItemTrue as number,
-        )
-      : matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItemTrue as string,
-        );
-
-  const trailingDescriptionFalse =
-    matrixTemplates[solutionKey].column.kind === "number"
-      ? matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItemFalse as number,
-        )
-      : matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItemFalse as string,
-        );
+  const leadingDescription = generateTSHappyDescription(
+    matrixTemplates[solutionKey].row,
+    rowItem,
+  );
+  const trailingDescriptionTrue = generateTSHappyDescription(
+    matrixTemplates[solutionKey].column,
+    columnItemTrue,
+  );
+  const trailingDescriptionFalse = generateTSHappyDescription(
+    matrixTemplates[solutionKey].column,
+    columnItemFalse,
+  );
 
   const [trailingDescriptionA, trailingDescriptionB] = shuffleArray([
     trailingDescriptionTrue,

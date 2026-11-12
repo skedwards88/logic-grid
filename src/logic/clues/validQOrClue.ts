@@ -1,9 +1,9 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type OrClue} from "./getOrClue";
+import type {OrClue} from "./getOrClue";
 
 export function validQOrClue({
   matrixGrids,

@@ -1,4 +1,4 @@
-import {type MatrixLabels} from "../puzzleGeneration/generateSolutionMatrix";
+import type {MatrixLabels} from "../puzzleGeneration/generateSolutionMatrix";
 
 function getUniqueLabels(allLabels: string[][]): string[][] {
   const seen = new Set<string>();
@@ -7,10 +7,9 @@ function getUniqueLabels(allLabels: string[][]): string[][] {
     const identifier = JSON.stringify(labels);
     if (seen.has(identifier)) {
       return false;
-    } else {
-      seen.add(identifier);
-      return true;
     }
+    seen.add(identifier);
+    return true;
   });
 }
 

@@ -1,8 +1,8 @@
 import {applyNumericComparisonLogic} from "./applyNumericComparisonLogic";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 const emptyMatrixGrids: MatrixGrids = {
@@ -57,7 +57,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -90,7 +90,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -123,7 +123,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -179,7 +179,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -235,7 +235,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -292,7 +292,7 @@ describe("applyNumericComparisonLogic", () => {
 
     const changedKey = "ColorVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(

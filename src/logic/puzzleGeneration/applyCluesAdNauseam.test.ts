@@ -1,8 +1,8 @@
 import {applyCluesAdNauseam} from "./applyCluesAdNauseam";
 import * as applyClueLogicModule from "../clues/applyClueLogic";
-import {type Clue} from "./getUsefulClue";
+import type {Clue} from "./getUsefulClue";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import type {MatrixGrids, MatrixLabels} from "./generateSolutionMatrix";
 
 describe("applyCluesAdNauseam", () => {
   beforeEach(() => jest.spyOn(applyClueLogicModule, "applyClueLogic"));
@@ -452,7 +452,7 @@ describe("applyCluesAdNauseam", () => {
 
     const changedKey = "box1";
     const unchangedKeys = Object.keys(derivedMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(derivedMatrixGrids[changedKey]).not.toStrictEqual(

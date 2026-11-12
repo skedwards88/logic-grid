@@ -20,12 +20,6 @@ const definePlugin = new webpack.DefinePlugin({
 });
 
 module.exports = (env, argv) => {
-  if (argv.mode === "development") {
-    console.log("RUNNING IN DEV MODE. Service worker will not generate.");
-  } else {
-    console.log("RUNNING IN NON-DEV MODE. Service worker will generate.");
-  }
-
   const htmlPlugin = new HtmlWebpackPlugin({
     // Need to use template because need 'root' div for react injection. templateContent doesn't play nice with title, so just use a template file instead.
     template: "./src/index.html",
@@ -163,6 +157,6 @@ module.exports = (env, argv) => {
     devServer: {
       static: "./dist",
     },
-    plugins: plugins,
+    plugins,
   };
 };

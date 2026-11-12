@@ -1,9 +1,9 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
+import type {OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function validQOrCrossCategoryClue({
   matrixGrids,
@@ -20,8 +20,11 @@ export function validQOrCrossCategoryClue({
   strict?: boolean;
 }): boolean {
   // itemB cannot be itemC
-  if (findMatrixValue({matrixGrids, matrixLabels, itemA: itemB, itemB: itemC}))
+  if (
+    findMatrixValue({matrixGrids, matrixLabels, itemA: itemB, itemB: itemC})
+  ) {
     return false;
+  }
 
   const aVsB = findMatrixValue({matrixGrids, matrixLabels, itemA, itemB});
   const aVsC = findMatrixValue({

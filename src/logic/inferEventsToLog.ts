@@ -1,4 +1,4 @@
-import {type GameState} from "./gameInit";
+import type {GameState} from "./gameInit";
 
 export function inferEventsToLog(
   oldState: GameState,

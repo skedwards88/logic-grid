@@ -7,11 +7,11 @@ import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getNumericSum} from "../helpers/getNumericSum";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type NumericComparisonClue} from "./getNumericComparisonClue";
+import type {NumericComparisonClue} from "./getNumericComparisonClue";
 
 export function applyNumericComparisonLogic(
   matrixGrids: MatrixGrids,
@@ -65,22 +65,16 @@ export function applyNumericComparisonLogic(
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
     // then we exclude any combos that don't match the diff
-    for (
-      let numericIndex = 0;
-      numericIndex < numericLabels.length;
-      numericIndex++
-    ) {
+    for (const numericLabel of numericLabels) {
       const matchingDiffs = numericLabels.filter(
-        (value) =>
-          getNumericDiff(numericLabels[numericIndex], value) ===
-          numericDiffClue,
+        (value) => getNumericDiff(numericLabel, value) === numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
         newMatrixGrids = setToFalse({
           matrixGrids: newMatrixGrids,
           matrixLabels,
           itemA: greaterItem,
-          itemB: numericLabels[numericIndex],
+          itemB: numericLabel,
         });
       }
     }
@@ -144,22 +138,16 @@ export function applyNumericComparisonLogic(
   } else if (actualNumericDiff === numericDiffClue) {
     // If we know the exact diff,
     // then we exclude any combos that don't match the diff
-    for (
-      let numericIndex = 0;
-      numericIndex < numericLabels.length;
-      numericIndex++
-    ) {
+    for (const numericLabel of numericLabels) {
       const matchingDiffs = numericLabels.filter(
-        (value) =>
-          getNumericDiff(value, numericLabels[numericIndex]) ===
-          numericDiffClue,
+        (value) => getNumericDiff(value, numericLabel) === numericDiffClue,
       );
       if (matchingDiffs.length === 0) {
         newMatrixGrids = setToFalse({
           matrixGrids: newMatrixGrids,
           matrixLabels,
           itemA: lesserItem,
-          itemB: numericLabels[numericIndex],
+          itemB: numericLabel,
         });
       }
     }

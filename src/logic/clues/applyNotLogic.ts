@@ -1,9 +1,9 @@
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
-import {type NotClue} from "./getNotClue";
+import type {NotClue} from "./getNotClue";
 
 export function applyNotLogic(
   matrixGrids: MatrixGrids,

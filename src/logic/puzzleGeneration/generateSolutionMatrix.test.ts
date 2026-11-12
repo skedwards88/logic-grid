@@ -1,4 +1,4 @@
-import {type Axis} from "./chooseCategories";
+import type {Axis} from "./chooseCategories";
 import {generateSolutionMatrix} from "./generateSolutionMatrix";
 
 describe("generateSolutionMatrix", () => {
@@ -17,9 +17,11 @@ describe("generateSolutionMatrix", () => {
         values: [1, 2, 3],
         displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       {
@@ -39,7 +41,7 @@ describe("generateSolutionMatrix", () => {
     for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
-    expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
+    expect(Object.keys(solvedMatrixGrids)).toHaveLength(expectedNumberOfKeys);
     expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixLabels),
     );
@@ -70,13 +72,13 @@ describe("generateSolutionMatrix", () => {
       );
 
       // grid has expected number of rows
-      expect(solvedMatrixGrids[key].length).toBe(
+      expect(solvedMatrixGrids[key]).toHaveLength(
         matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.values.length);
+        expect(row).toHaveLength(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false
@@ -89,7 +91,7 @@ describe("generateSolutionMatrix", () => {
       // there is only one true per row
       for (const row of solvedMatrixGrids[key]) {
         const trues = row.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
 
       // there is only one true per column
@@ -100,7 +102,7 @@ describe("generateSolutionMatrix", () => {
       ) {
         const column = solvedMatrixGrids[key].map((row) => row[columnIndex]);
         const trues = column.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
     }
   });
@@ -120,9 +122,11 @@ describe("generateSolutionMatrix", () => {
         values: [1, 2, 3, 4, 5],
         displayLabels: [1, 2, 3, 4, 5].map((l) => l.toString()),
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       {
@@ -150,7 +154,7 @@ describe("generateSolutionMatrix", () => {
     for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
-    expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
+    expect(Object.keys(solvedMatrixGrids)).toHaveLength(expectedNumberOfKeys);
     expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixLabels),
     );
@@ -181,13 +185,13 @@ describe("generateSolutionMatrix", () => {
       );
 
       // grid has expected number of rows
-      expect(solvedMatrixGrids[key].length).toBe(
+      expect(solvedMatrixGrids[key]).toHaveLength(
         matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.values.length);
+        expect(row).toHaveLength(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false
@@ -200,7 +204,7 @@ describe("generateSolutionMatrix", () => {
       // there is only one true per row
       for (const row of solvedMatrixGrids[key]) {
         const trues = row.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
 
       // there is only one true per column
@@ -211,7 +215,7 @@ describe("generateSolutionMatrix", () => {
       ) {
         const column = solvedMatrixGrids[key].map((row) => row[columnIndex]);
         const trues = column.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
     }
   });
@@ -231,9 +235,11 @@ describe("generateSolutionMatrix", () => {
         values: [1, 2, 3],
         displayLabels: [1, 2, 3].map((l) => l.toString()),
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       {
@@ -261,7 +267,7 @@ describe("generateSolutionMatrix", () => {
     for (let n = labelsAndTemplates.length - 1; n > 0; n--) {
       expectedNumberOfKeys += n;
     }
-    expect(Object.keys(solvedMatrixGrids).length).toBe(expectedNumberOfKeys);
+    expect(Object.keys(solvedMatrixGrids)).toHaveLength(expectedNumberOfKeys);
     expect(Object.keys(solvedMatrixGrids)).toStrictEqual(
       Object.keys(matrixLabels),
     );
@@ -292,13 +298,13 @@ describe("generateSolutionMatrix", () => {
       );
 
       // grid has expected number of rows
-      expect(solvedMatrixGrids[key].length).toBe(
+      expect(solvedMatrixGrids[key]).toHaveLength(
         matrixLabels[key].row.values.length,
       );
 
       // grid rows have expected number of columns
       for (const row of solvedMatrixGrids[key]) {
-        expect(row.length).toBe(matrixLabels[key].column.values.length);
+        expect(row).toHaveLength(matrixLabels[key].column.values.length);
       }
 
       // every item in the grid is true or false
@@ -311,7 +317,7 @@ describe("generateSolutionMatrix", () => {
       // there is only one true per row
       for (const row of solvedMatrixGrids[key]) {
         const trues = row.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
 
       // there is only one true per column
@@ -322,7 +328,7 @@ describe("generateSolutionMatrix", () => {
       ) {
         const column = solvedMatrixGrids[key].map((row) => row[columnIndex]);
         const trues = column.filter((i) => i);
-        expect(trues.length).toBe(1);
+        expect(trues).toHaveLength(1);
       }
     }
   });

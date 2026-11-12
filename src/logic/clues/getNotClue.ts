@@ -3,11 +3,12 @@ import {
   pickRandomIndexFromArray,
 } from "@skedwards88/word_logic";
 import {shuffleArray} from "@skedwards88/word_logic";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
+import {generateTSHappyDescription} from "../helpers/generateTSHappyDescription";
 
 export type NotClue = {
   writtenClue: string;
@@ -48,24 +49,14 @@ export function getNotClue({
 
   const columnItem = columnLabels[columnIndex];
 
-  // Overkill but I didn't find a better way to satisfy TS
-  const rowDescription =
-    matrixTemplates[solutionKey].row.kind === "number"
-      ? matrixTemplates[solutionKey].row.templates.generateDescription(
-          rowItem as number,
-        )
-      : matrixTemplates[solutionKey].row.templates.generateDescription(
-          rowItem as string,
-        );
-
-  const columnDescription =
-    matrixTemplates[solutionKey].column.kind === "number"
-      ? matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItem as number,
-        )
-      : matrixTemplates[solutionKey].column.templates.generateDescription(
-          columnItem as string,
-        );
+  const rowDescription = generateTSHappyDescription(
+    matrixTemplates[solutionKey].row,
+    rowItem,
+  );
+  const columnDescription = generateTSHappyDescription(
+    matrixTemplates[solutionKey].column,
+    columnItem,
+  );
 
   const [leadingDescription, trailingDescription] = shuffleArray([
     rowDescription,

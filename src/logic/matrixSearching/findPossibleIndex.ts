@@ -1,6 +1,6 @@
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {findMatrixValue} from "./findMatrixValue";
 

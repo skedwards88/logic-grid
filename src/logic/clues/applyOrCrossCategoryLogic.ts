@@ -1,10 +1,10 @@
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {setToFalse, setToTrue} from "../puzzleGeneration/setValue";
-import {type OrCrossCategoryClue} from "./getOrCrossCategoryClue";
+import type {OrCrossCategoryClue} from "./getOrCrossCategoryClue";
 
 export function applyOrCrossCategoryLogic(
   matrixGrids: MatrixGrids,

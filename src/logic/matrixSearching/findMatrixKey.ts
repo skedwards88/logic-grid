@@ -1,6 +1,6 @@
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 export function findMatrixKey({
@@ -31,6 +31,6 @@ export function findMatrixKey({
     }
   }
   throw new Error(
-    `Did not find matrix entry corresponding to ${itemA} vs ${itemB}`,
+    `Did not find matrix entry corresponding to ${String(itemA)} vs ${String(itemB)}`,
   );
 }

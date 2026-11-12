@@ -1,8 +1,8 @@
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 describe("validQNumericComparisonClue, non-strict, exact diff", () => {

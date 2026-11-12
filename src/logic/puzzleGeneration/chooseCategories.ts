@@ -44,28 +44,37 @@ export function chooseCategories(
     // note: the numeric clues assume that the numeric labels are sorted
     const sortedValues = sortValues(selectedValues);
 
-    const categoryInfo: Axis =
-      category.kind === "number"
-        ? {
-            kind: category.kind,
-            values: sortedValues as number[],
-            displayLabels: (sortedValues as number[]).map((value) =>
-              category.generateDisplayLabels
-                ? category.generateDisplayLabels(value)
-                : String(value),
-            ),
-            templates: category.templates,
-          }
-        : {
-            kind: category.kind,
-            values: sortedValues as string[],
-            displayLabels: (sortedValues as string[]).map((value) =>
-              category.generateDisplayLabels
-                ? category.generateDisplayLabels(value)
-                : value,
-            ),
-            templates: category.templates,
-          };
+    // Overkill but I didn't find a better way to satisfy TS
+    let categoryInfo: Axis;
+    if (
+      category.kind === "number" &&
+      sortedValues.every((value) => typeof value === "number")
+    ) {
+      categoryInfo = {
+        kind: category.kind,
+        values: sortedValues,
+        displayLabels: sortedValues.map(
+          (value) => category.generateDisplayLabels?.(value) ?? String(value),
+        ),
+        templates: category.templates,
+      };
+    } else if (
+      category.kind === "string" &&
+      sortedValues.every((value) => typeof value === "string")
+    ) {
+      categoryInfo = {
+        kind: category.kind,
+        values: sortedValues,
+        displayLabels: sortedValues.map(
+          (value) => category.generateDisplayLabels?.(value) ?? value,
+        ),
+        templates: category.templates,
+      };
+    } else {
+      throw new Error(
+        `Category info not set due to mismatch between kind ${category.kind} and values ${JSON.stringify(sortedValues)}`,
+      );
+    }
 
     categoryLabelsAndTemplates.push(categoryInfo);
   }

@@ -8,9 +8,9 @@ describe("generateSolution", () => {
       ["red", "blue", "green"],
     ];
     const solution = generateSolution(labels);
-    expect(solution.length).toBe(labels[0].length);
+    expect(solution).toHaveLength(labels[0].length);
     for (const set of solution) {
-      expect(set.length).toBe(labels.length);
+      expect(set).toHaveLength(labels.length);
     }
   });
 
@@ -22,9 +22,9 @@ describe("generateSolution", () => {
       ["Tom", "Bob", "Jim", "Joe", "Abe"],
     ];
     const solution = generateSolution(labels);
-    expect(solution.length).toBe(labels[0].length);
+    expect(solution).toHaveLength(labels[0].length);
     for (const set of solution) {
-      expect(set.length).toBe(labels.length);
+      expect(set).toHaveLength(labels.length);
     }
   });
 
@@ -36,9 +36,9 @@ describe("generateSolution", () => {
       ["Tom", "Bob", "Jim"],
     ];
     const solution = generateSolution(labels);
-    expect(solution.length).toBe(labels[0].length);
+    expect(solution).toHaveLength(labels[0].length);
     for (const set of solution) {
-      expect(set.length).toBe(labels.length);
+      expect(set).toHaveLength(labels.length);
     }
   });
 });

@@ -1,11 +1,11 @@
 import {validQ} from "../logic/clues/validQ";
 import {autocomplete} from "../logic/autocomplete";
-import {type Clue} from "../logic/puzzleGeneration/getUsefulClue";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {Clue} from "../logic/puzzleGeneration/getUsefulClue";
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../logic/puzzleGeneration/generateSolutionMatrix";
-import {type ReducerPayload} from "../logic/gameReducer";
+import type {ReducerPayload} from "../logic/gameReducer";
 
 export default function Result({
   clues,
@@ -19,7 +19,7 @@ export default function Result({
   matrixLabels: MatrixLabels;
   showViolations: boolean;
   dispatchGameState: React.Dispatch<ReducerPayload>;
-}): React.JSX.Element {
+}): React.JSX.Element | null {
   // check if every square is filled
   const matrixComplete = Object.values(matrixGrids).every(
     (grid) => !grid.flat().includes(null),
@@ -46,8 +46,12 @@ export default function Result({
   if (allCluesValid && matrixAutofillable && !matrixComplete) {
     return (
       <div id="result">
-        <div>{`All clues satisfied!`}</div>
-        <button onClick={() => dispatchGameState({action: "autofill"})}>
+        <div>All clues satisfied!</div>
+        <button
+          onClick={() => {
+            dispatchGameState({action: "autofill"});
+          }}
+        >
           Autocomplete
         </button>
       </div>
@@ -58,7 +62,7 @@ export default function Result({
   else if (allCluesValid && matrixAutofillable && matrixComplete) {
     return (
       <div id="result">
-        <div>{`Success!`}</div>
+        <div>Success!</div>
       </div>
     );
   }
@@ -75,10 +79,9 @@ export default function Result({
   } else if (allCluesValid && !matrixAutofillable && matrixComplete) {
     return (
       <div id="result">
-        <div>{`Try again! Your solution may disagree with itself.`}</div>
+        <div>Try again! Your solution may disagree with itself.</div>
       </div>
     );
-  } else {
-    return <></>;
   }
+  return null;
 }

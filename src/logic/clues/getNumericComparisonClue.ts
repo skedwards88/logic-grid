@@ -5,12 +5,13 @@ import {
 import {shuffleArray} from "@skedwards88/word_logic";
 import {getNumericDiff} from "../helpers/getNumericDiff";
 import {getMinimumNumericDiff} from "../helpers/getMinimumNumericDiff";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {findFirstTrueIntersection} from "../matrixSearching/findFirstTrueIntersection";
+import {generateTSHappyDescription} from "../helpers/generateTSHappyDescription";
 
 export type NumericComparisonClue = {
   writtenClue: string;
@@ -71,8 +72,12 @@ export function getNumericComparisonClue({
   }
 
   // figure out the numeric labels
-  const numericLabels = matrixLabels[axisKey][numericAxisDimension]
-    .values as number[];
+  const numericLabels = matrixLabels[axisKey][numericAxisDimension].values;
+  if (!numericLabels.every((value) => typeof value === "number")) {
+    throw new Error(
+      `numeric labels ${JSON.stringify(numericLabels)} are not all numeric`,
+    );
+  }
 
   // choose two random items in the other label set
   const otherLabels = matrixLabels[axisKey][otherAxisDimension].values;
@@ -119,13 +124,12 @@ export function getNumericComparisonClue({
     getNumericDiff(itemANumericValue, itemBNumericValue),
   );
 
-  // Overkill but I didn't find a better way to satisfy TS
   const otherAxisTemplates = matrixTemplates[axisKey][otherAxisDimension];
   const numericAxisTemplates = matrixTemplates[axisKey][numericAxisDimension];
-  const leadingDescription =
-    otherAxisTemplates.kind === "number"
-      ? otherAxisTemplates.templates.generateDescription(itemA as number)
-      : otherAxisTemplates.templates.generateDescription(itemA as string);
+  const leadingDescription = generateTSHappyDescription(
+    otherAxisTemplates,
+    itemA,
+  );
 
   const minimumNumericDiff = getMinimumNumericDiff(numericLabels);
 
@@ -138,16 +142,17 @@ export function getNumericComparisonClue({
     itemANumericValue < itemBNumericValue
       ? numericAxisTemplates.templates.generateDiffLesserDescription
       : numericAxisTemplates.templates.generateDiffGreaterDescription;
-  const numericComparisonVerb = numericAxisTemplates.templates.verb || "is";
-  const numericDescription = numericDiffClue
-    ? numericDescriptionTemplate(numericDiffClue)
-    : numericDescriptionTemplate(minimumNumericDiff);
+  const numericComparisonVerb = numericAxisTemplates.templates.verb ?? "is";
+  const numericDescription =
+    numericDiffClue !== undefined
+      ? numericDescriptionTemplate(numericDiffClue)
+      : numericDescriptionTemplate(minimumNumericDiff);
 
   // Overkill but I didn't find a better way to satisfy TS
-  const trailingDescription =
-    otherAxisTemplates.kind === "number"
-      ? otherAxisTemplates.templates.generateDescription(itemB as number)
-      : otherAxisTemplates.templates.generateDescription(itemB as string);
+  const trailingDescription = generateTSHappyDescription(
+    otherAxisTemplates,
+    itemB,
+  );
 
   const relationWord =
     actualNumericDiff === numericDiffClue ? "exactly " : "at least ";

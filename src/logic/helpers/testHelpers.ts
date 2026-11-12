@@ -4,7 +4,7 @@ import type {
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 export const genericTestDescription = (test: string | number): string =>
-  `generic ${test}`;
+  `generic ${String(test)}`;
 
 export const genericStringTemplates = {
   generateDescription: genericTestDescription,
@@ -24,12 +24,11 @@ export function populateSparseTestEntryLabels(
       values,
       displayLabels: values.map((l) => l.toString()),
     };
-  } else {
-    return {
-      values,
-      displayLabels: values,
-    };
   }
+  return {
+    values,
+    displayLabels: values,
+  };
 }
 
 export function populateSparseTestEntryTemplates(
@@ -40,10 +39,9 @@ export function populateSparseTestEntryTemplates(
       kind: "number",
       templates: genericNumberTemplates,
     };
-  } else {
-    return {
-      kind: "string",
-      templates: genericStringTemplates,
-    };
   }
+  return {
+    kind: "string",
+    templates: genericStringTemplates,
+  };
 }

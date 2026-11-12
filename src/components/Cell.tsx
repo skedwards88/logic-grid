@@ -1,5 +1,5 @@
 import React from "react";
-import {type ReducerPayload} from "../logic/gameReducer";
+import type {ReducerPayload} from "../logic/gameReducer";
 
 export default function Cell({
   rowIndex,
@@ -74,6 +74,6 @@ export default function Cell({
       onContextMenu={(event) => {
         event.preventDefault();
       }}
-    ></div>
+    />
   );
 }

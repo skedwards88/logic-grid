@@ -1,7 +1,7 @@
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {findMatrixKey} from "./findMatrixKey";
 
@@ -89,7 +89,7 @@ expect.extend({
     if (item1Found && !item2Found) {
       return {
         message: (): string =>
-          `expected array to include only one of ${item1} or ${item2}`,
+          `expected array to include only one of ${String(item1)} or ${String(item2)}`,
         pass: true,
       };
     }
@@ -97,16 +97,16 @@ expect.extend({
     if (!item1Found && item2Found) {
       return {
         message: (): string =>
-          `expected array to include only one of ${item1} or ${item2}`,
+          `expected array to include only one of ${String(item1)} or ${String(item2)}`,
         pass: true,
       };
     }
 
     return {
       message: (): string =>
-        `expected array to include only one of ${item1} or ${item2}, but found ${
-          item1Found ? item1 : ""
-        } ${item2Found ? item2 : ""}`,
+        `expected array to include only one of ${String(item1)} or ${String(item2)}, but found ${String(
+          item1Found ? item1 : "",
+        )} ${String(item2Found ? item2 : "")}`,
       pass: false,
     };
   },

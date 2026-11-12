@@ -18,47 +18,49 @@ const actualWordLogic = jest.requireActual<typeof wordLogic>(
   "@skedwards88/word_logic",
 );
 
-afterEach(() => {
-  jest.clearAllMocks();
-  mockedWordLogic.pickRandomItemFromArray.mockImplementation(
-    actualWordLogic.pickRandomItemFromArray,
-  );
-});
-
-const mockedCategories: (NumberCategory | StringCategory)[] = [
-  {
-    kind: "string",
-    values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
-    templates: {
-      generateDescription: (value) => `${value}'s car`,
-    },
-  },
-  {
-    kind: "string",
-    values: ["red", "orange", "blue", "green", "yellow"],
-    templates: {
-      generateDescription: (value) => `the ${value} car`,
-    },
-  },
-  {
-    kind: "string",
-    values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
-    templates: {
-      generateDescription: (value) => `the ${value}`,
-    },
-  },
-  {
-    kind: "number",
-    values: [1, 2, 3, 4, 5],
-    templates: {
-      generateDescription: (value) => `${value} years old`,
-      generateDiffGreaterDescription: (value) => `${value} years older`,
-      generateDiffLesserDescription: (value) => `${value} years younger`,
-    },
-  },
-];
-
 describe("chooseCategories", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    mockedWordLogic.pickRandomItemFromArray.mockImplementation(
+      actualWordLogic.pickRandomItemFromArray,
+    );
+  });
+
+  const mockedCategories: (NumberCategory | StringCategory)[] = [
+    {
+      kind: "string",
+      values: ["Abe", "Bob", "Colin", "Dan", "Eddie"],
+      templates: {
+        generateDescription: (value) => `${value}'s car`,
+      },
+    },
+    {
+      kind: "string",
+      values: ["red", "orange", "blue", "green", "yellow"],
+      templates: {
+        generateDescription: (value) => `the ${value} car`,
+      },
+    },
+    {
+      kind: "string",
+      values: ["Ford", "BMW", "Honda", "Mercedes", "Kia"],
+      templates: {
+        generateDescription: (value) => `the ${value}`,
+      },
+    },
+    {
+      kind: "number",
+      values: [1, 2, 3, 4, 5],
+      templates: {
+        generateDescription: (value) => `${String(value)} years old`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} years older`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} years younger`,
+      },
+    },
+  ];
+
   test("gets the specified number of categories with the specified number of items per category, mocked values", () => {
     mockedWordLogic.pickRandomItemFromArray.mockReturnValueOnce(
       mockedCategories,
@@ -67,9 +69,9 @@ describe("chooseCategories", () => {
     const numCategories = 4;
     const numItems = 3;
     const categories = chooseCategories(numCategories, numItems);
-    expect(categories.length).toBe(numCategories);
+    expect(categories).toHaveLength(numCategories);
     for (const category of categories) {
-      expect(category.values.length).toBe(numItems);
+      expect(category.values).toHaveLength(numItems);
 
       expect(category.templates).toHaveProperty("generateDescription");
     }
@@ -91,9 +93,9 @@ describe("chooseCategories", () => {
     const numCategories = 4;
     const numItems = 3;
     const categories = chooseCategories(numCategories, numItems);
-    expect(categories.length).toBe(numCategories);
+    expect(categories).toHaveLength(numCategories);
     for (const category of categories) {
-      expect(category.values.length).toBe(numItems);
+      expect(category.values).toHaveLength(numItems);
       expect(category.templates).toHaveProperty("generateDescription");
     }
 

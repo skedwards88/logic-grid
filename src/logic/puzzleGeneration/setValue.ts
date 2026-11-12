@@ -1,5 +1,5 @@
 import {findMatrixKey} from "../matrixSearching/findMatrixKey";
-import {type MatrixLabels, type MatrixGrids} from "./generateSolutionMatrix";
+import type {MatrixLabels, MatrixGrids} from "./generateSolutionMatrix";
 
 export function setToTrue({
   matrixGrids,
@@ -20,14 +20,12 @@ export function setToTrue({
   const columnLabels: readonly (string | number)[] =
     matrixLabels[solutionKey].column.values;
 
-  const rowIndex =
-    rowLabels.indexOf(itemA) > -1
-      ? rowLabels.indexOf(itemA)
-      : rowLabels.indexOf(itemB);
-  const columnIndex =
-    columnLabels.indexOf(itemA) > -1
-      ? columnLabels.indexOf(itemA)
-      : columnLabels.indexOf(itemB);
+  const rowIndex = rowLabels.includes(itemA)
+    ? rowLabels.indexOf(itemA)
+    : rowLabels.indexOf(itemB);
+  const columnIndex = columnLabels.includes(itemA)
+    ? columnLabels.indexOf(itemA)
+    : columnLabels.indexOf(itemB);
 
   // if already true, return early
   if (matrixGrids[solutionKey][rowIndex][columnIndex]) {
@@ -91,9 +89,8 @@ export function propagateValue({
     return setToTrue({matrixGrids, matrixLabels, itemA, itemB});
   } else if (value === false) {
     return setToFalse({matrixGrids, matrixLabels, itemA, itemB});
-  } else {
-    return matrixGrids;
   }
+  return matrixGrids;
 }
 
 export function deduceSecondOrderFromFalse({
@@ -319,14 +316,12 @@ export function setToFalse({
   const columnLabels: readonly (string | number)[] =
     matrixLabels[solutionKey].column.values;
 
-  const rowIndex =
-    rowLabels.indexOf(itemA) > -1
-      ? rowLabels.indexOf(itemA)
-      : rowLabels.indexOf(itemB);
-  const columnIndex =
-    columnLabels.indexOf(itemA) > -1
-      ? columnLabels.indexOf(itemA)
-      : columnLabels.indexOf(itemB);
+  const rowIndex = rowLabels.includes(itemA)
+    ? rowLabels.indexOf(itemA)
+    : rowLabels.indexOf(itemB);
+  const columnIndex = columnLabels.includes(itemA)
+    ? columnLabels.indexOf(itemA)
+    : columnLabels.indexOf(itemB);
 
   // if already false, return early
   if (matrixGrids[solutionKey][rowIndex][columnIndex] === false) {

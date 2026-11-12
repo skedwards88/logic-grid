@@ -1,9 +1,9 @@
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {setToFalse} from "../puzzleGeneration/setValue";
-import {type OrClue} from "./getOrClue";
+import type {OrClue} from "./getOrClue";
 
 export function applyOrLogic(
   matrixGrids: MatrixGrids,

@@ -32,23 +32,25 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} yr`,
+      generateDisplayLabels: (value) => `${String(value)} yr`,
       templates: {
-        generateDescription: (value) => `the ${value} year old car`,
+        generateDescription: (value) => `the ${String(value)} year old car`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "year")} older`,
+          `${String(value)} ${basicPluralize(value, "year")} older`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "year")} younger`,
+          `${String(value)} ${basicPluralize(value, "year")} younger`,
       },
     },
     {
       kind: "number",
       values: [10000, 20000, 30000, 40000, 50000],
-      generateDisplayLabels: (value) => `${value} mi`,
+      generateDisplayLabels: (value) => `${String(value)} mi`,
       templates: {
-        generateDescription: (value) => `the car with ${value} miles`,
-        generateDiffGreaterDescription: (value) => `${value} more miles`,
-        generateDiffLesserDescription: (value) => `${value} fewer miles`,
+        generateDescription: (value) => `the car with ${String(value)} miles`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more miles`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer miles`,
         verb: "has",
       },
     },
@@ -71,13 +73,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5, 6],
-      generateDisplayLabels: (value) => `lane ${value}`,
+      generateDisplayLabels: (value) => `lane ${String(value)}`,
       templates: {
-        generateDescription: (value) => `the person who swam in lane ${value}`,
+        generateDescription: (value) =>
+          `the person who swam in lane ${String(value)}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} lane ${basicPluralize(value, "number")} higher`,
+          `${String(value)} lane ${basicPluralize(value, "number")} higher`,
         generateDiffLesserDescription: (value) =>
-          `${value} lane ${basicPluralize(value, "number")} lower`,
+          `${String(value)} lane ${basicPluralize(value, "number")} lower`,
         verb: "was",
       },
     },
@@ -92,7 +95,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -108,9 +111,12 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [100, 95, 90, 85, 80],
       templates: {
-        generateDescription: (value) => `the person whose grade was ${value}`,
-        generateDiffGreaterDescription: (value) => `${value} points higher`,
-        generateDiffLesserDescription: (value) => `${value} points lower`,
+        generateDescription: (value) =>
+          `the person whose grade was ${String(value)}`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} points higher`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} points lower`,
         verb: "scored",
       },
     },
@@ -125,7 +131,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -167,14 +173,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "s'more")}`,
+        `${String(value)} ${basicPluralize(value, "s'more")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who ate ${value} ${basicPluralize(value, "s'more")}`,
+          `the person who ate ${String(value)} ${basicPluralize(value, "s'more")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "s'more")}`,
+          `${String(value)} more ${basicPluralize(value, "s'more")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "s'more")}`,
+          `${String(value)} less ${basicPluralize(value, "s'more")}`,
         verb: "ate",
       },
     },
@@ -190,7 +196,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -216,26 +222,26 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      generateDisplayLabels: (value) => `${value} mi`,
+      generateDisplayLabels: (value) => `${String(value)} mi`,
       templates: {
         generateDescription: (value) =>
-          `the person who hiked ${value} ${basicPluralize(value, "mile")}`,
+          `the person who hiked ${String(value)} ${basicPluralize(value, "mile")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "mile")}`,
+          `${String(value)} more ${basicPluralize(value, "mile")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "mile")}`,
+          `${String(value)} less ${basicPluralize(value, "mile")}`,
         verb: "hiked",
       },
     },
     {
       kind: "number",
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-      generateDisplayLabels: (value) => `${value} ft`,
+      generateDisplayLabels: (value) => `${String(value)} ft`,
       templates: {
         generateDescription: (value) =>
-          `the person who gained ${value} feet in elevation`,
-        generateDiffGreaterDescription: (value) => `${value} more feet`,
-        generateDiffLesserDescription: (value) => `${value} less feet`,
+          `the person who gained ${String(value)} feet in elevation`,
+        generateDiffGreaterDescription: (value) => `${String(value)} more feet`,
+        generateDiffLesserDescription: (value) => `${String(value)} less feet`,
         verb: "gained",
       },
     },
@@ -270,29 +276,31 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      generateDisplayLabels: (value) => `${value} hr`,
+      generateDisplayLabels: (value) => `${String(value)} hr`,
       templates: {
         generateDescription: (value) =>
-          `the person who finished in ${value} ${basicPluralize(
+          `the person who finished in ${String(value)} ${basicPluralize(
             value,
             "hour",
           )}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "hour")}`,
+          `${String(value)} more ${basicPluralize(value, "hour")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "hour")}`,
+          `${String(value)} less ${basicPluralize(value, "hour")}`,
         verb: "took",
       },
     },
     {
       kind: "number",
       values: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
-      generateDisplayLabels: (value) => `${value} pieces`,
+      generateDisplayLabels: (value) => `${String(value)} pieces`,
       templates: {
         generateDescription: (value) =>
-          `the person who did the ${value} piece puzzle`,
-        generateDiffGreaterDescription: (value) => `${value} more pieces`,
-        generateDiffLesserDescription: (value) => `${value} fewer pieces`,
+          `the person who did the ${String(value)} piece puzzle`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more pieces`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer pieces`,
         verb: "assembled",
       },
     },
@@ -300,7 +308,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -339,14 +347,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "tree")}`,
+        `${String(value)} ${basicPluralize(value, "tree")}`,
       templates: {
         generateDescription: (value) =>
-          `the house with ${value} ${basicPluralize(value, "tree")}`,
+          `the house with ${String(value)} ${basicPluralize(value, "tree")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "tree")}`,
+          `${String(value)} more ${basicPluralize(value, "tree")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "tree")}`,
+          `${String(value)} less ${basicPluralize(value, "tree")}`,
         verb: "has",
       },
     },
@@ -387,25 +395,28 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} PM`,
+      generateDisplayLabels: (value) => `${String(value)} PM`,
       templates: {
         generateDescription: (value) =>
-          `the person who snacks at ${value} o'clock`,
+          `the person who snacks at ${String(value)} o'clock`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "hour")} later`,
+          `${String(value)} ${basicPluralize(value, "hour")} later`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "hour")} earlier`,
+          `${String(value)} ${basicPluralize(value, "hour")} earlier`,
         verb: "snacks",
       },
     },
     {
       kind: "number",
       values: [10, 15, 20, 25, 30],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
-        generateDescription: (value) => `the person who takes ${value} minutes`,
-        generateDiffGreaterDescription: (value) => `${value} minutes more`,
-        generateDiffLesserDescription: (value) => `${value} minutes less`,
+        generateDescription: (value) =>
+          `the person who takes ${String(value)} minutes`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} minutes more`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} minutes less`,
         verb: "takes",
       },
     },
@@ -435,12 +446,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [100, 150, 200, 250, 300, 350, 400, 450, 500],
-      generateDisplayLabels: (value) => `$${value}`,
+      generateDisplayLabels: (value) => `$${String(value)}`,
       templates: {
         generateDescription: (value) =>
-          `the jewelry that cost ${value} dollars`,
-        generateDiffGreaterDescription: (value) => `${value} dollars more`,
-        generateDiffLesserDescription: (value) => `${value} dollars less`,
+          `the jewelry that cost ${String(value)} dollars`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} dollars more`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} dollars less`,
         verb: "cost",
       },
     },
@@ -448,14 +461,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8, 9],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "stone")}`,
+        `${String(value)} ${basicPluralize(value, "stone")}`,
       templates: {
         generateDescription: (value) =>
-          `the jewelry with ${value} ${basicPluralize(value, "stone")}`,
+          `the jewelry with ${String(value)} ${basicPluralize(value, "stone")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "stone")}`,
+          `${String(value)} more ${basicPluralize(value, "stone")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "stone")}`,
+          `${String(value)} less ${basicPluralize(value, "stone")}`,
         verb: "has",
       },
     },
@@ -498,18 +511,20 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
       kind: "number",
       values: [10, 20, 30, 40, 50, 60],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the person who does their activity for ${value} minutes`,
-        generateDiffGreaterDescription: (value) => `${value} minutes more`,
-        generateDiffLesserDescription: (value) => `${value} minutes less`,
+          `the person who does their activity for ${String(value)} minutes`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} minutes more`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} minutes less`,
         verb: "does",
       },
     },
@@ -545,7 +560,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: petNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -571,13 +586,13 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} yr`,
+      generateDisplayLabels: (value) => `${String(value)} yr`,
       templates: {
-        generateDescription: (value) => `the ${value} year old dog`,
+        generateDescription: (value) => `the ${String(value)} year old dog`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "year")} older`,
+          `${String(value)} ${basicPluralize(value, "year")} older`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "year")} younger`,
+          `${String(value)} ${basicPluralize(value, "year")} younger`,
       },
     },
     {
@@ -677,7 +692,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -701,12 +716,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [5, 10, 15, 20, 25, 30],
-      generateDisplayLabels: (value) => `${value} pieces`,
+      generateDisplayLabels: (value) => `${String(value)} pieces`,
       templates: {
         generateDescription: (value) =>
-          `the person who got ${value} pieces of candy`,
-        generateDiffGreaterDescription: (value) => `${value} more pieces`,
-        generateDiffLesserDescription: (value) => `${value} fewer pieces`,
+          `the person who got ${String(value)} pieces of candy`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more pieces`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer pieces`,
         verb: "got",
       },
     },
@@ -737,7 +754,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -752,14 +769,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "gift")}`,
+        `${String(value)} ${basicPluralize(value, "gift")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who received ${value} ${basicPluralize(value, "gift")}`,
+          `the person who received ${String(value)} ${basicPluralize(value, "gift")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "gift")}`,
+          `${String(value)} more ${basicPluralize(value, "gift")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "gift")}`,
+          `${String(value)} less ${basicPluralize(value, "gift")}`,
         verb: "received",
       },
     },
@@ -785,7 +802,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -806,12 +823,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [14, 15, 16, 17, 18, 19, 20],
-      generateDisplayLabels: (value) => `${value}th`,
+      generateDisplayLabels: (value) => `${String(value)}th`,
       templates: {
         generateDescription: (value) =>
-          `the historian who studies the ${value}th century`,
-        generateDiffGreaterDescription: (value) => `${value} centuries later`,
-        generateDiffLesserDescription: (value) => `${value} centuries earlier`,
+          `the historian who studies the ${String(value)}th century`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} centuries later`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} centuries earlier`,
         verb: "studies the period",
       },
     },
@@ -863,11 +882,13 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [10, 20, 50, 100, 150, 200],
-      generateDisplayLabels: (value) => `${value} yr`,
+      generateDisplayLabels: (value) => `${String(value)} yr`,
       templates: {
-        generateDescription: (value) => `the ${value} year old tree`,
-        generateDiffGreaterDescription: (value) => `${value} years older`,
-        generateDiffLesserDescription: (value) => `${value} years younger`,
+        generateDescription: (value) => `the ${String(value)} year old tree`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} years older`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} years younger`,
       },
     },
   ],
@@ -880,9 +901,9 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
         generateDescription: (value) =>
           `the person who came in ${appendNth(value)}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "place")} worse`,
+          `${String(value)} ${basicPluralize(value, "place")} worse`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "place")} better`,
+          `${String(value)} ${basicPluralize(value, "place")} better`,
         verb: "placed",
       },
     },
@@ -904,12 +925,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [50, 100, 200, 400, 1600],
-      generateDisplayLabels: (value) => `${value} m`,
+      generateDisplayLabels: (value) => `${String(value)} m`,
       templates: {
         generateDescription: (value) =>
-          `the person who ran the ${value} meter race`,
-        generateDiffGreaterDescription: (value) => `${value} meters more`,
-        generateDiffLesserDescription: (value) => `${value} meters less`,
+          `the person who ran the ${String(value)} meter race`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} meters more`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} meters less`,
         verb: "raced",
       },
     },
@@ -919,17 +942,17 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "day")}`,
+        `${String(value)} ${basicPluralize(value, "day")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who vacationed for ${value} ${basicPluralize(
+          `the person who vacationed for ${String(value)} ${basicPluralize(
             value,
             "day",
           )}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "day")}`,
+          `${String(value)} more ${basicPluralize(value, "day")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "day")}`,
+          `${String(value)} less ${basicPluralize(value, "day")}`,
         verb: "vacationed",
       },
     },
@@ -1036,7 +1059,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: petNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -1044,9 +1067,9 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       values: [0, 2, 4, 6, 8],
       generateDisplayLabels: (value) => convertLegCountToAnimal(value),
       templates: {
-        generateDescription: (value) => `the pet with ${value} legs`,
-        generateDiffGreaterDescription: (value) => `${value} more legs`,
-        generateDiffLesserDescription: (value) => `${value} fewer legs`,
+        generateDescription: (value) => `the pet with ${String(value)} legs`,
+        generateDiffGreaterDescription: (value) => `${String(value)} more legs`,
+        generateDiffLesserDescription: (value) => `${String(value)} fewer legs`,
         verb: "has",
       },
     },
@@ -1079,11 +1102,11 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       generateDisplayLabels: (value) => convertWheelCountToVehicle(value),
       templates: {
         generateDescription: (value) =>
-          `the clown on ${value} ${basicPluralize(value, "wheel")}`,
+          `the clown on ${String(value)} ${basicPluralize(value, "wheel")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "wheel")}`,
+          `${String(value)} more ${basicPluralize(value, "wheel")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "wheel")}`,
+          `${String(value)} less ${basicPluralize(value, "wheel")}`,
         verb: "rides on",
       },
     },
@@ -1114,14 +1137,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "song")}`,
+        `${String(value)} ${basicPluralize(value, "song")}`,
       templates: {
         generateDescription: (value) =>
-          `the dancer that performed ${value} ${basicPluralize(value, "song")}`,
+          `the dancer that performed ${String(value)} ${basicPluralize(value, "song")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "song")}`,
+          `${String(value)} more ${basicPluralize(value, "song")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "song")}`,
+          `${String(value)} less ${basicPluralize(value, "song")}`,
         verb: "performed",
       },
     },
@@ -1162,25 +1185,28 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [7, 8, 9, 10, 11],
-      generateDisplayLabels: (value) => `${value} PM`,
+      generateDisplayLabels: (value) => `${String(value)} PM`,
       templates: {
         generateDescription: (value) =>
-          `the dancer that danced until ${value} PM`,
+          `the dancer that danced until ${String(value)} PM`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "hour")}`,
+          `${String(value)} more ${basicPluralize(value, "hour")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "hour")}`,
+          `${String(value)} less ${basicPluralize(value, "hour")}`,
         verb: "danced",
       },
     },
     {
       kind: "number",
       values: [15, 20, 25, 30, 35],
-      generateDisplayLabels: (value) => `${value} songs`,
+      generateDisplayLabels: (value) => `${String(value)} songs`,
       templates: {
-        generateDescription: (value) => `the dancer that danced ${value} songs`,
-        generateDiffGreaterDescription: (value) => `${value} more songs`,
-        generateDiffLesserDescription: (value) => `${value} fewer songs`,
+        generateDescription: (value) =>
+          `the dancer that danced ${String(value)} songs`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more songs`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer songs`,
         verb: "danced",
       },
     },
@@ -1222,14 +1248,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "slice")}`,
+        `${String(value)} ${basicPluralize(value, "slice")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who ate ${value} ${basicPluralize(value, "slice")}`,
+          `the person who ate ${String(value)} ${basicPluralize(value, "slice")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "slice")}`,
+          `${String(value)} more ${basicPluralize(value, "slice")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "slice")}`,
+          `${String(value)} less ${basicPluralize(value, "slice")}`,
         verb: "ate",
       },
     },
@@ -1237,7 +1263,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
     {
@@ -1267,11 +1293,13 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [100, 150, 200, 250, 300],
-      generateDisplayLabels: (value) => `${value} pages`,
+      generateDisplayLabels: (value) => `${String(value)} pages`,
       templates: {
-        generateDescription: (value) => `the ${value} page novel`,
-        generateDiffGreaterDescription: (value) => `${value} more pages`,
-        generateDiffLesserDescription: (value) => `${value} fewer pages`,
+        generateDescription: (value) => `the ${String(value)} page novel`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more pages`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer pages`,
         verb: "has",
       },
     },
@@ -1279,9 +1307,12 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [2020, 2015, 2010, 2005, 2000],
       templates: {
-        generateDescription: (value) => `the novel published in ${value}`,
-        generateDiffGreaterDescription: (value) => `${value} years later`,
-        generateDiffLesserDescription: (value) => `${value} years earlier`,
+        generateDescription: (value) =>
+          `the novel published in ${String(value)}`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} years later`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} years earlier`,
         verb: "was published",
       },
     },
@@ -1394,9 +1425,9 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
         generateDescription: (value) =>
           `the person who finished ${appendNth(value)}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "place")} worse`,
+          `${String(value)} ${basicPluralize(value, "place")} worse`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "place")} better`,
+          `${String(value)} ${basicPluralize(value, "place")} better`,
         verb: "finished",
       },
     },
@@ -1426,14 +1457,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [4, 5, 6, 7, 8, 9, 10],
-      generateDisplayLabels: (value) => `${value} weeks`,
+      generateDisplayLabels: (value) => `${String(value)} weeks`,
       templates: {
         generateDescription: (value) =>
-          `the patient who wore their cast for ${value} weeks`,
+          `the patient who wore their cast for ${String(value)} weeks`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "week")}`,
+          `${String(value)} more ${basicPluralize(value, "week")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "week")}`,
+          `${String(value)} less ${basicPluralize(value, "week")}`,
         verb: "wore their cast for",
       },
     },
@@ -1463,17 +1494,17 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} hr`,
+      generateDisplayLabels: (value) => `${String(value)} hr`,
       templates: {
         generateDescription: (value) =>
-          `the person who borrowed the tool for ${value} ${basicPluralize(
+          `the person who borrowed the tool for ${String(value)} ${basicPluralize(
             value,
             "hour",
           )}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "hour")}`,
+          `${String(value)} more ${basicPluralize(value, "hour")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "hour")}`,
+          `${String(value)} less ${basicPluralize(value, "hour")}`,
         verb: "borrowed the tool for",
       },
     },
@@ -1510,8 +1541,10 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       templates: {
         generateDescription: (value) =>
           `the student with the ${value.toFixed(1)} GPA`,
-        generateDiffGreaterDescription: (value) => `${value} points higher`,
-        generateDiffLesserDescription: (value) => `${value} points lower`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} points higher`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} points lower`,
         verb: "has a GPA",
       },
     },
@@ -1683,26 +1716,28 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [10, 15, 20, 25, 30],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the restaurant that is a ${value} minute walk away`,
-        generateDiffGreaterDescription: (value) => `${value} minutes further`,
-        generateDiffLesserDescription: (value) => `${value} minutes closer`,
+          `the restaurant that is a ${String(value)} minute walk away`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} minutes further`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} minutes closer`,
         verb: "is",
       },
     },
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} star`,
+      generateDisplayLabels: (value) => `${String(value)} star`,
       templates: {
         generateDescription: (value) =>
-          `the restaurant rated ${value} ${basicPluralize(value, "star")}`,
+          `the restaurant rated ${String(value)} ${basicPluralize(value, "star")}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} ${basicPluralize(value, "star")} higher`,
+          `${String(value)} ${basicPluralize(value, "star")} higher`,
         generateDiffLesserDescription: (value) =>
-          `${value} ${basicPluralize(value, "star")} lower`,
+          `${String(value)} ${basicPluralize(value, "star")} lower`,
         verb: "is rated",
       },
     },
@@ -1752,26 +1787,28 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [20, 30, 40, 50, 60],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the dish that takes ${value} minutes to prepare`,
-        generateDiffGreaterDescription: (value) => `${value} more minutes`,
-        generateDiffLesserDescription: (value) => `${value} less minutes`,
+          `the dish that takes ${String(value)} minutes to prepare`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more minutes`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} less minutes`,
         verb: "takes",
       },
     },
     {
       kind: "number",
       values: [1, 2, 3, 4, 5, 6, 7, 8],
-      generateDisplayLabels: (value) => `${value} servings`,
+      generateDisplayLabels: (value) => `${String(value)} servings`,
       templates: {
         generateDescription: (value) =>
-          `the dish that serves ${value} ${value > 1 ? "people" : "person"}`,
+          `the dish that serves ${String(value)} ${value > 1 ? "people" : "person"}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${value > 1 ? "people" : "person"}`,
+          `${String(value)} more ${value > 1 ? "people" : "person"}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${value > 1 ? "people" : "person"}`,
+          `${String(value)} less ${value > 1 ? "people" : "person"}`,
         verb: "serves",
       },
     },
@@ -1827,11 +1864,11 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [20, 30, 40, 50, 60],
-      generateDisplayLabels: (value) => `$${value}`,
+      generateDisplayLabels: (value) => `$${String(value)}`,
       templates: {
-        generateDescription: (value) => `the item that cost $${value}`,
-        generateDiffGreaterDescription: (value) => `$${value} more`,
-        generateDiffLesserDescription: (value) => `$${value} less`,
+        generateDescription: (value) => `the item that cost $${String(value)}`,
+        generateDiffGreaterDescription: (value) => `$${String(value)} more`,
+        generateDiffLesserDescription: (value) => `$${String(value)} less`,
         verb: "costs",
       },
     },
@@ -1894,11 +1931,13 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [2, 3, 4, 5, 6],
-      generateDisplayLabels: (value) => `page ${value}`,
+      generateDisplayLabels: (value) => `page ${String(value)}`,
       templates: {
-        generateDescription: (value) => `page ${value}`,
-        generateDiffGreaterDescription: (value) => `${value} pages later`,
-        generateDiffLesserDescription: (value) => `${value} pages earlier`,
+        generateDescription: (value) => `page ${String(value)}`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} pages later`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} pages earlier`,
       },
     },
   ],
@@ -1907,17 +1946,17 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "state")}`,
+        `${String(value)} ${basicPluralize(value, "state")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who traveled through ${value} ${basicPluralize(
+          `the person who traveled through ${String(value)} ${basicPluralize(
             value,
             "state",
           )}`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "state")}`,
+          `${String(value)} more ${basicPluralize(value, "state")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "state")}`,
+          `${String(value)} less ${basicPluralize(value, "state")}`,
         verb: "traveled through",
       },
     },
@@ -1948,12 +1987,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [5, 10, 15, 20, 25],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the person who cleaned for ${value} minutes`,
-        generateDiffGreaterDescription: (value) => `${value} more minutes`,
-        generateDiffLesserDescription: (value) => `${value} less minutes`,
+          `the person who cleaned for ${String(value)} minutes`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more minutes`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} less minutes`,
         verb: "cleaned for",
       },
     },
@@ -1984,7 +2025,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -1992,12 +2033,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [15, 20, 30, 45, 60],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the person whose commute takes ${value} minutes`,
-        generateDiffGreaterDescription: (value) => `${value} more minutes`,
-        generateDiffLesserDescription: (value) => `${value} fewer minutes`,
+          `the person whose commute takes ${String(value)} minutes`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} more minutes`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} fewer minutes`,
         verb: "commutes for",
       },
     },
@@ -2005,29 +2048,31 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "number",
       values: [1, 2, 3, 4, 5],
       generateDisplayLabels: (value) =>
-        `${value} ${basicPluralize(value, "day")}`,
+        `${String(value)} ${basicPluralize(value, "day")}`,
       templates: {
         generateDescription: (value) =>
-          `the person who commutes ${value} ${basicPluralize(
+          `the person who commutes ${String(value)} ${basicPluralize(
             value,
             "day",
           )} a week`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "day")}`,
+          `${String(value)} more ${basicPluralize(value, "day")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "day")}`,
+          `${String(value)} less ${basicPluralize(value, "day")}`,
         verb: "commutes",
       },
     },
     {
       kind: "number",
       values: [6, 7, 8, 9, 10],
-      generateDisplayLabels: (value) => `${value} AM`,
+      generateDisplayLabels: (value) => `${String(value)} AM`,
       templates: {
         generateDescription: (value) =>
-          `the person whose commute starts at ${value} AM`,
-        generateDiffGreaterDescription: (value) => `${value} hours later`,
-        generateDiffLesserDescription: (value) => `${value} hours earlier`,
+          `the person whose commute starts at ${String(value)} AM`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} hours later`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} hours earlier`,
         verb: "starts",
       },
     },
@@ -2043,12 +2088,12 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [2, 4, 6, 8, 10],
-      generateDisplayLabels: (value) => `${value} eggs`,
+      generateDisplayLabels: (value) => `${String(value)} eggs`,
       templates: {
         generateDescription: (value) =>
-          `the person who found ${value} Easter eggs`,
-        generateDiffGreaterDescription: (value) => `${value} more eggs`,
-        generateDiffLesserDescription: (value) => `${value} fewer eggs`,
+          `the person who found ${String(value)} Easter eggs`,
+        generateDiffGreaterDescription: (value) => `${String(value)} more eggs`,
+        generateDiffLesserDescription: (value) => `${String(value)} fewer eggs`,
         verb: "found",
       },
     },
@@ -2071,7 +2116,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2079,14 +2124,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [2, 4, 6, 8, 10],
-      generateDisplayLabels: (value) => `${value} cm`,
+      generateDisplayLabels: (value) => `${String(value)} cm`,
       templates: {
         generateDescription: (value) =>
-          `the person with the ${value} centimeter wide tattoo`,
+          `the person with the ${String(value)} centimeter wide tattoo`,
         generateDiffGreaterDescription: (value) =>
-          `${value} centimeters larger`,
+          `${String(value)} centimeters larger`,
         generateDiffLesserDescription: (value) =>
-          `${value} centimeters smaller`,
+          `${String(value)} centimeters smaller`,
         verb: "has a tattoo that is",
       },
     },
@@ -2120,7 +2165,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2162,7 +2207,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2192,12 +2237,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [5, 10, 15, 20, 25],
-      generateDisplayLabels: (value) => `${value} min`,
+      generateDisplayLabels: (value) => `${String(value)} min`,
       templates: {
         generateDescription: (value) =>
-          `the person who arrived to the potluck ${value} minutes late`,
-        generateDiffGreaterDescription: (value) => `${value} minutes later`,
-        generateDiffLesserDescription: (value) => `${value} minutes earlier`,
+          `the person who arrived to the potluck ${String(value)} minutes late`,
+        generateDiffGreaterDescription: (value) =>
+          `${String(value)} minutes later`,
+        generateDiffLesserDescription: (value) =>
+          `${String(value)} minutes earlier`,
         verb: "arrived",
       },
     },
@@ -2205,7 +2252,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2277,7 +2324,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2317,17 +2364,17 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [1, 2, 3, 4, 5],
-      generateDisplayLabels: (value) => `${value} books`,
+      generateDisplayLabels: (value) => `${String(value)} books`,
       templates: {
         generateDescription: (value) =>
-          `the person who reads ${value} ${basicPluralize(
+          `the person who reads ${String(value)} ${basicPluralize(
             value,
             "book",
           )} a month`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "book")}`,
+          `${String(value)} more ${basicPluralize(value, "book")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "book")}`,
+          `${String(value)} less ${basicPluralize(value, "book")}`,
         verb: "reads",
       },
     },
@@ -2335,7 +2382,7 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
       kind: "string",
       values: firstNames,
       templates: {
-        generateDescription: (value) => `${value}`,
+        generateDescription: (value) => value,
       },
     },
   ],
@@ -2452,13 +2499,14 @@ export const allCategories: (NumberCategory | StringCategory)[][] = [
     {
       kind: "number",
       values: [4, 5, 6, 7, 8],
-      generateDisplayLabels: (value) => `${value} flowers`,
+      generateDisplayLabels: (value) => `${String(value)} flowers`,
       templates: {
-        generateDescription: (value) => `the bouquet of ${value} flowers`,
+        generateDescription: (value) =>
+          `the bouquet of ${String(value)} flowers`,
         generateDiffGreaterDescription: (value) =>
-          `${value} more ${basicPluralize(value, "flower")}`,
+          `${String(value)} more ${basicPluralize(value, "flower")}`,
         generateDiffLesserDescription: (value) =>
-          `${value} less ${basicPluralize(value, "flower")}`,
+          `${String(value)} less ${basicPluralize(value, "flower")}`,
         verb: "has",
       },
     },

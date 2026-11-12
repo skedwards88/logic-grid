@@ -1,6 +1,6 @@
 import React from "react";
-import {type ReducerPayload} from "../logic/gameReducer";
-import {type DisplayState} from "./App";
+import type {ReducerPayload} from "../logic/gameReducer";
+import type {DisplayState} from "./App";
 
 export default function ResetOrNewPuzzle({
   dispatchGameState,

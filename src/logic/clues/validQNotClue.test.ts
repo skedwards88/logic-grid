@@ -1,9 +1,9 @@
 import {validQNotClue} from "./validQNotClue";
 import {findMatrixValue} from "../matrixSearching/findMatrixValue";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 const matrixLabels: MatrixLabels = {

@@ -1,4 +1,4 @@
-import {type Axis} from "./chooseCategories";
+import type {Axis} from "./chooseCategories";
 import {generateSolution} from "./generateSolution";
 
 export type Grid = (boolean | null)[][];
@@ -91,18 +91,14 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
       const rowInfo = matrixRowInfo[rowIndex];
 
       const grid: boolean[][] = [];
-      for (let rowIndex = 0; rowIndex < rowInfo.values.length; rowIndex++) {
+      for (const rowValue of rowInfo.values) {
         const row: boolean[] = [];
-        for (
-          let columnIndex = 0;
-          columnIndex < columnInfo.values.length;
-          columnIndex++
-        ) {
+        for (const columnValue of columnInfo.values) {
           if (
             solution.some(
               (solutionEntry) =>
-                solutionEntry.includes(rowInfo.values[rowIndex]) &&
-                solutionEntry.includes(columnInfo.values[columnIndex]),
+                solutionEntry.includes(rowValue) &&
+                solutionEntry.includes(columnValue),
             )
           ) {
             row.push(true);
@@ -113,7 +109,9 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
         grid.push(row);
       }
 
-      solvedMatrixGrids[`rowSet${rowIndex}_columnSet${columnIndex}`] = grid;
+      solvedMatrixGrids[
+        `rowSet${String(rowIndex)}_columnSet${String(columnIndex)}`
+      ] = grid;
 
       const columnLabels =
         columnInfo.kind === "number"
@@ -128,7 +126,9 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
           ? {values: rowInfo.values, displayLabels: rowInfo.displayLabels}
           : {values: rowInfo.values, displayLabels: rowInfo.displayLabels};
 
-      matrixLabels[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
+      matrixLabels[
+        `rowSet${String(rowIndex)}_columnSet${String(columnIndex)}`
+      ] = {
         row: rowLabels,
         column: columnLabels,
       };
@@ -146,7 +146,9 @@ export function generateSolutionMatrix(categoryLabelsAndTemplates: Axis[]): {
           ? {kind: rowInfo.kind, templates: rowInfo.templates}
           : {kind: rowInfo.kind, templates: rowInfo.templates};
 
-      matrixTemplates[`rowSet${rowIndex}_columnSet${columnIndex}`] = {
+      matrixTemplates[
+        `rowSet${String(rowIndex)}_columnSet${String(columnIndex)}`
+      ] = {
         row: rowTemplates,
         column: columnTemplates,
       };

@@ -8,10 +8,12 @@ export default function LabelSet({
   type: "column" | "row";
 }): React.JSX.Element {
   const labelDivs = displayLabels.map((label, index) => (
-    <div key={`${type}Label${id}_${index}`}>{label}</div>
+    <div key={`${type}Label${String(id)}_${String(index)}`}>{label}</div>
   ));
   return (
-    <div className={`${type}Label label${id} size${displayLabels.length}`}>
+    <div
+      className={`${type}Label label${String(id)} size${String(displayLabels.length)}`}
+    >
       {labelDivs}
     </div>
   );

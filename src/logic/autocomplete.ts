@@ -1,7 +1,7 @@
 import {setToTrue} from "../logic/puzzleGeneration/setValue";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "./puzzleGeneration/generateSolutionMatrix";
 
 function makeEmptyCopyOfMatrix(matrixGrids: MatrixGrids): MatrixGrids {
@@ -63,7 +63,7 @@ export function autocomplete(
       // so I'm including the checks even though it may add inefficiency
 
       // if not exactly one true in the row
-      if (trueIndexesInRow.length != 1) {
+      if (trueIndexesInRow.length !== 1) {
         throw new Error(
           "Propagating the trues did not result in exactly one true/row",
         );
@@ -92,7 +92,7 @@ export function autocomplete(
         // for cases where the original is not null
         if (
           matrixGrids[key][rowIndex][columnIndex] != null &&
-          matrixGrids[key][rowIndex][columnIndex] !=
+          matrixGrids[key][rowIndex][columnIndex] !==
             autofilledGrid[rowIndex][columnIndex]
         ) {
           throw new Error(

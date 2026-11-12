@@ -8,11 +8,11 @@ import {validQOrClue} from "./validQOrClue";
 import {validQNumericComparisonClue} from "./validQNumericComparisonClue";
 import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
 import {validQOrCrossCategoryClue} from "./validQOrCrossCategoryClue";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
-import {type Clue} from "../puzzleGeneration/getUsefulClue";
+import type {Clue} from "../puzzleGeneration/getUsefulClue";
 
 export function validQ({
   clue,

@@ -12,7 +12,11 @@ export default tseslint.config(
 
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [...tseslint.configs.recommendedTypeChecked],
+    extends: [
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
     languageOptions: {
       parserOptions: {
         project: "./tsconfig.json",
@@ -30,6 +34,27 @@ export default tseslint.config(
       "@typescript-eslint/prefer-readonly": "warn",
       "@typescript-eslint/explicit-function-return-type": "warn",
       "@typescript-eslint/prefer-optional-chain": "warn",
+      "@typescript-eslint/switch-exhaustiveness-check": "error",
+      "@typescript-eslint/no-unnecessary-condition": [
+        "error",
+        {allowConstantLoopConditions: true},
+      ],
+      "@typescript-eslint/strict-boolean-expressions": [
+        "warn",
+        {
+          allowNullableObject: true,
+          allowNullableBoolean: true,
+        },
+      ],
+      "@typescript-eslint/no-import-type-side-effects": "error",
+      "@typescript-eslint/promise-function-async": "warn",
+      "@typescript-eslint/require-array-sort-compare": "error",
+      "@typescript-eslint/no-unsafe-type-assertion": "warn",
+      "@typescript-eslint/prefer-reduce-type-parameter": "warn",
+      "@typescript-eslint/method-signature-style": "warn",
+      "@typescript-eslint/no-useless-empty-export": "warn",
+      "@typescript-eslint/default-param-last": "error",
+      "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     },
   },
 
@@ -61,6 +86,45 @@ export default tseslint.config(
       ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
       "react/prop-types": "off",
+      "react/self-closing-comp": "warn",
+      "react/jsx-key": [
+        "error",
+        {
+          checkFragmentShorthand: true,
+          checkKeyMustBeforeSpread: true,
+          warnOnDuplicates: true,
+        },
+      ],
+      "react/no-array-index-key": "warn",
+      "react/jsx-no-useless-fragment": "warn",
+      "react/jsx-no-leaked-render": [
+        "error",
+        {validStrategies: ["ternary", "coerce"]},
+      ],
+      "react/jsx-curly-brace-presence": [
+        "warn",
+        {props: "never", children: "never"},
+      ],
+      "react/jsx-boolean-value": "warn",
+      "react/jsx-no-constructed-context-values": "error",
+      "react/no-unstable-nested-components": "error",
+      "react/function-component-definition": [
+        "warn",
+        {namedComponents: "function-declaration"},
+      ],
+      "react/hook-use-state": "warn",
+      "react/jsx-no-target-blank": "error",
+
+      eqeqeq: ["error", "always", {null: "ignore"}],
+      "no-console": ["warn", {allow: ["warn", "error"]}],
+      "no-restricted-imports": ["error", {patterns: ["../../../*"]}],
+      "no-else-return": "warn",
+      "no-nested-ternary": "warn",
+      "no-param-reassign": "error",
+      "prefer-const": "error",
+      "object-shorthand": "warn",
+      "prefer-template": "warn",
+      curly: ["error", "multi-line"],
     },
   },
 
@@ -78,6 +142,15 @@ export default tseslint.config(
     },
     rules: {
       ...jest.configs.recommended.rules,
+      "jest/no-focused-tests": "error",
+      "jest/no-disabled-tests": "warn",
+      "jest/prefer-to-have-length": "warn",
+      "jest/prefer-strict-equal": "warn",
+      "jest/consistent-test-it": ["warn", {fn: "test"}],
+      "jest/require-top-level-describe": "warn",
+      "jest/expect-expect": "warn",
+      "jest/no-conditional-expect": "error",
+      "jest/valid-title": "warn",
     },
   },
 
@@ -87,5 +160,9 @@ export default tseslint.config(
       globals: globals.node,
       sourceType: "commonjs",
     },
+  },
+
+  {
+    linterOptions: {reportUnusedDisableDirectives: "error"},
   },
 );

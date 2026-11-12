@@ -1,6 +1,6 @@
 import {applyClueLogic} from "../clues/applyClueLogic";
-import {type Clue} from "./getUsefulClue";
-import {type MatrixGrids, type MatrixLabels} from "./generateSolutionMatrix";
+import type {Clue} from "./getUsefulClue";
+import type {MatrixGrids, MatrixLabels} from "./generateSolutionMatrix";
 import {matrixesMatchQ} from "@skedwards88/word_logic";
 
 export function applyCluesAdNauseam({
@@ -22,13 +22,14 @@ export function applyCluesAdNauseam({
   let matrixPostClues = matrixGrids;
 
   while (matrixMayChange) {
-    for (let clueIndex = 0; clueIndex < clues.length; clueIndex++) {
+    for (const clue of clues) {
       matrixPostClues = applyClueLogic({
-        clue: clues[clueIndex],
+        clue,
         matrixGrids: matrixPostClues,
         matrixLabels,
       });
     }
+
     matrixMayChange = !matrixesMatchQ(matrixPreClues, matrixPostClues);
     matrixPreClues = matrixPostClues;
   }

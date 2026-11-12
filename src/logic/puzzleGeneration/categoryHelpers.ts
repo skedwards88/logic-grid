@@ -1,14 +1,13 @@
 export function appendNth(number: number): string {
-  const lastDigit = `${number}`[`${number}`.length - 1];
+  const lastDigit = String(number)[String(number).length - 1];
   if (lastDigit === "1") {
-    return `${number}st`;
+    return `${String(number)}st`;
   } else if (lastDigit === "2") {
-    return `${number}nd`;
+    return `${String(number)}nd`;
   } else if (lastDigit === "3") {
-    return `${number}rd`;
-  } else {
-    return `${number}th`;
+    return `${String(number)}rd`;
   }
+  return `${String(number)}th`;
 }
 
 export function convertLegCountToAnimal(number: number): string {
@@ -24,7 +23,7 @@ export function convertLegCountToAnimal(number: number): string {
     case 8:
       return "spider";
     default:
-      return `${number}-legged creature`;
+      return `${String(number)}-legged creature`;
   }
 }
 
@@ -41,7 +40,7 @@ export function convertWheelCountToVehicle(number: number): string {
     case 4:
       return "skateboard";
     default:
-      return `${number}-wheeled vehicle`;
+      return `${String(number)}-wheeled vehicle`;
   }
 }
 

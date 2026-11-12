@@ -1,6 +1,6 @@
 import packageJson from "../../package.json";
 import PlayButtons from "@skedwards88/shared-components/src/components/PlayButtons";
-import {type DisplayState} from "./App";
+import type {DisplayState} from "./App";
 
 export default function Rules({
   setDisplay,
@@ -17,20 +17,22 @@ export default function Rules({
         </p>
         <p>
           Tap a cell in the grid to mark a pair as matching{" "}
-          <span id="ruleTrue" className="rulesIcon"></span> or not matching{" "}
-          <span id="ruleFalse" className="rulesIcon"></span>.
+          <span id="ruleTrue" className="rulesIcon" /> or not matching{" "}
+          <span id="ruleFalse" className="rulesIcon" />.
         </p>
         <p>The puzzle is complete once you identify all matches.</p>
         <p>
-          Click <span id="settingsButton" className="rulesIcon"></span> to
-          change the difficulty level.
+          Click <span id="settingsButton" className="rulesIcon" /> to change the
+          difficulty level.
         </p>
         <PlayButtons
           onClickPlay={() => {
             setDisplay("game");
           }}
-          onClickInstall={() => setDisplay("installOverview")}
-        ></PlayButtons>
+          onClickInstall={() => {
+            setDisplay("installOverview");
+          }}
+        />
       </div>
       <small id="rulesVersion">version {packageJson.version}</small>
     </div>

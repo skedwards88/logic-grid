@@ -1,10 +1,10 @@
 import * as wordLogic from "@skedwards88/word_logic";
 import {getNumericComparisonCrossCategoryClue} from "./getNumericComparisonCrossCategoryClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type MatrixGrids,
-  type MatrixLabels,
-  type MatrixTemplates,
+import type {
+  MatrixGrids,
+  MatrixLabels,
+  MatrixTemplates,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {buildEmptyMatrixGrids} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
@@ -26,7 +26,7 @@ const actualWordLogic = jest.requireActual<typeof wordLogic>(
   "@skedwards88/word_logic",
 );
 
-afterEach(() => {
+function cleanup(): void {
   jest.clearAllMocks();
   mockedWordLogic.pickRandomItemsFromArray.mockImplementation(
     actualWordLogic.pickRandomItemsFromArray,
@@ -35,9 +35,11 @@ afterEach(() => {
     actualWordLogic.pickRandomItemFromArray,
   );
   mockedWordLogic.shuffleArray.mockImplementation(actualWordLogic.shuffleArray);
-});
+}
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", () => {
+  afterEach(cleanup);
+
   const numericLabels = [1, 2, 3, 4];
   const solvedMatrixGrids: MatrixGrids = {
     NameVsNumber: [
@@ -104,9 +106,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -128,9 +132,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -382,6 +388,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff = 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", () => {
+  afterEach(cleanup);
+
   const numericLabels = [10, 20, 30, 40];
   const solvedMatrixGrids: MatrixGrids = {
     NameVsNumber: [
@@ -448,9 +456,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -472,9 +482,11 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -730,6 +742,8 @@ describe("getNumericComparisonCrossCategoryClue, evenly spaced and diff > 1", ()
 });
 
 describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
+  afterEach(cleanup);
+
   const numericLabels = [10, 15, 30, 40];
   const solvedMatrixGrids: MatrixGrids = {
     NameVsNumber: [
@@ -796,9 +810,11 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -820,9 +836,11 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -1096,6 +1114,8 @@ describe("getNumericComparisonCrossCategoryClue, not evenly spaced", () => {
 });
 
 describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
+  afterEach(cleanup);
+
   const numericLabelsYears = [1, 2, 3, 4];
   const numericLabelsMiles = [10, 20, 30, 40];
   const numericLabelsDollars = [100, 200, 300, 400];
@@ -1158,17 +1178,21 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the ${value} years old car`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `the ${String(value)} years old car`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the car with ${value} miles`,
-          generateDiffGreaterDescription: (value) => `${value} more miles`,
-          generateDiffLesserDescription: (value) => `${value} less miles`,
+          generateDescription: (value) => `the car with ${String(value)} miles`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} more miles`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} less miles`,
           verb: "has",
         },
       },
@@ -1177,18 +1201,22 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the car with ${value} miles`,
-          generateDiffGreaterDescription: (value) => `${value} more miles`,
-          generateDiffLesserDescription: (value) => `${value} less miles`,
+          generateDescription: (value) => `the car with ${String(value)} miles`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} more miles`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} less miles`,
           verb: "has",
         },
       },
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the ${value} dollar car`,
-          generateDiffGreaterDescription: (value) => `${value} dollars more`,
-          generateDiffLesserDescription: (value) => `${value} dollars less`,
+          generateDescription: (value) => `the ${String(value)} dollar car`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} dollars more`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} dollars less`,
         },
       },
     },
@@ -1196,17 +1224,21 @@ describe("getNumericComparisonCrossCategoryClue, numbers must match", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the ${value} dollar car`,
-          generateDiffGreaterDescription: (value) => `${value} dollars more`,
-          generateDiffLesserDescription: (value) => `${value} dollars less`,
+          generateDescription: (value) => `the ${String(value)} dollar car`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} dollars more`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} dollars less`,
         },
       },
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `the ${value} years old car`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `the ${String(value)} years old car`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },

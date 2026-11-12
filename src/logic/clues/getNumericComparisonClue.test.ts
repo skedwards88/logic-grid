@@ -1,10 +1,10 @@
 import * as wordLogic from "@skedwards88/word_logic";
 import {getNumericComparisonClue} from "./getNumericComparisonClue";
 import {applyClueLogic} from "./applyClueLogic";
-import {
-  type MatrixTemplates,
-  type MatrixGrids,
-  type MatrixLabels,
+import type {
+  MatrixTemplates,
+  MatrixGrids,
+  MatrixLabels,
 } from "../puzzleGeneration/generateSolutionMatrix";
 import {buildEmptyMatrixGrids} from "../puzzleGeneration/buildEmptyMatrixGrids";
 
@@ -26,7 +26,7 @@ const actualWordLogic = jest.requireActual<typeof wordLogic>(
   "@skedwards88/word_logic",
 );
 
-afterEach(() => {
+function cleanup(): void {
   jest.clearAllMocks();
   mockedWordLogic.pickRandomItemFromArray.mockImplementation(
     actualWordLogic.pickRandomItemFromArray,
@@ -35,9 +35,11 @@ afterEach(() => {
     actualWordLogic.pickRandomItemsFromArray,
   );
   mockedWordLogic.shuffleArray.mockImplementation(actualWordLogic.shuffleArray);
-});
+}
 
 describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
+  afterEach(cleanup);
+
   const numericLabels = [1, 2, 3, 4];
 
   const solvedMatrixGrids: MatrixGrids = {
@@ -105,9 +107,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -129,9 +133,11 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -171,7 +177,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -216,7 +222,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -245,7 +251,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -263,7 +269,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -292,7 +298,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -310,7 +316,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -338,7 +344,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -356,7 +362,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -384,7 +390,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -402,7 +408,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -430,7 +436,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -448,7 +454,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -478,7 +484,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -496,7 +502,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -527,7 +533,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -545,7 +551,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -575,7 +581,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -593,7 +599,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -613,7 +619,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -637,7 +643,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixGridsCopy = structuredClone(solvedMatrixGrids);
     getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -648,7 +654,7 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedGridsCopy = structuredClone(emptyMatrixGrids);
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -664,6 +670,8 @@ describe("getNumericComparisonClue, evenly spaced and diff = 1", () => {
 });
 
 describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
+  afterEach(cleanup);
+
   const numericLabels = [10, 20, 30, 40];
   const solvedMatrixGrids: MatrixGrids = {
     NameVsNumber: [
@@ -730,9 +738,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -754,9 +764,11 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -779,7 +791,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -797,7 +809,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -824,7 +836,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -842,7 +854,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -871,7 +883,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -889,7 +901,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -918,7 +930,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -936,7 +948,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -964,7 +976,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -982,7 +994,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1010,7 +1022,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1028,7 +1040,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1056,7 +1068,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1074,7 +1086,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1104,7 +1116,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1122,7 +1134,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1153,7 +1165,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1171,7 +1183,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1201,7 +1213,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1219,7 +1231,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1239,7 +1251,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1263,7 +1275,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixGridsCopy = structuredClone(solvedMatrixGrids);
     getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1274,7 +1286,7 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedGridsCopy = structuredClone(emptyMatrixGrids);
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1290,6 +1302,8 @@ describe("getNumericComparisonClue, evenly spaced but diff > 1", () => {
 });
 
 describe("getNumericComparisonClue, not evenly spaced", () => {
+  afterEach(cleanup);
+
   const numericLabels = [10, 15, 30, 40];
   const solvedMatrixGrids: MatrixGrids = {
     NameVsNumber: [
@@ -1356,9 +1370,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       column: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
     },
@@ -1380,9 +1396,11 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
       row: {
         kind: "number",
         templates: {
-          generateDescription: (value) => `${value} years old`,
-          generateDiffGreaterDescription: (value) => `${value} years older`,
-          generateDiffLesserDescription: (value) => `${value} years younger`,
+          generateDescription: (value) => `${String(value)} years old`,
+          generateDiffGreaterDescription: (value) =>
+            `${String(value)} years older`,
+          generateDiffLesserDescription: (value) =>
+            `${String(value)} years younger`,
         },
       },
       column: {
@@ -1405,7 +1423,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1423,7 +1441,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1450,7 +1468,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1468,7 +1486,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1497,7 +1515,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1515,7 +1533,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1544,7 +1562,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1562,7 +1580,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1590,7 +1608,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1608,7 +1626,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1636,7 +1654,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1654,7 +1672,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1682,7 +1700,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     mockedWordLogic.shuffleArray.mockImplementation((arr) => arr);
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1700,7 +1718,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NameVsNumber";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1730,7 +1748,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1748,7 +1766,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1779,7 +1797,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1797,7 +1815,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1827,7 +1845,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
     );
 
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1845,7 +1863,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
     const changedKey = "NumberVsColor";
     const unchangedKeys = Object.keys(newMatrixGrids).filter(
-      (key) => key != changedKey,
+      (key) => key !== changedKey,
     );
 
     expect(newMatrixGrids[changedKey]).not.toStrictEqual(
@@ -1865,7 +1883,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
 
   test("returns a clue object with a writtenClue string, clue type, and parameters for the clue logic function", () => {
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1889,7 +1907,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test("does not modify the solution matrix when generating the clue", () => {
     const matrixGridsCopy = structuredClone(solvedMatrixGrids);
     getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });
@@ -1900,7 +1918,7 @@ describe("getNumericComparisonClue, not evenly spaced", () => {
   test("does not modify the derived matrix when applying the clue", () => {
     const derivedGridsCopy = structuredClone(emptyMatrixGrids);
     const clue = getNumericComparisonClue({
-      solvedMatrixGrids: solvedMatrixGrids,
+      solvedMatrixGrids,
       matrixLabels,
       matrixTemplates,
     });

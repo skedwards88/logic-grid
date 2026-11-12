@@ -1,8 +1,8 @@
 import {validQNumericComparisonCrossCategoryClue} from "./validQNumericComparisonCrossCategoryClue";
 import {populateSparseTestEntryLabels} from "../helpers/testHelpers";
-import {
-  type MatrixLabels,
-  type MatrixGrids,
+import type {
+  MatrixLabels,
+  MatrixGrids,
 } from "../puzzleGeneration/generateSolutionMatrix";
 
 describe("validQNumericComparisonCrossCategoryClue, non-strict, exact diff", () => {
