@@ -78,8 +78,10 @@ export default function App(): React.JSX.Element {
 
     case "heart":
       return (
-        <MoreGames<DisplayState>
-          setDisplay={setDisplay}
+        <MoreGames
+          closeAction={() => {
+            setDisplay("game");
+          }}
           games={["crossjig", "lexlet", "blobble", "wordfall", "gribbles"]}
           repoName="logic-grid"
           includeExtraInfo
@@ -92,8 +94,13 @@ export default function App(): React.JSX.Element {
 
     case "installOverview":
       return (
-        <InstallOverview<DisplayState>
-          setDisplay={setDisplay}
+        <InstallOverview
+          closeAction={() => {
+            setDisplay("game");
+          }}
+          pwaInstallAction={() => {
+            setDisplay("pwaInstall");
+          }}
           googleAppLink="https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
           userId={userId}
           sessionId={sessionId}
@@ -105,8 +112,10 @@ export default function App(): React.JSX.Element {
 
     case "pwaInstall":
       return (
-        <PWAInstall<DisplayState>
-          setDisplay={setDisplay}
+        <PWAInstall
+          closeAction={() => {
+            setDisplay("game");
+          }}
           googleAppLink="https://play.google.com/store/apps/details?id=logicgrid.io.github.skedwards88.twa&hl=en_US"
           pwaLink="https://skedwards88.github.io/logic-grid"
           userId={userId}

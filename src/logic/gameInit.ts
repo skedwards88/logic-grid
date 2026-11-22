@@ -69,10 +69,10 @@ export function gameInit({
   useSaved?: boolean;
 }): GameState {
   const savedState = useSaved
-    ? getFromStorage<unknown>(SAVED_STATE_KEY)
+    ? getFromStorage(SAVED_STATE_KEY, savedStateValidQ)
     : undefined;
 
-  if (savedStateValidQ(savedState)) {
+  if (savedState != null) {
     return savedState;
   }
 

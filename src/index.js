@@ -6,26 +6,7 @@ import "@skedwards88/shared-components/src/styles/MoreGames.css";
 import "@skedwards88/shared-components/src/styles/Install.css";
 import {MetadataContextProvider} from "@skedwards88/shared-components/src/components/MetadataContextProvider";
 import {SAVED_STATE_KEY} from "./logic/gameInit";
-
-const RECOVERED_KEY = "logicGridRecovered";
-const RECOVERED_VALUE = "1";
-
-function tryClearStateAndReload(error) {
-  console.error("Uncaught render error, clearing saved state", error);
-
-  try {
-    // clear the saved game state
-    localStorage.removeItem(SAVED_STATE_KEY);
-
-    // Reload once per session to avoid a crash loop if a fresh game also crashes
-    if (sessionStorage.getItem(RECOVERED_KEY) !== RECOVERED_VALUE) {
-      sessionStorage.setItem(RECOVERED_KEY, RECOVERED_VALUE);
-      window.location.reload();
-    }
-  } catch {
-    // storage unavailable
-  }
-}
+import {tryClearStateAndReload} from "@skedwards88/shared-components/src/logic/tryClearStateAndReload";
 
 if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
   const path = "/service-worker.js";
@@ -45,7 +26,13 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
 
 const container = document.getElementById("root");
 const root = createRoot(container, {
-  onUncaughtError: tryClearStateAndReload,
+  onUncaughtError: (error) => {
+    tryClearStateAndReload({
+      error,
+      savedStateKeys: [SAVED_STATE_KEY],
+      recoveredKey: "logicGridRecovered",
+    });
+  },
 });
 root.render(
   <React.StrictMode>
