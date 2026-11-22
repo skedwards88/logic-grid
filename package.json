@@ -3,7 +3,7 @@
   "displayName": "Logic Grid",
   "version": "1.0.62",
   "description": "",
-  "main": "index.js",
+  "main": "index.tsx",
   "scripts": {
     "test": "jest",
     "build": "webpack",

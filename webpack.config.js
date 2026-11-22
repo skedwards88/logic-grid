@@ -110,7 +110,7 @@ module.exports = (env, argv) => {
         ];
 
   return {
-    entry: "./src/index.js",
+    entry: "./src/index.tsx",
     mode: "production",
     module: {
       rules: [

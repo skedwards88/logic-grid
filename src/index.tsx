@@ -8,7 +8,7 @@ import {MetadataContextProvider} from "@skedwards88/shared-components/src/compon
 import {SAVED_STATE_KEY} from "./logic/gameInit";
 import {tryClearStateAndReload} from "@skedwards88/shared-components/src/logic/tryClearStateAndReload";
 
-if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
+if (process.env["NODE_ENV"] !== "development" && "serviceWorker" in navigator) {
   const path = "/service-worker.js";
   const scope = "";
   window.addEventListener("load", () => {
@@ -18,13 +18,18 @@ if (process.env.NODE_ENV !== "development" && "serviceWorker" in navigator) {
         // eslint-disable-next-line no-console
         console.log("SW registered: ", registration);
       })
-      .catch((registrationError) => {
+      .catch((registrationError: unknown) => {
         console.warn("SW registration failed: ", registrationError);
       });
   });
 }
 
 const container = document.getElementById("root");
+
+if (!container) {
+  throw new Error("Root element #root not found");
+}
+
 const root = createRoot(container, {
   onUncaughtError: (error) => {
     tryClearStateAndReload({
@@ -34,6 +39,7 @@ const root = createRoot(container, {
     });
   },
 });
+
 root.render(
   <React.StrictMode>
     <MetadataContextProvider>
